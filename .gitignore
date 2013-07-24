@@ -1,0 +1,17 @@
+*.pro.*
+bld.inf
+*.deb
+*.sis
+*.rss
+*.changes
+*.mmp
+*.pkg
+*.loc
+
+debian/
+moc/
+obj/
+qtc_packaging/
+rcc/
+
+
