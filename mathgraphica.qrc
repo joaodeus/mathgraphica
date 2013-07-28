@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/calculator.png</file>
+        <file>images/graf3d.png</file>
+    </qresource>
+    <qresource prefix="/shaders">
+        <file>shaders/fragmentShaderES2.fsh</file>
+        <file>shaders/vertexShaderES2.vsh</file>
+    </qresource>
+</RCC>

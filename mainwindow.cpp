@@ -12,3 +12,13 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_actionCalculator_triggered()
+{
+
+}
+
+void MainWindow::on_actionGraph_3D_triggered()
+{
+    
+}

@@ -15,6 +15,11 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     
+private slots:
+    void on_actionCalculator_triggered();
+
+    void on_actionGraph_3D_triggered();
+    
 private:
     Ui::MainWindow *ui;
 };
