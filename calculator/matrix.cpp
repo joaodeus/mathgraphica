@@ -1,7 +1,7 @@
 #include "matrix.h"
 #include <QMessageBox>
 #include "calculator.h"
-
+#include "formatresult.h"
 
 Matrix::Matrix()
 {
@@ -102,6 +102,7 @@ void Matrix::SetLineColNumber(int L,int C, Complexo num)
     }
 
     //matriz[L*NCol+C] = ComplexoToQString(num);
+    FormatResult format;
     matriz[L*NCol+C] = format.formatResult(num);
     matrixComplexElements[L*NCol+C] = num;
 }
@@ -168,6 +169,7 @@ void Matrix::setArrayElements(const Complexo &element, const unsigned int &count
 {
     NLine   = 1;
     NCol    = count;
+    FormatResult format;
     matriz.fill(format.formatResult(element), count);
     //matriz.fill(ComplexoToQString(element), count);
     matrixComplexElements.fill(element, count);
@@ -245,6 +247,7 @@ void Matrix::SetMatrixRandom(int L, int C)
         for(int j=0;j<L;j++)//lines
         {
             int number = rand()%1000;
+            FormatResult format;
             matriz.append(format.formatResult(number));
             matrixComplexElements.append(Complexo(number,0));
         }

@@ -61,6 +61,21 @@ void Calculator::setVariable_Value(const QString &variable, const Matrix &value_
     setVariable_Value(variable, MyNumber(value_matrix));
 }
 
+QString Calculator::formatResult( const Complexo &z)
+{
+    return format.formatResult(z);
+}
+
+QString Calculator::formatResult( const double &x)
+{
+    return format.formatResult(x);
+}
+
+QString Calculator::formatResult(MyNumber num)
+{
+    return format.formatResult(num);
+}
+
 
 bool Calculator::error()
 {
@@ -72,3 +87,8 @@ bool Calculator::isValid_Expression_with_time_variable(const QString &expression
     return parser.isValidExpression_ft(expression);
 }
 
+bool Calculator::isValidExpression(const QString &expression)
+{
+    parser.SolveExpression(expression);
+    return !parser.error();
+}

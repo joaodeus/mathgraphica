@@ -34,14 +34,17 @@ MyNumber::MyNumber(const Matrix &matrix)
 
 void MyNumber::SetMyNumber(const double &real)
 {
-    number  = real;
-    type    = "number";
+    number              = real;
+   // number_complexo.r   = real;
+   // number_complexo.i   = 0;
+    type                = "number";
 }
 
 
 void MyNumber::SetMyNumber(const Complexo &complex_)
 {
     number_complexo = complex_;
+   // number          = complex_.r;
     type            = "complex";
 }
 
@@ -1416,6 +1419,14 @@ double MyNumber::numberReal()
 {
     return number;
 }
+
+/*
+QString MyNumber::numberString()
+{
+    if (type == "number")
+        return
+}
+*/
 
 Matrix MyNumber::numberMatrix()
 {

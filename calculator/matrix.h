@@ -6,7 +6,7 @@
 #include <QVector>
 #include <QCoreApplication>
 #include "complexo.h"
-#include "formatresult.h"
+
 
 class Matrix
 {
@@ -120,7 +120,7 @@ protected:
     //for the sake of performance
     int NLine;//matrix number os lines
     int NCol;//matrix munber of columns
-    FormatResult format;
+   // FormatResult format;
 
 };
 

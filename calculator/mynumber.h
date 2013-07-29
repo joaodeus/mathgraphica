@@ -46,6 +46,7 @@ public:
 
     Complexo numberComplexo();
     double numberReal();
+    //QString numberString();
     Matrix numberMatrix();
     QList<Complexo> numberListComplexo();
     QList<double> numberListReal();
@@ -86,6 +87,7 @@ private:
     //or a operator/function (+, -, *, /, sin, cos,....)
     //bool bNumber;
     QString type; //stores the type: number, operator or function
+    //QString number_string;
     double number;
     Complexo number_complexo;    
     QList<Complexo> number_list;

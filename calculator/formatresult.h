@@ -4,6 +4,7 @@
 #include <QString>
 #include <QStringList>
 #include "complexo.h"
+#include "mynumber.h"
 
 
 class FormatResult
@@ -18,10 +19,9 @@ public:
     void setFormat(const char &format_);
     void setGroupDigits(const bool &bGroup_);
 
-
-    //QString formatResult(const Complexo &z, bool bAutomaticPrecision, int precision, char format, bool bGroup);
-    QString formatResult( const Complexo &z);
-    //QString formatResult( const Complexo &z, const int &precision);
+    QString formatResult(const Complexo &z);
+    QString formatResult(const double &x);
+    QString formatResult(MyNumber &num);
 
 private:
     QString groupDigits(const QString &str, const bool &bGroup);

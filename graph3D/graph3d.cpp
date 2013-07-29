@@ -40,48 +40,9 @@ Graph3D::Graph3D()
 
 Graph3D::~Graph3D()
 {
-  /*  free(graph3D_fxy);
-    free(graph3D_color_upper_face);
-    free(graph3D_color_lower_face);
 
-    graph3D_fxy=NULL;
-    graph3D_color_upper_face=NULL;
-    graph3D_color_lower_face=NULL;
-*/
-    //free(indices);
 }
 
-/*
-Graph3D &Graph3D::operator =(const Graph3D &a)
-{
-
-
-    //xyzw = a.xyzw;
-    //xyzw_color = a.xyzw_color;
-
-    z3D = a.z3D;
-    arrai_x=a.arrai_x;
-    arrai_y=a.arrai_y;
-
-    m_fxy = a.m_fxy;
-    m_xmin = a.m_xmin;
-    m_xmax = a.m_xmax;
-    m_ymin = a.m_ymin;
-    m_ymax = a.m_ymax;
-    m_dxy = a.m_dxy;
-    m_varx = m_varx;
-    m_vary = a.m_vary;
-
-    colorA=a.colorA;
-    colorB=a.colorB;
-    colorC=a.colorC;
-    colorD=a.colorD;
-
-
-    SetGraph3D(a,0);
-
-    return *this;
-}*/
 
 void Graph3D::setColorA(const QColor &color)
 {

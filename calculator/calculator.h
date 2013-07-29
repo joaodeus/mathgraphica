@@ -9,6 +9,7 @@ responsible for parsing, calculations, ...
 #include "mynumber.h"
 #include "parser.h"
 #include "matrix.h"
+#include "formatresult.h"
 
 
 class Calculator
@@ -25,14 +26,20 @@ public:
     void setVariable_Value(const QString &variable, const QList<double> &value_list);
     void setVariable_Value(const QString &variable, const Matrix &value_matrix);
 
+    QString formatResult( const Complexo &z);
+    QString formatResult( const double &x);
+    QString formatResult(MyNumber num);
+
     bool error();
     bool isValid_Expression_with_time_variable(const QString &expression);
+    bool isValidExpression(const QString &expression);
 
 private:
 
     Parser parser;
     QStringList variables_List;
     QList<MyNumber> values_List;
+    FormatResult format;
 
 };
 

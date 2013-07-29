@@ -136,6 +136,24 @@ QString FormatResult::formatResult(const Complexo &z)
 
 }
 
+QString FormatResult::formatResult(const double &x)
+{
+    Complexo z(x,0);
+    return formatResult(z);
+}
+
+
+QString FormatResult::formatResult(MyNumber &num)
+{
+    if (num.Type() == "number")
+        return formatResult(num.numberReal());
+    else if (num.Type() == "complex")
+        return formatResult(num.numberComplexo());
+    else
+    return "";
+}
+
+
 void FormatResult::setFormatResult(const bool &bAutomaticPrecision_, const int &precision_, const char &format_, const bool &bGroup_)
 {
     bAutomaticPrecision = bAutomaticPrecision_;
