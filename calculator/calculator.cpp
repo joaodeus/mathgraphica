@@ -92,3 +92,33 @@ bool Calculator::isValidExpression(const QString &expression)
     parser.SolveExpression(expression);
     return !parser.error();
 }
+
+MyNumber Calculator::isValidExpression(const QString &expression, bool &ok)
+{
+    MyNumber number = parser.SolveExpression(expression);
+    ok = !parser.error();
+    return number;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

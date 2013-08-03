@@ -35,16 +35,16 @@ MyNumber::MyNumber(const Matrix &matrix)
 void MyNumber::SetMyNumber(const double &real)
 {
     number              = real;
-   // number_complexo.r   = real;
-   // number_complexo.i   = 0;
-    type                = "number";
+    number_complexo.r   = real;
+    number_complexo.i   = 0;
+    type                = "real";
 }
 
 
 void MyNumber::SetMyNumber(const Complexo &complex_)
 {
     number_complexo = complex_;
-   // number          = complex_.r;
+    number          = complex_.r;
     type            = "complex";
 }
 
@@ -84,7 +84,7 @@ void MyNumber::setOperatorFunction(const QString &type_)
 
 bool MyNumber::isNumber()
 {
-    if ( (type == "number") || (type == "complex")
+    if ( (type == "real") || (type == "complex")
          || (type == "list") || (type == "matrix"))
         return true;
     else
@@ -398,7 +398,7 @@ int MyNumber::operatorPriority()
 //show the number, for debbuging purpose
 void MyNumber::showNumber()
 {
-    if (type == "number")
+    if (type == "real")
         QMessageBox::about(0,"resultados",QString("%1").arg(number));
 
     if (type == "complex")
@@ -437,8 +437,8 @@ MyNumber operator+(MyNumber a, MyNumber b)
     MyNumber z;
 
 
-    // number - number
-    if (a.Type() == "number" && b.Type() == "number")
+    // real - real
+    if (a.Type() == "real" && b.Type() == "real")
     {
         z.number    = a.number + b.number;
         z.type      = a.type;
@@ -446,16 +446,16 @@ MyNumber operator+(MyNumber a, MyNumber b)
     }
 
 
-    //  number - complex
-    if (a.Type() == "number" && b.Type() == "complex")
+    //  real - complex
+    if (a.Type() == "real" && b.Type() == "complex")
     {
         z.number_complexo   = a.number + b.number_complexo;
         z.type              = b.type;
         return z;
     }
 
-    //  number - list
-    if (a.Type() == "number" && b.Type() == "list")
+    //  real - list
+    if (a.Type() == "real" && b.Type() == "list")
     {
         z.type      = b.type;
 
@@ -463,16 +463,16 @@ MyNumber operator+(MyNumber a, MyNumber b)
             z.number_list.append(a.number+b.number_list[i]);
     }
 
-    //  number - matrix
-    if (a.Type() == "number" && b.Type() == "matrix")
+    //  real - matrix
+    if (a.Type() == "real" && b.Type() == "matrix")
     {
-        z.number_matrix = a.number_complexo + b.number_matrix;
+        z.number_matrix = a.number + b.number_matrix;
         z.type          = b.type;
         return z;
     }
 
-    //  complex - number
-    if (a.Type() == "complex" && b.Type() == "number")
+    //  complex - real
+    if (a.Type() == "complex" && b.Type() == "real")
     {
         z.number_complexo   = a.number_complexo + b.number;
         z.type              = a.type;
@@ -503,8 +503,8 @@ MyNumber operator+(MyNumber a, MyNumber b)
         return z;
     }
 
-    //  list - number
-    if (a.Type() == "list" && b.Type() == "number")
+    //  list - real
+    if (a.Type() == "list" && b.Type() == "real")
     {
         z.type = a.type;
         for (int i=0;i<a.number_list.size();i++)
@@ -549,8 +549,8 @@ MyNumber operator+(MyNumber a, MyNumber b)
 
     }
 
-    //  matrix - number
-    if (a.Type() == "matrix" && b.Type() == "number")
+    //  matrix - real
+    if (a.Type() == "matrix" && b.Type() == "real")
     {
         z.number_matrix = a.number_matrix + b.number;
         z.type          = a.type;
@@ -690,8 +690,8 @@ MyNumber operator-(MyNumber a, MyNumber b)
     MyNumber z;
 
 
-    // number - number
-    if (a.Type() == "number" && b.Type() == "number")
+    // real - real
+    if (a.Type() == "real" && b.Type() == "real")
     {
         z.number    = a.number - b.number;
         z.type      = a.type;
@@ -699,32 +699,32 @@ MyNumber operator-(MyNumber a, MyNumber b)
     }
 
 
-    //  number - complex
-    if (a.Type() == "number" && b.Type() == "complex")
+    //  real - complex
+    if (a.Type() == "real" && b.Type() == "complex")
     {
         z.number_complexo   = a.number - b.number_complexo;
         z.type              = b.type;
         return z;
     }
 
-    //  number - list
-    if (a.Type() == "number" && b.Type() == "list")
+    //  real - list
+    if (a.Type() == "real" && b.Type() == "list")
     {
         z.type = b.type;
         for (int i=0;i<b.number_list.size();i++)
             z.number_list.append(a.number - b.number_list[i]);
     }
 
-    //  number - matrix
-    if (a.Type() == "number" && b.Type() == "matrix")
+    //  real - matrix
+    if (a.Type() == "real" && b.Type() == "matrix")
     {
         z.number_matrix = a.number_complexo - b.number_matrix;
         z.type          = b.type;
         return z;
     }
 
-    //  complex - number
-    if (a.Type() == "complex" && b.Type() == "number")
+    //  complex - real
+    if (a.Type() == "complex" && b.Type() == "real")
     {
         z.number_complexo   = a.number_complexo - b.number;
         z.type              = a.type;
@@ -755,8 +755,8 @@ MyNumber operator-(MyNumber a, MyNumber b)
         return z;
     }
 
-    //  list - number
-    if (a.Type() == "list" && b.Type() == "number")
+    //  list - real
+    if (a.Type() == "list" && b.Type() == "real")
     {
         z.type = a.type;
         for (int i=0;i<a.number_list.size();i++)
@@ -801,8 +801,8 @@ MyNumber operator-(MyNumber a, MyNumber b)
 
     }
 
-    //  matrix - number
-    if (a.Type() == "matrix" && b.Type() == "number")
+    //  matrix - real
+    if (a.Type() == "matrix" && b.Type() == "real")
     {
         z.number_matrix = a.number_matrix - b.number;
         z.type          = a.type;
@@ -918,7 +918,7 @@ MyNumber operator-(MyNumber a)
         return z;
     }
 
-    if (a.Type() == "number")
+    if (a.Type() == "real")
     {
         z.number    = -a.number;
         z.type      = a.type;
@@ -949,8 +949,8 @@ MyNumber operator*(MyNumber &a, MyNumber &b)
 {
     MyNumber z;
 
-    // number - number
-    if (a.Type() == "number" && b.Type() == "number")
+    // real - real
+    if (a.Type() == "real" && b.Type() == "real")
     {
         z.number    = a.number * b.number;
         z.type      = a.type;
@@ -958,16 +958,16 @@ MyNumber operator*(MyNumber &a, MyNumber &b)
     }
 
 
-    //  number - complex
-    if (a.Type() == "number" && b.Type() == "complex")
+    //  real - complex
+    if (a.Type() == "real" && b.Type() == "complex")
     {
         z.number_complexo   = a.number * b.number_complexo;
         z.type              = b.type;
         return z;
     }
 
-    //  number - list
-    if (a.Type() == "number" && b.Type() == "list")
+    //  real - list
+    if (a.Type() == "real" && b.Type() == "list")
     {
         z.type      = b.type;
 
@@ -975,16 +975,16 @@ MyNumber operator*(MyNumber &a, MyNumber &b)
             z.number_list.append(a.number * b.number_list[i]);
     }
 
-    //  number - matrix
-    if (a.Type() == "number" && b.Type() == "matrix")
+    //  real - matrix
+    if (a.Type() == "real" && b.Type() == "matrix")
     {
         z.number_matrix = a.number_complexo * b.number_matrix;
         z.type          = b.type;
         return z;
     }
 
-    //  complex - number
-    if (a.Type() == "complex" && b.Type() == "number")
+    //  complex - real
+    if (a.Type() == "complex" && b.Type() == "real")
     {
         z.number_complexo   = a.number_complexo * b.number;
         z.type              = a.type;
@@ -1015,8 +1015,8 @@ MyNumber operator*(MyNumber &a, MyNumber &b)
         return z;
     }
 
-    //  list - number
-    if (a.Type() == "list" && b.Type() == "number")
+    //  list - real
+    if (a.Type() == "list" && b.Type() == "real")
     {
         z.type = a.type;
         for (int i=0;i<a.number_list.size();i++)
@@ -1061,8 +1061,8 @@ MyNumber operator*(MyNumber &a, MyNumber &b)
 
     }
 
-    //  matrix - number
-    if (a.Type() == "matrix" && b.Type() == "number")
+    //  matrix - real
+    if (a.Type() == "matrix" && b.Type() == "real")
     {
         z.number_matrix = a.number_matrix * b.number;
         z.type          = a.type;
@@ -1087,97 +1087,8 @@ MyNumber operator*(MyNumber &a, MyNumber &b)
 
     return z;
 
-
-    /*
-    Number z;
-
-    if (a.Type() == "number" && b.Type() == "number")
-    {
-        z.number_complexo    = a.number_complexo * b.number_complexo;       
-        z.type      = a.type;
-        return z;
-    }
-
-
-    if (a.Type() == "number" && b.Type() == "matrix")
-    {
-        z.number_matrix = a.number_complexo * b.number_matrix;      
-        z.type          = b.type;
-        return z;
-    }
-
-    if (a.Type() == "matrix" && b.Type() == "number")
-    {
-        z.number_matrix = a.number_matrix * b.number_complexo;        
-        z.type          = a.type;
-        return z;
-    }
-
-    if (a.Type() == "matrix" && b.Type() == "matrix")
-    {
-        z.number_matrix = a.number_matrix * b.number_matrix;        
-        z.type          = a.type;
-        return z;
-    }
-
-
-
-
-
-    if (a.Type() == "list" && b.Type() == "list")
-    {       
-        z.type      = a.type;
-
-        if (a.numberList().size() == b.numberList().size())
-        {
-            for(int i=0;i<a.number_list.size();i++)
-                z.number_list.append(a.number_list[i]*b.number_list[i]);
-        }
-
-        return z;
-
-    }
-
-    if (a.Type() == "list" && b.Type() == "number")
-    {       
-        z.type      = a.type;
-
-        for (int i=0;i<a.number_list.size();i++)
-            z.number_list.append(a.number_list[i]*b.number_complexo);
-
-        return z;
-    }
-
-    if (a.Type() == "number" && b.Type() == "list")
-    {      
-        z.type      = b.type;
-
-        for (int i=0;i<b.number_list.size();i++)
-            z.number_list.append(a.number_complexo*b.number_list[i]);
-
-        return z;
-    }
-
-    return z;
-    */
 }
 
-//check this function later for a bug when applying complex multiplication to all
-//members
-/*
-Number operator*(Number a, Complexo b)
-{
-    Number z;
-
-    z.number        = a.number * b;
-    z.number_array  = a.number_array * b;
-    z.number_matrix = a.number_matrix * b;
-
-    z.bNumber       = a.bNumber;
-    z.type          = a.type;
-
-    return z;
-}*/
 
 
 //check this function later, division os matrix is always complicate
@@ -1185,19 +1096,163 @@ MyNumber operator/(MyNumber &a, MyNumber &b)
 {
     MyNumber z;
 
+    // real - real
+    if (a.Type() == "real" && b.Type() == "real")
+    {
+        z.number    = a.number / b.number;
+        z.type      = a.type;
+        return z;
+    }
+
+
+    //  real - complex
+    if (a.Type() == "real" && b.Type() == "complex")
+    {
+        z.number_complexo   = a.number / b.number_complexo;
+        z.type              = b.type;
+        return z;
+    }
+
+    //  real - list
+    if (a.Type() == "real" && b.Type() == "list")
+    {
+        z.type      = b.type;
+
+        for (int i=0;i<b.number_list.size();i++)
+            z.number_list.append(a.number / b.number_list[i]);
+    }
+
+    //  real - matrix
+    //invalid - check this later
+    /*
+    if (a.Type() == "real" && b.Type() == "matrix")
+    {
+        z.number_matrix = a.number_complexo / b.number_matrix;
+        z.type          = b.type;
+        return z;
+    }*/
+
+    //  complex - real
+    if (a.Type() == "complex" && b.Type() == "real")
+    {
+        z.number_complexo   = a.number_complexo / b.number;
+        z.type              = a.type;
+        return z;
+    }
+
+    //  complex - complex
+    if (a.Type() == "complex" && b.Type() == "complex")
+    {
+        z.number_complexo   = a.number_complexo / b.number_complexo;
+        z.type              = a.type;
+        return z;
+    }
+
+    //  complex - list
+    if (a.Type() == "complex" && b.Type() == "list")
+    {
+        z.type = b.type;
+        for (int i=0;i<b.number_list.size();i++)
+            z.number_list.append(a.number_complexo / b.number_list[i]);
+    }
+
+    //  complex - matrix
+    /*
+    if (a.Type() == "complex" && b.Type() == "matrix")
+    {
+        z.number_matrix = a.number_complexo / b.number_matrix;
+        z.type          = b.type;
+        return z;
+    }*/
+
+    //  list - real
+    if (a.Type() == "list" && b.Type() == "real")
+    {
+        z.type = a.type;
+        for (int i=0;i<a.number_list.size();i++)
+            z.number_list.append(a.number_list[i] / b.number);
+    }
+
+
+    //  list - complex
+    if (a.Type() == "list" && b.Type() == "complex")
+    {
+        z.type = a.type;
+        for (int i=0;i<a.number_list.size();i++)
+            z.number_list.append(a.number_list[i] / b.number_complexo);
+    }
+
+    //  list - list
+    if (a.Type() == "list" && b.Type() == "list")
+    {
+        z.type      = a.type;
+
+        if (a.numberListComplexo().size() == b.numberListComplexo().size())
+        {
+            for(int i=0;i<a.number_list.size();i++)
+                z.number_list.append(a.number_list[i] / b.number_list[i]);
+        }
+        else if (a.number_list.size() < b.number_list.size())
+        {
+            for (int i=0;a.number_list.size();i++)
+                z.number_list.append(a.number_list[i] / b.number_list[i]);
+
+            for(int i=a.number_list.size();i<b.number_list.size();i++)
+                z.number_list.append(b.number_list[i]);
+        }
+        else if (a.number_list.size() > b.number_list.size())
+        {
+            for (int i=0;i<b.number_list.size();i++)
+                z.number_list.append(a.number_list[i] / b.number_list[i]);
+
+            for(int i=b.number_list.size();i<a.number_list.size();i++)
+                z.number_list.append(a.number_list[i]);
+        }
+
+    }
+
+    //  matrix - real
+    if (a.Type() == "matrix" && b.Type() == "real")
+    {
+        z.number_matrix = a.number_matrix / b.number;
+        z.type          = a.type;
+        return z;
+    }
+
+    //  matrix - complex
+    if (a.Type() == "matrix" && b.Type() == "complex")
+    {
+        z.number_matrix = a.number_matrix / b.number_complexo;
+        z.type          = a.type;
+        return z;
+    }
+
+    //  matrix - matrix
+    if (a.Type() == "matrix" && b.Type() == "matrix")
+    {
+        z.number_matrix = a.number_matrix / b.number_matrix;
+        z.type          = a.type;
+        return z;
+    }
+
+    return z;
+
+    /*
+    MyNumber z;
+
     z.number_complexo   = a.number_complexo / b.number_complexo;
     z.number_matrix     = a.number_matrix / b.number_matrix;
     z.type              = a.type;
 
-    return z;
+    return z;*/
 }
 
 MyNumber operator^(MyNumber &a, MyNumber &b)
 {
     MyNumber z;
 
-    // number - number
-    if (a.Type() == "number" && b.Type() == "number")
+    // real - real
+    if (a.Type() == "real" && b.Type() == "real")
     {
         z.number    = pow(a.number, b.number);
         z.type      = a.type;
@@ -1205,16 +1260,16 @@ MyNumber operator^(MyNumber &a, MyNumber &b)
     }
 
 
-    //  number - complex
-    if (a.Type() == "number" && b.Type() == "complex")
+    //  real - complex
+    if (a.Type() == "real" && b.Type() == "complex")
     {
         z.number_complexo   = a.number ^ b.number_complexo;
         z.type              = b.type;
         return z;
     }
 
-    //  number - list
-    if (a.Type() == "number" && b.Type() == "list")
+    //  real - list
+    if (a.Type() == "real" && b.Type() == "list")
     {
         z.type      = b.type;
 
@@ -1222,16 +1277,16 @@ MyNumber operator^(MyNumber &a, MyNumber &b)
             z.number_list.append(a.number ^ b.number_list[i]);
     }
 
-    //  number - matrix
-   /* if (a.Type() == "number" && b.Type() == "matrix")
+    //  real - matrix
+   /* if (a.Type() == "real" && b.Type() == "matrix")
     {
         z.number_matrix = a.number_complexo ^ b.number_matrix;
         z.type          = b.type;
         return z;
     }*/
 
-    //  complex - number
-    if (a.Type() == "complex" && b.Type() == "number")
+    //  complex - real
+    if (a.Type() == "complex" && b.Type() == "real")
     {
         z.number_complexo   = a.number_complexo ^ b.number;
         z.type              = a.type;
@@ -1262,8 +1317,8 @@ MyNumber operator^(MyNumber &a, MyNumber &b)
         return z;
     }*/
 
-    //  list - number
-    if (a.Type() == "list" && b.Type() == "number")
+    //  list - real
+    if (a.Type() == "list" && b.Type() == "real")
     {
         z.type = a.type;
         for (int i=0;i<a.number_list.size();i++)
@@ -1308,103 +1363,32 @@ MyNumber operator^(MyNumber &a, MyNumber &b)
 
     }
 
-    //  matrix - number
-    /*if (a.Type() == "matrix" && b.Type() == "number")
+    //  matrix - real
+    if (a.Type() == "matrix" && b.Type() == "real")
     {
         z.number_matrix = a.number_matrix ^ b.number;
         z.type          = a.type;
         return z;
-    }*/
+    }
 
     //  matrix - complex
-    /*if (a.Type() == "matrix" && b.Type() == "complex")
+    if (a.Type() == "matrix" && b.Type() == "complex")
     {
         z.number_matrix = a.number_matrix ^ b.number_complexo;
         z.type          = a.type;
         return z;
-    }*/
+    }
 
     //  matrix - matrix
-    /*if (a.Type() == "matrix" && b.Type() == "matrix")
+    if (a.Type() == "matrix" && b.Type() == "matrix")
     {
         z.number_matrix = a.number_matrix ^ b.number_matrix;
         z.type          = a.type;
         return z;
-    }*/
+    }
 
     return z;
 
-
-
-    /*Number z;
-
-    if (a.Type() == "number" && b.Type() == "number")
-    {
-        z.number    = pow(a.number, b.number);
-        z.type      = a.type;
-        return z;
-    }
-
-    if (a.Type() == "number" && b.Type() == "complex")
-    {
-        z.number_complexo    = a.number ^ b.number_complexo;
-        z.type      = b.type;
-        return z;
-    }
-
-    if (a.Type() == "complex" && b.Type() == "complex")
-    {
-        z.number_complexo    = a.number_complexo ^ b.number_complexo;       
-        z.type      = a.type;
-        return z;
-    }
-
-
-    if (a.Type() == "complex" && b.Type() == "number")
-    {
-        z.number_complexo    = a.number_complexo ^ b.number;
-        z.type      = a.type;
-        return z;
-    }
-
-
-    if (a.Type() == "list" && b.Type() == "list")
-    {
-        z.type      = a.type;
-
-        if (a.numberList().size() == b.numberList().size())
-        {
-            for(int i=0;i<a.number_list.size();i++)
-                z.number_list.append(a.number_list[i]^b.number_list[i]);
-        }
-
-        return z;
-
-    }
-
-    if (a.Type() == "list" && b.Type() == "number")
-    {
-        z.type      = a.type;
-
-        for (int i=0;i<a.number_list.size();i++)
-            z.number_list.append(a.number_list[i]^b.number_complexo);
-
-        return z;
-    }
-
-    if (a.Type() == "number" && b.Type() == "list")
-    {      
-        z.type      = b.type;
-
-        for (int i=0;i<b.number_list.size();i++)
-            z.number_list.append(a.number_complexo^b.number_list[i]);
-
-        return z;
-    }
-
-
-    return z;
-    */
 }
 
 ///////////////////////////////////////////////////////////
@@ -1423,7 +1407,7 @@ double MyNumber::numberReal()
 /*
 QString MyNumber::numberString()
 {
-    if (type == "number")
+    if (type == "real")
         return
 }
 */

@@ -33,6 +33,7 @@ public:
     bool error();
     bool isValid_Expression_with_time_variable(const QString &expression);
     bool isValidExpression(const QString &expression);
+    MyNumber isValidExpression(const QString &expression, bool &ok);
 
 private:
 

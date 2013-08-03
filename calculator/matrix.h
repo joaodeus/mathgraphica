@@ -91,9 +91,14 @@ public:
     friend Matrix operator-( Matrix &a, const double &b);
     friend Matrix operator-( const Complexo &a, Matrix &b);
     friend Matrix operator-( Matrix &a, const Complexo &b);
+
     friend Matrix operator/( Matrix &a, Matrix &b);
+    friend Matrix operator/( Matrix &a, const double &b);
+    friend Matrix operator/( Matrix &a, const Complexo &b);
 
-
+    friend Matrix operator^( Matrix &a, Matrix &b);
+    friend Matrix operator^( Matrix &a, const double &b);
+    friend Matrix operator^( Matrix &a, const Complexo &b);
 
     //
     //void soma(Matrix &a, Matrix &b);

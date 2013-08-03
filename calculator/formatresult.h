@@ -21,6 +21,7 @@ public:
 
     QString formatResult(const Complexo &z);
     QString formatResult(const double &x);
+    QString formatResult(Matrix &matrix);
     QString formatResult(MyNumber &num);
 
 private:

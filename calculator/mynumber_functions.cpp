@@ -8,7 +8,7 @@ MyNumber sinc(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         double y = number_.numberReal();
         z.SetMyNumber(sinc(y));
@@ -43,7 +43,7 @@ MyNumber sin(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(sin(number_.numberReal()));
         return z;
@@ -76,7 +76,7 @@ MyNumber cos(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         //z.number    = cos(number_.numberReal());
         //z.type      = "number";
@@ -118,7 +118,7 @@ MyNumber tan(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(tan(number_.numberReal()));
         return z;
@@ -151,7 +151,7 @@ MyNumber cot(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(cot(number_.numberReal()));
         return z;
@@ -184,7 +184,7 @@ MyNumber sec(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(sec(number_.numberReal()));
         return z;
@@ -217,7 +217,7 @@ MyNumber csc(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(csc(number_.numberReal()));
         return z;
@@ -253,7 +253,7 @@ MyNumber sinh(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(sinh(number_.numberReal()));
         return z;
@@ -286,7 +286,7 @@ MyNumber cosh(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(cosh(number_.numberReal()));
         return z;
@@ -319,7 +319,7 @@ MyNumber tanh(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(tanh(number_.numberReal()));
         return z;
@@ -352,7 +352,7 @@ MyNumber coth(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(coth(number_.numberReal()));
         return z;
@@ -385,7 +385,7 @@ MyNumber sech(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(sech(number_.numberReal()));
         return z;
@@ -418,7 +418,7 @@ MyNumber csch(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(csch(number_.numberReal()));
         return z;
@@ -455,7 +455,7 @@ MyNumber asin(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(asin(number_.numberReal()));
         return z;
@@ -488,7 +488,7 @@ MyNumber acos(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(acos(number_.numberReal()));
         return z;
@@ -521,7 +521,7 @@ MyNumber atan(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(atan(number_.numberReal()));
         return z;
@@ -554,7 +554,7 @@ MyNumber acot(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(acot(number_.numberReal()));
         return z;
@@ -587,7 +587,7 @@ MyNumber asec(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(asec(number_.numberReal()));
         return z;
@@ -620,7 +620,7 @@ MyNumber acsc(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(acsc(number_.numberReal()));
         return z;
@@ -658,7 +658,7 @@ MyNumber asinh(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(asinh(number_.numberReal()));
         return z;
@@ -691,7 +691,7 @@ MyNumber acosh(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(acosh(number_.numberReal()));
         return z;
@@ -724,7 +724,7 @@ MyNumber atanh(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(atanh(number_.numberReal()));
         return z;
@@ -757,7 +757,7 @@ MyNumber acoth(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(acoth(number_.numberReal()));
         return z;
@@ -790,7 +790,7 @@ MyNumber asech(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(asech(number_.numberReal()));
         return z;
@@ -823,7 +823,7 @@ MyNumber acsch(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(acsch(number_.numberReal()));
         return z;
@@ -860,7 +860,7 @@ MyNumber log(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(log(number_.numberReal()));
         return z;
@@ -893,7 +893,7 @@ MyNumber ln(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(ln(number_.numberReal()));
         return z;
@@ -926,7 +926,7 @@ MyNumber exp(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(exp(number_.numberReal()));
         return z;
@@ -960,7 +960,7 @@ MyNumber sqrt(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(sqrt(number_.numberReal()));
         return z;
@@ -993,7 +993,7 @@ MyNumber cbrt(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(cbrt(number_.numberReal()));
         return z;
@@ -1030,7 +1030,7 @@ MyNumber real(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(real(number_.numberReal()));
         return z;
@@ -1063,7 +1063,7 @@ MyNumber imag(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(imag(number_.numberReal()));
         return z;
@@ -1096,7 +1096,7 @@ MyNumber arg(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(arg(number_.numberReal()));
         return z;
@@ -1129,7 +1129,7 @@ MyNumber conj(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(conj(number_.numberReal()));
         return z;
@@ -1163,7 +1163,7 @@ MyNumber cabs(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "number")
+    if (number_.Type() == "real")
     {
         z.SetMyNumber(cabs(number_.numberReal()));
         return z;

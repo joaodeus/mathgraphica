@@ -81,7 +81,11 @@ void Matrix::SetLineColText(int L,int C, QString text)
 
     Calculator calc;
     matriz[L*NCol+C]=text;
-    matrixComplexElements[L*NCol+C]=calc.SolveExpression(text).numberComplexo();
+    MyNumber aux = calc.SolveExpression(text);
+    if (aux.Type() == "real")
+            matrixComplexElements[L*NCol+C]=aux.numberReal();
+    else
+            matrixComplexElements[L*NCol+C]=aux.numberComplexo();
 }
 
 void Matrix::SetLineColNumber(int L,int C, Complexo num)
@@ -596,6 +600,8 @@ Matrix operator+(const double &a, Matrix &b)
     {
         for(int c=0;c<NCols;c++)
         {
+            Complexo zz = b.GetLineColNumber(l,c);
+            zz = a+b.GetLineColNumber(l,c);
             z.SetLineColNumber(l,c,a+b.GetLineColNumber(l,c));
         }
     }
@@ -809,8 +815,129 @@ Matrix operator*(Matrix &a, const Complexo &b)
 //needs to be developed
 Matrix operator/( Matrix &a, Matrix &b)
 {
+    /*
+    Matrix z;
+    int NLines=a.lineCount();
+    int NCols=a.columnCount();
+
+    z.SetLinesCols(NLines,NCols);
+
+    for(int l=0;l<NLines;l++)
+    {
+        for(int c=0;c<NCols;c++)
+        {
+            z.SetLineColNumber(l,c,a.GetLineColNumber(l,c)/b.GetLineColNumber(l,c));
+        }
+    }
+
+    return z;*/
     return Matrix();
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+Matrix operator/(Matrix &a, const double &b)
+{
+    Matrix z;
+    int NLines=a.lineCount();
+    int NCols=a.columnCount();
+
+    z.SetLinesCols(NLines,NCols);
+
+    for(int l=0;l<NLines;l++)
+    {
+        for(int c=0;c<NCols;c++)
+        {
+            z.SetLineColNumber(l,c,a.GetLineColNumber(l,c)/b);
+        }
+    }
+
+    return z;
+}
+
+Matrix operator/(Matrix &a, const Complexo &b)
+{
+    Matrix z;
+    int NLines=a.lineCount();
+    int NCols=a.columnCount();
+
+    z.SetLinesCols(NLines,NCols);
+
+    for(int l=0;l<NLines;l++)
+    {
+        for(int c=0;c<NCols;c++)
+        {
+            z.SetLineColNumber(l,c,a.GetLineColNumber(l,c)/b);
+        }
+    }
+    return z;
+}
+
+
+///////////////////////////////////////////////////////////////
+
+Matrix operator^( Matrix &a, Matrix &b)
+{
+    /*Matrix z;
+    int NLines=a.lineCount();
+    int NCols=a.columnCount();
+
+    z.SetLinesCols(NLines,NCols);
+
+    for(int l=0;l<NLines;l++)
+    {
+        for(int c=0;c<NCols;c++)
+        {
+            z.SetLineColNumber(l,c,a.GetLineColNumber(l,c)^b.GetLineColNumber(l,c));
+        }
+    }
+    return z;*/
+    return Matrix();
+}
+
+Matrix operator^( Matrix &a, const double &b)
+{
+    /*
+    Matrix z;
+    int NLines=a.lineCount();
+    int NCols=a.columnCount();
+
+    z.SetLinesCols(NLines,NCols);
+
+    for(int l=0;l<NLines;l++)
+    {
+        for(int c=0;c<NCols;c++)
+        {
+            z.SetLineColNumber(l,c,a.GetLineColNumber(l,c)^b);
+        }
+    }
+    return z;
+    */
+    return Matrix();
+}
+
+Matrix operator^( Matrix &a, const Complexo &b)
+{
+    /*
+    Matrix z;
+    int NLines=a.lineCount();
+    int NCols=a.columnCount();
+
+    z.SetLinesCols(NLines,NCols);
+
+    for(int l=0;l<NLines;l++)
+    {
+        for(int c=0;c<NCols;c++)
+        {
+            z.SetLineColNumber(l,c,a.GetLineColNumber(l,c)^b);
+        }
+    }
+    return z;*/
+    return Matrix();
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 Matrix Matrix::transpose()
 {

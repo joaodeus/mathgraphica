@@ -145,14 +145,36 @@ QString FormatResult::formatResult(const double &x)
 
 QString FormatResult::formatResult(MyNumber &num)
 {
-    if (num.Type() == "number")
+    if (num.Type() == "real")
         return formatResult(num.numberReal());
     else if (num.Type() == "complex")
         return formatResult(num.numberComplexo());
-    else
+    else if (num.Type() == "matrix")
+    {
+        Matrix m = num.numberMatrix();
+        return formatResult(m);
+    }
     return "";
 }
 
+QString FormatResult::formatResult(Matrix &matrix)
+{
+    QString mat = "[";
+    for (int l=0;l<matrix.lineCount();l++)
+    {
+        mat += matrix.GetLineColText(l,0) ;
+        for (int c=1;c<matrix.columnCount();c++)
+        {
+            mat += ", "+matrix.GetLineColText(l,c);
+        }
+        mat += " ; ";
+    }
+    mat.chop(3);
+    mat += "]";
+
+
+    return mat;
+}
 
 void FormatResult::setFormatResult(const bool &bAutomaticPrecision_, const int &precision_, const char &format_, const bool &bGroup_)
 {

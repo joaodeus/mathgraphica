@@ -1,3 +1,4 @@
+
 #include "complexo.h"
 
 Complexo::Complexo(double a,double b)
@@ -88,7 +89,7 @@ QList<Complexo> operator+(const QList<Complexo> &a, const QList<Complexo> &b)
 }*/
 
 Complexo operator-( Complexo a , Complexo b )
-{       
+{
     Complexo z;
     z.r=a.r-b.r;
     z.i=a.i-b.i;
@@ -221,7 +222,7 @@ Complexo operator^( const Complexo x , const Complexo y )
 
     //  x ^y = ?^c * e^(-d ?)* [cos (c ? + d ln ?) + j sin (c ? + d ln ?)]
     //? =
-    //?	 = v a² + b²
+    //?	 = v aï¿½ + bï¿½
     //?	 = arctan b/a
 
    // double O=atan(x.i/x.r);

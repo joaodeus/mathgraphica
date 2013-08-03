@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QListWidgetItem>
 #include "calculator/calculator.h"
 
 namespace Ui {
@@ -16,13 +17,20 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     
+protected:
+    bool eventFilter(QObject *target, QEvent *event);
+
+
 private slots:
     void on_lineEdit_cmdLine_returnPressed();
+
+    void on_pushButtonOk_clicked();
 
     void on_actionCalculator_triggered();
 
     void on_actionGraph_3D_triggered();
-    
+
+    void on_listWidget_results_history_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
 
 private:
