@@ -958,9 +958,34 @@ MyNumber Parser::ListSolver()
         }
 
 
+        //check for (-2) => solve -2 or
+        //          |-3| => solve -3
+        if (bExist_Previous_Element_List(i) && bExist_Next_2_Elements_List(i))
+        {
+            if ( (m_tokenNumberList[i].isOperatorMinus() || m_tokenNumberList[i].isOperatorPlus() )
+                 && m_tokenNumberList[i+1].isNumber())
+            {
+                //if (-2)
+                if (m_tokenNumberList[i-1].isLeft_Parentheses() && m_tokenNumberList[i+2].isRight_Parentheses())
+                {
+                    SolveFunctions(i);
+                    return ListSolver();
+                }
 
-        //check for expressions like cos-2; 8/-3
-        // solves                   -2 ;    -3
+                //if |-3|
+                if (m_tokenNumberList[i-1].isParentheses_abs() && m_tokenNumberList[i+2].isParentheses_abs())
+                {
+                    SolveFunctions(i);
+                    return ListSolver();
+                }
+
+            }
+        }
+
+        //SolveFunctions()
+
+        //check for expressions like cos-2 => solves -2; or 8/-3
+        // solves                   8/-3   => solves -3
         // 8/-2^2
 
         if ( (m_tokenNumberList[i].isOperatorPlus() || m_tokenNumberList[i].isOperatorMinus())

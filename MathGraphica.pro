@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     calculator/formatresult.cpp \
     calculator/equation.cpp \
     calculator/integral.cpp \
-    calculator/matrix.cpp
+    calculator/matrix.cpp \
+    calculator/matrix_show_dlg.cpp
 
 HEADERS  += mainwindow.h \
     graph3D/graph3d.h \
@@ -37,10 +38,12 @@ HEADERS  += mainwindow.h \
     calculator/formatresult.h \
     calculator/equation.h \
     calculator/integral.h \
-    calculator/matrix.h
+    calculator/matrix.h \
+    calculator/matrix_show_dlg.h
 
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    calculator/matrix_show_dlg.ui
 
 RESOURCES += \
     mathgraphica.qrc

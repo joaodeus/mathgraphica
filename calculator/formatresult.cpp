@@ -92,13 +92,13 @@ QString FormatResult::formatResult(const Complexo &z)
    // char format;
    // format='G';
 
-    if (z.i ==0)
+    if (z.i ==0) //if imaginary is null
     {
         aux=QString("%1").arg(z.r,0,format,precision);
         aux=groupDigits(aux,bGroup);
         //aux=QString("%1").arg(z.r,0,'G',25);
     }
-    else
+    else // imaginary is not null
     {
         if (z.r != 0)
         {
@@ -109,11 +109,28 @@ QString FormatResult::formatResult(const Complexo &z)
             {
                 aux2=groupDigits(QString("%1").arg(z.i,0,format,precision),bGroup);
                 aux=aux1+" + "+aux2+"i";
+                if (aux2 == "1")
+                {
+                    aux=aux1+" + i";
+                }
+                else
+                {
+                    aux=aux1+" + "+aux2+"i";
+                }
+
             }
             else
             {
                 aux2=groupDigits(QString("%1").arg(-z.i,0,format,precision),bGroup);
-                aux=aux1+" - "+aux2+"i";
+                //aux=aux1+" - "+aux2+"i";
+                if (aux2 == "1")
+                {
+                    aux=aux1+" - i";
+                }
+                else
+                {
+                    aux=aux1+" - "+aux2+"i";
+                }
             }
 
             /*
@@ -152,6 +169,7 @@ QString FormatResult::formatResult(MyNumber &num)
     else if (num.Type() == "matrix")
     {
         Matrix m = num.numberMatrix();
+        m.Show();
         return formatResult(m);
     }
     return "";

@@ -2,6 +2,7 @@
     <qresource prefix="/images">
         <file>images/calculator.png</file>
         <file>images/graf3d.png</file>
+        <file>images/matrix2.png</file>
     </qresource>
     <qresource prefix="/shaders">
         <file>shaders/fragmentShaderES2.fsh</file>

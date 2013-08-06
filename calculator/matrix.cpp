@@ -2,6 +2,7 @@
 #include <QMessageBox>
 #include "calculator.h"
 #include "formatresult.h"
+#include "matrix_show_dlg.h"
 
 Matrix::Matrix()
 {
@@ -1033,15 +1034,14 @@ Matrix Matrix::inverse()
 void Matrix::Show()
 {
 
-/*
-    Matrix_show_dlg matrix_show;
-    matrix_show.setMatrix(NLine,NCol,this->matriz);
+    Matrix_show_dlg *matrix_show = new Matrix_show_dlg;
+    matrix_show->setMatrix(NLine,NCol,this->matriz);
 
-    if ( matrix_show.exec() == QDialog::Accepted)
+    //if ( matrix_show.exec() == QDialog::Accepted)
+    matrix_show->show();
     {
-        VectorToMatrix(matrix_show.NCol, matrix_show.NLine, matrix_show.matrixList);
+        VectorToMatrix(matrix_show->NCol, matrix_show->NLine, matrix_show->matrixList);
     }
-*/
 
 }
 
