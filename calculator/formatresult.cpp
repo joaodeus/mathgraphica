@@ -162,9 +162,7 @@ QString FormatResult::formatResult(const double &x)
 
 QString FormatResult::formatResult(MyNumber &num)
 {
-    if (num.Type() == "real")
-        return formatResult(num.numberReal());
-    else if (num.Type() == "complex")
+    if (num.Type() == "number")
         return formatResult(num.numberComplexo());
     else if (num.Type() == "matrix")
     {

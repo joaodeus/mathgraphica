@@ -91,17 +91,21 @@ public:
     friend Matrix operator-( Matrix &a, const double &b);
     friend Matrix operator-( const Complexo &a, Matrix &b);
     friend Matrix operator-( Matrix &a, const Complexo &b);
+    friend Matrix operator-( Matrix &a);
 
+
+    //check matrix division and power implementation
+    //needs to be revised
     friend Matrix operator/( Matrix &a, Matrix &b);
     friend Matrix operator/( Matrix &a, const double &b);
     friend Matrix operator/( Matrix &a, const Complexo &b);
+    friend Matrix operator/( const Complexo &a, Matrix &b);
 
     friend Matrix operator^( Matrix &a, Matrix &b);
     friend Matrix operator^( Matrix &a, const double &b);
     friend Matrix operator^( Matrix &a, const Complexo &b);
+    friend Matrix operator^( const Complexo &a, Matrix &b);
 
-    //
-    //void soma(Matrix &a, Matrix &b);
 
     ///////////////////////////
     // show matrix in a dialog 

@@ -8,14 +8,8 @@ MyNumber sinc(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        double y = number_.numberReal();
-        z.SetMyNumber(sinc(y));
-        return z;
-    }
 
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( sinc(number_.numberComplexo()) );
         return z;
@@ -43,13 +37,7 @@ MyNumber sin(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(sin(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( sin(number_.numberComplexo()) );
         return z;
@@ -76,21 +64,7 @@ MyNumber cos(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        //z.number    = cos(number_.numberReal());
-        //z.type      = "number";
-        z.SetMyNumber(cos(number_.numberReal()));
-        return z;
-    }
-
-    /*Complexo z=cos(Complexo(x.real,x.imag));
-    x.real=z.r;
-    x.imag=z.i;
-    x.array_xi=cos(x.array_xi);
-    return x;*/
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( cos(number_.numberComplexo()) );
         return z;
@@ -118,13 +92,7 @@ MyNumber tan(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(tan(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( tan(number_.numberComplexo()) );
         return z;
@@ -151,13 +119,7 @@ MyNumber cot(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(cot(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( cot(number_.numberComplexo()) );
         return z;
@@ -184,13 +146,7 @@ MyNumber sec(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(sec(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( sec(number_.numberComplexo()) );
         return z;
@@ -217,13 +173,8 @@ MyNumber csc(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(csc(number_.numberReal()));
-        return z;
-    }
 
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( csc(number_.numberComplexo()) );
         return z;
@@ -253,13 +204,7 @@ MyNumber sinh(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(sinh(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( sinh(number_.numberComplexo()) );
         return z;
@@ -286,13 +231,7 @@ MyNumber cosh(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(cosh(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( cosh(number_.numberComplexo()) );
         return z;
@@ -319,13 +258,7 @@ MyNumber tanh(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(tanh(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( tanh(number_.numberComplexo()) );
         return z;
@@ -352,13 +285,7 @@ MyNumber coth(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(coth(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( coth(number_.numberComplexo()) );
         return z;
@@ -385,13 +312,8 @@ MyNumber sech(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(sech(number_.numberReal()));
-        return z;
-    }
 
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( sech(number_.numberComplexo()) );
         return z;
@@ -418,13 +340,7 @@ MyNumber csch(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(csch(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( csch(number_.numberComplexo()) );
         return z;
@@ -455,13 +371,7 @@ MyNumber asin(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(asin(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( asin(number_.numberComplexo()) );
         return z;
@@ -488,13 +398,7 @@ MyNumber acos(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(acos(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( acos(number_.numberComplexo()) );
         return z;
@@ -521,13 +425,7 @@ MyNumber atan(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(atan(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( atan(number_.numberComplexo()) );
         return z;
@@ -554,13 +452,7 @@ MyNumber acot(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(acot(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( acot(number_.numberComplexo()) );
         return z;
@@ -587,13 +479,8 @@ MyNumber asec(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(asec(number_.numberReal()));
-        return z;
-    }
 
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( asec(number_.numberComplexo()) );
         return z;
@@ -620,13 +507,7 @@ MyNumber acsc(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(acsc(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( acsc(number_.numberComplexo()) );
         return z;
@@ -658,13 +539,7 @@ MyNumber asinh(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(asinh(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( asinh(number_.numberComplexo()) );
         return z;
@@ -691,13 +566,8 @@ MyNumber acosh(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(acosh(number_.numberReal()));
-        return z;
-    }
 
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( acosh(number_.numberComplexo()) );
         return z;
@@ -724,13 +594,7 @@ MyNumber atanh(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(atanh(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( atanh(number_.numberComplexo()) );
         return z;
@@ -757,13 +621,7 @@ MyNumber acoth(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(acoth(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( acoth(number_.numberComplexo()) );
         return z;
@@ -790,13 +648,8 @@ MyNumber asech(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(asech(number_.numberReal()));
-        return z;
-    }
 
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( asech(number_.numberComplexo()) );
         return z;
@@ -823,13 +676,7 @@ MyNumber acsch(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(acsch(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( acsch(number_.numberComplexo()) );
         return z;
@@ -860,13 +707,7 @@ MyNumber log(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(log(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( log(number_.numberComplexo()) );
         return z;
@@ -893,13 +734,7 @@ MyNumber ln(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(ln(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( ln(number_.numberComplexo()) );
         return z;
@@ -926,13 +761,7 @@ MyNumber exp(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(exp(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( exp(number_.numberComplexo()) );
         return z;
@@ -960,13 +789,7 @@ MyNumber sqrt(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(sqrt(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( sqrt(number_.numberComplexo()) );
         return z;
@@ -993,13 +816,7 @@ MyNumber cbrt(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(cbrt(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( cbrt(number_.numberComplexo()) );
         return z;
@@ -1030,13 +847,7 @@ MyNumber real(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(real(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( real(number_.numberComplexo()) );
         return z;
@@ -1063,13 +874,7 @@ MyNumber imag(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(imag(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( imag(number_.numberComplexo()) );
         return z;
@@ -1096,13 +901,7 @@ MyNumber arg(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(arg(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( arg(number_.numberComplexo()) );
         return z;
@@ -1129,13 +928,7 @@ MyNumber conj(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(conj(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( conj(number_.numberComplexo()) );
         return z;
@@ -1163,13 +956,7 @@ MyNumber cabs(MyNumber &number_)
 {
     MyNumber z;
 
-    if (number_.Type() == "real")
-    {
-        z.SetMyNumber(cabs(number_.numberReal()));
-        return z;
-    }
-
-    if (number_.Type() == "complex")
+    if (number_.Type() == "number")
     {
         z.SetMyNumber( cabs(number_.numberComplexo()) );
         return z;

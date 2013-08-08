@@ -40,6 +40,10 @@ private:
     Parser parser;
     QStringList variables_List;
     QList<MyNumber> values_List;
+    //QList< QPair<QString, MyNumber> > variables_values;
+
+
+
     FormatResult format;
 
 };

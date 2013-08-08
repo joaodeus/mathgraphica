@@ -87,6 +87,10 @@ void Matrix_show_dlg::setMatrix(const int &row, const int &column, const QVector
 
 void Matrix_show_dlg::setMatrixDisplayOnly(const bool &bDisplayMatrix)
 {
+    ui->label_rows->setVisible(bDisplayMatrix);
+    ui->label_columns->setVisible(bDisplayMatrix);
+    ui->spinBox_rows->setVisible(bDisplayMatrix);
+    ui->spinBox_columns->setVisible(bDisplayMatrix);
 
     ui->pushButton_ones->setVisible(bDisplayMatrix);
     ui->pushButton_random->setVisible(bDisplayMatrix);

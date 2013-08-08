@@ -88,7 +88,7 @@ private:
     //bool bNumber;
     QString type; //stores the type: number, operator or function
     //QString number_string;
-    double number;
+    //double number;
     Complexo number_complexo;    
     QList<Complexo> number_list;
     Matrix number_matrix;

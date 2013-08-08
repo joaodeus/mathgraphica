@@ -719,6 +719,28 @@ Matrix operator-(Matrix &a, const Complexo &b)
     return b-a;
 }
 
+
+Matrix operator-(Matrix &a)
+{
+    Matrix z;
+    int NLines=a.lineCount();
+    int NCols=a.columnCount();
+
+    z.SetLinesCols(NLines,NCols);
+
+    for(int l=0;l<NLines;l++)
+    {
+        for(int c=0;c<NCols;c++)
+        {
+            z.SetLineColNumber(l,c,0-a.GetLineColNumber(l,c));
+        }
+    }
+
+    return z;
+}
+
+
+
 Matrix operator*( Matrix &a , Matrix &b )
 {
 
@@ -876,6 +898,24 @@ Matrix operator/(Matrix &a, const Complexo &b)
 }
 
 
+Matrix operator/(const Complexo &a, Matrix &b)
+{
+    Matrix z;
+    int NLines=b.lineCount();
+    int NCols=b.columnCount();
+
+    z.SetLinesCols(NLines,NCols);
+
+    for(int l=0;l<NLines;l++)
+    {
+        for(int c=0;c<NCols;c++)
+        {
+            z.SetLineColNumber(l,c,a/b.GetLineColNumber(l,c));
+        }
+    }
+    return z;
+}
+
 ///////////////////////////////////////////////////////////////
 
 Matrix operator^( Matrix &a, Matrix &b)
@@ -899,7 +939,27 @@ Matrix operator^( Matrix &a, Matrix &b)
 
 Matrix operator^( Matrix &a, const double &b)
 {
-    /*
+
+    Matrix z;
+    int NLines=a.lineCount();
+    int NCols=a.columnCount();
+
+    z.SetLinesCols(NLines,NCols);
+
+    for(int l=0;l<NLines;l++)
+    {
+        for(int c=0;c<NCols;c++)
+        {
+            z.SetLineColNumber(l,c,a.GetLineColNumber(l,c)^b);
+        }
+    }
+    return z;    
+
+}
+
+Matrix operator^( Matrix &a, const Complexo &b)
+{
+
     Matrix z;
     int NLines=a.lineCount();
     int NCols=a.columnCount();
@@ -914,16 +974,16 @@ Matrix operator^( Matrix &a, const double &b)
         }
     }
     return z;
-    */
-    return Matrix();
+
 }
 
-Matrix operator^( Matrix &a, const Complexo &b)
+
+Matrix operator^( const Complexo &a, Matrix &b)
 {
-    /*
+
     Matrix z;
-    int NLines=a.lineCount();
-    int NCols=a.columnCount();
+    int NLines=b.lineCount();
+    int NCols=b.columnCount();
 
     z.SetLinesCols(NLines,NCols);
 
@@ -931,12 +991,13 @@ Matrix operator^( Matrix &a, const Complexo &b)
     {
         for(int c=0;c<NCols;c++)
         {
-            z.SetLineColNumber(l,c,a.GetLineColNumber(l,c)^b);
+            z.SetLineColNumber(l,c,a^b.GetLineColNumber(l,c));
         }
     }
-    return z;*/
-    return Matrix();
+    return z;
+
 }
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
