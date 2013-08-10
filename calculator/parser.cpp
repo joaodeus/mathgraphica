@@ -529,7 +529,7 @@ bool Parser::error()
 
 ///////////////////////////////////////////////////////////////
 // equations
-
+/*
 QVector<Complexo> Parser::equation(const QString &equation_expression)
 {
     double min      = -1000000;
@@ -560,7 +560,7 @@ QVector<Complexo> Parser::equation(const QString &equation_expression, double &m
 
     return equation.equation_solutions;
 }
-
+*/
 
 
 MyNumber Parser::ParseExpressionToList(const QString &expression_)

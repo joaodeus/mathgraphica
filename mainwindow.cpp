@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 
 #include <QKeyEvent>
+#include "gui/calculator_gui.h"
+#include "gui/equation_gui.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -11,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->lineEdit_cmdLine->installEventFilter(this);
     ui->listWidget_results_history->installEventFilter(this);
+
+    defaultCalulatorGuiExpression = "";
 }
 
 MainWindow::~MainWindow()
@@ -19,12 +23,14 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::on_lineEdit_cmdLine_returnPressed()
-{
+{    
     QString str_cmd_line = ui->lineEdit_cmdLine->text();
 
     MyNumber number;
     bool ok = false;
 
+
+    //check for expressions
     number = calc.isValidExpression(str_cmd_line, ok);
     //if ( calc.isValidExpression(str_cmd_line) )
     if (ok)
@@ -37,6 +43,28 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
         ui->listWidget_results_history->addItem(item1);
         ui->listWidget_results_history->scrollToBottom();
     }
+
+
+    //check for equations
+    if (calc.isValidEquation(str_cmd_line))
+    {
+        //QList<Complexo> equationSolutions = calc.SolveEquation(str_cmd_line);
+        QList<Complexo> equationSolutions = calc.m_equation->solveEquation(str_cmd_line);
+        if (equationSolutions.size() > 0)
+        {
+            QListWidgetItem *item = new QListWidgetItem(str_cmd_line,0,2);
+            ui->listWidget_results_history->addItem(item);
+
+            for (int i=0;i<equationSolutions.size();i++)
+            {
+                QListWidgetItem *item1 = new QListWidgetItem(calc.formatResult(equationSolutions.at(i)),0,1);
+                ui->listWidget_results_history->addItem(item1);
+            }
+            ui->listWidget_results_history->scrollToBottom();
+        }
+    }
+
+
 
 
 }
@@ -74,6 +102,19 @@ bool MainWindow::eventFilter(QObject *target, QEvent *event)
 
 void MainWindow::on_actionCalculator_triggered()
 {
+    Calculator_gui *calcGui = new Calculator_gui;
+
+    calcGui->SetLineEditCalcExpression(defaultCalulatorGuiExpression);
+
+    if (calcGui->exec() == QDialog::Accepted)
+    {
+        //QString str = calcGui->GetLineEditCalcExpression();
+        ui->lineEdit_cmdLine->setText(calcGui->GetLineEditCalcExpression());        
+        on_lineEdit_cmdLine_returnPressed();
+
+    }
+
+    defaultCalulatorGuiExpression = "";
 
 }
 
@@ -89,3 +130,43 @@ void MainWindow::on_listWidget_results_history_currentItemChanged(QListWidgetIte
     ui->lineEdit_cmdLine->setText(current->text());
 }
 
+
+void MainWindow::on_actionEquation_triggered()
+{
+    Equation_gui equationGui;
+
+    equationGui.SetLineEdit_fx(calc.m_equation->getEquation_member1());
+    equationGui.SetLineEdit_gx(calc.m_equation->getEquation_member2());
+    equationGui.SetLineEdit_min(calc.m_equation->getLimitsMin());
+    equationGui.SetLineEdit_max(calc.m_equation->getLimitsMax());
+    equationGui.SetLineEdit_delta(calc.m_equation->getDelta());
+    equationGui.SetLineEdit_precision(calc.m_equation->getPrecision());
+
+    if (equationGui.exec() == QDialog::Accepted)
+    {
+        calc.m_equation->setLimits(equationGui.GetLineEdit_min(), equationGui.GetLineEdit_max());
+        calc.m_equation->setDelta(equationGui.GetLineEdit_delta());
+        calc.m_equation->setPrecision(equationGui.GetLineEdit_precision());
+
+        ui->lineEdit_cmdLine->setText(equationGui.GetLineEdit_fx()+"="+equationGui.GetLineEdit_gx());
+        on_lineEdit_cmdLine_returnPressed();
+    }
+
+}
+
+void MainWindow::on_listWidget_results_history_itemDoubleClicked(QListWidgetItem *item)
+{
+
+    if (ui->listWidget_results_history->currentItem()->type() == 1)
+    {
+        defaultCalulatorGuiExpression = item->text();
+        on_actionCalculator_triggered();
+    }
+
+    if (ui->listWidget_results_history->currentItem()->type() == 2)
+    {
+        calc.m_equation->setEquation(item->text());
+        on_actionEquation_triggered();
+    }
+
+}

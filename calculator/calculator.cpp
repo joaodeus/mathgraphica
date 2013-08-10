@@ -2,6 +2,12 @@
 
 Calculator::Calculator()
 {
+    m_equation = new Equation(&parser);
+}
+
+Calculator::~Calculator()
+{
+    delete m_equation;
 }
 
 MyNumber Calculator::SolveExpression(const QString &expression)
@@ -101,11 +107,23 @@ MyNumber Calculator::isValidExpression(const QString &expression, bool &ok)
 }
 
 
+bool Calculator::isValidEquation(const QString &equation)
+{
+    return parser.isValidEquation(equation);
+}
 
+/*
+QList<Complexo> Calculator::SolveEquation(const QString &equation_)
+{
+    //Equation m_equation(&parser);
+    return m_equation->solveEquation(equation_);
+}
 
-
-
-
+QList<Complexo> Calculator::SolveEquation(const QString &f1, const QString &f2)
+{
+    return SolveEquation(f1+"="+f2);
+}
+*/
 
 
 

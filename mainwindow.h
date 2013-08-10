@@ -32,12 +32,16 @@ private slots:
 
     void on_listWidget_results_history_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
+    void on_actionEquation_triggered();
+
+    void on_listWidget_results_history_itemDoubleClicked(QListWidgetItem *item);
 
 private:
     Ui::MainWindow *ui;
 
     //---calculator----------------------
     Calculator calc;
+    QString defaultCalulatorGuiExpression;
 
     //---list with the results history in the mainwindow
     QStringList results_history;

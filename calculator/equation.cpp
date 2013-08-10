@@ -5,6 +5,19 @@ Equation::Equation(Parser *parser_)
     parser = parser_;
     flagCalculationEquation=false;
     flagAbortFunction=false;
+
+    min = -1E6;
+    minExpression = "-1E6";
+    max = 1E6;
+    maxExpression = "1E6";
+    delta = 0.1;
+    deltaExpression = "0.1";
+    precision = 1E-6;
+    precisionExpression = "1E-6";
+    m_f1 = "4x+3";
+    m_f2 = "2x^2-3";
+    m_equation = "4x+3=2x^2-3";
+
 }
 
 
@@ -37,45 +50,70 @@ void Equation::setLimits(const QString &minExpression_, const QString &maxExpres
 void Equation::setPrecision(const double &precision_)
 {
     precision = precision_;
+    precisionExpression = QString("%1").arg(precision_);
 }
 
-
-void Equation::setSearchStep(const double &searchStep_)
+void Equation::setPrecision(const QString &precisionExpression_)
 {
-    searchStep = searchStep_;
-    searchStepExpression = QString("%1").arg(searchStep);
-}
-
-void Equation::setSearchStep(const QString &searchStepExpression_)
-{
-    searchStepExpression = searchStepExpression_;
-    searchStep = parser->SolveExpression(searchStepExpression).numberReal();
+    precisionExpression = precisionExpression_;
+    precision = parser->SolveExpression(precisionExpression).numberReal();
     if (parser->error())
     {
-        QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Invalid search step"));
+        QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Invalid precision"));
+    }
+
+}
+
+void Equation::setDelta(const double &delta_)
+{
+    delta = delta_;
+    deltaExpression = QString("%1").arg(delta);
+}
+
+void Equation::setDelta(const QString &deltaExpression_)
+{
+    deltaExpression = deltaExpression_;
+    delta = parser->SolveExpression(deltaExpression).numberReal();
+    if (parser->error())
+    {
+        QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Invalid search delta"));
+    }
+}
+
+void Equation::setEquation(const QString &equation_)
+{
+    QStringList aux = equation_.split("=");
+    if (aux.size() == 2)
+    {
+        m_equation = equation_;
+        m_f1 = aux[0];
+        m_f2 = aux[1];
+    }
+
+}
+
+QList<Complexo> Equation::solveEquation(const QString &equation)
+{
+    QStringList aux = equation.split("=");
+    if (aux.size() != 2)
+    {
+        equation_solutions.clear();
+        return equation_solutions;
+    }
+    else
+    {
+        m_equation = equation;
+        return solveEquation(aux[0],aux[1]);
     }
 }
 
 
-
-
-///////////////////////////////
-
-//Complexo Equation::equation_solver(QString f1, QString f2,
-  //                                      QString x, double min, double max,
-    //                                    double incremento, double precisao)
-
-Complexo Equation::equation_solver(Parser *p, QString &f1, QString &f2, QString &variable,
-                                   double &min, double &max, double &step, double &precision)
+QList<Complexo> Equation::solveEquation(const QString &f1, const QString &f2)
 {
-    double i;
-    double l;
-    double fa,fb,fa1,fb1;
-    double da,db,dab,dab1;//delta
-  //  int contador = 0;
-    QString str;
 
-    double initial_step = step;
+    m_f1 = f1;
+    m_f2 = f2;
+    double initial_delta = delta;
 
     //double incremento_maximo=incremento; //debug porpuse
     //double incremento_minimo=incremento; //debug porpuse
@@ -86,10 +124,7 @@ Complexo Equation::equation_solver(Parser *p, QString &f1, QString &f2, QString 
     //this if will optimize the search
     //if the expression is of the type 'x=0' or 'x=3+7' it will skip the search and do the assignment
 
-    //QStringList ListVar_aux;
-    //if ( ( (f1 == x) || (f1 == "("+x+")") ) && (GetVariaveis(f2,ListVar_aux) == 0) )
-
-    if (p->isValidEquation_Explicit_From_Constant(f1+"="+f2))
+    if (parser->isValidEquation_Explicit_From_Constant(f1+"="+f2))
     {
         bool ok;
         Complexo y;
@@ -97,41 +132,49 @@ Complexo Equation::equation_solver(Parser *p, QString &f1, QString &f2, QString 
         if (ok) //if f2 is a number e.g. '7' save the solution
         {
             equation_solutions.append(y);  //save the solution
-            return y;
+            return equation_solutions;
         }
         else  // f2 is a expresion e.g '3+7'
         {
-            y = p->SolveExpression(f2).numberComplexo(); //y=f(f2); // then calculate it
+            y = parser->SolveExpression(f2).numberComplexo(); //y=f(f2); // then calculate it
             equation_solutions.append(y);  // save the solution
-            return y;
+            return equation_solutions;
         }
     }
     //---------------------------------------------------------------------
 
 
-    i=min;
-    fa = p->SolveExpression_fx(f1,i,variable).numberReal();
-    fb = p->SolveExpression_fx(f2,i,variable).numberReal();
+    QStringList variablesList;
+    if (parser->GetVariables(f1+"="+f2, variablesList) != 1)
+        return equation_solutions;
 
-    QList<double> faxx;
-    QList<double> fayy;
-    QList<double> fbxx;
-    QList<double> fbyy;
+    QString variable = variablesList.at(0);
+
+    double fa = parser->SolveExpression_fx(f1,min,variable).numberReal();
+    double fb = parser->SolveExpression_fx(f2,min,variable).numberReal();
+
+    //QList<double> faxx;
+    //QList<double> fayy;
+    //QList<double> fbxx;
+    //QList<double> fbyy;
 
 
     flagCalculationEquation=true;
     flagAbortFunction=false;
 
+    double l;
+    double fa1;
+    double fb1;
+    double da;
+    double db;
+    double dab;
+    double dab1;
 
-    for(i=min ; i<=max ; i+=step)
+    for(double i=min ; i<=max ; i+=delta)
     {
-        l=i+step;
-        fa1 = p->SolveExpression_fx(f1,l,variable).numberReal();
-        fb1 = p->SolveExpression_fx(f2,l,variable).numberReal();
-
-//        fa1=fx(f1,l,x).r;
-  //      fb1=fx(f2,l,x).r;
-
+        l   = i + delta;
+        fa1 = parser->SolveExpression_fx(f1,l,variable).numberReal();
+        fb1 = parser->SolveExpression_fx(f2,l,variable).numberReal();
 
         // aux variables to draw debug graphs--------------------
        // faxx.append(i);
@@ -141,13 +184,12 @@ Complexo Equation::equation_solver(Parser *p, QString &f1, QString &f2, QString 
       //  fbyy.append(fb1);
      //------------------------------------------------------------
 
-
         QCoreApplication::processEvents();
 
         if (flagAbortFunction)
         {
             flagCalculationEquation=false;
-            return 0;
+            return equation_solutions;
         }
 
         /////evita funçoes trigonometrica com muitas soluçoes
@@ -174,11 +216,11 @@ Complexo Equation::equation_solver(Parser *p, QString &f1, QString &f2, QString 
         if (dab < dab1)
             dab=dab1;
 
-        if (da < 0.2*dab)            
-            step = step+step*0.05;//5%
+        if (da < 0.2*dab)
+            delta += delta*0.05;//5%
         else
         {
-            step=initial_step;
+            delta = initial_delta;
             //if (incremento > 0.1*incremento_inicial) //10%
             //    incremento=incremento-incremento*0.1;//10%
         }
@@ -214,13 +256,13 @@ Complexo Equation::equation_solver(Parser *p, QString &f1, QString &f2, QString 
         if (fb >= fa)
         {
             if (fb1 <= fa1)
-                root_finder(p, f1, f2, variable, i, l, precision);
+                root_finder(parser, f1, f2, variable, i, l, precision);
                 //equacao_resolve(f1,f2,x,i,l,precisao);
         }
         else
         {
             if (fa1 < fb1)
-                root_finder(p, f1, f2, variable, i, l, precision);
+                root_finder(parser, f1, f2, variable, i, l, precision);
                 //equacao_resolve(f1,f2,x,i,l,precisao);
         }
         fa=fa1;
@@ -251,7 +293,7 @@ Complexo Equation::equation_solver(Parser *p, QString &f1, QString &f2, QString 
   //  str.sprintf("maximo=%lf\nminimo=%lf\ncontador=%d",incremento_maximo,incremento_minimo,contador);
   //  QMessageBox::about(0,"",str);
 
-    return 1;
+    return equation_solutions;
 }
 
 

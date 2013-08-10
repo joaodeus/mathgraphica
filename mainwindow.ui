@@ -61,8 +61,9 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionCalculator"/>
    <addaction name="actionGraph_3D"/>
+   <addaction name="actionCalculator"/>
+   <addaction name="actionEquation"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionCalculator">
@@ -90,6 +91,18 @@
    </property>
    <property name="toolTip">
     <string>Graph 3D</string>
+   </property>
+  </action>
+  <action name="actionEquation">
+   <property name="icon">
+    <iconset resource="mathgraphica.qrc">
+     <normaloff>:/images/images/equation2.png</normaloff>:/images/images/equation2.png</iconset>
+   </property>
+   <property name="text">
+    <string>Equation</string>
+   </property>
+   <property name="toolTip">
+    <string>Solve equations</string>
    </property>
   </action>
  </widget>

@@ -10,12 +10,13 @@ responsible for parsing, calculations, ...
 #include "parser.h"
 #include "matrix.h"
 #include "formatresult.h"
-
+#include "equation.h"
 
 class Calculator
 {
 public:
     Calculator();
+    ~Calculator();
 
     MyNumber SolveExpression(const QString &expression);
     MyNumber SolveExpression_fx(const QString &expression);
@@ -35,9 +36,16 @@ public:
     bool isValidExpression(const QString &expression);
     MyNumber isValidExpression(const QString &expression, bool &ok);
 
+    bool isValidEquation(const QString &equation);
+    //QList<Complexo> SolveEquation(const QString &equation_);
+    //QList<Complexo> SolveEquation(const QString &f1, const QString &f2);
+
+
+    Equation *m_equation;
+
 private:
 
-    Parser parser;
+    Parser parser;    
     QStringList variables_List;
     QList<MyNumber> values_List;
     //QList< QPair<QString, MyNumber> > variables_values;

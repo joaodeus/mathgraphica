@@ -152,10 +152,10 @@ public:
     /////////////////////////////////////////////////////////////////////////////////////
     // Equation Solver
 
-    QVector<Complexo> equation(const QString &equation_expression);
+    //QVector<Complexo> equation(const QString &equation_expression);
 
-    QVector<Complexo> equation(const QString &equation_expression, double &min, double &max,
-                                      double &step, double &precision);
+    //QVector<Complexo> equation(const QString &equation_expression, double &min, double &max,
+      //                                double &step, double &precision);
 
 
 
