@@ -144,8 +144,9 @@ Calculator_gui::Calculator_gui(QWidget *parent) :
 
     //connect(mapper, SIGNAL(mapped(const QString &)), this, SLOT(keyPressed(const QString &)));
     connect(mapper,SIGNAL(mapped(const QString &)), this,SLOT(setTextfromBtnClicked(const QString &)));
-
     connect(ui->pushButton_del,SIGNAL(clicked()),this,SLOT(clicked_del()));
+
+    setDegreeRadGrad(1);
 
 }
 
@@ -178,4 +179,44 @@ QString Calculator_gui::GetLineEditCalcExpression()
 void Calculator_gui::SetLineEditCalcExpression(const QString &expression_)
 {
     ui->lineEdit_calc_expression->setText(expression_);
+}
+
+void Calculator_gui::on_radioButton_grad_clicked()
+{
+    setDegreeRadGrad(2);
+}
+
+void Calculator_gui::on_radioButton_rad_clicked()
+{
+    setDegreeRadGrad(1);
+}
+
+void Calculator_gui::on_radioButton_degree_clicked()
+{
+    setDegreeRadGrad(0);
+}
+
+
+void Calculator_gui::setDegreeRadGrad(const int &DegreeRadGrad_)
+{
+    isDegreeRadGrad = DegreeRadGrad_;
+
+    if (DegreeRadGrad_ == 0)
+    {
+        ui->radioButton_degree->setChecked(true);
+    }
+    else if (DegreeRadGrad_ == 1)
+    {
+        ui->radioButton_rad->setChecked(true);
+    }
+    else if (DegreeRadGrad_ == 2)
+    {
+        ui->radioButton_grad->setChecked(true);
+    }
+    else //fallback to default rad
+    {
+        isDegreeRadGrad = 1;
+        ui->radioButton_rad->setChecked(true);
+    }
+
 }

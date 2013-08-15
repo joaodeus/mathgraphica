@@ -24,17 +24,17 @@ protected:
 private slots:
     void on_lineEdit_cmdLine_returnPressed();
 
+    void on_listWidget_results_history_itemDoubleClicked(QListWidgetItem *item);
+
+    void on_listWidget_results_history_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+
     void on_pushButtonOk_clicked();
 
     void on_actionCalculator_triggered();
 
     void on_actionGraph_3D_triggered();
 
-    void on_listWidget_results_history_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
-
     void on_actionEquation_triggered();
-
-    void on_listWidget_results_history_itemDoubleClicked(QListWidgetItem *item);
 
 private:
     Ui::MainWindow *ui;

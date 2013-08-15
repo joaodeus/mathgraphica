@@ -3,12 +3,16 @@
 #include "equation.h"
 #include "integral.h"
 
+#define DEGREE  0
+#define RAD     1
+#define GRAD    2
 
 Parser::Parser()
 {
     bError=false;
 
-    Degree_Rad_Grad = 1;
+    setDegreeRadGrad(RAD);
+    //Degree_Rad_Grad = RAD;
     //Degree=0; Rad=1(default); Grad=2
 
 }
@@ -526,6 +530,15 @@ bool Parser::error()
     return bError;
 }
 
+void Parser::setDegreeRadGrad(const int isDegreeRadGrad_)
+{
+    Degree_Rad_Grad = isDegreeRadGrad_;
+}
+
+int Parser::getDegreeRadGrad()
+{
+    return Degree_Rad_Grad;
+}
 
 ///////////////////////////////////////////////////////////////
 // equations
@@ -1556,16 +1569,16 @@ void Parser::SolveFunctions(int &i)
     MyNumber Degree_Rad_Grad_aux;
     switch(Degree_Rad_Grad)
     {
-    case 0: //degree
+    case DEGREE: //degree
         Degree_Rad_Grad_aux.SetMyNumber(PI/180);
         Degree_Rad_Grad_aux = Degree_Rad_Grad_aux * m_tokenNumberList[i+1];
         break;
 
-    case 1://rad
+    case RAD://rad
         Degree_Rad_Grad_aux = m_tokenNumberList[i+1];
         break;
 
-    case 2: // grad
+    case GRAD: // grad
         Degree_Rad_Grad_aux.SetMyNumber(PI/200);
         Degree_Rad_Grad_aux = Degree_Rad_Grad_aux * m_tokenNumberList[i+1];
         break;
@@ -1678,15 +1691,15 @@ void Parser::SolveFunctions(int &i)
 
     switch (Degree_Rad_Grad)
     {
-    case 0: //degree
+    case DEGREE: //degree
         Degree_Rad_Grad_aux.SetMyNumber(180/PI);
         break;
 
-    case 1: //rad
+    case RAD: //rad
         Degree_Rad_Grad_aux.SetMyNumber(1);
         break;
 
-    case 2: //grad
+    case GRAD: //grad
         Degree_Rad_Grad_aux.SetMyNumber(200/PI);
         break;
     }

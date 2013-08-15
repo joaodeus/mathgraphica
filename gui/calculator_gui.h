@@ -24,10 +24,17 @@ private:
 
     QSignalMapper *mapper;
 
+    int isDegreeRadGrad;
+public:
+    void setDegreeRadGrad(const int &DegreeRadGrad_);
+    int getDegreeRadGrad(){return isDegreeRadGrad;}
 
 private slots:
     void setTextfromBtnClicked(const QString &);
     void clicked_del();
+    void on_radioButton_grad_clicked();
+    void on_radioButton_rad_clicked();
+    void on_radioButton_degree_clicked();
 };
 
 #endif // CALCULATOR_GUI_H

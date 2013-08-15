@@ -6,6 +6,10 @@
 #include "gui/equation_gui.h"
 
 
+#define TYPE_EXPRESSION 1
+#define TYPE_EQUATION   2
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -37,8 +41,8 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
     {
         //QString solution = calc.formatResult(calc.SolveExpression(str_cmd_line));
         QString solution = calc.formatResult(number);
-        QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,1);
-        QListWidgetItem *item1  = new QListWidgetItem(solution,0,1);
+        QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_EXPRESSION);
+        QListWidgetItem *item1  = new QListWidgetItem(solution,0,TYPE_EXPRESSION);
         ui->listWidget_results_history->addItem(item);
         ui->listWidget_results_history->addItem(item1);
         ui->listWidget_results_history->scrollToBottom();
@@ -52,26 +56,41 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
         QList<Complexo> equationSolutions = calc.m_equation->solveEquation(str_cmd_line);
         if (equationSolutions.size() > 0)
         {
-            QListWidgetItem *item = new QListWidgetItem(str_cmd_line,0,2);
+            QListWidgetItem *item = new QListWidgetItem(str_cmd_line,0,TYPE_EQUATION);
             ui->listWidget_results_history->addItem(item);
 
             for (int i=0;i<equationSolutions.size();i++)
             {
-                QListWidgetItem *item1 = new QListWidgetItem(calc.formatResult(equationSolutions.at(i)),0,1);
+                QListWidgetItem *item1 = new QListWidgetItem(calc.formatResult(equationSolutions.at(i)),0,TYPE_EXPRESSION);
                 ui->listWidget_results_history->addItem(item1);
             }
             ui->listWidget_results_history->scrollToBottom();
         }
     }
 
+}
 
 
+void MainWindow::on_listWidget_results_history_itemDoubleClicked(QListWidgetItem *item)
+{
+
+    if (ui->listWidget_results_history->currentItem()->type() == TYPE_EXPRESSION)
+    {
+        defaultCalulatorGuiExpression = item->text();
+        on_actionCalculator_triggered();
+    }
+
+    if (ui->listWidget_results_history->currentItem()->type() == TYPE_EQUATION)
+    {
+        calc.m_equation->setEquation(item->text());
+        on_actionEquation_triggered();
+    }
 
 }
 
-void MainWindow::on_pushButtonOk_clicked()
+void MainWindow::on_listWidget_results_history_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
-    on_lineEdit_cmdLine_returnPressed();
+    ui->lineEdit_cmdLine->setText(current->text());
 }
 
 
@@ -100,20 +119,31 @@ bool MainWindow::eventFilter(QObject *target, QEvent *event)
     return QObject::eventFilter(target, event);
 }
 
+
+void MainWindow::on_pushButtonOk_clicked()
+{
+    on_lineEdit_cmdLine_returnPressed();
+}
+
+
 void MainWindow::on_actionCalculator_triggered()
 {
     Calculator_gui *calcGui = new Calculator_gui;
 
     calcGui->SetLineEditCalcExpression(defaultCalulatorGuiExpression);
+    int deg=calc.getDegreeRadGrad();
+    calcGui->setDegreeRadGrad(calc.getDegreeRadGrad());
 
     if (calcGui->exec() == QDialog::Accepted)
     {
-        //QString str = calcGui->GetLineEditCalcExpression();
+        calc.setDegreeRadGrad(calcGui->getDegreeRadGrad());
+        deg = calcGui->getDegreeRadGrad();
         ui->lineEdit_cmdLine->setText(calcGui->GetLineEditCalcExpression());        
         on_lineEdit_cmdLine_returnPressed();
 
     }
 
+    delete calcGui;
     defaultCalulatorGuiExpression = "";
 
 }
@@ -125,10 +155,6 @@ void MainWindow::on_actionGraph_3D_triggered()
 
 
 
-void MainWindow::on_listWidget_results_history_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
-{
-    ui->lineEdit_cmdLine->setText(current->text());
-}
 
 
 void MainWindow::on_actionEquation_triggered()
@@ -154,19 +180,3 @@ void MainWindow::on_actionEquation_triggered()
 
 }
 
-void MainWindow::on_listWidget_results_history_itemDoubleClicked(QListWidgetItem *item)
-{
-
-    if (ui->listWidget_results_history->currentItem()->type() == 1)
-    {
-        defaultCalulatorGuiExpression = item->text();
-        on_actionCalculator_triggered();
-    }
-
-    if (ui->listWidget_results_history->currentItem()->type() == 2)
-    {
-        calc.m_equation->setEquation(item->text());
-        on_actionEquation_triggered();
-    }
-
-}

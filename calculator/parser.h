@@ -5,6 +5,7 @@
 #include "mynumber.h"
 #include "mynumber_functions.h"
 
+
 class Parser
 {
 public:
@@ -124,7 +125,7 @@ public:
     //check if expression is a valid math expression f(variable,t) i.e. with 2 variables,
     //one of them being 't', the time varible, like e.e: "cos(x+t)", "2*y+t"
     bool isValidExpression_fxt(const QString &expression);
-    //convenience methid, saves the variable other than 't', in "variable"
+    //convenience method, saves the variable other than 't', in "variable"
     bool isValidExpression_fxt(const QString &expression, QString &variable);
 
 
@@ -145,42 +146,18 @@ public:
     // like i.e.: "x=4-5" or "var1=2+cos(pi)"
     bool isValidEquation_Explicit_From_Constant(const QString &expression);
 
-
+    //check for errors after solving expressions with SolveExpression_...() methods
     bool error();
 
 
-    /////////////////////////////////////////////////////////////////////////////////////
-    // Equation Solver
-
-    //QVector<Complexo> equation(const QString &equation_expression);
-
-    //QVector<Complexo> equation(const QString &equation_expression, double &min, double &max,
-      //                                double &step, double &precision);
-
-
-
-/*
+private:
+    int Degree_Rad_Grad; // Flag_Graus_Rad_Grados
 public:
-    //guarda as solucoes encontradas da equacao _resolve()
-    QList<Complexo> solucoes_equacao;
-    Complexo equacao_resolve_procura(QString,QString,QString,double,double,double,double);
-    bool flagCalculationEquation;
-    bool flagAbortFunction;
-    //bool isEquation_Fx_equal_Gx(QString str_equation);
-private:
-    double equacao_resolve(QString,QString,QString,double,double,double);*/
-
-
+    void setDegreeRadGrad(const int isDegreeRadGrad_);
+    int getDegreeRadGrad();
 
 
 private:
-
-
-    /*QString f1, QString f2, QString x, double min, double max,
-                                        double incremento, double precisao*/
-
-private:
-
     //parse a math expression i.e. "2+3*5" to a token list, then calls ListSolver
     //this function is called from SolveExpression(...)
     MyNumber ParseExpressionToList(const QString &expression_);
@@ -201,9 +178,8 @@ private:
 private:
     QVector<MyNumber> m_tokenNumberList;
     bool bError;
-    int Degree_Rad_Grad; // Flag_Graus_Rad_Grados
 
-
+private:
     // check for a number inside the expression_ at given index and return true if it's a valid number
     //example: number_ = "2+3.45*7" ,  index = 2
     // return true,  stores 3.45 in number_  and set's index to 5 (ending index of the number)
@@ -214,6 +190,9 @@ private:
     // return true,  stores [2 3; 6 8] in matrix_  and set's index to 11 (ending index of the matrix)
     bool grabMatrix(const QString &expression_, int &index, Matrix &matrix_);
 
+
+
+public:
     //check inside the expression_, for functions pre-defined or user defined or variables
     //functions always start with a letter, can contain letters, numbers and underscores
     // examples: "cos", "sin", "x", "x1", "my_variable"
@@ -227,6 +206,7 @@ private:
     //if found return true and store it in function_
     bool grabFunction_or_Variable_userdefined(const QString &expression_, int &index, QString &function_);
 
+private:
     bool grabOperatorOrParentheses(const QString expression_);
 
 

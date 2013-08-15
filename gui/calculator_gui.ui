@@ -31,9 +31,9 @@
    <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QRadioButton" name="radioButton_grad">
+      <widget class="QRadioButton" name="radioButton_degree">
        <property name="text">
-        <string>Grad</string>
+        <string>Degree</string>
        </property>
       </widget>
      </item>
@@ -45,9 +45,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="radioButton_degree">
+      <widget class="QRadioButton" name="radioButton_grad">
        <property name="text">
-        <string>Degree</string>
+        <string>Grad</string>
        </property>
       </widget>
      </item>
