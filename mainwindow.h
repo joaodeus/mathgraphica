@@ -36,6 +36,8 @@ private slots:
 
     void on_actionEquation_triggered();
 
+    void on_actionSystem_of_equations_triggered();
+
 private:
     Ui::MainWindow *ui;
 
@@ -46,6 +48,8 @@ private:
     //---list with the results history in the mainwindow
     QStringList results_history;
 
+    //---Matrix for the System of Equations
+    Matrix systemEquationMatrix;
 
 };
 

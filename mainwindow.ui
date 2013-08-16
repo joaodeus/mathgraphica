@@ -64,6 +64,7 @@
    <addaction name="actionGraph_3D"/>
    <addaction name="actionCalculator"/>
    <addaction name="actionEquation"/>
+   <addaction name="actionSystem_of_equations"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionCalculator">
@@ -103,6 +104,18 @@
    </property>
    <property name="toolTip">
     <string>Solve equations</string>
+   </property>
+  </action>
+  <action name="actionSystem_of_equations">
+   <property name="icon">
+    <iconset resource="mathgraphica.qrc">
+     <normaloff>:/images/images/sist_eq2.png</normaloff>:/images/images/sist_eq2.png</iconset>
+   </property>
+   <property name="text">
+    <string>System of equations</string>
+   </property>
+   <property name="toolTip">
+    <string>System of equations</string>
    </property>
   </action>
  </widget>

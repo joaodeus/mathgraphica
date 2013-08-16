@@ -4,6 +4,7 @@
 #include <QKeyEvent>
 #include "gui/calculator_gui.h"
 #include "gui/equation_gui.h"
+#include "gui/systemeq_gui.h"
 
 
 #define TYPE_EXPRESSION 1
@@ -18,7 +19,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lineEdit_cmdLine->installEventFilter(this);
     ui->listWidget_results_history->installEventFilter(this);
 
+    //---Calculator gui default expression-----
     defaultCalulatorGuiExpression = "";
+
+
+    //---System of Equation Matrix-------------
+    //systemEquationMatrix.SetLinesCols(3,4);
+    //systemEquationMatrix.random();
+    systemEquationMatrix.SetMatrixRandom(3,4);
+
 }
 
 MainWindow::~MainWindow()
@@ -180,3 +189,17 @@ void MainWindow::on_actionEquation_triggered()
 
 }
 
+
+void MainWindow::on_actionSystem_of_equations_triggered()
+{
+    SystemEq_gui *systemEq = new SystemEq_gui;
+
+    systemEq->mat = &systemEquationMatrix;
+    systemEq->show();
+
+    ////////////////////
+//    systemEq_wiget *wid = new systemEq_wiget;
+  //  wid->mat = &matrixEquationSystem;
+   // wid->show();
+
+}

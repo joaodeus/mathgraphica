@@ -28,7 +28,9 @@ SOURCES += main.cpp\
     calculator/matrix_show_dlg.cpp \
     gui/calculator_gui.cpp \
     gui/equation_gui.cpp \
-    calculator/myfunction.cpp
+    calculator/myfunction.cpp \
+    gui/systemeq_gui.cpp \
+    globalfunctions.cpp
 
 HEADERS  += mainwindow.h \
     graph3D/graph3d.h \
@@ -45,12 +47,15 @@ HEADERS  += mainwindow.h \
     calculator/matrix_show_dlg.h \
     gui/calculator_gui.h \
     gui/equation_gui.h \
-    calculator/myfunction.h
+    calculator/myfunction.h \
+    gui/systemeq_gui.h \
+    globalfunctions.h
 
 FORMS    += mainwindow.ui \
     calculator/matrix_show_dlg.ui \
     gui/calculator_gui.ui \
-    gui/equation_gui.ui
+    gui/equation_gui.ui \
+    gui/systemeq_gui.ui
 
 RESOURCES += \
     mathgraphica.qrc
