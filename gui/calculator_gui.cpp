@@ -32,6 +32,9 @@ Calculator_gui::Calculator_gui(QWidget *parent) :
     connect(ui->pushButton_E, SIGNAL(clicked()), mapper, SLOT(map()));
     connect(ui->pushButton_i, SIGNAL(clicked()), mapper, SLOT(map()));
     connect(ui->pushButton_t, SIGNAL(clicked()), mapper, SLOT(map()));
+    connect(ui->pushButton_var1, SIGNAL(clicked()), mapper, SLOT(map()));
+    connect(ui->pushButton_var2, SIGNAL(clicked()), mapper, SLOT(map()));
+
 
     connect(ui->pushButton_sum,SIGNAL(clicked()),mapper, SLOT(map()));
     connect(ui->pushButton_sub,SIGNAL(clicked()),mapper, SLOT(map()));
@@ -97,6 +100,9 @@ Calculator_gui::Calculator_gui(QWidget *parent) :
     mapper->setMapping(ui->pushButton_E,"E");
     mapper->setMapping(ui->pushButton_i,"i");
     mapper->setMapping(ui->pushButton_t,"t");
+    mapper->setMapping(ui->pushButton_var1,"x");
+    mapper->setMapping(ui->pushButton_var2,"y");
+
 
     mapper->setMapping(ui->pushButton_sum,"+");
     mapper->setMapping(ui->pushButton_sub,"-");

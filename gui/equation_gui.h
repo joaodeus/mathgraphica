@@ -31,6 +31,11 @@ public:
     void SetLineEdit_precision(const QString &str);
 
     
+private slots:
+    void on_pushButton_fx_clicked();
+
+    void on_pushButton_gx_clicked();
+
 private:
     Ui::Equation_gui *ui;
 };

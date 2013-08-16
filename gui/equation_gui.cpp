@@ -1,6 +1,8 @@
 #include "equation_gui.h"
 #include "ui_equation_gui.h"
 
+#include "gui/calculator_gui.h"
+
 Equation_gui::Equation_gui(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Equation_gui)
@@ -76,4 +78,26 @@ void Equation_gui::SetLineEdit_delta(const QString &str)
 void Equation_gui::SetLineEdit_precision(const QString &str)
 {
     ui->lineEdit_precision->setText(str);
+}
+
+void Equation_gui::on_pushButton_fx_clicked()
+{
+    Calculator_gui calc;
+    calc.SetLineEditCalcExpression(ui->lineEdit_fx->text());
+
+    if (calc.exec() == QDialog::Accepted)
+    {
+        ui->lineEdit_fx->setText(calc.GetLineEditCalcExpression());
+    }
+}
+
+void Equation_gui::on_pushButton_gx_clicked()
+{
+    Calculator_gui calc;
+    calc.SetLineEditCalcExpression(ui->lineEdit_gx->text());
+
+    if (calc.exec() == QDialog::Accepted)
+    {
+        ui->lineEdit_gx->setText(calc.GetLineEditCalcExpression());
+    }
 }
