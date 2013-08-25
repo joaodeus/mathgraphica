@@ -12,7 +12,30 @@ public:
     void setLimits(const double &lowerLimit_, const double &upperLimit_);
     void setLimits(const QString &lowerLimitExpression_, const QString &upperLimitExpression_);
     void setNumberOfIntervals(const uint &numberOfIntervals_);
-    double solveIntegral(const QString &expression);
+    void setNumberOfIntervals(const QString &numberOfIntervals_);
+    void setIntegralExpression(const QString &integral_);
+
+    QString getLowerLimit(){return lowerLimitExpression;}
+    QString getUpperLimit(){return upperLimitExpression;}
+    QString getNumberOfIntervals(){return numberOfIntervalsExpression;}
+    QString getIntegralExpression(){return integralExpression;}
+    QString getIntegral();
+
+
+    //check if "integralStr" is a valid integral expression of type "integral(lower,upper,expression,numberintervals)"
+    //example: "integral(0,2,cos(x)+2,100)"
+    // 0: lower limit;
+    // 2: upper limit;
+    // cos(x)+2: integral expression
+    //100: number of intervals
+    //If it's a valid expression, the limits, integral expression, and number of intervals are set
+    bool isValidIntegral(QString integralStr);
+
+    Complexo solveIntegral(const QString &expression);
+    Complexo solveIntegral();
+
+
+
 
     //Integral double -Simpson rule
     void setInnerLimits(const double &innerLowerLimit, const double &innerUpperLimit);
@@ -30,6 +53,9 @@ private:
     QString lowerLimitExpression;
     double upperLimit;
     QString upperLimitExpression;
+    double numberOfIntervals; // number of divisions of the interval between lower and upper limit of the simpson composite rule
+    QString numberOfIntervalsExpression;
+    QString integralExpression;
 
 
     //integral double
@@ -46,7 +72,7 @@ private:
 
     //used for simple and double integrals
     Parser *parser;
-    double numberOfIntervals;
+
 
 
 public:

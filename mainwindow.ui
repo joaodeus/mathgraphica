@@ -64,6 +64,9 @@
    <addaction name="actionGraph_3D"/>
    <addaction name="actionCalculator"/>
    <addaction name="actionEquation"/>
+   <addaction name="separator"/>
+   <addaction name="actionIntegral"/>
+   <addaction name="separator"/>
    <addaction name="actionSystem_of_equations"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -116,6 +119,18 @@
    </property>
    <property name="toolTip">
     <string>System of equations</string>
+   </property>
+  </action>
+  <action name="actionIntegral">
+   <property name="icon">
+    <iconset resource="mathgraphica.qrc">
+     <normaloff>:/images/images/integral.png</normaloff>:/images/images/integral.png</iconset>
+   </property>
+   <property name="text">
+    <string>Integral</string>
+   </property>
+   <property name="toolTip">
+    <string>Integral</string>
    </property>
   </action>
  </widget>

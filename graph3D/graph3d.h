@@ -5,7 +5,8 @@
 #include <QList>
 #include <QString>
 #include <QGLWidget>
-#include <QGLShaderProgram>
+#include <QOpenGLShaderProgram>
+
 
 #include "calculator/calculator.h"
 
@@ -56,7 +57,7 @@ public:
 
 public:
 
-    void draw(QGLShaderProgram &m_shaderProgram, int &vertexAttrib, int &colorAttrib);
+    void draw(QOpenGLShaderProgram &m_shaderProgram, int &vertexAttrib, int &colorAttrib);
     bool SetGraph3D(const Graph3D &graph3D, double t);
     void UpdateGraphTime(double t);
     bool graph_has_variable_t();

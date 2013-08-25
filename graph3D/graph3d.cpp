@@ -235,7 +235,7 @@ bool Graph3D::graph_has_variable_t()
 }
 
 
-void Graph3D::draw(QGLShaderProgram &m_shaderProgram, int &vertexAttrb, int &colorAttrb)
+void Graph3D::draw(QOpenGLShaderProgram &m_shaderProgram, int &vertexAttrb, int &colorAttrb)
 {
 
     /*

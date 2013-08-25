@@ -5,10 +5,13 @@
 #include "gui/calculator_gui.h"
 #include "gui/equation_gui.h"
 #include "gui/systemeq_gui.h"
+#include "gui/integral_gui.h"
+#include "graph3D/graph3d_opengl.h"
 
 
 #define TYPE_EXPRESSION 1
 #define TYPE_EQUATION   2
+#define TYPE_INTEGRAL   3
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -62,7 +65,7 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
     if (calc.isValidEquation(str_cmd_line))
     {
         //QList<Complexo> equationSolutions = calc.SolveEquation(str_cmd_line);
-        QList<Complexo> equationSolutions = calc.m_equation->solveEquation(str_cmd_line);
+        QList<Complexo> equationSolutions = calc.m_equation.solveEquation(str_cmd_line);
         if (equationSolutions.size() > 0)
         {
             QListWidgetItem *item = new QListWidgetItem(str_cmd_line,0,TYPE_EQUATION);
@@ -75,6 +78,17 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
             }
             ui->listWidget_results_history->scrollToBottom();
         }
+    }
+
+
+    if (calc.m_integral.isValidIntegral(str_cmd_line))
+    {
+        QString solution = calc.formatResult(calc.m_integral.solveIntegral());
+        QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_INTEGRAL);
+        QListWidgetItem *item1  = new QListWidgetItem(solution,0,TYPE_EXPRESSION);
+        ui->listWidget_results_history->addItem(item);
+        ui->listWidget_results_history->addItem(item1);
+        ui->listWidget_results_history->scrollToBottom();
     }
 
 }
@@ -91,8 +105,14 @@ void MainWindow::on_listWidget_results_history_itemDoubleClicked(QListWidgetItem
 
     if (ui->listWidget_results_history->currentItem()->type() == TYPE_EQUATION)
     {
-        calc.m_equation->setEquation(item->text());
+        calc.m_equation.setEquation(item->text());
         on_actionEquation_triggered();
+    }
+
+    if (ui->listWidget_results_history->currentItem()->type() == TYPE_INTEGRAL)
+    {
+        calc.m_integral.isValidIntegral(item->text());
+        on_actionIntegral_triggered();
     }
 
 }
@@ -159,6 +179,8 @@ void MainWindow::on_actionCalculator_triggered()
 
 void MainWindow::on_actionGraph_3D_triggered()
 {
+    Graph3D_OpenGL *graph = new Graph3D_OpenGL ;
+    graph->show();
     
 }
 
@@ -170,18 +192,18 @@ void MainWindow::on_actionEquation_triggered()
 {
     Equation_gui equationGui;
 
-    equationGui.SetLineEdit_fx(calc.m_equation->getEquation_member1());
-    equationGui.SetLineEdit_gx(calc.m_equation->getEquation_member2());
-    equationGui.SetLineEdit_min(calc.m_equation->getLimitsMin());
-    equationGui.SetLineEdit_max(calc.m_equation->getLimitsMax());
-    equationGui.SetLineEdit_delta(calc.m_equation->getDelta());
-    equationGui.SetLineEdit_precision(calc.m_equation->getPrecision());
+    equationGui.SetLineEdit_fx(calc.m_equation.getEquation_member1());
+    equationGui.SetLineEdit_gx(calc.m_equation.getEquation_member2());
+    equationGui.SetLineEdit_min(calc.m_equation.getLimitsMin());
+    equationGui.SetLineEdit_max(calc.m_equation.getLimitsMax());
+    equationGui.SetLineEdit_delta(calc.m_equation.getDelta());
+    equationGui.SetLineEdit_precision(calc.m_equation.getPrecision());
 
     if (equationGui.exec() == QDialog::Accepted)
     {
-        calc.m_equation->setLimits(equationGui.GetLineEdit_min(), equationGui.GetLineEdit_max());
-        calc.m_equation->setDelta(equationGui.GetLineEdit_delta());
-        calc.m_equation->setPrecision(equationGui.GetLineEdit_precision());
+        calc.m_equation.setLimits(equationGui.GetLineEdit_min(), equationGui.GetLineEdit_max());
+        calc.m_equation.setDelta(equationGui.GetLineEdit_delta());
+        calc.m_equation.setPrecision(equationGui.GetLineEdit_precision());
 
         ui->lineEdit_cmdLine->setText(equationGui.GetLineEdit_fx()+"="+equationGui.GetLineEdit_gx());
         on_lineEdit_cmdLine_returnPressed();
@@ -203,3 +225,35 @@ void MainWindow::on_actionSystem_of_equations_triggered()
    // wid->show();
 
 }
+
+void MainWindow::on_actionIntegral_triggered()
+{
+    Integral_gui integral;
+
+    integral.SetLowerLimit(calc.m_integral.getLowerLimit());
+    integral.SetUpperLimit(calc.m_integral.getUpperLimit());
+    integral.SetNumberOfIntervals(calc.m_integral.getNumberOfIntervals());
+    integral.SetIntegralExpression(calc.m_integral.getIntegralExpression());
+
+    if (integral.exec() == QDialog::Accepted)
+    {
+        calc.m_integral.setLimits(integral.GetLowerLimit(),integral.GetUpperLimit());
+        calc.m_integral.setNumberOfIntervals(integral.GetNumberOfIntervals());
+        calc.m_integral.setIntegralExpression(integral.GetIntegralExpression());
+        ui->lineEdit_cmdLine->setText(calc.m_integral.getIntegral());
+        on_lineEdit_cmdLine_returnPressed();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

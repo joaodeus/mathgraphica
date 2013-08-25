@@ -1269,11 +1269,19 @@ bool Parser::grabFunction_predefined(const QString &expression_, int &index, QSt
 
 bool Parser::grabFunction_or_Variable_userdefined(const QString &expression_, int &index, QString &function_)
 {
+    if ( grabConstants(expression_, index, function_) == true )
+        return false;
+
+    if ( grabFunction_predefined(expression_, index, function_) == true )
+        return false;
+
     if ( !grabFunction_aux(expression_, index, function_) )
         return false;
 
     MyNumber token_aux;
     token_aux.setOperatorFunction(function_);
+
+
     return !token_aux.isFunction();
 }
 

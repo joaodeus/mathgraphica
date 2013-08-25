@@ -1,13 +1,13 @@
 #include "calculator.h"
 
-Calculator::Calculator()
+Calculator::Calculator(): m_equation(&parser), m_integral(&parser)
 {
-    m_equation = new Equation(&parser);
+    //m_equation = new Equation(&parser);
 }
 
 Calculator::~Calculator()
 {
-    delete m_equation;
+    //delete m_equation;
 }
 
 MyNumber Calculator::SolveExpression(const QString &expression)
@@ -122,6 +122,7 @@ bool Calculator::isValidEquation(const QString &equation)
 {
     return parser.isValidEquation(equation);
 }
+
 
 /*
 QList<Complexo> Calculator::SolveEquation(const QString &equation_)

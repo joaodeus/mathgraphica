@@ -5,6 +5,8 @@
         <file>images/matrix2.png</file>
         <file>images/equation2.png</file>
         <file>images/sist_eq2.png</file>
+        <file>images/integral.png</file>
+        <file>images/integral2.png</file>
     </qresource>
     <qresource prefix="/shaders">
         <file>shaders/fragmentShaderES2.fsh</file>

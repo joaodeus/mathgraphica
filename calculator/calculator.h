@@ -11,6 +11,7 @@ responsible for parsing, calculations, ...
 #include "matrix.h"
 #include "formatresult.h"
 #include "equation.h"
+#include "integral.h"
 #include "myfunction.h"
 
 class Calculator
@@ -45,7 +46,8 @@ public:
     //QList<Complexo> SolveEquation(const QString &f1, const QString &f2);
 
 
-    Equation *m_equation;
+    Equation m_equation;
+    Integral m_integral;
 
 private:
 

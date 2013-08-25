@@ -38,6 +38,8 @@ private slots:
 
     void on_actionSystem_of_equations_triggered();
 
+    void on_actionIntegral_triggered();
+
 private:
     Ui::MainWindow *ui;
 

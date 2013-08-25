@@ -2,7 +2,15 @@
 
 Integral::Integral(Parser *parser_)
 {
-    parser = parser_;
+    parser                      = parser_;
+    lowerLimit                  = -10;
+    lowerLimitExpression        = "-10";
+    upperLimit                  = 10;
+    upperLimitExpression        = "10";
+    integralExpression          = "2x^2-3";
+    numberOfIntervals           = 100;
+    numberOfIntervalsExpression = "100";
+
 }
 
 
@@ -34,32 +42,115 @@ void Integral::setLimits(const QString &lowerLimitExpression_, const QString &up
 
 }
 
+
 void Integral::setNumberOfIntervals(const uint &numberOfIntervals_)
 {
-    numberOfIntervals = numberOfIntervals_;
     if (numberOfIntervals_ <= 0)
     {
         QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Invalid number of intervals."));
     }
+    numberOfIntervals = numberOfIntervals_;
+    numberOfIntervalsExpression = QString("%1").arg(numberOfIntervals);
+
 }
 
-double Integral::solveIntegral(const QString &expression)
+void Integral::setNumberOfIntervals(const QString &numberOfIntervals_)
+{
+    numberOfIntervalsExpression = numberOfIntervals_;
+    numberOfIntervals = parser->SolveExpression(numberOfIntervalsExpression).numberReal();
+    if (parser->error())
+    {
+        QMessageBox::about(0,"Error!","Invalid number of intervals");
+    }
+
+    if (numberOfIntervals_ <= 0)
+    {
+        QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Number of intervals must be greater than zero."));
+    }
+}
+
+
+void Integral::setIntegralExpression(const QString &integral_)
+{
+    integralExpression = integral_;
+}
+
+QString Integral::getIntegral()
+{
+    //lowerLimitExpression = QString("%1").arg(lowerLimit);
+    return QString("integral(%1,%2,%3,%4)").arg(lowerLimitExpression,upperLimitExpression,
+                                                integralExpression,numberOfIntervalsExpression);
+}
+
+bool Integral::isValidIntegral(QString integralStr)
 {
 
+    if ( (integralStr.indexOf("integral(") == 0) && integralStr.at(integralStr.size()-1) == ')' )
+    {
+        integralStr.remove("integral(");
+        integralStr.remove(integralStr.size()-1,1);
+    }
+    else
+    {
+        return false;
+    }
+
+    QStringList list = integralStr.split(",");
+
+    if (list.size() != 4)
+        return false;
+
+    if (!parser->isValidExpression(list[0])) //integral lower limit
+        return false;
+
+    if (!parser->isValidExpression(list[1])) //integral upper limit
+        return false;
+
+    if (!((parser->isValidExpression_fx(list[2]) == true || (parser->isValidExpression(list[2]) == true)))) //integral lower limit
+        return false;
+
+    if (!parser->isValidExpression(list[3])) //number of intervals
+        return false;
+
+    // Ok, nothing more to test, it's a valid expression, lets make assignments
+
+    setLimits(list[0],list[1]);
+    setIntegralExpression(list[2]);
+    setNumberOfIntervals(list[3]);
+
+    return true;
+
+}
+
+Complexo Integral::solveIntegral(const QString &expression)
+{
+    setIntegralExpression(expression);
+    return solveIntegral();
+}
+
+Complexo Integral::solveIntegral()
+{
     double h;
-    double Isc;
+    Complexo Isc;
     double i;
-    QString i_str;
+    //QString i_str;
     bool par=true;
     double a = lowerLimit;
     double b = upperLimit;
     QStringList variables;
 
-    if (parser->GetVariables(expression,variables) != 1)
+    if (parser->GetVariables(integralExpression,variables) > 1)
     {
         QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Invalid integral expression."));
         return 0;
     }
+
+    //
+    if (variables.size() == 0)
+    {
+        variables.append("x");
+    }
+
 
 
     if (a > b)
@@ -72,21 +163,21 @@ double Integral::solveIntegral(const QString &expression)
     h=(b-a)/numberOfIntervals;
 
     //Isc=h/3*fx(f_x,a,x).r + h/3*fx(f_x,b,x).r;
-    Isc=h/3 * parser->SolveExpression_fx(expression,a,variables[0]).numberReal()
-            + h/3 * parser->SolveExpression_fx(expression,b,variables[0]).numberReal();
+    Isc=h/3 * parser->SolveExpression_fx(integralExpression,a,variables[0]).numberComplexo()
+            + h/3 * parser->SolveExpression_fx(integralExpression,b,variables[0]).numberComplexo();
 
     for(i=a+h;i<b;i=i+h)
     {
         if (par==true)
         {
             //Isc=Isc+(h/3)*4*fx(f_x,i,x).r;
-            Isc = Isc + (h/3) * 4 * parser->SolveExpression_fx(expression,i,variables[0]).numberReal();
+            Isc = Isc + (h/3) * 4 * parser->SolveExpression_fx(integralExpression,i,variables[0]).numberComplexo();
             par=false;
         }
         else
         {
             //Isc=Isc+(h/3)*2*fx(f_x,i,x).r;
-            Isc = Isc + (h/3) * 2 * parser->SolveExpression_fx(expression,i,variables[0]).numberReal();
+            Isc = Isc + (h/3) * 2 * parser->SolveExpression_fx(integralExpression,i,variables[0]).numberComplexo();
             par=true;
         }
     }
