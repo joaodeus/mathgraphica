@@ -1,12 +1,15 @@
-attribute highp vec4 vertex;
+//#version 130
 uniform mediump mat4 matrix;
 uniform mediump mat4 proj;
 
-attribute highp vec4 VertexColor;
-varying highp vec4 Color;
+attribute vec4 vertexPosition;
+attribute vec4 VertexColor;
+
+varying vec4 Color;
 
 void main(void)
 {
     Color = VertexColor;
-    gl_Position = proj*matrix * vertex;
+    gl_Position = proj*matrix * vertexPosition;
+    //gl_Position = vertexPosition;
 }

@@ -50,7 +50,7 @@
      <x>0</x>
      <y>0</y>
      <width>434</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
@@ -66,6 +66,7 @@
    <addaction name="actionEquation"/>
    <addaction name="separator"/>
    <addaction name="actionIntegral"/>
+   <addaction name="actionIntegral_double"/>
    <addaction name="separator"/>
    <addaction name="actionSystem_of_equations"/>
   </widget>
@@ -131,6 +132,15 @@
    </property>
    <property name="toolTip">
     <string>Integral</string>
+   </property>
+  </action>
+  <action name="actionIntegral_double">
+   <property name="icon">
+    <iconset resource="mathgraphica.qrc">
+     <normaloff>:/images/images/integralD.png</normaloff>:/images/images/integralD.png</iconset>
+   </property>
+   <property name="text">
+    <string>Integral double</string>
    </property>
   </action>
  </widget>

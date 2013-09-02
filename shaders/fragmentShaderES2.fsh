@@ -1,4 +1,5 @@
-varying highp  vec4 Color;
+//#version 130
+varying vec4 Color;
 
 void main(void)
 {

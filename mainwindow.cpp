@@ -119,6 +119,7 @@ void MainWindow::on_listWidget_results_history_itemDoubleClicked(QListWidgetItem
 
 void MainWindow::on_listWidget_results_history_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
+    Q_UNUSED(previous);
     ui->lineEdit_cmdLine->setText(current->text());
 }
 
@@ -160,13 +161,14 @@ void MainWindow::on_actionCalculator_triggered()
     Calculator_gui *calcGui = new Calculator_gui;
 
     calcGui->SetLineEditCalcExpression(defaultCalulatorGuiExpression);
-    int deg=calc.getDegreeRadGrad();
+    //int deg=calc.getDegreeRadGrad();
     calcGui->setDegreeRadGrad(calc.getDegreeRadGrad());
 
     if (calcGui->exec() == QDialog::Accepted)
     {
         calc.setDegreeRadGrad(calcGui->getDegreeRadGrad());
-        deg = calcGui->getDegreeRadGrad();
+        //deg = calcGui->getDegreeRadGrad();
+        calc.setDegreeRadGrad(calcGui->getDegreeRadGrad());
         ui->lineEdit_cmdLine->setText(calcGui->GetLineEditCalcExpression());        
         on_lineEdit_cmdLine_returnPressed();
 
@@ -245,15 +247,7 @@ void MainWindow::on_actionIntegral_triggered()
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+void MainWindow::on_actionIntegral_double_triggered()
+{
+    Complexo z = calc.m_integralDouble.solveIntegralDouble();
+}

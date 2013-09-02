@@ -1,6 +1,6 @@
 #include "calculator.h"
 
-Calculator::Calculator(): m_equation(&parser), m_integral(&parser)
+Calculator::Calculator(): m_equation(&parser), m_integral(&parser), m_integralDouble(&parser)
 {
     //m_equation = new Equation(&parser);
 }

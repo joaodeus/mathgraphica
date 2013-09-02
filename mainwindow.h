@@ -40,6 +40,8 @@ private slots:
 
     void on_actionIntegral_triggered();
 
+    void on_actionIntegral_double_triggered();
+
 private:
     Ui::MainWindow *ui;
 

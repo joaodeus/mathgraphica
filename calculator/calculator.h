@@ -12,6 +12,7 @@ responsible for parsing, calculations, ...
 #include "formatresult.h"
 #include "equation.h"
 #include "integral.h"
+#include "integraldouble.h"
 #include "myfunction.h"
 
 class Calculator
@@ -48,6 +49,7 @@ public:
 
     Equation m_equation;
     Integral m_integral;
+    IntegralDouble m_integralDouble;
 
 private:
 
