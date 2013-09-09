@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     globalfunctions.cpp \
     gui/integral_gui.cpp \
     calculator/integraldouble.cpp \
-    gui/integraldouble_gui.cpp
+    gui/integraldouble_gui.cpp \
+    gui/matrix_gui.cpp
 
 HEADERS  += mainwindow.h \
     graph3D/graph3d.h \
@@ -55,7 +56,8 @@ HEADERS  += mainwindow.h \
     globalfunctions.h \
     gui/integral_gui.h \
     calculator/integraldouble.h \
-    gui/integraldouble_gui.h
+    gui/integraldouble_gui.h \
+    gui/matrix_gui.h
 
 FORMS    += mainwindow.ui \
     calculator/matrix_show_dlg.ui \
@@ -63,7 +65,8 @@ FORMS    += mainwindow.ui \
     gui/equation_gui.ui \
     gui/systemeq_gui.ui \
     gui/integral_gui.ui \
-    gui/integraldouble_gui.ui
+    gui/integraldouble_gui.ui \
+    gui/matrix_gui.ui
 
 RESOURCES += \
     mathgraphica.qrc

@@ -6,6 +6,7 @@
 #include <QString>
 #include <QGLWidget>
 #include <QOpenGLShaderProgram>
+#include <QOpenGLBuffer>
 
 
 #include "calculator/calculator.h"
@@ -57,6 +58,7 @@ public:
 
 public:
 
+    void setBuffer(QOpenGLBuffer &vertexPositionBuffer, QOpenGLBuffer &vertexColorBuffer);
     void draw(QOpenGLShaderProgram &m_shaderProgram, int &vertexAttrib, int &colorAttrib);
     bool SetGraph3D(const Graph3D &graph3D, double t);
     void UpdateGraphTime(double t);

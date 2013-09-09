@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>437</width>
+    <width>443</width>
     <height>188</height>
    </rect>
   </property>
@@ -40,7 +40,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../../../qtprojects/mathgraphica-1.1.1/matematica.qrc">:/newPrefix/images/integralD.BMP</pixmap>
+      <pixmap resource="../mathgraphica.qrc">:/images/images/integralD2.png</pixmap>
      </property>
     </widget>
    </item>
@@ -50,7 +50,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../../../qtprojects/mathgraphica-1.1.1/matematica.qrc">:/newPrefix/images/integralD.BMP</pixmap>
+      <pixmap resource="../mathgraphica.qrc">:/images/images/integralD2.png</pixmap>
      </property>
     </widget>
    </item>
@@ -147,7 +147,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../../qtprojects/mathgraphica-1.1.1/matematica.qrc"/>
+  <include location="../mathgraphica.qrc"/>
  </resources>
  <connections>
   <connection>

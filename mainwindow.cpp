@@ -6,7 +6,9 @@
 #include "gui/equation_gui.h"
 #include "gui/systemeq_gui.h"
 #include "gui/integral_gui.h"
+#include "gui/integraldouble_gui.h"
 #include "graph3D/graph3d_opengl.h"
+#include "gui/matrix_gui.h"
 
 
 #define TYPE_EXPRESSION 1
@@ -250,4 +252,17 @@ void MainWindow::on_actionIntegral_triggered()
 void MainWindow::on_actionIntegral_double_triggered()
 {
     Complexo z = calc.m_integralDouble.solveIntegralDouble();
+
+    IntegralDouble_gui integralD;
+    if (integralD.exec() == QDialog::Accepted)
+    {
+
+    }
+
+}
+
+void MainWindow::on_actionMatrix_triggered()
+{
+    Matrix_gui *matrix_gui = new Matrix_gui;
+    matrix_gui->show();
 }

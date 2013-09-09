@@ -234,6 +234,10 @@ bool Graph3D::graph_has_variable_t()
     return calc.isValid_Expression_with_time_variable(m_fxy);
 }
 
+void Graph3D::setBuffer(QOpenGLBuffer &vertexPositionBuffer, QOpenGLBuffer &vertexColorBuffer)
+{
+
+}
 
 void Graph3D::draw(QOpenGLShaderProgram &m_shaderProgram, int &vertexAttrb, int &colorAttrb)
 {

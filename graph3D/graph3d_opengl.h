@@ -9,6 +9,7 @@
 #include <QOpenGLShader>
 #include <QOpenGLBuffer>
 #include <QTimer>
+#include <QMouseEvent>
 
 #include "graph3D/graph3d.h"
 //#include <QOpenGLFunctions_4_3_Core>
@@ -36,6 +37,16 @@ protected slots:
 protected:
     void hideEvent(QHideEvent *event);
 
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent (QMouseEvent * event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void wheelEvent(QWheelEvent * event );
+    bool event(QEvent *event);
+    virtual void keyPressEvent(QKeyEvent *event);
+    virtual void timerEvent(QTimerEvent *event);
+
+    void AutoRotate();
+
 public:
     void axis3D(QOpenGLShaderProgram &m_sampleProgram, const GLint &vertexAttr, const GLint &colorAttr);
     void updateBackGroundColor(const QColor &color);
@@ -45,9 +56,11 @@ protected:
     QOpenGLShaderProgram m_shaderProgram;
     QOpenGLBuffer m_vertexPositionBuffer;
     QOpenGLBuffer m_vertexColorBuffer;
+    //QOpenGLBuffer m_projectionBuffer;
+    //QOpenGLBuffer m_orientationBuffer;
     QTimer *timer;
-    //QMatrix4x4 projection;
-    //QMatrix4x4 orientation;
+    QMatrix4x4 projection;
+    QMatrix4x4 orientation;
 
 
     //----3D axis
