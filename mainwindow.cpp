@@ -11,9 +11,11 @@
 #include "gui/matrix_gui.h"
 
 
-#define TYPE_EXPRESSION 1
-#define TYPE_EQUATION   2
-#define TYPE_INTEGRAL   3
+#define TYPE_EXPRESSION         1
+#define TYPE_EQUATION           2
+#define TYPE_INTEGRAL           3
+#define TYPE_INTEGRAL_DOUBLE    4
+
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -89,7 +91,7 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
         QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_INTEGRAL);
         QListWidgetItem *item1  = new QListWidgetItem(solution,0,TYPE_EXPRESSION);
         ui->listWidget_results_history->addItem(item);
-        ui->listWidget_results_history->addItem(item1);
+        ui->listWidget_results_history->addItem(item1);                
         ui->listWidget_results_history->scrollToBottom();
     }
 
@@ -111,11 +113,20 @@ void MainWindow::on_listWidget_results_history_itemDoubleClicked(QListWidgetItem
         on_actionEquation_triggered();
     }
 
+
     if (ui->listWidget_results_history->currentItem()->type() == TYPE_INTEGRAL)
     {
         calc.m_integral.isValidIntegral(item->text());
         on_actionIntegral_triggered();
     }
+
+    if (ui->listWidget_results_history->currentItem()->type() == TYPE_INTEGRAL_DOUBLE)
+    {
+        if (calc.m_integralDouble.setIntegralDoubleFromSintaxe(item->text()))
+            on_actionIntegral_double_triggered();
+    }
+
+
 
 }
 
@@ -244,21 +255,47 @@ void MainWindow::on_actionIntegral_triggered()
         calc.m_integral.setLimits(integral.GetLowerLimit(),integral.GetUpperLimit());
         calc.m_integral.setNumberOfIntervals(integral.GetNumberOfIntervals());
         calc.m_integral.setIntegralExpression(integral.GetIntegralExpression());
-        ui->lineEdit_cmdLine->setText(calc.m_integral.getIntegral());
+        ui->lineEdit_cmdLine->setText(calc.m_integral.getIntegral_Sintaxe());
         on_lineEdit_cmdLine_returnPressed();
     }
 }
 
 void MainWindow::on_actionIntegral_double_triggered()
 {
-    Complexo z = calc.m_integralDouble.solveIntegralDouble();
+    //Complexo z = calc.m_integralDouble.solveIntegralDouble();
 
     IntegralDouble_gui integralD;
+
+    integralD.setInnerLimits(calc.m_integralDouble.getInnerLowerLimit(),
+                             calc.m_integralDouble.getInnerUpperLimit());
+    integralD.setOuterLimits(calc.m_integralDouble.getOuterLowerLimit(),
+                             calc.m_integralDouble.getOuterUpperLimit());
+    integralD.setVaribles(calc.m_integralDouble.getVariableInner(),
+                          calc.m_integralDouble.getVariableOuter());
+    integralD.setNumberOfIntervals(calc.m_integralDouble.getNumberOfIntervals());
+    integralD.setIntegralDoubleExpression(calc.m_integralDouble.getIntegralDoubleExpression());
+
+
     if (integralD.exec() == QDialog::Accepted)
     {
+        calc.m_integralDouble.setOuterLimits(integralD.getOuterLowerLimit(), integralD.getOuterUpperLimit());
+        calc.m_integralDouble.setInnerLimits(integralD.getInnerLowerLimit(), integralD.getInnerUpperLimit());
+        calc.m_integralDouble.setVaribles(integralD.getInnerVarible(), integralD.getOuterVarible());
+        calc.m_integralDouble.setNumberOfIntervals(integralD.getNumberOfIntervals());
+        calc.m_integralDouble.setIntegralDoubleExpression(integralD.getIntegralDoubleExpression());
 
+
+        //ui->lineEdit_cmdLine->setText(calc.m_integralDouble.getIntegralDoubleExpression());
+
+        //on_lineEdit_cmdLine_returnPressed();
+        QString integralSintaxe = calc.m_integralDouble.getIntegralDouble_Sintaxe();
+        QString solution = calc.formatResult(calc.m_integralDouble.solveIntegralDouble());
+        QListWidgetItem *item   = new QListWidgetItem(integralSintaxe,0,TYPE_INTEGRAL_DOUBLE);
+        QListWidgetItem *item1  = new QListWidgetItem(solution,0,TYPE_EXPRESSION);
+        ui->listWidget_results_history->addItem(item);
+        ui->listWidget_results_history->addItem(item1);
+        ui->listWidget_results_history->scrollToBottom();
     }
-
 }
 
 void MainWindow::on_actionMatrix_triggered()

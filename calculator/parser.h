@@ -133,6 +133,9 @@ public:
 
     //check if expression is a valid math expression with n variables (n > 1), like i.e: "5+x+y*z"
     bool isValidExpression_fn(const QString &expression);
+    //convenience function where the it check the number of variables in "expression" against "n"
+    //bool isValidExpression_fn(const QString &expression, const uint n);
+
 
     //check if expression is a valid equation with one variable, like i.e.: "2+x=4x-5" or "var1+2=3*var1^2"
     bool isValidEquation(const QString &expression);

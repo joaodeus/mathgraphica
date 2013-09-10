@@ -14,7 +14,36 @@ class IntegralDouble_gui : public QDialog
 public:
     explicit IntegralDouble_gui(QWidget *parent = 0);
     ~IntegralDouble_gui();
-    
+
+    /*QString GetLowerLimit();
+    QString GetUpperLimit();
+    QString GetIntegralExpression();
+    QString GetNumberOfIntervals();
+    //QString GetVariable();
+
+    void SetLowerLimit(const QString &str);
+    void SetUpperLimit(const QString &str);
+    void SetIntegralExpression(const QString &str);
+    void SetNumberOfIntervals(const QString &str);
+    //void SetVariable(const QString &str);
+    */
+
+    void setInnerLimits(const QString &innerLowerLimitExpression_, const QString &innerUpperLimitExpression_);
+    void setOuterLimits(const QString &outerLowerLimitExpression_, const QString &outerUpperLimitExpression_);
+    void setNumberOfIntervals(const QString &numberOfIntervals_);
+    void setVaribles(const QString &innerVariable_, const QString &outerVariable_);
+    void setIntegralDoubleExpression(const QString &integralDoubleExpression_);
+
+    QString getInnerLowerLimit();
+    QString getInnerUpperLimit();
+    QString getOuterLowerLimit();
+    QString getOuterUpperLimit();
+    QString getNumberOfIntervals();
+    QString getInnerVarible();
+    QString getOuterVarible();
+    QString getIntegralDoubleExpression();
+
+
 private:
     Ui::IntegralDouble_gui *ui;
 };

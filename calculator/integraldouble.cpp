@@ -3,17 +3,17 @@
 IntegralDouble::IntegralDouble(Parser *parser_)
 {
     parser                      = parser_;
-   // innerLowerLimit             = "x";
-    innerLowerLimitExpression   = "x";
-    //innerUpperLimit             = ;
-    innerUpperLimitExpression   = "x^2+3x";
-    outerLowerLimit             = 1;
-    outerLowerLimitExpression   = "1";
-    outerUpperLimit             = 4;
-    outerUpperLimitExpression   = "4";
+    innerLowerLimitExpression   = "-x";
+    innerUpperLimitExpression   = "2*x";
+    outerLowerLimit             = -PI;
+    outerLowerLimitExpression   = "-pi";
+
+    outerUpperLimit             = PI;
+    outerUpperLimitExpression   = "pi";
+
     innerVariable               = "y";
     outerVariable               = "x";
-    integralDoubleExpression    = "1+x-y";
+    integralDoubleExpression    = "cos(2+x*y)";
     numberOfIntervals           = 100;
     numberOfIntervalsExpression = "100";
 }
@@ -176,3 +176,73 @@ Complexo IntegralDouble::solveIntegralDouble()
 
     return Isc*hx;
 }
+
+QString IntegralDouble::getIntegralDouble_Sintaxe()
+{
+    return QString("integralDouble(%1,%2,%3,%4,%5,%6,%7,%8)")
+            .arg(this->integralDoubleExpression,
+                 outerLowerLimitExpression, outerUpperLimitExpression,
+                 innerLowerLimitExpression, innerUpperLimitExpression,
+                 innerVariable, outerVariable,
+                 this->numberOfIntervalsExpression);
+}
+
+bool IntegralDouble::isValidIntegralDoubleSintaxe(QString integralDoubleStr)
+{
+
+    if ( (integralDoubleStr.indexOf("integralDouble(") == 0) && integralDoubleStr.at(integralDoubleStr.size()-1) == ')' )
+    {
+        integralDoubleStr.remove("integralDouble(");
+        integralDoubleStr.remove(integralDoubleStr.size()-1,1);
+    }
+    else
+    {
+        return false;
+    }
+
+    QStringList list = integralDoubleStr.split(",");
+
+    if (list.size() != 8)
+        return false;
+
+    if (!parser->isValidExpression_fn(list[0])) //integrationDouble expression
+        return false;
+
+
+    if (!parser->isValidExpression(list[1])) //outer lower limit
+        return false;
+
+    if (!parser->isValidExpression(list[2])) //outer upper limit
+        return false;
+
+    if ( ! ( (parser->isValidExpression(list[3]) == true) ||  (parser->isValidExpression_fx(list[3]) == true) ) ) //inner lower limit
+        return false;
+
+    if ( ! ( (parser->isValidExpression(list[4]) == true) ||  (parser->isValidExpression_fx(list[4]) == true) ) )  //inner upper limit
+        return false;
+
+    if (!parser->isValidExpression(list[7])) //number of intervals
+        return false;
+
+    return true;
+}
+
+bool IntegralDouble::setIntegralDoubleFromSintaxe(QString integralDoubleSintaxe)
+{     
+    if (isValidIntegralDoubleSintaxe(integralDoubleSintaxe) == false)
+        return false;
+
+    integralDoubleSintaxe.remove("integralDouble(");
+    integralDoubleSintaxe.remove(integralDoubleSintaxe.size()-1,1);
+
+    QStringList list = integralDoubleSintaxe.split(",");
+
+    setIntegralDoubleExpression(list[0]);
+    setOuterLimits(list[1],list[2]);
+    setInnerLimits(list[3],list[4]);
+    setVaribles(list[5],list[6]);
+    setNumberOfIntervals(list[7]);
+
+    return true;
+}
+

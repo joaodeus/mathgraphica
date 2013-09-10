@@ -433,7 +433,6 @@ bool Parser::isValidExpression_fxt(const QString &expression, QString &variable)
 }
 
 
-
 bool Parser::isValidExpression_fn(const QString &expression)
 {
     QStringList variables_list;
@@ -457,7 +456,35 @@ bool Parser::isValidExpression_fn(const QString &expression)
     }
 }
 
+/*
+bool Parser::isValidExpression_fn(const QString &expression, const uint n)
+{
+    QStringList variables_list;
 
+    if (GetVariables(expression, variables_list) > 1)
+    {
+        QStringList values_list;
+        for (int i=0;i<variables_list.size();i++)
+        {
+            //we create a list of a random value (i.e 1.34) to math the list of variables of the expression
+            values_list.append("1.34");
+        }
+
+        //now lets check if expression is valid
+        SolveExpression_fn(expression, values_list, variables_list);
+        return !error();
+    }
+    else
+    {
+        return false;
+    }
+}
+*/
+/*
+bool isValidExpression_fn(const QString &expression)
+{
+
+}*/
 
 bool Parser::isValidEquation(const QString &expression)
 {
@@ -1266,7 +1293,7 @@ bool Parser::grabFunction_predefined(const QString &expression_, int &index, QSt
     }
 }
 
-
+// check this function, has a bug
 bool Parser::grabFunction_or_Variable_userdefined(const QString &expression_, int &index, QString &function_)
 {
     if ( grabConstants(expression_, index, function_) == true )

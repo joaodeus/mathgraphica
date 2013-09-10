@@ -19,7 +19,7 @@ public:
     QString getUpperLimit(){return upperLimitExpression;}
     QString getNumberOfIntervals(){return numberOfIntervalsExpression;}
     QString getIntegralExpression(){return integralExpression;}
-    QString getIntegral();
+    QString getIntegral_Sintaxe();
 
 
     //check if "integralStr" is a valid integral expression of type "integral(lower,upper,expression,numberintervals)"
@@ -31,12 +31,13 @@ public:
     //If it's a valid expression, the limits, integral expression, and number of intervals are set
     bool isValidIntegral(QString integralStr);
 
+    //Simpson composite rule
     Complexo solveIntegral(const QString &expression);
     Complexo solveIntegral();
 
 
 
-
+/*
     //Integral double -Simpson rule
     void setInnerLimits(const double &innerLowerLimit, const double &innerUpperLimit);
     void setInnerLimits(const QString &innerLowerLimit, const QString &innerUpperLimit);
@@ -44,7 +45,7 @@ public:
     void setOuterLimits(const QString &outerLowerLimit, const QString &outerUpperLimit);
     void setVaribles(const QString &innerVarible_, const QString &outerVarible_);
     double solveIntegralDouble(const QString &expression);
-
+*/
 
 
 private:
@@ -57,32 +58,19 @@ private:
     QString numberOfIntervalsExpression;
     QString integralExpression;
 
-
-    //integral double
-    double innerLowerLimit;
-    QString innerLowerLimitExpression;
-    double innerUpperLimit;
-    QString innerUpperLimitExpresion;
-    double outerLowerLimit;
-    QString outerLowerLimitExpression;
-    double outerUpperLimit;
-    QString outerUpperLimitExpression;
-    QString innerVarible;
-    QString outerVariable;
-
-    //used for simple and double integrals
+    //used for integrals
     Parser *parser;
 
 
 
-public:
+//private:
     // To refactor
     //simple integral, simpson composite rule
-    double integral(Parser *p, QString &expression, QString &variable, double &a, double &b, double &m);
+    //double integral(Parser *p, QString &expression, QString &variable, double &a, double &b, double &m);
 
     //double integral, simpson composite rule
-    double integral_double(Parser *p, QString &expression_xy, QString &varx, QString &vary,
-                           double &Ax, double &Bx, QString &fAy ,QString &fBy,double &m);
+    //double integral_double(Parser *p, QString &expression_xy, QString &varx, QString &vary,
+      //                     double &Ax, double &Bx, QString &fAy ,QString &fBy,double &m);
 };
 
 #endif // INTEGRAL_H

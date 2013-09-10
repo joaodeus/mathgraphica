@@ -75,7 +75,7 @@ void Integral::setIntegralExpression(const QString &integral_)
     integralExpression = integral_;
 }
 
-QString Integral::getIntegral()
+QString Integral::getIntegral_Sintaxe()
 {
     //lowerLimitExpression = QString("%1").arg(lowerLimit);
     return QString("integral(%1,%2,%3,%4)").arg(lowerLimitExpression,upperLimitExpression,
@@ -185,7 +185,7 @@ Complexo Integral::solveIntegral()
     return Isc;
 }
 
-
+/*
 double Integral::integral(Parser *p, QString &expression, QString &variable, double &a, double &b, double &m)
 {
 
@@ -225,7 +225,9 @@ double Integral::integral(Parser *p, QString &expression, QString &variable, dou
 
     return Isc;
 }
+*/
 
+/*
 double Integral::integral_double(Parser *p, QString &expression_xy, QString &varx, QString &vary,
                        double &Ax, double &Bx, QString &fAy ,QString &fBy,double &m)
 //double Integral::integral_double(Parser *p, QString &expression_xy, QString &varx, QString &vary,
@@ -281,6 +283,7 @@ double Integral::integral_double(Parser *p, QString &expression_xy, QString &var
 
     return Isc*hx;
 }
+*/
 
 /*
 double Calculadora::IntegralD(QString f_x, QString x, QString y,double a, double b
@@ -315,6 +318,7 @@ double Calculadora::IntegralD(QString f_x, QString x, QString y,double a, double
 }
 */
 
+//Não apagar
 /*
 double Calculadora::IntegralArea(QString f_x, QString x, double a, double b, double h)
 {

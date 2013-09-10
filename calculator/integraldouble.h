@@ -21,6 +21,19 @@ public:
     Complexo solveIntegralDouble(const QString &integralDoubleExpression_);
     Complexo solveIntegralDouble();
 
+    QString getInnerLowerLimit(){return innerLowerLimitExpression;}
+    QString getInnerUpperLimit(){return innerUpperLimitExpression;}
+    QString getOuterLowerLimit(){return outerLowerLimitExpression;}
+    QString getOuterUpperLimit(){return outerUpperLimitExpression;}
+    QString getNumberOfIntervals(){return numberOfIntervalsExpression;}
+    QString getVariableInner(){return innerVariable;}
+    QString getVariableOuter(){return outerVariable;}
+    QString getIntegralDoubleExpression(){return integralDoubleExpression;}
+    QString getIntegralDouble_Sintaxe();
+
+    bool isValidIntegralDoubleSintaxe(QString integralDoubleStr);
+    bool setIntegralDoubleFromSintaxe(QString integralDoubleSintaxe);
+
 private:
 
     //integral double

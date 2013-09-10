@@ -11,11 +11,15 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Integral Double</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../mathgraphica.qrc">
+    <normaloff>:/images/images/integralD.png</normaloff>:/images/images/integralD.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <widget class="QLineEdit" name="lineEdit_xmax">
+    <widget class="QLineEdit" name="lineEdit_outerUpper">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -25,7 +29,7 @@
     </widget>
    </item>
    <item row="0" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_ymax">
+    <widget class="QLineEdit" name="lineEdit_innerUpper">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -62,7 +66,7 @@
     </widget>
    </item>
    <item row="1" column="3">
-    <widget class="QLineEdit" name="lineEdit_fxy">
+    <widget class="QLineEdit" name="lineEdit_expression">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -79,7 +83,7 @@
     </widget>
    </item>
    <item row="1" column="5">
-    <widget class="QLineEdit" name="lineEdit_dy"/>
+    <widget class="QLineEdit" name="lineEdit_variable_Inner"/>
    </item>
    <item row="1" column="6">
     <widget class="QLabel" name="label_dx">
@@ -89,10 +93,10 @@
     </widget>
    </item>
    <item row="1" column="7">
-    <widget class="QLineEdit" name="lineEdit_dx"/>
+    <widget class="QLineEdit" name="lineEdit_variable_Outer"/>
    </item>
    <item row="2" column="0">
-    <widget class="QLineEdit" name="lineEdit_xmin">
+    <widget class="QLineEdit" name="lineEdit_outerLower">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -102,7 +106,7 @@
     </widget>
    </item>
    <item row="2" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_ymin"/>
+    <widget class="QLineEdit" name="lineEdit_innerLower"/>
    </item>
    <item row="3" column="0">
     <spacer name="verticalSpacer">
@@ -146,6 +150,18 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit_outerLower</tabstop>
+  <tabstop>lineEdit_outerUpper</tabstop>
+  <tabstop>lineEdit_innerLower</tabstop>
+  <tabstop>lineEdit_innerUpper</tabstop>
+  <tabstop>lineEdit_expression</tabstop>
+  <tabstop>pushButton_fxy</tabstop>
+  <tabstop>lineEdit_variable_Inner</tabstop>
+  <tabstop>lineEdit_variable_Outer</tabstop>
+  <tabstop>lineEdit_m_factor</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources>
   <include location="../mathgraphica.qrc"/>
  </resources>
@@ -157,8 +173,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>431</x>
+     <y>178</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -173,8 +189,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>433</x>
+     <y>178</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
