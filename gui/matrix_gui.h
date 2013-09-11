@@ -30,6 +30,7 @@ private slots:
     void on_spinBox_cols1_valueChanged(int arg1);
     void on_spinBox_rows2_valueChanged(int arg1);
     void on_spinBox_cols2_valueChanged(int arg1);
+    void updateSpinBoxes();
 
     void on_tableWidget_matrix1_customContextMenuRequested(const QPoint &pos);
     void on_tableWidget_matrix2_customContextMenuRequested(const QPoint &pos);
@@ -47,6 +48,8 @@ private slots:
     void showMatrix();//for debug porpuse
 
     void ContextMenu(QPoint pos);
+
+    void on_pushButton_calculate_clicked();
 
 private:
     Ui::Matrix_gui *ui;

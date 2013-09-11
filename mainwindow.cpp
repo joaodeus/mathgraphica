@@ -302,5 +302,11 @@ void MainWindow::on_actionIntegral_double_triggered()
 void MainWindow::on_actionMatrix_triggered()
 {
     Matrix_gui *matrix_gui = new Matrix_gui;
+
+    matrix_gui->mat1            = &mat1;
+    matrix_gui->mat2            = &mat2;
+    matrix_gui->mat3            = &mat3;
+    matrix_gui->mat_copy_paste  = &mat_copy_paste;
+
     matrix_gui->show();
 }

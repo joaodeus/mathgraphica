@@ -3,6 +3,7 @@
 
 #include <QMessageBox>
 #include <QMenu>
+#include "calculator/calculator.h"
 #include "globalfunctions.h"
 
 Matrix_gui::Matrix_gui(QWidget *parent) :
@@ -23,10 +24,12 @@ Matrix_gui::Matrix_gui(QWidget *parent) :
     ui->tableWidget_matrix3->setRowCount(2);
     ui->tableWidget_matrix3->setColumnCount(2);
 
-    mat1=NULL;
-    mat2=NULL;
-    mat3=NULL;
-    mat=NULL;
+    tableWidget_mat = NULL;
+    mat1            = NULL;
+    mat2            = NULL;
+    mat3            = NULL;
+    mat             = NULL;
+    mat_copy_paste  = NULL;
 
     createActions();
 
@@ -59,26 +62,49 @@ void Matrix_gui::on_spinBox_cols2_valueChanged(int arg1)
     ui->tableWidget_matrix2->setColumnCount(arg1);
 }
 
-void Matrix_gui::on_tableWidget_matrix1_customContextMenuRequested(const QPoint &pos)
+void Matrix_gui::updateSpinBoxes()
 {
+    if (mat == mat1)
+    {
+        ui->spinBox_cols1->setValue(mat->columnCount());
+        ui->spinBox_rows1->setValue(mat->lineCount());
+    }
+
+    if (mat == mat2)
+    {
+        ui->spinBox_cols2->setValue(mat->columnCount());
+        ui->spinBox_rows2->setValue(mat->lineCount());
+    }
+}
+
+void Matrix_gui::on_tableWidget_matrix1_customContextMenuRequested(const QPoint &pos)
+{    
+    mat = mat1;
+    tableWidget_mat = ui->tableWidget_matrix1;
+    GetTableWidgetToMatrix(*tableWidget_mat, *mat);
     ContextMenu(pos);
 }
 
 void Matrix_gui::on_tableWidget_matrix2_customContextMenuRequested(const QPoint &pos)
 {
-
+    mat = mat2;
+    tableWidget_mat = ui->tableWidget_matrix2;
+    GetTableWidgetToMatrix(*tableWidget_mat, *mat);
+    ContextMenu(pos);
 }
 
 void Matrix_gui::on_tableWidget_matrix3_customContextMenuRequested(const QPoint &pos)
 {
-
+    mat = mat3;
+    tableWidget_mat = ui->tableWidget_matrix3;
+    GetTableWidgetToMatrix(*tableWidget_mat, *mat);
+    ContextMenu(pos);
 }
 
 
 
 void Matrix_gui::matrixRandom()
 {
-
     mat->SetMatrixRandom(tableWidget_mat->rowCount(),tableWidget_mat->columnCount());
     GetMatrixToTableWidget(*mat,*tableWidget_mat);
 }
@@ -123,7 +149,10 @@ void Matrix_gui::matrixTranspose()
 
 void Matrix_gui::matrixDeterminant()
 {
-    //QMessageBox::about(0,"Matrix Determinant",ComplexoToQString( mat->Determinant() ) );
+    Calculator calc;
+    Complexo det = mat->Determinant();
+    if (mat->ERRO == false)
+        QMessageBox::about(0,"Matrix Determinant",calc.formatResult( det) );
 }
 
 
@@ -136,6 +165,7 @@ void Matrix_gui::matrixPaste()
 {
     *mat = *mat_copy_paste;
     GetMatrixToTableWidget(*mat_copy_paste,*tableWidget_mat);
+    updateSpinBoxes();
 }
 
 
@@ -204,3 +234,34 @@ void Matrix_gui::createActions()
     connect(matrixShowAct, SIGNAL(triggered()), this, SLOT(showMatrix()));
 
 }
+
+void Matrix_gui::on_pushButton_calculate_clicked()
+{
+    GetTableWidgetToMatrix(*ui->tableWidget_matrix1, *mat1);
+    GetTableWidgetToMatrix(*ui->tableWidget_matrix2, *mat2);
+
+    switch (ui->comboBox_matrix_operation->currentIndex()) {
+    case 0: {
+        //mat = mat3;
+        *mat3 = *mat1 + *mat2;
+        if (mat3->ERRO == false)
+            GetMatrixToTableWidget(*mat3,*ui->tableWidget_matrix3);
+        break;
+    }
+    case 1: {
+        *mat3 = *mat1 - *mat2;
+        if (mat3->ERRO == false)
+            GetMatrixToTableWidget(*mat3,*ui->tableWidget_matrix3);
+        break;
+    }
+    case 2: {
+        *mat3 = (*mat1) * (*mat2);
+        if (mat3->ERRO == false)
+            GetMatrixToTableWidget(*mat3,*ui->tableWidget_matrix3);
+        break;
+    }
+    default:
+        break;
+    }
+}
+

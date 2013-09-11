@@ -57,6 +57,12 @@ private:
     //---Matrix for the System of Equations
     Matrix systemEquationMatrix;
 
+    //---Matrices for Matrix gui
+    Matrix mat1;
+    Matrix mat2;
+    Matrix mat3;
+    Matrix mat_copy_paste;
+
 };
 
 #endif // MAINWINDOW_H
