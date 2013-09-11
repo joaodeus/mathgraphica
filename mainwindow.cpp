@@ -85,7 +85,7 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
     }
 
 
-    if (calc.m_integral.isValidIntegral(str_cmd_line))
+    if (calc.m_integral.isValidIntegralSintaxe(str_cmd_line))
     {
         QString solution = calc.formatResult(calc.m_integral.solveIntegral());
         QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_INTEGRAL);
@@ -116,8 +116,9 @@ void MainWindow::on_listWidget_results_history_itemDoubleClicked(QListWidgetItem
 
     if (ui->listWidget_results_history->currentItem()->type() == TYPE_INTEGRAL)
     {
-        calc.m_integral.isValidIntegral(item->text());
-        on_actionIntegral_triggered();
+        //calc.m_integral.isValidIntegralSintaxe(item->text());
+        if (calc.m_integral.setIntegralFromSintaxe(item->text()))
+            on_actionIntegral_triggered();
     }
 
     if (ui->listWidget_results_history->currentItem()->type() == TYPE_INTEGRAL_DOUBLE)

@@ -78,11 +78,12 @@ void Integral::setIntegralExpression(const QString &integral_)
 QString Integral::getIntegral_Sintaxe()
 {
     //lowerLimitExpression = QString("%1").arg(lowerLimit);
-    return QString("integral(%1,%2,%3,%4)").arg(lowerLimitExpression,upperLimitExpression,
-                                                integralExpression,numberOfIntervalsExpression);
+    return QString("integral(%1,%2,%3,%4)").arg(integralExpression,
+                                                lowerLimitExpression,upperLimitExpression,
+                                                numberOfIntervalsExpression);
 }
 
-bool Integral::isValidIntegral(QString integralStr)
+bool Integral::isValidIntegralSintaxe(QString integralStr)
 {
 
     if ( (integralStr.indexOf("integral(") == 0) && integralStr.at(integralStr.size()-1) == ')' )
@@ -100,26 +101,43 @@ bool Integral::isValidIntegral(QString integralStr)
     if (list.size() != 4)
         return false;
 
-    if (!parser->isValidExpression(list[0])) //integral lower limit
+    if (!((parser->isValidExpression_fx(list[0]) == true || (parser->isValidExpression(list[0]) == true)))) //integral expression
         return false;
 
-    if (!parser->isValidExpression(list[1])) //integral upper limit
+    if (!parser->isValidExpression(list[1])) //integral lower limit
         return false;
 
-    if (!((parser->isValidExpression_fx(list[2]) == true || (parser->isValidExpression(list[2]) == true)))) //integral lower limit
+    if (!parser->isValidExpression(list[2])) //integral upper limit
         return false;
 
     if (!parser->isValidExpression(list[3])) //number of intervals
         return false;
 
-    // Ok, nothing more to test, it's a valid expression, lets make assignments
+   /* // Ok, nothing more to test, it's a valid expression, lets make assignments
 
     setLimits(list[0],list[1]);
     setIntegralExpression(list[2]);
     setNumberOfIntervals(list[3]);
-
+*/
     return true;
 
+}
+
+bool Integral::setIntegralFromSintaxe(QString integralSintaxe)
+{
+    if (isValidIntegralSintaxe(integralSintaxe) == false)
+        return false;
+
+    integralSintaxe.remove("integral(");
+    integralSintaxe.remove(integralSintaxe.size()-1,1);
+
+    QStringList list = integralSintaxe.split(",");
+
+    setIntegralExpression(list[0]);
+    setLimits(list[1],list[2]);
+    setNumberOfIntervals(list[3]);
+
+    return true;
 }
 
 Complexo Integral::solveIntegral(const QString &expression)

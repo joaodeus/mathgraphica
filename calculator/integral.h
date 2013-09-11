@@ -29,7 +29,8 @@ public:
     // cos(x)+2: integral expression
     //100: number of intervals
     //If it's a valid expression, the limits, integral expression, and number of intervals are set
-    bool isValidIntegral(QString integralStr);
+    bool isValidIntegralSintaxe(QString integralStr);
+    bool setIntegralFromSintaxe(QString integralSintaxe);
 
     //Simpson composite rule
     Complexo solveIntegral(const QString &expression);

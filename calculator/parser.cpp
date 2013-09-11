@@ -1273,9 +1273,11 @@ bool Parser::grabFunction_aux(const QString &expression_, int &index, QString &f
 bool Parser::grabFunction_predefined(const QString &expression_, int &index, QString &function_)
 {
     int index_aux = index;
+    QString function_aux = function_;
     if ( !grabFunction_aux(expression_, index, function_) )
     {
         index = index_aux;
+        function_ = function_aux;
         return false;
     }
 
@@ -1289,27 +1291,27 @@ bool Parser::grabFunction_predefined(const QString &expression_, int &index, QSt
     else
     {
         index = index_aux;
+        function_ = function_aux;
         return false;
     }
 }
 
 // check this function, has a bug
+// hopefully bug solved
 bool Parser::grabFunction_or_Variable_userdefined(const QString &expression_, int &index, QString &function_)
 {
-    if ( grabConstants(expression_, index, function_) == true )
-        return false;
 
-    if ( grabFunction_predefined(expression_, index, function_) == true )
-        return false;
-
-    if ( !grabFunction_aux(expression_, index, function_) )
+    if ( !grabFunction_aux(expression_, index, function_) )     
         return false;
 
     MyNumber token_aux;
     token_aux.setOperatorFunction(function_);
 
+    if (token_aux.isFunction())        
+        return false;   
+    else
+        return true;
 
-    return !token_aux.isFunction();
 }
 
 
