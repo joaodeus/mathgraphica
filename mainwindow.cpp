@@ -9,6 +9,7 @@
 #include "gui/integraldouble_gui.h"
 #include "graph3D/graph3d_opengl.h"
 #include "gui/matrix_gui.h"
+#include "gui/formulas_gui.h"
 
 
 #define TYPE_EXPRESSION         1
@@ -309,4 +310,10 @@ void MainWindow::on_actionMatrix_triggered()
     matrix_gui->mat_copy_paste  = &mat_copy_paste;
 
     matrix_gui->show();
+}
+
+void MainWindow::on_actionFormulas_triggered()
+{
+    Formulas_gui *formulas = new Formulas_gui;
+    formulas->show();
 }

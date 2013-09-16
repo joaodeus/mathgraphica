@@ -12,6 +12,8 @@ Matrix_gui::Matrix_gui(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    setAttribute(Qt::WA_DeleteOnClose, true);
+
     ui->spinBox_rows1->setValue(2);
     ui->spinBox_cols1->setValue(2);
     ui->spinBox_rows2->setValue(2);
@@ -265,3 +267,8 @@ void Matrix_gui::on_pushButton_calculate_clicked()
     }
 }
 
+
+void Matrix_gui::on_pushButton_Close_clicked()
+{
+    close();
+}

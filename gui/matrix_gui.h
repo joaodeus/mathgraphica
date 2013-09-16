@@ -51,6 +51,8 @@ private slots:
 
     void on_pushButton_calculate_clicked();
 
+    void on_pushButton_Close_clicked();
+
 private:
     Ui::Matrix_gui *ui;
 

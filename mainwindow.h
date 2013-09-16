@@ -44,6 +44,8 @@ private slots:
 
     void on_actionMatrix_triggered();
 
+    void on_actionFormulas_triggered();
+
 private:
     Ui::MainWindow *ui;
 

@@ -65,6 +65,8 @@
    <addaction name="actionCalculator"/>
    <addaction name="actionEquation"/>
    <addaction name="separator"/>
+   <addaction name="actionFormulas"/>
+   <addaction name="separator"/>
    <addaction name="actionIntegral"/>
    <addaction name="actionIntegral_double"/>
    <addaction name="separator"/>
@@ -154,6 +156,15 @@
    </property>
    <property name="toolTip">
     <string>Matrix</string>
+   </property>
+  </action>
+  <action name="actionFormulas">
+   <property name="icon">
+    <iconset resource="mathgraphica.qrc">
+     <normaloff>:/images/images/formulas2.png</normaloff>:/images/images/formulas2.png</iconset>
+   </property>
+   <property name="text">
+    <string>Formulas</string>
    </property>
   </action>
  </widget>
