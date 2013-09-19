@@ -202,9 +202,6 @@ void MainWindow::on_actionGraph_3D_triggered()
 }
 
 
-
-
-
 void MainWindow::on_actionEquation_triggered()
 {
     Equation_gui equationGui;
@@ -262,6 +259,7 @@ void MainWindow::on_actionIntegral_triggered()
     }
 }
 
+
 void MainWindow::on_actionIntegral_double_triggered()
 {
     //Complexo z = calc.m_integralDouble.solveIntegralDouble();
@@ -314,6 +312,6 @@ void MainWindow::on_actionMatrix_triggered()
 
 void MainWindow::on_actionFormulas_triggered()
 {
-    Formulas_gui *formulas = new Formulas_gui;
+    Formulas_gui *formulas = new Formulas_gui(0, &calc);
     formulas->show();
 }

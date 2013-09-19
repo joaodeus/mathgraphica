@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     calculator/integraldouble.cpp \
     gui/integraldouble_gui.cpp \
     gui/matrix_gui.cpp \
-    gui/formulas_gui.cpp
+    gui/formulas_gui.cpp \
+    calculator/formulas.cpp
 
 HEADERS  += mainwindow.h \
     graph3D/graph3d.h \
@@ -59,7 +60,8 @@ HEADERS  += mainwindow.h \
     calculator/integraldouble.h \
     gui/integraldouble_gui.h \
     gui/matrix_gui.h \
-    gui/formulas_gui.h
+    gui/formulas_gui.h \
+    calculator/formulas.h
 
 FORMS    += mainwindow.ui \
     calculator/matrix_show_dlg.ui \

@@ -313,6 +313,43 @@ MyNumber Parser::SolveExpression_fn(const QString &expression_fn, QList<MyNumber
 }
 
 
+QString Parser::Expression_ReplaceVariables_WithValues(QString expression, QStringList &variables, QStringList &values)
+{
+
+    if (variables.size() != values.size())
+    {
+        bError = true;
+        return expression;
+    }
+
+    QString aux;
+    int ii;
+    for(int i=0;i<expression.length();i++)
+    {
+        ii = i;
+        aux = "";
+        grabFunction_or_Variable_userdefined(expression,i,aux);
+
+        if (aux != "")
+        {
+            for (int l=0;l<variables.size();l++)
+            {
+                if (aux == variables[l])
+                {
+                    expression.remove(ii,aux.length());
+                    expression.insert(ii,"("+values[l]+")");
+                    i = i + ( values[l].length() - aux.length() ) + 2;
+                    break;
+                }
+            }
+        }
+    }
+
+    return expression;
+}
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -540,7 +577,9 @@ bool Parser::isValidEquation_Explicit_From_Constant(const QString &expression)
         return false;
     }
 
-    if ( equation_members[0] == variables_aux[0] && isValidExpression(equation_members[1]) )
+    if ( ( (equation_members[0] == variables_aux[0])
+           || (equation_members[0] ==  ("("+ variables_aux[0] +")" )  ) )
+         && isValidExpression(equation_members[1]) )
     {
         return true;
     }

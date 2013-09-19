@@ -206,6 +206,7 @@ Complexo log(Complexo);
 QList<Complexo> log(QList<Complexo> &x);
 
 
-
+QDataStream & operator<< (QDataStream& stream, const Complexo& complexo);
+QDataStream & operator>> (QDataStream& stream, Complexo& complexo);
 
 #endif // COMPLEXO_H

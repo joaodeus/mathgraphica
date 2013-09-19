@@ -14,6 +14,7 @@ responsible for parsing, calculations, ...
 #include "integral.h"
 #include "integraldouble.h"
 #include "myfunction.h"
+#include "formulas.h"
 
 class Calculator
 {
@@ -50,6 +51,10 @@ public:
     Equation m_equation;
     Integral m_integral;
     IntegralDouble m_integralDouble;
+    QList<Formulas> m_formulasList;
+
+    void addFormula();
+    void removeFormula();
 
 private:
 

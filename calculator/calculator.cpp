@@ -1,8 +1,11 @@
 #include "calculator.h"
 
 Calculator::Calculator(): m_equation(&parser), m_integral(&parser), m_integralDouble(&parser)
-{
-    //m_equation = new Equation(&parser);
+{    
+    Formulas formula(&parser); // create one default formula
+    m_formulasList.append(formula);
+
+
 }
 
 Calculator::~Calculator()
@@ -123,6 +126,20 @@ bool Calculator::isValidEquation(const QString &equation)
     return parser.isValidEquation(equation);
 }
 
+
+///////////////////////////////////
+// Formulas
+
+void Calculator::addFormula()
+{
+    Formulas formula(&parser);
+    m_formulasList.append(formula);
+}
+
+void Calculator::removeFormula()
+{
+
+}
 
 /*
 QList<Complexo> Calculator::SolveEquation(const QString &equation_)

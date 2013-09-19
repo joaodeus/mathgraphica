@@ -96,6 +96,7 @@ public:
     MyNumber SolveExpression_fn(const QString &expression_fn, QList<MyNumber> &values_List_, QStringList &variables_List_);
 
 
+    QString Expression_ReplaceVariables_WithValues(QString expression, QStringList &variables, QStringList &values);
 
     /////////////////////////////////////////////////////////////////////////////////////////
 
