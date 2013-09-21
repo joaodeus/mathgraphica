@@ -50,6 +50,7 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
     MyNumber number;
     bool ok = false;
 
+    QApplication::setOverrideCursor(Qt::WaitCursor);
 
     //check for expressions
     number = calc.isValidExpression(str_cmd_line, ok);
@@ -96,6 +97,7 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
         ui->listWidget_results_history->scrollToBottom();
     }
 
+    QApplication::restoreOverrideCursor();
 }
 
 
@@ -204,6 +206,7 @@ void MainWindow::on_actionGraph_3D_triggered()
 
 void MainWindow::on_actionEquation_triggered()
 {
+
     Equation_gui equationGui;
 
     equationGui.SetLineEdit_fx(calc.m_equation.getEquation_member1());

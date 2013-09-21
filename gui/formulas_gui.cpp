@@ -66,13 +66,20 @@ void Formulas_gui::on_pushButton_validate_clicked()
 
 void Formulas_gui::on_pushButton_solve_clicked()
 {
-    QStringList values;
 
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    m_calculator->m_formulasList[currentFormulaIndex].setMin(ui->lineEdit_min->text());
+    m_calculator->m_formulasList[currentFormulaIndex].setMax(ui->lineEdit_max->text());
+    m_calculator->m_formulasList[currentFormulaIndex].setDelta(ui->lineEdit_delta->text());
+    m_calculator->m_formulasList[currentFormulaIndex].setPrecision(ui->lineEdit_precision->text());
+
+
+
+    QStringList values;
     for (int i = 0; i < ui->tableWidget_constants->rowCount() ; i++)
     {
         values.append( ui->tableWidget_constants->item(i,1)->text() );
     }
-
     m_calculator->m_formulasList[currentFormulaIndex].setValues(values);
     m_calculator->m_formulasList[currentFormulaIndex].solve();
 
@@ -85,17 +92,21 @@ void Formulas_gui::on_pushButton_solve_clicked()
         ui->listWidget_solutions->item(i)->setFlags(ui->listWidget_solutions->item(i)->flags() | Qt::ItemIsEditable);
     }
 
+    QApplication::restoreOverrideCursor();
+
 }
 
+/*
 void Formulas_gui::on_buttonBox_accepted()
 {
     close();
 }
-
+*/
+/*
 void Formulas_gui::on_buttonBox_rejected()
 {
     close();
-}
+}*/
 
 void Formulas_gui::showEvent(QShowEvent * event)
 {
@@ -105,19 +116,31 @@ void Formulas_gui::showEvent(QShowEvent * event)
     ui->tableWidget_formulas->setRowCount(size);
     for (int i = 0; i < size; i++)
     {
-        if (ui->tableWidget_formulas->item(i, 0) == 0)
+        //Formulas TableWidget
+        if (ui->tableWidget_formulas->item(i,0) == 0)
         {
             QTableWidgetItem *newItem = new QTableWidgetItem( m_calculator->m_formulasList.at(i).getFormula() );
             ui->tableWidget_formulas->setItem(i, 0, newItem);
         }
         else
         {
-            ui->tableWidget_formulas->item(i, 0)->setText( m_calculator->m_formulasList.at(i).getFormula() );
+            ui->tableWidget_formulas->item(i,0)->setText( m_calculator->m_formulasList.at(i).getFormula() );
         }
 
-        m_calculator->m_formulasList.at(i).getFormula();
-        ui->tableWidget_formulas->setRowCount(m_calculator->m_formulasList.size());
+        if (ui->tableWidget_formulas->item(i,1) == 0)
+        {
+            QTableWidgetItem *newDescription = new QTableWidgetItem( m_calculator->m_formulasList.at(i).getDescription() );
+            ui->tableWidget_formulas->setItem(i, 1, newDescription);
+        }
+        else
+        {
+            ui->tableWidget_formulas->item(i,1)->setText( m_calculator->m_formulasList.at(i).getDescription() );
+        }
 
+
+
+        //ui->tableWidget_formulas->setRowCount(m_calculator->m_formulasList.size());
+        // Constants TableWidget
         int constants_size = m_calculator->m_formulasList.at(i).getConstants().size();
         ui->tableWidget_constants->setRowCount(constants_size);
 
@@ -138,6 +161,7 @@ void Formulas_gui::showEvent(QShowEvent * event)
         currentFormulaIndex = i;
         ui->tableWidget_formulas->setCurrentCell(i,0);
 
+        // Settings
         ui->lineEdit_min->setText(m_calculator->m_formulasList[i].getMin());
         ui->lineEdit_max->setText(m_calculator->m_formulasList[i].getMax());
         ui->lineEdit_delta->setText(m_calculator->m_formulasList[i].getDelta());
@@ -155,4 +179,47 @@ void Formulas_gui::on_tableWidget_formulas_currentCellChanged(int currentRow, in
     Q_UNUSED(previousRow);
     Q_UNUSED(previousColumn);
     currentFormulaIndex = currentRow;
+
+    ui->lineEdit_min->setText(m_calculator->m_formulasList[currentFormulaIndex].getMin());
+    ui->lineEdit_max->setText(m_calculator->m_formulasList[currentFormulaIndex].getMax());
+    ui->lineEdit_delta->setText(m_calculator->m_formulasList[currentFormulaIndex].getDelta());
+    ui->lineEdit_precision->setText(m_calculator->m_formulasList[currentFormulaIndex].getPrecision());
+
+   // on_pushButton_validate_clicked();
+   // updateTablWidgetConstants();
+
+}
+
+void Formulas_gui::updateTablWidgetConstants()
+{
+    int size = m_calculator->m_formulasList[currentFormulaIndex].getConstants().size();
+    ui->tableWidget_constants->setRowCount(size);
+
+    for (int i = 0; i < size; i++)
+    {
+        if (ui->tableWidget_constants->item(i, 0) == 0)
+        {
+            QTableWidgetItem *newItem = new QTableWidgetItem( m_calculator->m_formulasList[currentFormulaIndex].getConstants().at(i) );
+            ui->tableWidget_constants->setItem(i, 0, newItem);
+        }
+        else
+        {
+            ui->tableWidget_constants->item(i, 0)->setText( m_calculator->m_formulasList[currentFormulaIndex].getConstants().at(i));
+        }
+    }
+
+
+}
+
+void Formulas_gui::on_tableWidget_constants_cellDoubleClicked(int row, int column)
+{
+    if (column == 0)
+    {
+        ui->tableWidget_constants->item(row,1)->setText("?");
+    }
+}
+
+void Formulas_gui::on_pushButton_close_clicked()
+{
+    close();
 }

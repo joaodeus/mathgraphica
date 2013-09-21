@@ -26,11 +26,15 @@ private slots:
 
     void on_pushButton_solve_clicked();
 
-    void on_buttonBox_accepted();
+    //void on_buttonBox_accepted();
 
-    void on_buttonBox_rejected();
+   // void on_buttonBox_rejected();
 
     void on_tableWidget_formulas_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
+
+    void on_tableWidget_constants_cellDoubleClicked(int row, int column);
+
+    void on_pushButton_close_clicked();
 
 private:
     Ui::Formulas_gui *ui;
@@ -38,6 +42,9 @@ private:
 
     uint currentFormulaIndex;
     QList<Formulas> formulas_list;
+
+    void updateTablWidgetConstants();
+
 
 protected:
     void showEvent(QShowEvent * event);

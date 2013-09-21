@@ -18,6 +18,36 @@
     <normaloff>:/images/images/formulas2.png</normaloff>:/images/images/formulas2.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_5">
+   <item row="2" column="0">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>2) Validate formula</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="0">
+       <widget class="QTableWidget" name="tableWidget_constants">
+        <column>
+         <property name="text">
+          <string>Constants</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Values</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="pushButton_validate">
+        <property name="text">
+         <string>Validate</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item row="0" column="0" rowspan="2">
     <widget class="QGroupBox" name="groupBox_4">
      <property name="title">
@@ -48,22 +78,17 @@
           <string>Formulas</string>
          </property>
         </column>
+        <column>
+         <property name="text">
+          <string>Description</string>
+         </property>
+        </column>
        </widget>
       </item>
      </layout>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
+   <item row="1" column="1" colspan="2">
     <widget class="QGroupBox" name="groupBox_3">
      <property name="title">
       <string>Settings</string>
@@ -125,37 +150,7 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QGroupBox" name="groupBox">
-     <property name="title">
-      <string>2) Validate formula</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="0">
-       <widget class="QTableWidget" name="tableWidget_constants">
-        <column>
-         <property name="text">
-          <string>Constants</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Values</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QPushButton" name="pushButton_validate">
-        <property name="text">
-         <string>Validate</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="2" column="1">
+   <item row="2" column="1" colspan="2">
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
       <string>3) Solutions</string>
@@ -172,6 +167,13 @@
        </widget>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item row="0" column="1" colspan="2">
+    <widget class="QPushButton" name="pushButton_close">
+     <property name="text">
+      <string>Close</string>
+     </property>
     </widget>
    </item>
   </layout>

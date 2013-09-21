@@ -13,6 +13,7 @@ public:
 
 
     void setFormula(const QString &formula_){m_formula = formula_;}
+    void setDescription(const QString &descripton_){m_description = descripton_;}
     void calculateConstants();
 
     // Note:setConstantsFromSerialization() should only be used for serialization in QDataStream,
@@ -27,6 +28,7 @@ public:
     void setSolution(const QList<Complexo> &solution_){m_solution = solution_;}//only for stream from file
 
     QString getFormula()const{return m_formula;}
+    QString getDescription()const{return m_description;}
     QStringList getConstants()const{return m_constants;}
     QStringList getValues()const{return m_values;}
     QString getMin()const{return m_min;}
@@ -39,6 +41,7 @@ public:
 
 private:
     QString m_formula;
+    QString m_description;
     QStringList m_constants;
     QStringList m_values;
     QString m_min;

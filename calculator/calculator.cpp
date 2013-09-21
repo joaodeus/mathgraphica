@@ -3,6 +3,12 @@
 Calculator::Calculator(): m_equation(&parser), m_integral(&parser), m_integralDouble(&parser)
 {    
     Formulas formula(&parser); // create one default formula
+    formula.setFormula("En=m*C^2");
+    formula.setDescription("Einstein mass–energy equivalence");
+    formula.calculateConstants();
+    QStringList values;
+    values<<"5000"<<"?"<<"3E8";
+    formula.setValues(values);
     m_formulasList.append(formula);
 
 
@@ -10,7 +16,7 @@ Calculator::Calculator(): m_equation(&parser), m_integral(&parser), m_integralDo
 
 Calculator::~Calculator()
 {
-    //delete m_equation;
+
 }
 
 MyNumber Calculator::SolveExpression(const QString &expression)
@@ -22,8 +28,6 @@ MyNumber Calculator::SolveExpression_fx(const QString &expression)
 {
     return parser.SolveExpression_fn(expression, values_List, variables_List);
 }
-
-
 
 bool Calculator::setVariable_Value(const QStringList &variables, const QList<MyNumber> &values)
 {

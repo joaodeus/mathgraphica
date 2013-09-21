@@ -7,13 +7,13 @@ Formulas::Formulas(Parser *parser_)
 {
     parser      = parser_;
 
-    m_formula   = "En=m*C^2";
+    //m_formula   = "En=m*C^2";
     m_min       = "-1E6";
     m_max       = "1E6";
     m_delta     = "0.1";
     m_precision = "0.000001";
-    m_constants <<"En"<<"m"<<"C";
-    m_values    <<"5000"<<"?"<<"3E8";
+    //m_constants <<"En"<<"m"<<"C";
+    //m_values    <<"5000"<<"?"<<"3E8";
 
 }
 
@@ -63,6 +63,7 @@ void Formulas::calculateConstants()
 QDataStream & operator<< (QDataStream& stream, const Formulas& formula_)
 {
     stream<<formula_.getFormula();
+    stream<<formula_.getDescription();
     stream<<formula_.getConstants();
     stream<<formula_.getValues();
     stream<<formula_.getMin();
@@ -77,6 +78,7 @@ QDataStream & operator<< (QDataStream& stream, const Formulas& formula_)
 QDataStream & operator>> (QDataStream& stream, Formulas& formula_)
 {
     QString formula;
+    QString description;
     QStringList constants;
     QStringList values;
     QString min;
@@ -86,6 +88,7 @@ QDataStream & operator>> (QDataStream& stream, Formulas& formula_)
     QList<Complexo> solution;
 
     stream>>formula;    formula_.setFormula(formula);
+    stream>>description;formula_.setDescription(description);
     stream>>constants;  formula_.setConstantsFromSerialization(constants);
     stream>>values;     formula_.setValues(values);
     stream>>min;        formula_.setMin(min);
