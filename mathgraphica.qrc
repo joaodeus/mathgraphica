@@ -10,6 +10,7 @@
         <file>images/integral2.png</file>
         <file>images/integralD2.png</file>
         <file>images/formulas2.png</file>
+        <file>images/graf2d.png</file>
     </qresource>
     <qresource prefix="/shaders">
         <file>shaders/fragmentShaderES2.fsh</file>

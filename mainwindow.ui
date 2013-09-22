@@ -61,6 +61,7 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionGraph_2D"/>
    <addaction name="actionGraph_3D"/>
    <addaction name="actionCalculator"/>
    <addaction name="actionEquation"/>
@@ -165,6 +166,15 @@
    </property>
    <property name="text">
     <string>Formulas</string>
+   </property>
+  </action>
+  <action name="actionGraph_2D">
+   <property name="icon">
+    <iconset resource="mathgraphica.qrc">
+     <normaloff>:/images/images/graf2d.png</normaloff>:/images/images/graf2d.png</iconset>
+   </property>
+   <property name="text">
+    <string>Graph 2D</string>
    </property>
   </action>
  </widget>
