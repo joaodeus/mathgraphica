@@ -31,6 +31,9 @@ public:
     void setVariable_Value(const QString &variable, const QList<double> &value_list);
     void setVariable_Value(const QString &variable, const Matrix &value_matrix);
 
+    int GetVariables(const QString &expression, QStringList &list_variables);
+
+
     QString formatResult( const Complexo &z);
     QString formatResult( const double &x);
     QString formatResult(MyNumber num);

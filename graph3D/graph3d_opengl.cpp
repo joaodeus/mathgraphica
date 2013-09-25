@@ -94,6 +94,7 @@ void Graph3D_OpenGL::setup_Axis3D()
     axisColor[5].setX(0); axisColor[5].setY(1);axisColor[5].setZ(1);
 }
 
+
 void Graph3D_OpenGL::initializeGl()
 {
     m_context.makeCurrent(this);

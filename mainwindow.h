@@ -46,6 +46,8 @@ private slots:
 
     void on_actionFormulas_triggered();
 
+    void on_actionGraph_2D_triggered();
+
 private:
     Ui::MainWindow *ui;
 

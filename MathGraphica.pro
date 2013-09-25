@@ -37,7 +37,8 @@ SOURCES += main.cpp\
     gui/matrix_gui.cpp \
     gui/formulas_gui.cpp \
     calculator/formulas.cpp \
-    graph2D/graph2d.cpp
+    graph2D/graph2d.cpp \
+    graph2D/graph2d_opengl.cpp
 
 HEADERS  += mainwindow.h \
     graph3D/graph3d.h \
@@ -63,7 +64,8 @@ HEADERS  += mainwindow.h \
     gui/matrix_gui.h \
     gui/formulas_gui.h \
     calculator/formulas.h \
-    graph2D/graph2d.h
+    graph2D/graph2d.h \
+    graph2D/graph2d_opengl.h
 
 FORMS    += mainwindow.ui \
     calculator/matrix_show_dlg.ui \

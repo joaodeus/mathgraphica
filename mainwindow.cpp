@@ -10,6 +10,7 @@
 #include "graph3D/graph3d_opengl.h"
 #include "gui/matrix_gui.h"
 #include "gui/formulas_gui.h"
+#include "graph2D/graph2d_opengl.h"
 
 
 #define TYPE_EXPRESSION         1
@@ -317,4 +318,18 @@ void MainWindow::on_actionFormulas_triggered()
 {
     Formulas_gui *formulas = new Formulas_gui(0, &calc);
     formulas->show();
+}
+
+void MainWindow::on_actionGraph_2D_triggered()
+{
+    Graph2D m_graph2D(&calc);
+    m_graph2D.setInterval(-50,50);
+    m_graph2D.setDelta(0.1);
+    m_graph2D.setGraph2DExpression("cos(2*x)");
+    m_graph2D.setupGraph();
+
+    Graph2D_OpenGL *graph2DWindow = new Graph2D_OpenGL(&calc);
+
+    graph2DWindow->addGraph2D(m_graph2D);
+    graph2DWindow->show();
 }

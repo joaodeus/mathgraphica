@@ -74,6 +74,13 @@ void Calculator::setVariable_Value(const QString &variable, const Matrix &value_
     setVariable_Value(variable, MyNumber(value_matrix));
 }
 
+int Calculator::GetVariables(const QString &expression, QStringList &list_variables)
+{
+    parser.GetVariables(expression,list_variables);
+    return list_variables.size();
+}
+
+
 QString Calculator::formatResult( const Complexo &z)
 {
     return format.formatResult(z);
