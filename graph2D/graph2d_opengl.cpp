@@ -1,22 +1,25 @@
 #include "graph2d_opengl.h"
 
-Graph2D_OpenGL::Graph2D_OpenGL(Calculator *calc_): m_graph2D(calc_)
+Graph2D_OpenGL::Graph2D_OpenGL(Calculator *calc_)//: m_graph2D(calc_)
 {
     calc = calc_;
 
     setMouseTracking(true);
-    axis2Ddots = NULL;
+    background_dots = NULL;
 
     Range   = 20;
     scale   = 1;
     backgroundColor.setRgbF(0,0,0,1);
+    axisColor.setRgbF(1,1,1,1);
+    //axisColor.setRgbF(0.9,0.9,0.9,1);
+
 
 }
 
 Graph2D_OpenGL::~Graph2D_OpenGL()
 {
-    delete[] dots;
-    delete[] dotsColor;
+    //delete[] dots;
+    //delete[] dotsColor;
 }
 
 void Graph2D_OpenGL::initializeGL()
@@ -31,8 +34,6 @@ void Graph2D_OpenGL::initializeGL()
     prepareShaderProgram();
     prepareVertexBuffers();
 
-    delete[] dots;
-    delete[] dotsColor;
 
     //glShadeModel(GL_FLAT);
     glEnable(GL_DEPTH_TEST);
@@ -76,37 +77,18 @@ void Graph2D_OpenGL::prepareVertexBuffers()
     if (m_vertexPositionBuffer.create()) qDebug() << "Success creating vertex position buffer";
     m_vertexPositionBuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
     if (m_vertexPositionBuffer.bind()) qDebug() << "Success biding vertex position buffer";
-    m_vertexPositionBuffer.allocate(axis2D, 3 * 4 * sizeof(float));
+    m_vertexPositionBuffer.allocate(axis2D, ( 4 )* 3 * sizeof(float));
 
 
-    if (m_vertexColorBuffer.create()) qDebug() << "Success creating vertex color buffer";
-    m_vertexColorBuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
-    if (m_vertexColorBuffer.bind()) qDebug() << "Success biding vertex color buffer";
-    m_vertexColorBuffer.allocate(axisColor, 3 * 4 * sizeof(float));
 
-    if (m_shaderProgram.bind()) qDebug() << "Success biding shader program";
+    //if (m_shaderProgram.bind()) qDebug() << "Success biding shader program";
 
     m_vertexPositionBuffer.bind();
     m_shaderProgram.enableAttributeArray("vertexPosition");
-    m_shaderProgram.setAttributeBuffer("vertexPosition", GL_FLOAT, 0, 3);
+  //  m_shaderProgram.setAttributeBuffer("vertexPosition", GL_FLOAT, 0, 3);
 
-    m_vertexColorBuffer.bind();
-    m_shaderProgram.enableAttributeArray("VertexColor");
-    m_shaderProgram.setAttributeBuffer("VertexColor", GL_FLOAT, 0, 3);
-
-    //////////////////////////////////////////////////////////
-
-    if (m_testeBufferPosition.create()) qDebug() << "Success creating vertex position buffer";
-    m_testeBufferPosition.setUsagePattern(QOpenGLBuffer::StaticDraw);
-    m_testeBufferPosition.bind();
-    m_testeBufferPosition.allocate(dots, number_of_dots * 3 * sizeof(float));
-
-
-
-    if (m_testeBufferColor.create()) qDebug() << "Success creating vertex position buffer";
-    m_testeBufferColor.setUsagePattern(QOpenGLBuffer::StaticDraw);
-    m_testeBufferColor.bind();
-    m_testeBufferColor.allocate(dotsColor, number_of_dots * 3 * sizeof(float));
+    m_shaderProgram.disableAttributeArray("vertexColor");
+    m_shaderProgram.setUniformValue("vertexColor",axisColor);
 
 }
 
@@ -114,82 +96,51 @@ void Graph2D_OpenGL::prepareVertexBuffers()
 void Graph2D_OpenGL::initializeAxis2D()
 {
 
-    double r = 0;
-    double g = 1;
-    double b = 1;
+    //initializeAxis2DBackGroundDots();
 
     axis2D[0].setX(Range);  axis2D[0].setY(0.0f);   axis2D[0].setZ(0.0f);
     axis2D[1].setX(-Range); axis2D[1].setY(0.0f);   axis2D[1].setZ(0.0f);
     axis2D[2].setX(0.0f);   axis2D[2].setY(Range);  axis2D[2].setZ(0.0f);
     axis2D[3].setX(0.0f);   axis2D[3].setY(-Range); axis2D[3].setZ(0.0f);
 
-    axisColor[0].setX(r);    axisColor[0].setY(g);    axisColor[0].setZ(b);
-    axisColor[1].setX(r);    axisColor[1].setY(g);    axisColor[1].setZ(b);
-    axisColor[2].setX(r);    axisColor[2].setY(g);    axisColor[2].setZ(b);
-    axisColor[3].setX(r);    axisColor[3].setY(g);    axisColor[3].setZ(b);
-
-
-
-    //////////////////////////////////////
-    // Draw the white dots along the axis
-
-    r = 1;
-    g = 1;
-    b = 1;
-
-    double dist = 0.2 / scale;
-    int dots_spacing = 1;
-    int half_number_of_dots = 2 * (int(2*Range / dots_spacing) + 1 );
-    number_of_dots = 2 * half_number_of_dots;
-
-    dots = new QVector3D[number_of_dots];
-    dotsColor = new QVector3D[number_of_dots];
-
-
-
-    double x = -Range;
-
-    for (int i=0;i<half_number_of_dots;i++)
-    {
-        if ( i % 5 == 0)
-            dist = 0.4 / scale;
-        else
-            dist = 0.2 / scale;
-
-
-        dotsColor[i].setX(r); dotsColor[i].setY(g); dotsColor[i].setZ(b);
-
-        dots[i].setX(x); dots[i].setY(dist); dots[i].setZ(0);
-        i++;
-        dots[i].setX(x); dots[i].setY(-dist); dots[i].setZ(0);
-        x += dots_spacing;
-
-        dotsColor[i].setX(r); dotsColor[i].setY(g); dotsColor[i].setZ(b);
-    }
-
-    int ii = 0;
-    double y = -Range;
-    for (int i=half_number_of_dots;i<number_of_dots;i++)
-    {
-        if ( ii % 5 == 0)
-            dist = 0.4 / scale;
-        else
-            dist = 0.2 / scale;
-
-        ii += 2;
-
-        dotsColor[i].setX(r); dotsColor[i].setY(g); dotsColor[i].setZ(b);
-
-        dots[i].setX(-dist); dots[i].setY(y); dots[i].setZ(0);
-        i++;
-        dots[i].setX(dist); dots[i].setY(y); dots[i].setZ(0);
-        y += dots_spacing;
-
-        dotsColor[i].setX(r); dotsColor[i].setY(g); dotsColor[i].setZ(b);
-    }
 
 }
 
+void Graph2D_OpenGL::initializeAxis2DBackGroundDots()
+{
+
+    int xmin = -Range;
+    int xmax = Range;
+    int ymin = -Range;
+    int ymax = Range;
+
+
+    int dots_dist = 2;
+    number_of_dots_2 = ( (xmax - xmin) / dots_dist) * ( (ymax - ymin) / dots_dist );
+
+    background_dots = new QVector3D[number_of_dots_2];
+
+
+    int index = 0;
+    for (int x = xmin; x <= xmax; x++)
+    {
+        for (int y = ymin; y <= ymax; y++)
+        {
+            background_dots[index].setX(x);
+            background_dots[index].setY(y);
+            background_dots[index].setZ(0);
+            index++;
+        }
+    }
+
+  //  if (m_vertexBufferGraph2D.bind()) qDebug() << "setBufferData() - Success biding vertex position graph 2D buffer";
+
+    /*if (m_vertexBufferGraph2D.bind()) qDebug() << "setBufferData() - Success biding vertex position graph 2D buffer";
+    else qDebug()<<"setBufferData() - something wrong";
+    m_vertexBufferGraph2D.allocate(vertexPosition, size * 3 * sizeof(float));*/
+
+    delete[] background_dots;
+}
 
 
 void Graph2D_OpenGL::resizeGL(int width, int height)
@@ -201,13 +152,15 @@ void Graph2D_OpenGL::resizeGL(int width, int height)
 
 void Graph2D_OpenGL::showEvent(QShowEvent *event)
 {
+    Q_UNUSED(event);
 
     for (int i = 0; i < m_graph2DList.size(); i++)
     {
-        m_graph2DList[i].setColor(1,0,0);
+     //   m_graph2DList[i].setColor(1,0,0);
         m_graph2DList[i].prepareBuffers();
-        m_graph2DList[i].setBufferData();
+        m_graph2DList[i].setBufferData(m_shaderProgram);
     }
+
 
     updateGL();
 }
@@ -242,38 +195,31 @@ void Graph2D_OpenGL::paintGL()
         m_graph2DList[i].draw(m_shaderProgram);
     }
 
-    //m_shaderProgram.bind();
-
-    //glDrawArrays(GL_LINES,0 ,6);
 }
 
 void Graph2D_OpenGL::drawAxis2D()
 {
 
+
     if (m_vertexPositionBuffer.bind()) qDebug() << "Success biding vertex position buffer";
-    m_shaderProgram.enableAttributeArray("vertexPosition");
+   // m_shaderProgram.enableAttributeArray("vertexPosition");
     m_shaderProgram.setAttributeBuffer("vertexPosition", GL_FLOAT, 0, 3);
 
-    if (m_vertexColorBuffer.bind()) qDebug() << "Success biding vertex color buffer";
-    m_shaderProgram.enableAttributeArray("VertexColor");
-    m_shaderProgram.setAttributeBuffer("VertexColor", GL_FLOAT, 0, 3);
+   // m_shaderProgram.disableAttributeArray("vertexColor");
 
-
+    m_shaderProgram.setUniformValue("vertexColor",axisColor);
     glDrawArrays(GL_LINES,0 ,4);
 
-    /////////////////////////////////////////////////////
-    // Draw the white dots along the axis
 
+  /*  QColor c1,c2;
+    c1.setRgbF(1,1,0);
+    c2.setRgbF(0,1,1);
+    m_shaderProgram.setUniformValue("vertexColor",c1);
+    glDrawArrays(GL_LINES,0 ,2);
+    m_shaderProgram.setUniformValue("vertexColor",c2);
+    glDrawArrays(GL_LINES,2 ,2);
+*/
 
-    m_testeBufferPosition.bind();
-    m_shaderProgram.enableAttributeArray("vertexPosition");
-    m_shaderProgram.setAttributeBuffer("vertexPosition", GL_FLOAT, 0, 3);
-
-    m_testeBufferColor.bind();
-    m_shaderProgram.enableAttributeArray("VertexColor");
-    m_shaderProgram.setAttributeBuffer("VertexColor", GL_FLOAT, 0, 3);
-
-    glDrawArrays(GL_LINES, 0, number_of_dots);
 
 
 }
@@ -337,11 +283,13 @@ void Graph2D_OpenGL::wheelEvent(QWheelEvent * event)
 
 bool Graph2D_OpenGL::event(QEvent *event)
 {
+    qDebug()<<"Event";
     ///////////////////////////////////////////////////
     //Zoom touch
     switch (event->type()) {
     case QEvent::TouchBegin:
     {
+        qDebug()<<"TouchBegin";
         QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
         QList<QTouchEvent::TouchPoint> touchPoints = touchEvent->touchPoints();
 
@@ -355,6 +303,7 @@ bool Graph2D_OpenGL::event(QEvent *event)
     }
     case QEvent::TouchUpdate:
     {
+        qDebug()<<"TouchUpdate";
         QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
         QList<QTouchEvent::TouchPoint> touchPoints = touchEvent->touchPoints();
 
@@ -407,6 +356,7 @@ bool Graph2D_OpenGL::event(QEvent *event)
     }
     case QEvent::TouchEnd:
     {
+        qDebug()<<"TouchEnd";
         break;
     }
     default:
@@ -442,7 +392,7 @@ QPointF Graph2D_OpenGL::MouseCoordinates_ToViewport(const QPointF &p)
 
 void Graph2D_OpenGL::addGraph2D(const Graph2D &graph2d_)
 {
-    m_graph2D = graph2d_;
+    //m_graph2D = graph2d_;
     m_graph2DList.append(graph2d_);
 
 }

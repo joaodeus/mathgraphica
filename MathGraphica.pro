@@ -82,4 +82,6 @@ RESOURCES += \
 
 OTHER_FILES += \
     shaders/fragmentShaderES2.fsh \
-    shaders/vertexShaderES2.vsh
+    shaders/vertexShaderES2.vsh \
+    shaders/fragShader3D.fsh \
+    shaders/vertShader3D.vsh

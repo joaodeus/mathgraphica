@@ -50,13 +50,13 @@ private:
 
     // drawing ---------------------------------------------
     QOpenGLBuffer m_vertexBufferGraph2D;
-    QOpenGLBuffer m_colorBufferGraph2D;
+    //QOpenGLBuffer m_colorBufferGraph2D;
     QVector3D *vertexPosition;
-    QVector3D *vertexColor;
-    QColor m_color;
+    //QVector3D *vertexColor;
+    QColor m_graphColor;
 public:
     void prepareBuffers();
-    void setBufferData();
+    void setBufferData(QOpenGLShaderProgram &m_shaderProgram);
     void draw(QOpenGLShaderProgram &m_shaderProgram);
     void setColor(const QColor &color_);
     void setColor(const double &r, const double &g, const double &b);

@@ -21,15 +21,17 @@ public:
     void showEvent(QShowEvent *event);
     void paintGL();
 
+
     void initializeAxis2D();
+    void initializeAxis2DBackGroundDots();
     void drawAxis2D();
 
 protected:
     QOpenGLShaderProgram m_shaderProgram;
     QOpenGLBuffer m_vertexPositionBuffer;
-    QOpenGLBuffer m_vertexColorBuffer;
-    QOpenGLBuffer m_testeBufferPosition;
-    QOpenGLBuffer m_testeBufferColor;
+   // QOpenGLBuffer m_vertexColorBuffer;
+   // QOpenGLBuffer m_testeBufferPosition;
+   // QOpenGLBuffer m_testeBufferColor;
 
     GLint vertexAttr;
     GLint matrixAttr;
@@ -46,12 +48,15 @@ protected:
     QVector3D *dots;// = new QVector3D[number_of_dots];
     QVector3D *dotsColor;// = new QVector3D[number_of_dots];
     int number_of_dots;
+    int number_of_dots_2;
+    QVector3D *background_dots;
+
 
 
     // axis
     QVector3D axis2D[4];
-    QVector3D axisColor[4];
-    QVector3D *axis2Ddots;
+   // QVector3D axisColor[4];
+    QColor axisColor;
 
 
     void mousePressEvent(QMouseEvent *event);
@@ -66,7 +71,7 @@ protected:
     QPointF MouseCoordinates_ToViewport(const QPointF &p);
 
     // graphs
-    Graph2D m_graph2D;
+    //Graph2D m_graph2D;
 public:
     QList<Graph2D> m_graph2DList;
 

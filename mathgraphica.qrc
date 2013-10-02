@@ -15,5 +15,7 @@
     <qresource prefix="/shaders">
         <file>shaders/fragmentShaderES2.fsh</file>
         <file>shaders/vertexShaderES2.vsh</file>
+        <file>shaders/fragShader3D.fsh</file>
+        <file>shaders/vertShader3D.vsh</file>
     </qresource>
 </RCC>

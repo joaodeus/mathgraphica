@@ -1,9 +1,9 @@
-//#version 130
+
 uniform mediump mat4 matrix;
 uniform mediump mat4 proj;
 
 attribute vec4 vertexPosition;
-uniform vec4 vertexColor;
+attribute vec4 vertexColor;
 
 varying mediump vec4 Color;
 

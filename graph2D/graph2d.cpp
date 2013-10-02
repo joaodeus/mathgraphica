@@ -5,11 +5,9 @@
 Graph2D::Graph2D(Calculator *calc_)
 {
     calc = calc_;
-   // prepareBuffers();
-    vertexPosition  = NULL;
-    vertexColor     = NULL;
 
-    m_color.setRgbF(0,0,1,1);
+    vertexPosition  = NULL;
+    m_graphColor.setRgbF(0.7,0.5,0.6);
 
 }
 
@@ -18,8 +16,6 @@ Graph2D::~Graph2D()
     if (vertexPosition != NULL)
         delete[] vertexPosition ;
 
-    if (vertexColor != NULL)
-        delete[] vertexColor;
 }
 
 void Graph2D::setInterval(const double &min_, const double &max_)
@@ -123,6 +119,7 @@ Graph2D &Graph2D::operator =(const Graph2D &a)
     m_delta             = a.m_delta;
     xx                  = a.xx;
     yy                  = a.yy;
+    m_graphColor        = a.m_graphColor;
 
     return *this;
 }
@@ -133,19 +130,10 @@ void Graph2D::prepareBuffers()
     if (m_vertexBufferGraph2D.create()) qDebug() << "Success creating graph2D vertex position buffer";
     else qDebug()<<"vertex buffer failed to create";
     m_vertexBufferGraph2D.setUsagePattern(QOpenGLBuffer::StaticDraw);
-    if (m_vertexBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";
-    //m_vertexBufferGraph2D.allocate(axis2D, 3 * 4 * sizeof(float));
-
-    if (m_colorBufferGraph2D.create()) qDebug() << "Success creating graph2D vertex color buffer";
-    else qDebug()<<"color buffer failed to create";
-    m_colorBufferGraph2D.setUsagePattern(QOpenGLBuffer::StaticDraw);
-    if (m_colorBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";
-    //m_vertexBufferGraph2D.allocate(axis2D, 3 * 4 * sizeof(float));
-
-
+    if (m_vertexBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";  
 }
 
-void Graph2D::setBufferData()
+void Graph2D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
 {
     int size = xx.size();
 
@@ -160,27 +148,12 @@ void Graph2D::setBufferData()
         vertexPosition  = new QVector3D [size];
     }
 
-    if (vertexColor == NULL)
-    {
-        vertexColor = new QVector3D [size];
-        qDebug()<<"creating buffer in graph2D";
-    }
-    else
-    {
-        delete[] vertexColor;
-        vertexColor = new QVector3D [size];
-    }
-
 
     for (int i = 0; i < size;i++)
     {
         vertexPosition[i].setX(xx[i]);
         vertexPosition[i].setY(yy[i]);
-        vertexPosition[i].setZ(0);
-
-        vertexColor[i].setX(1);
-        vertexColor[i].setY(0);
-        vertexColor[i].setZ(0.5);
+        vertexPosition[i].setZ(0);        
     }
 
 
@@ -190,22 +163,13 @@ void Graph2D::setBufferData()
     else qDebug()<<"setBufferData() - something wrong";
     m_vertexBufferGraph2D.allocate(vertexPosition, size * 3 * sizeof(float));
 
-    //m_colorBufferGraph2D.bind();
-    if (m_colorBufferGraph2D.bind()) qDebug() << "setBufferData() - Success biding vertex position buffer";
-    else qDebug()<<"setBufferData() - something wrong";
-    m_colorBufferGraph2D.allocate(vertexColor, size * 3 * sizeof(float));
-
+  //  m_shaderProgram.disableAttributeArray("vertexColor");
+    m_shaderProgram.setAttributeValue("vertexColor", m_graphColor);
 
 
     if (vertexPosition != NULL)
     {
         delete[] vertexPosition;
-        qDebug()<<"deleting buffer in graph2D";
-    }
-
-    if (vertexColor != NULL)
-    {
-        delete[] vertexColor;
         qDebug()<<"deleting buffer in graph2D";
     }
 
@@ -216,27 +180,22 @@ void Graph2D::draw(QOpenGLShaderProgram &m_shaderProgram)
 {
 
     if (m_vertexBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";    
-    m_shaderProgram.enableAttributeArray("vertexPosition");
+   // m_shaderProgram.enableAttributeArray("vertexPosition");
     m_shaderProgram.setAttributeBuffer("vertexPosition", GL_FLOAT, 0, 3);
 
-    if (m_colorBufferGraph2D.bind()) qDebug() << "Success biding vertex color buffer";   
-    //m_shaderProgram.enableAttributeArray("VertexColor");
-    m_shaderProgram.disableAttributeArray("VertexColor");
-    m_shaderProgram.setAttributeBuffer("VertexColor", GL_FLOAT, 0, 3);
-
+   // m_shaderProgram.disableAttributeArray("vertexColor");
+    m_shaderProgram.setUniformValue("vertexColor", m_graphColor);
 
     glDrawArrays(GL_LINE_STRIP, 0, xx.size());
 }
 
 void Graph2D::setColor(const QColor &color_)
 {
-    m_color = color_;
+    m_graphColor = color_;
 }
 
 void Graph2D::setColor(const double &r, const double &g, const double &b)
 {
-    m_color.setRedF(r);
-    m_color.setRedF(g);
-    m_color.setRedF(b);
-    m_color.setAlphaF(1);
+    m_graphColor.setRgbF(r,g,b);
+    //m_graphColor.setAlphaF(1);
 }

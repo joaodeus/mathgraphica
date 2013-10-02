@@ -326,10 +326,23 @@ void MainWindow::on_actionGraph_2D_triggered()
     m_graph2D.setInterval(-50,50);
     m_graph2D.setDelta(0.1);
     m_graph2D.setGraph2DExpression("cos(2*x)");
+    m_graph2D.setColor(0,0,1);
     m_graph2D.setupGraph();
 
     Graph2D_OpenGL *graph2DWindow = new Graph2D_OpenGL(&calc);
 
     graph2DWindow->addGraph2D(m_graph2D);
+
+
+    Graph2D m_graph2Dx(&calc);
+    m_graph2Dx.setInterval(-50,50);
+    m_graph2Dx.setDelta(0.1);
+    m_graph2Dx.setGraph2DExpression("2*x^2");
+    m_graph2Dx.setColor(0,1,0);
+    m_graph2Dx.setupGraph();
+
+
+    graph2DWindow->addGraph2D(m_graph2Dx);
+
     graph2DWindow->show();
 }

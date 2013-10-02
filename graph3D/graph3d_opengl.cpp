@@ -111,9 +111,6 @@ void Graph3D_OpenGL::initializeGl()
 
 
     glClearColor(backgroundColor.redF(),backgroundColor.greenF(), backgroundColor.blueF(), 1.0f);
-    //glClearColor(0.1f, 0.4f, 0.1f, 1.0f);
-    //glClearColor(0.5,0.3,0,1);
-    //glClearColor(0.1f, 0.4f, 0.1f, 1.0f);
 
 
     paintGl();
@@ -123,13 +120,13 @@ void Graph3D_OpenGL::initializeGl()
 
 void Graph3D_OpenGL::prepareShaderProgram()
 {
-    if (m_shaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex,":/shaders/shaders/vertexShaderES2.vsh"))
+    if (m_shaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex,":/shaders/shaders/vertShader3D.vsh"))
         qDebug() << "Sucess compiling and adding vertex shader";
     else
         qDebug() << "Error compiling and adding vertex shader: " << m_shaderProgram.log();
 
 
-    if (m_shaderProgram.addShaderFromSourceFile(QOpenGLShader::Fragment,":/shaders/shaders/fragmentShaderES2.fsh"))
+    if (m_shaderProgram.addShaderFromSourceFile(QOpenGLShader::Fragment,":/shaders/shaders/fragShader3D.fsh"))
         qDebug() << "Sucess compiling and adding fragment shader";
     else
         qDebug() << "Error compiling and adding fragment shader: " << m_shaderProgram.log();
@@ -145,39 +142,18 @@ void Graph3D_OpenGL::prepareShaderProgram()
 
 void Graph3D_OpenGL::prepareVertexBuffers()
 {
-/*
-    float positionData[] = {
-        -0.8f, -0.8f, 0.0f,
-         0.8f, -0.8f, 0.0f,
-         0.0f,  0.8f, 0.0f
-    };
-    float colorData[] = {
-        1.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 1.0f
-    };*/
 
     if (m_vertexPositionBuffer.create()) qDebug() << "Success creating vertex position buffer";
     m_vertexPositionBuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
     if (m_vertexPositionBuffer.bind()) qDebug() << "Success biding vertex position buffer";
-    //m_vertexPositionBuffer.allocate(positionData, 3 * 3 * sizeof(float));
     m_vertexPositionBuffer.allocate(axis_3D, 3 * 6 * sizeof(float));
 
 
     if (m_vertexColorBuffer.create()) qDebug() << "Success creating vertex color buffer";
     m_vertexColorBuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
     if (m_vertexColorBuffer.bind()) qDebug() << "Success biding vertex color buffer";
-    //m_vertexColorBuffer.allocate(colorData, 3 * 3 * sizeof(float));
     m_vertexColorBuffer.allocate(axisColor, 3 * 6 * sizeof(float));
 
-    /*m_projectionBuffer.create();
-    m_projectionBuffer.setUsagePattern(QOpenGLBuffer::StaticDraw);
-    m_projectionBuffer.allocate(&projection, 16 * sizeof(float));
-
-    m_orientationBuffer.create();
-    m_orientationBuffer.setUsagePattern(QOpenGLBuffer::DynamicDraw);
-    m_orientationBuffer.allocate(&orientation, 16 * sizeof(float));
-*/
 
     if (m_shaderProgram.bind()) qDebug() << "Success biding shader program";
 
@@ -187,19 +163,9 @@ void Graph3D_OpenGL::prepareVertexBuffers()
     m_shaderProgram.setAttributeBuffer("vertexPosition", GL_FLOAT, 0, 3);
 
     m_vertexColorBuffer.bind();
-    m_shaderProgram.enableAttributeArray("VertexColor");
-    m_shaderProgram.setAttributeBuffer("VertexColor", GL_FLOAT, 0, 3);
+    m_shaderProgram.enableAttributeArray("vertexColor");
+    m_shaderProgram.setAttributeBuffer("vertexColor", GL_FLOAT, 0, 3);
 
-
-  /*  m_projectionBuffer.bind();
-    //m_shaderProgram.enableAttributeArray("proj");
-    m_shaderProgram.setUniformValue( "proj", projection );
-
-    m_orientationBuffer.bind();
-  //  m_shaderProgram.enableAttributeArray("matrix");
-    m_shaderProgram.setUniformValue( "matrix", orientation );// Set orientation matrix to the shaderprogram
-*/
-  ////////////////////////////////////////////////////////
 
 }
 
