@@ -25,7 +25,6 @@ SOURCES += main.cpp\
     calculator/equation.cpp \
     calculator/integral.cpp \
     calculator/matrix.cpp \
-    calculator/matrix_show_dlg.cpp \
     gui/calculator_gui.cpp \
     gui/equation_gui.cpp \
     calculator/myfunction.cpp \
@@ -34,11 +33,12 @@ SOURCES += main.cpp\
     gui/integral_gui.cpp \
     calculator/integraldouble.cpp \
     gui/integraldouble_gui.cpp \
-    gui/matrix_gui.cpp \
     gui/formulas_gui.cpp \
     calculator/formulas.cpp \
     graph2D/graph2d.cpp \
-    graph2D/graph2d_opengl.cpp
+    graph2D/graph2d_opengl.cpp \
+    gui/matrix_editor_gui.cpp \
+    calculator/matrix_gui.cpp
 
 HEADERS  += mainwindow.h \
     graph3D/graph3d.h \
@@ -52,7 +52,6 @@ HEADERS  += mainwindow.h \
     calculator/equation.h \
     calculator/integral.h \
     calculator/matrix.h \
-    calculator/matrix_show_dlg.h \
     gui/calculator_gui.h \
     gui/equation_gui.h \
     calculator/myfunction.h \
@@ -61,21 +60,22 @@ HEADERS  += mainwindow.h \
     gui/integral_gui.h \
     calculator/integraldouble.h \
     gui/integraldouble_gui.h \
-    gui/matrix_gui.h \
     gui/formulas_gui.h \
     calculator/formulas.h \
     graph2D/graph2d.h \
-    graph2D/graph2d_opengl.h
+    graph2D/graph2d_opengl.h \
+    gui/matrix_editor_gui.h \
+    calculator/matrix_gui.h
 
 FORMS    += mainwindow.ui \
-    calculator/matrix_show_dlg.ui \
     gui/calculator_gui.ui \
     gui/equation_gui.ui \
     gui/systemeq_gui.ui \
     gui/integral_gui.ui \
     gui/integraldouble_gui.ui \
-    gui/matrix_gui.ui \
-    gui/formulas_gui.ui
+    gui/formulas_gui.ui \
+    gui/matrix_editor_gui.ui \
+    calculator/matrix_gui.ui
 
 RESOURCES += \
     mathgraphica.qrc

@@ -6,16 +6,16 @@
 #include "calculator/matrix.h"
 
 namespace Ui {
-class Matrix_gui;
+class Matrix_editor_gui;
 }
 
-class Matrix_gui : public QWidget
+class Matrix_editor_gui : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit Matrix_gui(QWidget *parent = 0);
-    ~Matrix_gui();
+    explicit Matrix_editor_gui(QWidget *parent = 0);
+    ~Matrix_editor_gui();
 
     Matrix *mat1;
     Matrix *mat2;
@@ -54,7 +54,7 @@ private slots:
     void on_pushButton_Close_clicked();
 
 private:
-    Ui::Matrix_gui *ui;
+    Ui::Matrix_editor_gui *ui;
 
     QAction *matrixRandomAct;
     QAction *matrixZerosAct;

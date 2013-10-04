@@ -8,7 +8,7 @@
 #include "gui/integral_gui.h"
 #include "gui/integraldouble_gui.h"
 #include "graph3D/graph3d_opengl.h"
-#include "gui/matrix_gui.h"
+#include "gui/matrix_editor_gui.h"
 #include "gui/formulas_gui.h"
 #include "graph2D/graph2d_opengl.h"
 
@@ -304,7 +304,7 @@ void MainWindow::on_actionIntegral_double_triggered()
 
 void MainWindow::on_actionMatrix_triggered()
 {
-    Matrix_gui *matrix_gui = new Matrix_gui;
+    Matrix_editor_gui *matrix_gui = new Matrix_editor_gui;
 
     matrix_gui->mat1            = &mat1;
     matrix_gui->mat2            = &mat2;

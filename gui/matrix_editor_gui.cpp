@@ -1,14 +1,14 @@
-#include "matrix_gui.h"
-#include "ui_matrix_gui.h"
+#include "matrix_editor_gui.h"
+#include "ui_matrix_editor_gui.h"
 
 #include <QMessageBox>
 #include <QMenu>
 #include "calculator/calculator.h"
 #include "globalfunctions.h"
 
-Matrix_gui::Matrix_gui(QWidget *parent) :
+Matrix_editor_gui::Matrix_editor_gui(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Matrix_gui)
+    ui(new Ui::Matrix_editor_gui)
 {
     ui->setupUi(this);
 
@@ -37,34 +37,34 @@ Matrix_gui::Matrix_gui(QWidget *parent) :
 
 }
 
-Matrix_gui::~Matrix_gui()
+Matrix_editor_gui::~Matrix_editor_gui()
 {
     delete ui;
 }
 
 
-void Matrix_gui::on_spinBox_rows1_valueChanged(int arg1)
+void Matrix_editor_gui::on_spinBox_rows1_valueChanged(int arg1)
 {
     ui->tableWidget_matrix1->setRowCount(arg1);
 }
 
-void Matrix_gui::on_spinBox_cols1_valueChanged(int arg1)
+void Matrix_editor_gui::on_spinBox_cols1_valueChanged(int arg1)
 {
     ui->tableWidget_matrix1->setColumnCount(arg1);
 }
 
 
-void Matrix_gui::on_spinBox_rows2_valueChanged(int arg1)
+void Matrix_editor_gui::on_spinBox_rows2_valueChanged(int arg1)
 {
     ui->tableWidget_matrix2->setRowCount(arg1);
 }
 
-void Matrix_gui::on_spinBox_cols2_valueChanged(int arg1)
+void Matrix_editor_gui::on_spinBox_cols2_valueChanged(int arg1)
 {
     ui->tableWidget_matrix2->setColumnCount(arg1);
 }
 
-void Matrix_gui::updateSpinBoxes()
+void Matrix_editor_gui::updateSpinBoxes()
 {
     if (mat == mat1)
     {
@@ -79,7 +79,7 @@ void Matrix_gui::updateSpinBoxes()
     }
 }
 
-void Matrix_gui::on_tableWidget_matrix1_customContextMenuRequested(const QPoint &pos)
+void Matrix_editor_gui::on_tableWidget_matrix1_customContextMenuRequested(const QPoint &pos)
 {    
     mat = mat1;
     tableWidget_mat = ui->tableWidget_matrix1;
@@ -87,7 +87,7 @@ void Matrix_gui::on_tableWidget_matrix1_customContextMenuRequested(const QPoint 
     ContextMenu(pos);
 }
 
-void Matrix_gui::on_tableWidget_matrix2_customContextMenuRequested(const QPoint &pos)
+void Matrix_editor_gui::on_tableWidget_matrix2_customContextMenuRequested(const QPoint &pos)
 {
     mat = mat2;
     tableWidget_mat = ui->tableWidget_matrix2;
@@ -95,7 +95,7 @@ void Matrix_gui::on_tableWidget_matrix2_customContextMenuRequested(const QPoint 
     ContextMenu(pos);
 }
 
-void Matrix_gui::on_tableWidget_matrix3_customContextMenuRequested(const QPoint &pos)
+void Matrix_editor_gui::on_tableWidget_matrix3_customContextMenuRequested(const QPoint &pos)
 {
     mat = mat3;
     tableWidget_mat = ui->tableWidget_matrix3;
@@ -105,13 +105,13 @@ void Matrix_gui::on_tableWidget_matrix3_customContextMenuRequested(const QPoint 
 
 
 
-void Matrix_gui::matrixRandom()
+void Matrix_editor_gui::matrixRandom()
 {
     mat->SetMatrixRandom(tableWidget_mat->rowCount(),tableWidget_mat->columnCount());
     GetMatrixToTableWidget(*mat,*tableWidget_mat);
 }
 
-void Matrix_gui::matrixZeros()
+void Matrix_editor_gui::matrixZeros()
 {
 
     mat->SetMatrixZeros(tableWidget_mat->rowCount(),tableWidget_mat->columnCount());
@@ -119,21 +119,21 @@ void Matrix_gui::matrixZeros()
 
 }
 
-void Matrix_gui::matrixOnes()
+void Matrix_editor_gui::matrixOnes()
 {
     mat->SetMatrixOnes(tableWidget_mat->rowCount(),tableWidget_mat->columnCount());
     GetMatrixToTableWidget(*mat,*tableWidget_mat);
 
 }
 
-void Matrix_gui::matrixDiagonal()
+void Matrix_editor_gui::matrixDiagonal()
 {
     mat->SetMatrixDiagonal(tableWidget_mat->rowCount(),tableWidget_mat->columnCount());
     GetMatrixToTableWidget(*mat,*tableWidget_mat);
 
 }
 
-void Matrix_gui::matrixInverse()
+void Matrix_editor_gui::matrixInverse()
 {
     //*mat3 = mat->inverse();
     //GetMatrixToTableWidget(*mat3,*ui->tableWidget_matrix3);
@@ -143,13 +143,13 @@ void Matrix_gui::matrixInverse()
 
 }
 
-void Matrix_gui::matrixTranspose()
+void Matrix_editor_gui::matrixTranspose()
 {
     *mat = mat->transpose();
     GetMatrixToTableWidget(*mat,*tableWidget_mat);
 }
 
-void Matrix_gui::matrixDeterminant()
+void Matrix_editor_gui::matrixDeterminant()
 {
     Calculator calc;
     Complexo det = mat->Determinant();
@@ -158,12 +158,12 @@ void Matrix_gui::matrixDeterminant()
 }
 
 
-void Matrix_gui::matrixCopy()
+void Matrix_editor_gui::matrixCopy()
 {
     *mat_copy_paste = *mat;
 }
 
-void Matrix_gui::matrixPaste()
+void Matrix_editor_gui::matrixPaste()
 {
     *mat = *mat_copy_paste;
     GetMatrixToTableWidget(*mat_copy_paste,*tableWidget_mat);
@@ -171,7 +171,7 @@ void Matrix_gui::matrixPaste()
 }
 
 
-void Matrix_gui::showMatrix()
+void Matrix_editor_gui::showMatrix()
 {
     mat->Show();
 
@@ -180,7 +180,7 @@ void Matrix_gui::showMatrix()
 
 /////////////////////////////////////////////////////////////////////
 
-void Matrix_gui::ContextMenu(QPoint pos)
+void Matrix_editor_gui::ContextMenu(QPoint pos)
 {
     QMenu menu;
 
@@ -199,7 +199,7 @@ void Matrix_gui::ContextMenu(QPoint pos)
 
 }
 
-void Matrix_gui::createActions()
+void Matrix_editor_gui::createActions()
 {
 
     matrixRandomAct = new QAction(tr("Random Matrix"), this);
@@ -237,7 +237,7 @@ void Matrix_gui::createActions()
 
 }
 
-void Matrix_gui::on_pushButton_calculate_clicked()
+void Matrix_editor_gui::on_pushButton_calculate_clicked()
 {
     GetTableWidgetToMatrix(*ui->tableWidget_matrix1, *mat1);
     GetTableWidgetToMatrix(*ui->tableWidget_matrix2, *mat2);
@@ -268,7 +268,7 @@ void Matrix_gui::on_pushButton_calculate_clicked()
 }
 
 
-void Matrix_gui::on_pushButton_Close_clicked()
+void Matrix_editor_gui::on_pushButton_Close_clicked()
 {
     close();
 }
