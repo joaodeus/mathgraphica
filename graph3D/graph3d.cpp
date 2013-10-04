@@ -2,8 +2,12 @@
 
 #include <QTime>
 
-Graph3D::Graph3D()
+Graph3D::Graph3D(Calculator *calc_)
 {
+
+    calc = calc_;
+
+    /*
     m_fxy="cos(x)*sin(y)*cos(t)";
     m_xmin="-10";
     m_xmax="10";
@@ -11,7 +15,7 @@ Graph3D::Graph3D()
     m_ymax="10";
     m_dxy="0.5";
     m_varx="x";
-    m_vary="y";
+    m_vary="y";*/
 
 
 
@@ -43,6 +47,109 @@ Graph3D::~Graph3D()
 
 }
 
+
+void Graph3D::setMinX(const double &minX_)
+{
+    m_xmin = minX_;
+    m_xminExpression = QString("%1").arg(minX_);
+
+}
+
+void Graph3D::setMinX(const QString &minXExpression_)
+{
+    m_xminExpression = minXExpression_;
+    m_xmin = calc->SolveExpression(minXExpression_).numberReal();
+    if (calc->error())
+    {
+        QMessageBox::about(0, QObject::tr("Error!"), QObject::tr("Invalid X min value in Graph3D"));
+        return;
+    }
+}
+
+void Graph3D::setMaxX(const double &maxX_)
+{
+    m_xmax = maxX_;
+    m_xminExpression = QString("%1").arg(maxX_);
+
+}
+
+void Graph3D::setMaxX(const QString &maxXExpression_)
+{
+    m_xmaxExpression = maxXExpression_;
+    m_xmax = calc->SolveExpression(maxXExpression_).numberReal();
+    if (calc->error())
+    {
+        QMessageBox::about(0, QObject::tr("Error!"), QObject::tr("Invalid X max value in Graph3D"));
+        return;
+    }
+}
+
+void Graph3D::setMinY(const double &minY_)
+{
+    m_ymin = minY_;
+    m_yminExpression = QString("%1").arg(minY_);
+}
+
+void Graph3D::setMinY(const QString &minYExpression_)
+{
+    m_yminExpression = minYExpression_;
+    m_ymin = calc->SolveExpression(minYExpression_).numberReal();
+    if (calc->error())
+    {
+        QMessageBox::about(0, QObject::tr("Error!"), QObject::tr("Invalid Y min value in Graph3D"));
+        return;
+    }
+}
+
+void Graph3D::setMaxY(const double &maxY_)
+{
+    m_ymax = maxY_;
+    m_ymaxExpression = QString("%1").arg(maxY_);
+}
+
+void Graph3D::setMaxY(const QString &maxYExpression_)
+{
+    m_ymaxExpression = maxYExpression_;
+    m_ymax = calc->SolveExpression(maxYExpression_).numberReal();
+    if (calc->error())
+    {
+        QMessageBox::about(0, QObject::tr("Error!"), QObject::tr("Invalid Y max value in Graph3D"));
+        return;
+    }
+}
+
+void Graph3D::setDelta(const double delta_)
+{
+    m_delta = delta_;
+    m_deltaExpression = QString("%1").arg(delta_);
+}
+
+
+void Graph3D::setDelta(const QString deltaExpression_)
+{
+    m_deltaExpression = deltaExpression_;
+    m_delta = calc->SolveExpression(deltaExpression_).numberReal();
+    if (calc->error())
+    {
+        QMessageBox::about(0, QObject::tr("Error!"), QObject::tr("Invalid delta value in Graph3D"));
+        return;
+    }
+}
+
+
+void Graph3D::setGraph3DExpression(const QString &expression_)
+{
+    m_graph3DExpression = expression_;
+}
+
+
+bool Graph3D::setupGraph()
+{
+
+}
+
+
+///////////////////////////////////////////////////////////////
 
 void Graph3D::setColorA(const QColor &color)
 {
@@ -103,7 +210,7 @@ bool Graph3D::SetGraph3D(const Graph3D &graph3D, double t)
     calc.setVariable_Value("x",1); calc.setVariable_Value("y",1);
     calc.setVariable_Value("y",1);
     calc.setVariable_Value("t",1);
-    calc.SolveExpression_fx(graph3D.m_fxy);
+    calc.SolveExpression_fx(graph3D.m_graph3DExpression);
     //calc.fxyz(graph3D.m_fxy,1,"x",1,"y",1,"t");
     if (calc.error())
     {
@@ -113,11 +220,11 @@ bool Graph3D::SetGraph3D(const Graph3D &graph3D, double t)
     }
     else
     {
-        m_fxy=graph3D.m_fxy;
+        m_graph3DExpression = graph3D.m_graph3DExpression;
     }
 
 
-    m_xmindouble=calc.SolveExpression(graph3D.m_xmin).numberReal();
+    m_xmin=calc.SolveExpression(graph3D.m_xminExpression).numberReal();
     m_xmin=graph3D.m_xmin;
     if (calc.error())
     {
@@ -126,7 +233,7 @@ bool Graph3D::SetGraph3D(const Graph3D &graph3D, double t)
         return false;
     }
 
-    m_xmaxdouble=calc.SolveExpression(graph3D.m_xmax).numberReal();
+    m_xmax=calc.SolveExpression(graph3D.m_xmaxExpression).numberReal();
     m_xmax=graph3D.m_xmax;
     if (calc.error())
     {
@@ -135,7 +242,7 @@ bool Graph3D::SetGraph3D(const Graph3D &graph3D, double t)
         return false;
     }
 
-    m_ymindouble=calc.SolveExpression(graph3D.m_ymin).numberReal();//calc.f(graph3D.m_ymin).r;
+    m_ymin=calc.SolveExpression(graph3D.m_yminExpression).numberReal();//calc.f(graph3D.m_ymin).r;
     m_ymin=graph3D.m_ymin;
     if (calc.error())
     {
@@ -144,7 +251,7 @@ bool Graph3D::SetGraph3D(const Graph3D &graph3D, double t)
         return false;
     }
 
-    m_ymaxdouble=calc.SolveExpression(graph3D.m_ymax).numberReal();//calc.f(graph3D.m_ymax).r;
+    m_ymax=calc.SolveExpression(graph3D.m_ymaxExpression).numberReal();//calc.f(graph3D.m_ymax).r;
     m_ymax=graph3D.m_ymax;
     if (calc.error())
     {
@@ -153,11 +260,11 @@ bool Graph3D::SetGraph3D(const Graph3D &graph3D, double t)
         return false;
     }
 
-    m_dxdydouble=calc.SolveExpression(graph3D.m_dxy).numberReal();//calc.f(graph3D.m_dxy).r;
-    m_dxy=graph3D.m_dxy;
+    m_delta             = calc.SolveExpression(graph3D.m_deltaExpression).numberReal();//calc.f(graph3D.m_dxy).r;
+    m_deltaExpression   = graph3D.m_delta;
     if (calc.error())
     {
-        msgBox.setText(QObject::tr("Invalid dx,dy."));
+        msgBox.setText(QObject::tr("Invalid dx, dy."));
         msgBox.exec();
         return false;
     }
@@ -176,32 +283,32 @@ bool Graph3D::SetGraph3D(const Graph3D &graph3D, double t)
     arrai_x.clear();
     arrai_y.clear();
 
-    k_x = int( (m_xmaxdouble-m_xmindouble)/m_dxdydouble );
-    k_y = int( (m_ymaxdouble-m_ymindouble)/m_dxdydouble );
+    k_x = int( (m_xmax-m_xmin)/m_delta );
+    k_y = int( (m_ymax-m_ymin)/m_delta );
 
-    double x=m_xmindouble;
-    double y=m_ymindouble;
+    double x=m_xmin;
+    double y=m_ymin;
     for (int i=0;i<k_x;i++)
     {
-        y=m_ymindouble;
+        y=m_ymin;
         for(int j=0;j<k_y;j++)
         {
             arrai_x.append(x);
             arrai_y.append(y);
-            arrai_x.append(x+m_dxdydouble);
+            arrai_x.append(x+m_delta);
             arrai_y.append(y);
-            y+=m_dxdydouble;
+            y+=m_delta;
         }
-        x+=m_dxdydouble;
+        x+=m_delta;
     }
 
 
 
     //Complexo zz = calc.f_array_xy_t(m_fxy,m_varx,arrai_x,m_vary,arrai_y,z3D,t,"t");
-    calc.setVariable_Value(m_varx, arrai_x);
-    calc.setVariable_Value(m_vary, arrai_y);
+    calc.setVariable_Value(m_variable_X, arrai_x);
+    calc.setVariable_Value(m_variable_Y, arrai_y);
     calc.setVariable_Value("t", t);
-    arrai_z = calc.SolveExpression_fx(m_fxy).numberListReal();
+    arrai_z = calc.SolveExpression_fx(m_graph3DExpression).numberListReal();
     /*if (z3D.size() == 0)
     {
         z3D = setListElements(zz, arrai_x.size());
@@ -222,7 +329,7 @@ void Graph3D::UpdateGraphTime(double t)
     stopwatch.start();
 
     calc.setVariable_Value("t", t);
-    arrai_z = calc.SolveExpression_fx(m_fxy).numberListReal();
+    arrai_z = calc.SolveExpression_fx(m_graph3DExpression).numberListReal();
 
     qDebug("updating time array: %d", stopwatch.elapsed());
 
@@ -231,10 +338,10 @@ void Graph3D::UpdateGraphTime(double t)
 bool Graph3D::graph_has_variable_t()
 {
     Calculator calc;
-    return calc.isValid_Expression_with_time_variable(m_fxy);
+    return calc.isValid_Expression_with_time_variable(m_graph3DExpression);
 }
 
-void Graph3D::setBuffer(QOpenGLBuffer &vertexPositionBuffer, QOpenGLBuffer &vertexColorBuffer)
+void Graph3D::prepareBuffers()
 {
 
 }

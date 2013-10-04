@@ -7,37 +7,76 @@
 #include <QGLWidget>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLBuffer>
-
-
 #include "calculator/calculator.h"
 
 class Graph3D
 {
 public:
-    Graph3D();
+    Graph3D(Calculator *calc_);
     ~Graph3D();
 
+
+    // set a graph from a math expression
+    void setMinX(const double &minX_);
+    void setMinX(const QString &minXExpression_);
+
+    void setMaxX(const double &maxX_);
+    void setMaxX(const QString &maxXExpression_);
+
+    void setMinY(const double &minY_);
+    void setMinY(const QString &minYExpression_);
+
+    void setMaxY(const double &maxY_);
+    void setMaxY(const QString &maxYExpression_);
+
+
+    void setDelta(const double delta_);
+    void setDelta(const QString deltaExpression_);
+    void setGraph3DExpression(const QString &expression_);
+
+    // setupGraph() must be called after setMin...(), setMax...(), setDelta() and setGraph3DExpression()
+    // it calculates and setup up the array's xx and yy
+    bool setupGraph();
+
+
+private:
 
     QList<double> arrai_x;
     QList<double> arrai_y;
     QList<double> arrai_z;
 
-    QString m_fxy;
-    QString m_xmin;
-    double m_xmindouble;
-    QString m_xmax;
-    double m_xmaxdouble;
-    QString m_ymin;
-    double m_ymindouble;
-    QString m_ymax;
-    double m_ymaxdouble;
-    QString m_dxy;
-    double m_dxdydouble;
-    QString m_varx;
-    QString m_vary;
 
 
-private:
+    QString m_graph3DExpression;
+
+    QString m_xminExpression;
+    double m_xmin;
+
+    QString m_xmaxExpression;
+    double m_xmax;
+
+    QString m_yminExpression;
+    double m_ymin;
+
+    QString m_ymaxExpression;
+    double m_ymax;
+
+    QString m_deltaExpression;
+    double m_delta;
+
+    QString m_variable_X;
+    QString m_variable_Y;
+
+    Calculator *calc;
+
+
+
+    // drawing ---------------------------------------------
+    QOpenGLBuffer m_vertexBufferGraph3D;
+    QOpenGLBuffer m_colorBufferGraph2D;
+    QVector3D *vertexPosition;
+
+
     QColor colorA;
     QColor colorB;
     QColor colorC;
@@ -58,7 +97,7 @@ public:
 
 public:
 
-    void setBuffer(QOpenGLBuffer &vertexPositionBuffer, QOpenGLBuffer &vertexColorBuffer);
+    void prepareBuffers();
     void draw(QOpenGLShaderProgram &m_shaderProgram, int &vertexAttrib, int &colorAttrib);
     bool SetGraph3D(const Graph3D &graph3D, double t);
     void UpdateGraphTime(double t);

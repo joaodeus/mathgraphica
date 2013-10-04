@@ -18,7 +18,7 @@
     <normaloff>:/images/images/formulas2.png</normaloff>:/images/images/formulas2.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_5">
-   <item row="2" column="0">
+   <item row="4" column="0">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>2) Validate formula</string>
@@ -48,47 +48,7 @@
      </layout>
     </widget>
    </item>
-   <item row="0" column="0" rowspan="2">
-    <widget class="QGroupBox" name="groupBox_4">
-     <property name="title">
-      <string>1) Formulas</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="0">
-       <widget class="QPushButton" name="pushButton_new">
-        <property name="text">
-         <string>New</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="pushButton_del">
-        <property name="text">
-         <string>Del</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QTableWidget" name="tableWidget_formulas">
-        <property name="contextMenuPolicy">
-         <enum>Qt::CustomContextMenu</enum>
-        </property>
-        <column>
-         <property name="text">
-          <string>Formulas</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Description</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="1" colspan="2">
+   <item row="3" column="1" colspan="2">
     <widget class="QGroupBox" name="groupBox_3">
      <property name="title">
       <string>Settings</string>
@@ -150,7 +110,7 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="1" colspan="2">
+   <item row="4" column="1" colspan="2">
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
       <string>3) Solutions</string>
@@ -169,7 +129,67 @@
      </layout>
     </widget>
    </item>
-   <item row="0" column="1" colspan="2">
+   <item row="0" column="0" rowspan="4">
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string>1) Formulas</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0">
+       <widget class="QPushButton" name="pushButton_new">
+        <property name="text">
+         <string>New</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="pushButton_del">
+        <property name="text">
+         <string>Del</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QTableWidget" name="tableWidget_formulas">
+        <property name="contextMenuPolicy">
+         <enum>Qt::CustomContextMenu</enum>
+        </property>
+        <column>
+         <property name="text">
+          <string>Formulas</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Description</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="1" column="2">
     <widget class="QPushButton" name="pushButton_close">
      <property name="text">
       <string>Close</string>
