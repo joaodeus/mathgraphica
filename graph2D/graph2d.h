@@ -14,6 +14,12 @@ public:
     Graph2D(Calculator *calc_);
     ~Graph2D();
 
+    QString getGraph2DExpression()const{return m_graph2DExpression;}
+    QString getIntervalMin()const{return m_xminExpression;}
+    QString getIntervalMax()const{return m_xmaxExpression;}
+    QString getDelta()const{return m_deltaExpression;}
+
+
     // set a graph from a math expression
     void setInterval(const double &min_, const double &max_);
     void setInterval(const QString &minExpression_, const QString &maxExpression_);
@@ -27,9 +33,12 @@ public:
 
 
     // ... or set a graph from an array of values
-    void setGraph2DArray(QList<double> &xx, QList<double> &yy);
+    void setGraph2DArray(QList<double> &xx_, QList<double> &yy_);
 
     Graph2D &operator=(const Graph2D & );
+
+    void setPolarGraph(const bool &bPolarGraph_);
+    bool isPolarGraph();
 
 
 private:
@@ -44,6 +53,8 @@ private:
 
     QList<double> xx;
     QList<double> yy;
+
+    bool bPolarGraph;
 
     Calculator *calc;
 
@@ -60,6 +71,7 @@ public:
     void draw(QOpenGLShaderProgram &m_shaderProgram);
     void setColor(const QColor &color_);
     void setColor(const double &r, const double &g, const double &b);
+    QColor getColor(){return m_graphColor;}
 
 };
 

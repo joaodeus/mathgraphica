@@ -17,6 +17,8 @@ public:
     void initializeGL();
     void prepareShaderProgram();
     void prepareVertexBuffers();
+    void prepareGraphs();
+    //void prepareGraph(int index);
     void resizeGL(int width, int height);
     void showEvent(QShowEvent *event);
     void paintGL();
@@ -25,6 +27,7 @@ public:
     void initializeAxis2D();
     void initializeAxis2DBackGroundDots();
     void drawAxis2D();
+    void setBackGroundColor(const QColor &color_);
 
 protected:
     QOpenGLShaderProgram m_shaderProgram;

@@ -8,9 +8,12 @@
 #include "gui/integral_gui.h"
 #include "gui/integraldouble_gui.h"
 #include "graph3D/graph3d_opengl.h"
+#include "graph3D/graph3d_container_gui.h"
 #include "gui/matrix_editor_gui.h"
 #include "gui/formulas_gui.h"
 #include "graph2D/graph2d_opengl.h"
+#include "graph2D/graph2d_container_gui.h"
+#include "graph2D/graph2d_addnew_gui.h"
 
 
 #define TYPE_EXPRESSION         1
@@ -197,13 +200,6 @@ void MainWindow::on_actionCalculator_triggered()
 
 }
 
-void MainWindow::on_actionGraph_3D_triggered()
-{
-    Graph3D_OpenGL *graph = new Graph3D_OpenGL ;
-    graph->show();
-    
-}
-
 
 void MainWindow::on_actionEquation_triggered()
 {
@@ -322,6 +318,7 @@ void MainWindow::on_actionFormulas_triggered()
 
 void MainWindow::on_actionGraph_2D_triggered()
 {
+    /*
     Graph2D m_graph2D(&calc);
     m_graph2D.setInterval(-50,50);
     m_graph2D.setDelta(0.1);
@@ -345,4 +342,49 @@ void MainWindow::on_actionGraph_2D_triggered()
     graph2DWindow->addGraph2D(m_graph2Dx);
 
     graph2DWindow->show();
+    */
+
+    ///////////////////////
+/*
+    Graph2D graph2D_1(&calc);
+    Graph2D graph2D_2(&calc);
+
+    graph2D_1.setInterval(-50,50);
+    graph2D_1.setDelta(0.1);
+    graph2D_1.setGraph2DExpression("sin(2*x)");
+    graph2D_1.setupGraph();
+    graph2D_1.setColor(0,0,1);
+*/
+    Graph2D_AddNew_gui newGraph_gui;
+
+    newGraph_gui.exec();
+    if (newGraph_gui.returnValue == 1)
+    {
+        Graph2D_Container_gui *graph2d = new Graph2D_Container_gui(0,&calc);
+        newGraph_gui.m_graph2D.setupGraph();
+        graph2d->m_graph2D_OpenGL->m_graph2DList.append(newGraph_gui.m_graph2D);
+
+        graph2d->show();
+    }
+
+
+    //   graph2d->m_graph2D_OpenGL->addGraph2D(graph2D_1);
+  //  graph2d->m_graph2D_OpenGL->addGraph2D(m_graph2Dx);
+
+
+
+
+}
+
+
+
+void MainWindow::on_actionGraph_3D_triggered()
+{
+    Graph3D_OpenGL *graph = new Graph3D_OpenGL ;
+    graph->show();
+
+    /*
+    Graph3D_Container_gui *graph2 = new Graph3D_Container_gui();
+    graph2->show();*/
+
 }

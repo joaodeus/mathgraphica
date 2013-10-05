@@ -32,8 +32,6 @@ private slots:
 
     void on_actionCalculator_triggered();
 
-    void on_actionGraph_3D_triggered();
-
     void on_actionEquation_triggered();
 
     void on_actionSystem_of_equations_triggered();
@@ -47,6 +45,8 @@ private slots:
     void on_actionFormulas_triggered();
 
     void on_actionGraph_2D_triggered();
+
+    void on_actionGraph_3D_triggered();
 
 private:
     Ui::MainWindow *ui;

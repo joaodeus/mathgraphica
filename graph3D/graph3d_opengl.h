@@ -1,9 +1,8 @@
 #ifndef GRAPH3D_OPENGL_H
 #define GRAPH3D_OPENGL_H
 
-//#include <QGLWidget>
-#include <QWindow>
-//#include <QOpenGLFunctions>
+#include <QGLWidget>
+//#include <QWindow>
 #include <QOpenGLContext>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLShader>
@@ -12,26 +11,25 @@
 #include <QMouseEvent>
 
 #include "graph3D/graph3d.h"
-//#include <QOpenGLFunctions_4_3_Core>
 
-//class Graph3D_OpenGL : public QGLWidget//, protected QOpenGLFunctions
-class Graph3D_OpenGL : public QWindow//, protected QOpenGLFunctions
+class Graph3D_OpenGL : public QGLWidget//, protected QOpenGLFunctions
+//class Graph3D_OpenGL : public QWindow//, protected QOpenGLFunctions
 {
     Q_OBJECT
 public:
-    //Graph3D_OpenGL();
-    Graph3D_OpenGL(QScreen *screen = 0);
+    Graph3D_OpenGL();
+    //Graph3D_OpenGL(QScreen *screen = 0);
     ~Graph3D_OpenGL();
     //QOpenGLFunctions_4_3_Core* m_funcs;
 
 
-protected slots:
-    void resizeGl();
-    void initializeGl();
+//protected slots:
+    void resizeGL();
+    void initializeGL();
     void prepareShaderProgram();
     void prepareVertexBuffers();
     void setGeometry();
-    void paintGl();
+    void paintGL();
 
 
 protected:
@@ -48,7 +46,7 @@ protected:
     void AutoRotate();
 
 public:
-    void axis3D(QOpenGLShaderProgram &m_sampleProgram, const GLint &vertexAttr, const GLint &colorAttr);
+    void axis3D();
     void updateBackGroundColor(const QColor &color);
 
 protected:

@@ -4,14 +4,14 @@
 #include <QTime>
 
 
-//Graph3D_OpenGL::Graph3D_OpenGL()
-Graph3D_OpenGL::Graph3D_OpenGL(QScreen *screen)
-    : QWindow(screen)//, QOpenGLWidget(parent)
+Graph3D_OpenGL::Graph3D_OpenGL()
+//Graph3D_OpenGL::Graph3D_OpenGL(QScreen *screen)
+//    : QWindow(screen)//, QOpenGLWidget(parent)
 {
 
-    setSurfaceType(OpenGLSurface);
+//    setSurfaceType(OpenGLSurface);
   //  create();
-    QSurfaceFormat format;
+  //  QSurfaceFormat format;
 /*
     format.setDepthBufferSize(24);
     format.setMajorVersion(4);
@@ -19,13 +19,13 @@ Graph3D_OpenGL::Graph3D_OpenGL(QScreen *screen)
     format.setSamples(4);
     format.setProfile(QSurfaceFormat::CoreProfile);
 */
-    setFormat(format);
-    create();
+    //setFormat(format);
+    //create();
 
 
     //m_context = new QOpenGLContext;// Create an OpenGL context
-    m_context.setFormat(format);
-    m_context.create();
+  //  m_context.setFormat(format);
+  //  m_context.create();
 
     // resize(QSize(800, 450));
 
@@ -48,19 +48,19 @@ Graph3D_OpenGL::Graph3D_OpenGL(QScreen *screen)
     bTimer3D = false;
 
     // axis 3D
-    Range = 1;
+    Range = 20;
 
 
-    //backgroundColor.setRgbF(0.1f, 0.4f, 0.1f, 1.0f);
-    backgroundColor.setRgbF(0.0f, 0.0f, 0.0f, 1.0f);
+    backgroundColor.setRgbF(0.1f, 0.4f, 0.1f, 1.0f);
+    //backgroundColor.setRgbF(0.0f, 0.0f, 0.0f, 1.0f);
 
 
-    setup_Axis3D();
-    initializeGl();
-    resize(QSize(800, 450));
+    //setup_Axis3D();
+   // initializeGl();
+  //  resize(QSize(800, 450));
 
-    connect(this, SIGNAL(widthChanged(int)), this, SLOT(resizeGl()));
-    connect(this, SIGNAL(heightChanged(int)), this, SLOT(resizeGl()));
+  //  connect(this, SIGNAL(widthChanged(int)), this, SLOT(resizeGl()));
+  //  connect(this, SIGNAL(heightChanged(int)), this, SLOT(resizeGl()));
 
 //    timer = new QTimer(this);
     //connect(timer, SIGNAL(timeout()), this, SLOT(paintGl()));
@@ -95,13 +95,21 @@ void Graph3D_OpenGL::setup_Axis3D()
 }
 
 
-void Graph3D_OpenGL::initializeGl()
+void Graph3D_OpenGL::initializeGL()
 {
-    m_context.makeCurrent(this);
+    //m_context.makeCurrent(this);
 
+    QGLFormat glFormat = QGLWidget::format();
+    if ( !glFormat.sampleBuffers() )
+        qWarning() << "Could not enable sample buffers";
+
+
+    setup_Axis3D();
     prepareShaderProgram();
     prepareVertexBuffers();
-    setGeometry();
+
+ //   setGeometry();
+
 
     //glShadeModel(GL_FLAT);
     glEnable(GL_DEPTH_TEST);
@@ -113,7 +121,8 @@ void Graph3D_OpenGL::initializeGl()
     glClearColor(backgroundColor.redF(),backgroundColor.greenF(), backgroundColor.blueF(), 1.0f);
 
 
-    paintGl();
+  //  m_shaderProgram.bind();
+   // paintGl();
 
 }
 
@@ -183,20 +192,20 @@ void Graph3D_OpenGL::updateBackGroundColor(const QColor &color)
 }
 
 
-void Graph3D_OpenGL::resizeGl()
+void Graph3D_OpenGL::resizeGL()
 {
     // Reset the GL viewport for current resolution.
-    m_context.makeCurrent(this);
+    //m_context.makeCurrent(this);
     w = width();
     h = height();
     glViewport(0,0, w, h);
-    paintGl();
+  //  paintGL();
 }
 
 
-void Graph3D_OpenGL::paintGl()
+void Graph3D_OpenGL::paintGL()
 {
-    m_context.makeCurrent(this);
+    //m_context.makeCurrent(this);
     QTime stopwatch;
     stopwatch.start();
     //qDebug()<<"real fps"<<frames /(time.elapsed() / 1000.0)/5;
@@ -227,10 +236,10 @@ void Graph3D_OpenGL::paintGl()
 
     //m_shaderProgram.bind();
 
-    glDrawArrays(GL_LINES,0 ,6);
+    axis3D();
     //glDrawArrays(GL_TRIANGLES, 0, 6);
 
-    m_context.swapBuffers(this);
+    //m_context.swapBuffers(this);
     //m_shaderProgram.release();
 
 
@@ -244,6 +253,25 @@ void Graph3D_OpenGL::paintGl()
 
 }
 
+
+
+void Graph3D_OpenGL::axis3D()
+{
+    m_shaderProgram.bind();
+
+    if (m_vertexPositionBuffer.bind()) qDebug() << "Success biding vertex position buffer";
+    m_shaderProgram.enableAttributeArray("vertexPosition");
+    m_shaderProgram.setAttributeBuffer("vertexPosition", GL_FLOAT, 0, 3);
+
+    if (m_vertexColorBuffer.bind()) qDebug() << "Success biding vertex color buffer";
+    m_shaderProgram.enableAttributeArray("vertexColor");
+    m_shaderProgram.setAttributeBuffer("vertexColor", GL_FLOAT, 0, 3);
+
+    glDrawArrays(GL_LINES,0 ,6);
+
+}
+
+
 void Graph3D_OpenGL::hideEvent(QHideEvent * event)
 {
     Q_UNUSED(event);
@@ -254,21 +282,6 @@ void Graph3D_OpenGL::hideEvent(QHideEvent * event)
     TimerRotate = 0;
 
     destroy();
-}
-
-void Graph3D_OpenGL::axis3D(QOpenGLShaderProgram &m_sampleProgram, const GLint &vertexAttr,const GLint &colorAttr)
-{
-
-
-
-    ///////////////////////////////////////////////
-
-
-    m_sampleProgram.setAttributeArray(vertexAttr, axis_3D, 0);
-    m_sampleProgram.setAttributeArray(colorAttr, axisColor,0 );
-
-    glDrawArrays(GL_LINES,0 ,6);
-
 }
 
 
@@ -319,7 +332,7 @@ void Graph3D_OpenGL::mouseMoveEvent(QMouseEvent *event)
 
         //updateGL();
         lastPos = event->pos();
-        paintGl();
+        paintGL();
     }
 }
 
@@ -338,7 +351,7 @@ void Graph3D_OpenGL::wheelEvent(QWheelEvent * event )
    // qDebug()<<scale;
 
     event->accept();
-    paintGl();
+    paintGL();
 }
 
 
@@ -384,7 +397,7 @@ bool Graph3D_OpenGL::event(QEvent *event)
                 if (scale > 20)
                     scale=20;
                 //updateGL();
-                paintGl();
+                paintGL();
             }
 
             //setTransform(QTransform().scale(totalScaleFactor * currentScaleFactor,
@@ -398,8 +411,8 @@ bool Graph3D_OpenGL::event(QEvent *event)
     ///////////////////////////////////////////////////
 
 
-
-    return QWindow::event(event);
+    return QWidget::event(event);
+    //return QWindow::event(event);
 }
 
 
@@ -436,9 +449,10 @@ void Graph3D_OpenGL::keyPressEvent(QKeyEvent *event)
             scale*=1.25;
 
     //updateGL();
-    paintGl();
+    paintGL();
 
-    QWindow::keyPressEvent(event);
+    QWidget::keyPressEvent(event);
+    //QWindow::keyPressEvent(event);
 }
 
 
@@ -449,7 +463,7 @@ void Graph3D_OpenGL::timerEvent(QTimerEvent *event)
     if (event->timerId() == TimerRotate)
     {
         AutoRotate();
-        paintGl();
+        paintGL();
         //updateGL();
         return;
     }
@@ -464,12 +478,13 @@ void Graph3D_OpenGL::timerEvent(QTimerEvent *event)
         }
 
         qDebug()<<t;
-        paintGl();
+        paintGL();
         //updateGL();
         return;
     }
 
-    QWindow::timerEvent(event);
+    QWidget::timerEvent(event);
+    //QWindow::timerEvent(event);
 }
 
 

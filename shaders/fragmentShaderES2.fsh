@@ -1,5 +1,5 @@
 //#version 130
-varying vec4 Color;
+varying mediump vec4 Color;
 
 void main(void)
 {

@@ -7,7 +7,17 @@ Graph2D::Graph2D(Calculator *calc_)
     calc = calc_;
 
     vertexPosition  = NULL;
-    m_graphColor.setRgbF(0.7,0.5,0.6);
+    m_graphColor.setRgbF(1,0,0); // default color - red
+
+
+    m_graph2DExpression = "5*cos(x)";
+    m_xminExpression    = "-50";
+    m_xmin              = -50;
+    m_xmaxExpression    = "50";
+    m_xmax              = 50;
+    m_deltaExpression   = "0.1";
+    m_delta             = 0.1;
+    bPolarGraph         = false;
 
 }
 
@@ -94,17 +104,18 @@ bool Graph2D::setupGraph()
         yy = calc->SolveExpression_fx(m_graph2DExpression).numberListReal();
     }
 
+
    // setBufferData();
 
     return true;
 }
 
 
-void Graph2D::setGraph2DArray(QList<double> &xx, QList<double> &yy)
+void Graph2D::setGraph2DArray(QList<double> &xx_, QList<double> &yy_)
 {
 
-    //....
-    //setBufferData();
+    xx = xx_;
+    yy = yy_;
 }
 
 Graph2D &Graph2D::operator =(const Graph2D &a)
@@ -120,10 +131,23 @@ Graph2D &Graph2D::operator =(const Graph2D &a)
     xx                  = a.xx;
     yy                  = a.yy;
     m_graphColor        = a.m_graphColor;
+    bPolarGraph         = a.bPolarGraph;
 
     return *this;
 }
 
+
+void Graph2D::setPolarGraph(const bool &bPolarGraph_)
+{
+    bPolarGraph = bPolarGraph_;
+}
+
+bool Graph2D::isPolarGraph()
+{
+    return bPolarGraph;
+}
+
+////////////////////////////////////////////////////////
 
 void Graph2D::prepareBuffers()
 {
@@ -144,17 +168,34 @@ void Graph2D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
     }
     else
     {
-        delete[] vertexPosition;
+        //delete[] vertexPosition;
+        delete vertexPosition;
         vertexPosition  = new QVector3D [size];
     }
 
 
-    for (int i = 0; i < size;i++)
+    if (bPolarGraph)
     {
-        vertexPosition[i].setX(xx[i]);
-        vertexPosition[i].setY(yy[i]);
-        vertexPosition[i].setZ(0);        
+        for (int i = 0; i < size;i++)
+        {
+
+            vertexPosition[i].setX( yy[i] * cos(xx.at(i)) );
+            vertexPosition[i].setY( yy[i] * sin(xx.at(i)) );
+            vertexPosition[i].setZ(0);
+        }
     }
+    else
+    {
+        for (int i = 0; i < size;i++)
+        {
+
+            vertexPosition[i].setX(xx[i]);
+            vertexPosition[i].setY(yy[i]);
+            vertexPosition[i].setZ(0);
+        }
+    }
+
+
 
 
     //////////////////////////////////////////////////////
@@ -170,6 +211,7 @@ void Graph2D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
     if (vertexPosition != NULL)
     {
         delete[] vertexPosition;
+        vertexPosition = NULL;
         qDebug()<<"deleting buffer in graph2D";
     }
 

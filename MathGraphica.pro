@@ -38,7 +38,12 @@ SOURCES += main.cpp\
     graph2D/graph2d.cpp \
     graph2D/graph2d_opengl.cpp \
     gui/matrix_editor_gui.cpp \
-    calculator/matrix_gui.cpp
+    calculator/matrix_gui.cpp \
+    graph3D/graph3d_container_gui.cpp \
+    graph3D/graph3d_editor_gui.cpp \
+    graph2D/graph2d_container_gui.cpp \
+    graph2D/graph2d_editor_gui.cpp \
+    graph2D/graph2d_addnew_gui.cpp
 
 HEADERS  += mainwindow.h \
     graph3D/graph3d.h \
@@ -65,7 +70,12 @@ HEADERS  += mainwindow.h \
     graph2D/graph2d.h \
     graph2D/graph2d_opengl.h \
     gui/matrix_editor_gui.h \
-    calculator/matrix_gui.h
+    calculator/matrix_gui.h \
+    graph3D/graph3d_container_gui.h \
+    graph3D/graph3d_editor_gui.h \
+    graph2D/graph2d_container_gui.h \
+    graph2D/graph2d_editor_gui.h \
+    graph2D/graph2d_addnew_gui.h
 
 FORMS    += mainwindow.ui \
     gui/calculator_gui.ui \
@@ -75,7 +85,12 @@ FORMS    += mainwindow.ui \
     gui/integraldouble_gui.ui \
     gui/formulas_gui.ui \
     gui/matrix_editor_gui.ui \
-    calculator/matrix_gui.ui
+    calculator/matrix_gui.ui \
+    graph3D/graph3d_container_gui.ui \
+    graph3D/graph3d_editor_gui.ui \
+    graph2D/graph2d_container_gui.ui \
+    graph2D/graph2d_editor_gui.ui \
+    graph2D/graph2d_addnew_gui.ui
 
 RESOURCES += \
     mathgraphica.qrc

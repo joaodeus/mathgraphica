@@ -25,10 +25,10 @@ Graph2D_OpenGL::~Graph2D_OpenGL()
 void Graph2D_OpenGL::initializeGL()
 {
 
-    QGLFormat glFormat = QGLWidget::format();
+  /*  QGLFormat glFormat = QGLWidget::format();
     if ( !glFormat.sampleBuffers() )
         qWarning() << "Could not enable sample buffers";
-
+*/
 
     initializeAxis2D();
     prepareShaderProgram();
@@ -154,6 +154,13 @@ void Graph2D_OpenGL::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event);
 
+    prepareGraphs();
+
+}
+
+void Graph2D_OpenGL::prepareGraphs()
+{
+
     for (int i = 0; i < m_graph2DList.size(); i++)
     {
      //   m_graph2DList[i].setColor(1,0,0);
@@ -161,9 +168,18 @@ void Graph2D_OpenGL::showEvent(QShowEvent *event)
         m_graph2DList[i].setBufferData(m_shaderProgram);
     }
 
+    updateGL();
+}
+
+/*
+void Graph2D_OpenGL::prepareGraph(int index)
+{
+    m_graph2DList[index].prepareBuffers();
+    m_graph2DList[index].setBufferData(m_shaderProgram);
 
     updateGL();
 }
+*/
 
 void Graph2D_OpenGL::paintGL()
 {
@@ -193,6 +209,7 @@ void Graph2D_OpenGL::paintGL()
     for (int i = 0; i < m_graph2DList.size(); i++)
     {
         m_graph2DList[i].draw(m_shaderProgram);
+        qDebug()<<m_graph2DList.size();
     }
 
 }
@@ -208,21 +225,23 @@ void Graph2D_OpenGL::drawAxis2D()
    // m_shaderProgram.disableAttributeArray("vertexColor");
 
     m_shaderProgram.setUniformValue("vertexColor",axisColor);
+
+
     glDrawArrays(GL_LINES,0 ,4);
 
 
-  /*  QColor c1,c2;
-    c1.setRgbF(1,1,0);
-    c2.setRgbF(0,1,1);
-    m_shaderProgram.setUniformValue("vertexColor",c1);
-    glDrawArrays(GL_LINES,0 ,2);
-    m_shaderProgram.setUniformValue("vertexColor",c2);
-    glDrawArrays(GL_LINES,2 ,2);
-*/
-
-
-
 }
+
+
+void Graph2D_OpenGL::setBackGroundColor(const QColor &color_)
+{
+    backgroundColor = color_;
+    glClearColor(backgroundColor.redF(),backgroundColor.greenF(), backgroundColor.blueF(), 1.0f);
+
+    paintGL();
+}
+
+
 
 void Graph2D_OpenGL::mousePressEvent(QMouseEvent *event)
 {
@@ -283,7 +302,7 @@ void Graph2D_OpenGL::wheelEvent(QWheelEvent * event)
 
 bool Graph2D_OpenGL::event(QEvent *event)
 {
-    qDebug()<<"Event";
+  //  qDebug()<<"Event";
     ///////////////////////////////////////////////////
     //Zoom touch
     switch (event->type()) {
