@@ -1,6 +1,8 @@
 #include "integraldouble_gui.h"
 #include "ui_integraldouble_gui.h"
 
+#include "gui/calculator_gui.h"
+
 IntegralDouble_gui::IntegralDouble_gui(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::IntegralDouble_gui)
@@ -84,4 +86,15 @@ QString IntegralDouble_gui::getOuterVarible()
 QString IntegralDouble_gui::getIntegralDoubleExpression()
 {
     return ui->lineEdit_expression->text();
+}
+
+void IntegralDouble_gui::on_pushButton_fxy_clicked()
+{
+    Calculator_gui calc;
+    calc.SetLineEditCalcExpression(ui->lineEdit_expression->text());
+
+    if (calc.exec() == QDialog::Accepted)
+    {
+        ui->lineEdit_expression->setText(calc.GetLineEditCalcExpression());
+    }
 }

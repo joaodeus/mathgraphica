@@ -104,6 +104,15 @@ bool Graph2D::setupGraph()
         yy = calc->SolveExpression_fx(m_graph2DExpression).numberListReal();
     }
 
+    if (variables.size() == 0)
+    {
+        double z = calc->SolveExpression(m_graph2DExpression).numberReal();
+        for(int i = 0; i < size; i++)
+        {
+            yy.append(z);
+        }
+    }
+
 
    // setBufferData();
 

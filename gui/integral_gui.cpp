@@ -1,6 +1,8 @@
 #include "integral_gui.h"
 #include "ui_integral_gui.h"
 
+#include "gui/calculator_gui.h"
+
 Integral_gui::Integral_gui(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Integral_gui)
@@ -15,7 +17,13 @@ Integral_gui::~Integral_gui()
 
 void Integral_gui::on_pushButton_fx_clicked()
 {
+    Calculator_gui calc;
+    calc.SetLineEditCalcExpression(ui->lineEdit_fx->text());
 
+    if (calc.exec() == QDialog::Accepted)
+    {
+        ui->lineEdit_fx->setText(calc.GetLineEditCalcExpression());
+    }
 }
 
 QString Integral_gui::GetLowerLimit()

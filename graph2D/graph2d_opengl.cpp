@@ -203,7 +203,6 @@ void Graph2D_OpenGL::paintGL()
     m_shaderProgram.setUniformValue( "matrix", orientation );// Set orientation matrix to the shaderprogram
 
 
-
     drawAxis2D();
 
     for (int i = 0; i < m_graph2DList.size(); i++)
@@ -211,6 +210,7 @@ void Graph2D_OpenGL::paintGL()
         m_graph2DList[i].draw(m_shaderProgram);
         qDebug()<<m_graph2DList.size();
     }
+
 
 }
 

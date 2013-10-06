@@ -44,6 +44,9 @@ public:
     QString getIntegralDoubleExpression();
 
 
+private slots:
+    void on_pushButton_fxy_clicked();
+
 private:
     Ui::IntegralDouble_gui *ui;
 };

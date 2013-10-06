@@ -1,9 +1,8 @@
 #include "graph2d_addnew_gui.h"
 #include "ui_graph2d_addnew_gui.h"
 
-
 #include <QColorDialog>
-
+#include "gui/calculator_gui.h"
 
 
 Graph2D_AddNew_gui::Graph2D_AddNew_gui(QWidget *parent) :
@@ -82,4 +81,15 @@ void Graph2D_AddNew_gui::on_pushButton_color2D_clicked()
 void Graph2D_AddNew_gui::on_checkBox_polarGraph_clicked(bool checked)
 {
     m_graph2D.setPolarGraph(checked);
+}
+
+void Graph2D_AddNew_gui::on_pushButton_fx_clicked()
+{
+    Calculator_gui calc;
+    calc.SetLineEditCalcExpression(ui->lineEdit_expression->text());
+
+    if (calc.exec() == QDialog::Accepted)
+    {
+        ui->lineEdit_expression->setText(calc.GetLineEditCalcExpression());
+    }
 }

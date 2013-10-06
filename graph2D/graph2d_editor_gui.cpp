@@ -100,6 +100,10 @@ void Graph2D_Editor_gui::on_pushButton_edit_clicked()
     Graph2D_AddNew_gui graph2D_Edit_gui;
     int index = ui->tableWidget_graph2D_list->currentRow();
 
+    if (index < 0 || index >= m_graph2DEditorListPtr->size())
+        return;
+
+
     graph2D_Edit_gui.m_graph2D = m_graph2DEditorListPtr->at(index);
 
     graph2D_Edit_gui.exec();
@@ -126,12 +130,22 @@ void Graph2D_Editor_gui::on_pushButton_backGndColor_clicked()
 void Graph2D_Editor_gui::on_pushButton_delete_clicked()
 {
     int index = ui->tableWidget_graph2D_list->currentRow();
+
+    //if (index < 0 || index >= m_graph2DEditorListPtr->size())
+      //  return;
+
+
+
     if (index >= 0 && index < m_graph2DEditorListPtr->size())
     {
-        m_graph2DEditorListPtr->removeAt(index);
-        ui->tableWidget_graph2D_list->removeRow(index);
+        QString str = "Do you want  to delete the selected 2D graph ?\n" + ui->tableWidget_graph2D_list->item(index, 0)->text();
 
+        if ( QMessageBox::warning(this,tr("3D Graphs"), str, QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel)
+             == QMessageBox::Yes)
+        {
+            m_graph2DEditorListPtr->removeAt(index);
+            ui->tableWidget_graph2D_list->removeRow(index);
+        }
     }
-
 
 }

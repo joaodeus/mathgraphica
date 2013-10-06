@@ -33,6 +33,8 @@ private slots:
 
     void on_checkBox_polarGraph_clicked(bool checked);
 
+    void on_pushButton_fx_clicked();
+
 private:
     Ui::Graph2D_AddNew_gui *ui;
 
