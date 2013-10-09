@@ -11,7 +11,7 @@
 class Graph2D
 {
 public:
-    Graph2D(Calculator *calc_);
+    Graph2D();
     ~Graph2D();
 
     QString getGraph2DExpression()const{return m_graph2DExpression;}
@@ -31,7 +31,6 @@ public:
     // it calculates and setup up the array's xx and yy
     bool setupGraph();
 
-
     // ... or set a graph from an array of values
     void setGraph2DArray(QList<double> &xx_, QList<double> &yy_);
 
@@ -40,9 +39,16 @@ public:
     void setPolarGraph(const bool &bPolarGraph_);
     bool isPolarGraph();
 
+    void UpdateGraphTime(double t_, QOpenGLShaderProgram &m_shaderProgram);
+    void setTime(const double &t_){ t = t_;}
+
+
+    bool isTimeGraph(){return timeGraph2D;} // check if is a graph with a variable t (time) in "m_graph2DExpression"
+    // timeGraphs can be animated
 
 private:
 
+    bool timeGraph2D;
     QString m_graph2DExpression;
     QString m_xminExpression;
     double m_xmin;
@@ -54,9 +60,10 @@ private:
     QList<double> xx;
     QList<double> yy;
 
+    double t; // time
     bool bPolarGraph;
 
-    Calculator *calc;
+    Calculator calc;
 
 
     // drawing ---------------------------------------------

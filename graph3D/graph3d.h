@@ -12,7 +12,7 @@
 class Graph3D
 {
 public:
-    Graph3D(Calculator *calc_);
+    Graph3D();
     ~Graph3D();
 
 
@@ -67,7 +67,7 @@ private:
     QString m_variable_X;
     QString m_variable_Y;
 
-    Calculator *calc;
+    Calculator calc;
 
 
 

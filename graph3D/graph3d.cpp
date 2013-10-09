@@ -2,10 +2,8 @@
 
 #include <QTime>
 
-Graph3D::Graph3D(Calculator *calc_)
+Graph3D::Graph3D()
 {
-
-    calc = calc_;
 
     /*
     m_fxy="cos(x)*sin(y)*cos(t)";
@@ -58,8 +56,8 @@ void Graph3D::setMinX(const double &minX_)
 void Graph3D::setMinX(const QString &minXExpression_)
 {
     m_xminExpression = minXExpression_;
-    m_xmin = calc->SolveExpression(minXExpression_).numberReal();
-    if (calc->error())
+    m_xmin = calc.SolveExpression(minXExpression_).numberReal();
+    if (calc.error())
     {
         QMessageBox::about(0, QObject::tr("Error!"), QObject::tr("Invalid X min value in Graph3D"));
         return;
@@ -76,8 +74,8 @@ void Graph3D::setMaxX(const double &maxX_)
 void Graph3D::setMaxX(const QString &maxXExpression_)
 {
     m_xmaxExpression = maxXExpression_;
-    m_xmax = calc->SolveExpression(maxXExpression_).numberReal();
-    if (calc->error())
+    m_xmax = calc.SolveExpression(maxXExpression_).numberReal();
+    if (calc.error())
     {
         QMessageBox::about(0, QObject::tr("Error!"), QObject::tr("Invalid X max value in Graph3D"));
         return;
@@ -93,8 +91,8 @@ void Graph3D::setMinY(const double &minY_)
 void Graph3D::setMinY(const QString &minYExpression_)
 {
     m_yminExpression = minYExpression_;
-    m_ymin = calc->SolveExpression(minYExpression_).numberReal();
-    if (calc->error())
+    m_ymin = calc.SolveExpression(minYExpression_).numberReal();
+    if (calc.error())
     {
         QMessageBox::about(0, QObject::tr("Error!"), QObject::tr("Invalid Y min value in Graph3D"));
         return;
@@ -110,8 +108,8 @@ void Graph3D::setMaxY(const double &maxY_)
 void Graph3D::setMaxY(const QString &maxYExpression_)
 {
     m_ymaxExpression = maxYExpression_;
-    m_ymax = calc->SolveExpression(maxYExpression_).numberReal();
-    if (calc->error())
+    m_ymax = calc.SolveExpression(maxYExpression_).numberReal();
+    if (calc.error())
     {
         QMessageBox::about(0, QObject::tr("Error!"), QObject::tr("Invalid Y max value in Graph3D"));
         return;
@@ -128,8 +126,8 @@ void Graph3D::setDelta(const double delta_)
 void Graph3D::setDelta(const QString deltaExpression_)
 {
     m_deltaExpression = deltaExpression_;
-    m_delta = calc->SolveExpression(deltaExpression_).numberReal();
-    if (calc->error())
+    m_delta = calc.SolveExpression(deltaExpression_).numberReal();
+    if (calc.error())
     {
         QMessageBox::about(0, QObject::tr("Error!"), QObject::tr("Invalid delta value in Graph3D"));
         return;

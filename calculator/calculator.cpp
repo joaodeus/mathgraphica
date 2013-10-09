@@ -12,6 +12,10 @@ Calculator::Calculator(): m_equation(&parser), m_integral(&parser), m_integralDo
     m_formulasList.append(formula);
 
 
+
+    variables_List.append("t");
+    values_List.append(MyNumber(0));
+
 }
 
 Calculator::~Calculator()
@@ -28,6 +32,30 @@ MyNumber Calculator::SolveExpression_fx(const QString &expression)
 {
     return parser.SolveExpression_fn(expression, values_List, variables_List);
 }
+
+QList<double> Calculator::SolveExpression_list(const QString &expression, const int &size)
+{
+    MyNumber aux = parser.SolveExpression_fn(expression, values_List, variables_List);
+    if (aux.numberListComplexo().size() == 0)
+    {
+        QList<double> listReal;
+        for (int i = 0; i < size; i++)
+        {
+            listReal.append(aux.numberReal());
+        }
+        return listReal;
+    }
+
+    return aux.numberListReal();
+}
+
+/*
+void Calculator::clear_Variables_Values()
+{
+    variables_List.clear();
+    values_List.clear();
+}*/
+
 
 bool Calculator::setVariable_Value(const QStringList &variables, const QList<MyNumber> &values)
 {
@@ -46,6 +74,15 @@ bool Calculator::setVariable_Value(const QStringList &variables, const QList<MyN
 
 void Calculator::setVariable_Value(const QString &variable, const MyNumber &value)
 {
+
+/*    int size = values_List.size();
+    if (size == 0)
+    {
+        variables_List.append(variable);
+        values_List.append(value);
+        return;
+    }*/
+
     int index = variables_List.indexOf(variable);
     if (index == -1)
     {
@@ -113,10 +150,42 @@ int Calculator::getDegreeRadGrad()
 }
 
 
-bool Calculator::isValid_Expression_with_time_variable(const QString &expression)
+bool Calculator::isValidExpression_ft(const QString &expression)
 {
     return parser.isValidExpression_ft(expression);
 }
+
+bool Calculator::isValidExpression_fxt(const QString &expression)
+{
+    return parser.isValidExpression_fxt(expression);
+}
+
+bool Calculator::isValidExpression_fxt(const QString &expression, QString &variable)
+{
+    return parser.isValidExpression_fxt(expression,variable);
+}
+
+
+
+bool Calculator::isValid_Expression_with_time_variable(const QString &expression)
+{
+    //check if it's a valid expression
+    if (parser.isValidExpression_fn(expression) == false)
+        return false;
+
+    //now let's check if it has a tima variable
+    QStringList variables;
+    parser.GetVariables(expression,variables);
+
+    for (int i = 0; i < variables.size(); i++)
+    {
+        if (variables[i] == "t")
+            return true;
+    }
+
+    return false;
+}
+
 
 bool Calculator::isValidExpression(const QString &expression)
 {

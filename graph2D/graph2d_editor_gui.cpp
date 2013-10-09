@@ -18,6 +18,16 @@ Graph2D_Editor_gui::~Graph2D_Editor_gui()
     delete ui;
 }
 
+void Graph2D_Editor_gui::setTimeDelta(const QString t_delta_)
+{
+    ui->lineEdit_t_delta->setText(t_delta_);
+}
+
+QString Graph2D_Editor_gui::getTimeDelta()
+{
+    return ui->lineEdit_t_delta->text();
+}
+
 
 void Graph2D_Editor_gui::showEvent(QShowEvent *event)
 {
@@ -41,6 +51,7 @@ void Graph2D_Editor_gui::showEvent(QShowEvent *event)
             ui->tableWidget_graph2D_list->item(i,0)->setText( m_graph2DEditorListPtr->at(i).getGraph2DExpression()  );
         }
 
+        ui->tableWidget_graph2D_list->item(i,0)->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     }
 
 }
@@ -59,18 +70,15 @@ void Graph2D_Editor_gui::on_pushButton_cancel_clicked()
 void Graph2D_Editor_gui::on_pushButton_add_clicked()
 {
     Graph2D_AddNew_gui newGraph2D_gui;
- //   newGraph2D_gui.m_graph2D =
+
     newGraph2D_gui.exec();
     if ( newGraph2D_gui.returnValue == 1 )
     {
         newGraph2D_gui.m_graph2D.setupGraph();
         m_graph2DEditorListPtr->append(newGraph2D_gui.m_graph2D);
-
         addNewGraph(newGraph2D_gui.m_graph2D.getGraph2DExpression());
-
-    }
-
-
+        close();
+    }    
 }
 
 void Graph2D_Editor_gui::addNewGraph(const QString &str)
@@ -89,8 +97,7 @@ void Graph2D_Editor_gui::addNewGraph(const QString &str)
         ui->tableWidget_graph2D_list->item(size,0)->setText(str);
     }
 
-
-
+    ui->tableWidget_graph2D_list->item(size,0)->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 }
 
 
@@ -116,6 +123,7 @@ void Graph2D_Editor_gui::on_pushButton_edit_clicked()
         //m_graph2DEditorListPtr->indexOf( graph2D_Edit_gui.m_graph2D);
        // addNewGraph(graph2D_Edit_gui.m_graph2D.getGraph2DExpression());
         ui->tableWidget_graph2D_list->item(index,0)->setText(graph2D_Edit_gui.m_graph2D.getGraph2DExpression());
+        close();
     }
 
 }
@@ -134,8 +142,6 @@ void Graph2D_Editor_gui::on_pushButton_delete_clicked()
     //if (index < 0 || index >= m_graph2DEditorListPtr->size())
       //  return;
 
-
-
     if (index >= 0 && index < m_graph2DEditorListPtr->size())
     {
         QString str = "Do you want  to delete the selected 2D graph ?\n" + ui->tableWidget_graph2D_list->item(index, 0)->text();
@@ -145,7 +151,13 @@ void Graph2D_Editor_gui::on_pushButton_delete_clicked()
         {
             m_graph2DEditorListPtr->removeAt(index);
             ui->tableWidget_graph2D_list->removeRow(index);
+            close();
         }
     }
 
+}
+
+void Graph2D_Editor_gui::on_tableWidget_graph2D_list_cellDoubleClicked(int row, int column)
+{
+    on_pushButton_edit_clicked();
 }

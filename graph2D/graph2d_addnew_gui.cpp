@@ -7,8 +7,7 @@
 
 Graph2D_AddNew_gui::Graph2D_AddNew_gui(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Graph2D_AddNew_gui),
-    m_graph2D(&calc)
+    ui(new Ui::Graph2D_AddNew_gui)
 {
     ui->setupUi(this);
 
@@ -34,6 +33,7 @@ void Graph2D_AddNew_gui::showEvent(QShowEvent * event)
     ui->lineEdit_xmin->setText(m_graph2D.getIntervalMin());
     ui->lineEdit_xmax->setText(m_graph2D.getIntervalMax());
     ui->lineEdit_dx->setText(m_graph2D.getDelta());
+    ui->checkBox_polarGraph->setChecked(m_graph2D.isPolarGraph());
 
 
     ui->pushButton_color2D->setAutoFillBackground(true);

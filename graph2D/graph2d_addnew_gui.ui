@@ -117,14 +117,14 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="0">
+   <item row="6" column="2">
     <widget class="QPushButton" name="pushButton_Ok">
      <property name="text">
       <string>Ok</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="2">
+   <item row="6" column="0">
     <widget class="QPushButton" name="pushButton_cancel">
      <property name="text">
       <string>Cancel</string>
@@ -133,6 +133,17 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>pushButton_Ok</tabstop>
+  <tabstop>pushButton_cancel</tabstop>
+  <tabstop>pushButton_fx</tabstop>
+  <tabstop>lineEdit_expression</tabstop>
+  <tabstop>checkBox_polarGraph</tabstop>
+  <tabstop>lineEdit_xmax</tabstop>
+  <tabstop>lineEdit_xmin</tabstop>
+  <tabstop>lineEdit_dx</tabstop>
+  <tabstop>pushButton_color2D</tabstop>
+ </tabstops>
  <resources>
   <include location="../mathgraphica.qrc"/>
  </resources>

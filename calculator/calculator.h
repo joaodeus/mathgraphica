@@ -24,7 +24,10 @@ public:
 
     MyNumber SolveExpression(const QString &expression);
     MyNumber SolveExpression_fx(const QString &expression);
+    QList<double> SolveExpression_list(const QString &expression,const int &size);
 
+
+    //void clear_Variables_Values();
     bool setVariable_Value(const QStringList &variables, const QList<MyNumber> &values);
     void setVariable_Value(const QString &variable, const MyNumber &value);
     void setVariable_Value(const QString &variable, const double &value);
@@ -42,6 +45,17 @@ public:
     void setDegreeRadGrad(const int isDegreeRadGrad_);
     int getDegreeRadGrad();
 
+    //check if expression is a valid math expression f(t) with one 't' time variable, like i.e: "2+t"
+    bool isValidExpression_ft(const QString &expression);
+
+    //check if expression is a valid math expression f(variable,t) i.e. with 2 variables,
+    //one of them being 't', the time varible, like e.e: "cos(x+t)", "2*y+t"
+    bool isValidExpression_fxt(const QString &expression);
+    //convenience method, saves the variable other than 't', in "variable"
+    bool isValidExpression_fxt(const QString &expression, QString &variable);
+
+
+    //can have many variables, one of them being a time variable
     bool isValid_Expression_with_time_variable(const QString &expression);
     bool isValidExpression(const QString &expression);
     MyNumber isValidExpression(const QString &expression, bool &ok);

@@ -318,49 +318,14 @@ void MainWindow::on_actionFormulas_triggered()
 
 void MainWindow::on_actionGraph_2D_triggered()
 {
-    /*
-    Graph2D m_graph2D(&calc);
-    m_graph2D.setInterval(-50,50);
-    m_graph2D.setDelta(0.1);
-    m_graph2D.setGraph2DExpression("cos(2*x)");
-    m_graph2D.setColor(0,0,1);
-    m_graph2D.setupGraph();
-
-    Graph2D_OpenGL *graph2DWindow = new Graph2D_OpenGL(&calc);
-
-    graph2DWindow->addGraph2D(m_graph2D);
 
 
-    Graph2D m_graph2Dx(&calc);
-    m_graph2Dx.setInterval(-50,50);
-    m_graph2Dx.setDelta(0.1);
-    m_graph2Dx.setGraph2DExpression("2*x^2");
-    m_graph2Dx.setColor(0,1,0);
-    m_graph2Dx.setupGraph();
-
-
-    graph2DWindow->addGraph2D(m_graph2Dx);
-
-    graph2DWindow->show();
-    */
-
-    ///////////////////////
-/*
-    Graph2D graph2D_1(&calc);
-    Graph2D graph2D_2(&calc);
-
-    graph2D_1.setInterval(-50,50);
-    graph2D_1.setDelta(0.1);
-    graph2D_1.setGraph2DExpression("sin(2*x)");
-    graph2D_1.setupGraph();
-    graph2D_1.setColor(0,0,1);
-*/
     Graph2D_AddNew_gui newGraph_gui;
 
     newGraph_gui.exec();
     if (newGraph_gui.returnValue == 1)
     {
-        Graph2D_Container_gui *graph2d = new Graph2D_Container_gui(0,&calc);
+        Graph2D_Container_gui *graph2d = new Graph2D_Container_gui;
         newGraph_gui.m_graph2D.setupGraph();
         graph2d->m_graph2D_OpenGL->m_graph2DList.append(newGraph_gui.m_graph2D);
 
@@ -380,11 +345,11 @@ void MainWindow::on_actionGraph_2D_triggered()
 
 void MainWindow::on_actionGraph_3D_triggered()
 {
-    Graph3D_OpenGL *graph = new Graph3D_OpenGL ;
-    graph->show();
+    //Graph3D_OpenGL *graph = new Graph3D_OpenGL ;
+    //graph->show();
 
-    /*
-    Graph3D_Container_gui *graph2 = new Graph3D_Container_gui();
-    graph2->show();*/
+    Graph3D_Container_gui *graph3d = new Graph3D_Container_gui;
+    graph3d->show();
+
 
 }

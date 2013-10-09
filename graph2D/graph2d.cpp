@@ -2,15 +2,18 @@
 
 #include <QDebug>
 
-Graph2D::Graph2D(Calculator *calc_)
+Graph2D::Graph2D()
 {
-    calc = calc_;
+    //calc = calc_;
+
+
 
     vertexPosition  = NULL;
     m_graphColor.setRgbF(1,0,0); // default color - red
 
 
-    m_graph2DExpression = "5*cos(x)";
+    timeGraph2D         = false;
+    m_graph2DExpression = "5*cos(x+t)";
     m_xminExpression    = "-50";
     m_xmin              = -50;
     m_xmaxExpression    = "50";
@@ -18,6 +21,7 @@ Graph2D::Graph2D(Calculator *calc_)
     m_deltaExpression   = "0.1";
     m_delta             = 0.1;
     bPolarGraph         = false;
+    t                   = 0;
 
 }
 
@@ -41,15 +45,15 @@ void Graph2D::setInterval(const QString &minExpression_, const QString &maxExpre
     m_xminExpression = minExpression_;
     m_xmaxExpression = maxExpression_;
 
-    m_xmin = calc->SolveExpression(minExpression_).numberReal();
-    if (calc->error())
+    m_xmin = calc.SolveExpression(minExpression_).numberReal();
+    if (calc.error())
     {
         QMessageBox::about(0, QObject::tr("Error!"), QObject::tr("Invalid min value in Graph2D"));
         return;
     }
 
-    m_xmax = calc->SolveExpression(maxExpression_).numberReal();
-    if (calc->error())
+    m_xmax = calc.SolveExpression(maxExpression_).numberReal();
+    if (calc.error())
     {
         QMessageBox::about(0, QObject::tr("Error!"), QObject::tr("Invalid max value in Graph2D"));
         return;
@@ -65,8 +69,8 @@ void Graph2D::setDelta(const double delta_)
 void Graph2D::setDelta(const QString deltaExpression_)
 {
     m_deltaExpression = deltaExpression_;
-    m_delta = calc->SolveExpression(deltaExpression_).numberReal();
-    if (calc->error())
+    m_delta = calc.SolveExpression(deltaExpression_).numberReal();
+    if (calc.error())
     {
         QMessageBox::about(0, QObject::tr("Error!"), QObject::tr("Invalid delta value in Graph2D"));
         return;
@@ -76,6 +80,7 @@ void Graph2D::setDelta(const QString deltaExpression_)
 void Graph2D::setGraph2DExpression(const QString &expression_)
 {
     m_graph2DExpression = expression_;
+    timeGraph2D = calc.isValid_Expression_with_time_variable(m_graph2DExpression);
 }
 
 bool Graph2D::setupGraph()
@@ -84,8 +89,10 @@ bool Graph2D::setupGraph()
     yy.clear();
 
     QStringList variables;
-    if (calc->GetVariables(m_graph2DExpression, variables) > 1)
-    {
+    calc.GetVariables(m_graph2DExpression, variables);
+
+    if (variables.size() > 2)
+    {        
         //qDebug()<<"Error";
         return false;
     }
@@ -98,25 +105,44 @@ bool Graph2D::setupGraph()
         x_aux += m_delta;
     }
 
+
+
+
+
+    if (calc.isValid_Expression_with_time_variable(m_graph2DExpression) && (variables.size() == 2) )
+    {
+        calc.setVariable_Value("t", t);
+
+        if (variables[0] == "t")
+            calc.setVariable_Value(variables[1],xx);
+        else
+            calc.setVariable_Value(variables[0],xx);
+
+        yy = calc.SolveExpression_list(m_graph2DExpression, xx.size());
+        return true;
+    }
+
     if (variables.size() == 1)
     {
-        calc->setVariable_Value(variables[0], xx);
-        yy = calc->SolveExpression_fx(m_graph2DExpression).numberListReal();
+        if (variables[0]== "t")
+            calc.setVariable_Value("t", t);
+        else
+            calc.setVariable_Value(variables[0], xx);
+
+        yy = calc.SolveExpression_list(m_graph2DExpression, xx.size());
+        return true;
     }
 
     if (variables.size() == 0)
     {
-        double z = calc->SolveExpression(m_graph2DExpression).numberReal();
-        for(int i = 0; i < size; i++)
-        {
-            yy.append(z);
-        }
+        yy = calc.SolveExpression_list(m_graph2DExpression, xx.size());
+        return true;
     }
 
+    return false;
 
-   // setBufferData();
 
-    return true;
+
 }
 
 
@@ -156,6 +182,20 @@ bool Graph2D::isPolarGraph()
     return bPolarGraph;
 }
 
+void Graph2D::UpdateGraphTime(double t_, QOpenGLShaderProgram &m_shaderProgram)
+{
+    t = t_;
+    if (isTimeGraph() == false)
+        return;
+
+    calc.setVariable_Value("t", t);
+    yy = calc.SolveExpression_list(m_graph2DExpression, xx.size());
+
+
+    setBufferData(m_shaderProgram);
+}
+
+
 ////////////////////////////////////////////////////////
 
 void Graph2D::prepareBuffers()
@@ -173,7 +213,7 @@ void Graph2D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
     if (vertexPosition == NULL)
     {
         vertexPosition  = new QVector3D [size];
-        qDebug()<<"creating buffer in graph2D";
+       // qDebug()<<"creating buffer in graph2D";
     }
     else
     {
@@ -209,8 +249,9 @@ void Graph2D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
 
     //////////////////////////////////////////////////////
 
-    if (m_vertexBufferGraph2D.bind()) qDebug() << "setBufferData() - Success biding vertex position graph 2D buffer";
-    else qDebug()<<"setBufferData() - something wrong";
+    m_vertexBufferGraph2D.bind();
+    //if (m_vertexBufferGraph2D.bind()) qDebug() << "setBufferData() - Success biding vertex position graph 2D buffer";
+    //else qDebug()<<"setBufferData() - something wrong";
     m_vertexBufferGraph2D.allocate(vertexPosition, size * 3 * sizeof(float));
 
   //  m_shaderProgram.disableAttributeArray("vertexColor");
@@ -221,7 +262,7 @@ void Graph2D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
     {
         delete[] vertexPosition;
         vertexPosition = NULL;
-        qDebug()<<"deleting buffer in graph2D";
+      //  qDebug()<<"deleting buffer in graph2D";
     }
 
 }
@@ -230,7 +271,8 @@ void Graph2D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
 void Graph2D::draw(QOpenGLShaderProgram &m_shaderProgram)
 {
 
-    if (m_vertexBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";    
+    m_vertexBufferGraph2D.bind();
+//    if (m_vertexBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";
    // m_shaderProgram.enableAttributeArray("vertexPosition");
     m_shaderProgram.setAttributeBuffer("vertexPosition", GL_FLOAT, 0, 3);
 

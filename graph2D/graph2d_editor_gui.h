@@ -20,6 +20,9 @@ public:
     QList<Graph2D> *m_graph2DEditorListPtr;
     QColor getBackGroundColor(){return m_backGroundColor;}
 
+    void setTimeDelta(const QString t_delta_);
+    QString getTimeDelta();
+
 protected:
     void showEvent(QShowEvent *event);
     QColor m_backGroundColor;
@@ -36,6 +39,8 @@ private slots:
     void on_pushButton_backGndColor_clicked();
 
     void on_pushButton_delete_clicked();
+
+    void on_tableWidget_graph2D_list_cellDoubleClicked(int row, int column);
 
 private:
     Ui::Graph2D_Editor_gui *ui;

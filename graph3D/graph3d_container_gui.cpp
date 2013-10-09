@@ -7,14 +7,18 @@ Graph3D_Container_gui::Graph3D_Container_gui(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    graphOpenGL = new Graph3D_OpenGL;
-    ui->horizontalLayout->addWidget(graphOpenGL);
+    setAttribute(Qt::WA_DeleteOnClose);
+
+    m_graph3D_OpenGL = new Graph3D_OpenGL;
+    m_graph3DcontainerListPtr = &m_graph3D_OpenGL->m_graph3DList;
+
+    ui->horizontalLayout->addWidget(m_graph3D_OpenGL);
 
 }
 
 Graph3D_Container_gui::~Graph3D_Container_gui()
 {
-    delete graphOpenGL;
+    delete m_graph3D_OpenGL;
     delete ui;
 }
 
@@ -26,4 +30,14 @@ void Graph3D_Container_gui::on_pushButton_options_clicked()
 void Graph3D_Container_gui::on_pushButton_exit_clicked()
 {
     close();
+}
+
+void Graph3D_Container_gui::on_pushButton_saveImage_clicked()
+{
+
+}
+
+void Graph3D_Container_gui::on_pushButton_startStop_clicked()
+{
+
 }

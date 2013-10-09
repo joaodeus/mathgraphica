@@ -1,23 +1,31 @@
 #include "graph2d_opengl.h"
 
-Graph2D_OpenGL::Graph2D_OpenGL(Calculator *calc_)//: m_graph2D(calc_)
+#include <QFileDialog>
+#include <QImageWriter>
+
+
+Graph2D_OpenGL::Graph2D_OpenGL()//: m_graph2D(calc_)
 {
-    calc = calc_;
+    //calc = calc_;
 
     setMouseTracking(true);
     background_dots = NULL;
 
-    Range   = 20;
+    Range   = 50;
     scale   = 1;
     backgroundColor.setRgbF(0,0,0,1);
     axisColor.setRgbF(1,1,1,1);
     //axisColor.setRgbF(0.9,0.9,0.9,1);
 
 
+    t       = 0;
+    t_delta = 0.5;
+    Timer2D = 0;
 }
 
 Graph2D_OpenGL::~Graph2D_OpenGL()
 {
+
     //delete[] dots;
     //delete[] dotsColor;
 }
@@ -156,6 +164,7 @@ void Graph2D_OpenGL::showEvent(QShowEvent *event)
 
     prepareGraphs();
 
+    time.start();
 }
 
 void Graph2D_OpenGL::prepareGraphs()
@@ -183,6 +192,14 @@ void Graph2D_OpenGL::prepareGraph(int index)
 
 void Graph2D_OpenGL::paintGL()
 {
+    int tt = time.elapsed();
+    qDebug("Time elapsed: %d ms", tt);
+    if (tt != 0)
+        qDebug("Fps: %lf ", double(1000/tt));
+    time.restart();
+
+
+
     // Clear the background and depth-buffer for this frame
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -218,7 +235,8 @@ void Graph2D_OpenGL::drawAxis2D()
 {
 
 
-    if (m_vertexPositionBuffer.bind()) qDebug() << "Success biding vertex position buffer";
+    m_vertexPositionBuffer.bind();
+//    if (m_vertexPositionBuffer.bind()) qDebug() << "Success biding vertex position buffer";
    // m_shaderProgram.enableAttributeArray("vertexPosition");
     m_shaderProgram.setAttributeBuffer("vertexPosition", GL_FLOAT, 0, 3);
 
@@ -232,6 +250,62 @@ void Graph2D_OpenGL::drawAxis2D()
 
 }
 
+bool Graph2D_OpenGL::areTimeGraphs()
+{
+    for (int i = 0; i < m_graph2DList.size() ; i++)
+    {
+        if (m_graph2DList[i].isTimeGraph())
+            return true;
+    }
+    return false;
+}
+
+void Graph2D_OpenGL::startStopTimer2D()
+{
+    if (Timer2D == 0 && areTimeGraphs())
+    {
+        Timer2D = startTimer(0);
+        return;
+    }
+
+    if (Timer2D != 0)
+    {
+        killTimer(Timer2D);
+        Timer2D = 0;
+        t       = 0;
+    }
+}
+
+
+void Graph2D_OpenGL::stopTimer2D()
+{
+    if (Timer2D != 0)
+    {
+        killTimer(Timer2D);
+        Timer2D = 0;
+        t       = 0;
+    }
+}
+
+
+void Graph2D_OpenGL::timerEvent(QTimerEvent *event)
+{
+    if(event->timerId() == Timer2D)
+    {
+        t += t_delta;
+        for(int i = 0; i < m_graph2DList.size(); i++)
+        {
+            m_graph2DList[i].UpdateGraphTime(t, m_shaderProgram);
+        }
+
+        qDebug()<<"updating t: "<<t;
+        updateGL();
+        return;
+    }
+
+    QGLWidget::timerEvent(event);
+}
+
 
 void Graph2D_OpenGL::setBackGroundColor(const QColor &color_)
 {
@@ -241,6 +315,38 @@ void Graph2D_OpenGL::setBackGroundColor(const QColor &color_)
     paintGL();
 }
 
+
+void Graph2D_OpenGL::SaveImageAs()
+{
+    QString filename;
+    //QString format = "jpg";
+    //QString fileformat;
+    //fileformat = sprintf("Image (*.%s)",format)
+    filename = QFileDialog::getSaveFileName( this,
+                                            tr("Save File"),
+                                            getenv( "HOME" ), tr(" Image (*.png)") );
+                                            //getenv( "HOME" ), fileformat );
+
+    if( !filename.endsWith( ".png" ) )
+    {
+        filename.append( ".png" );
+    }
+
+    QPixmap imagepix = renderPixmap( );
+    QImage image = grabFrameBuffer( );
+    QImageWriter imageWriter(filename,"png");
+
+    //imageWriter.setQuality(100);
+
+    if( imageWriter.canWrite() )
+    {
+        imageWriter.write(image);
+    }
+    else
+    {
+        QMessageBox::warning( this, tr("Save Image"), tr("Error saving image.") );
+    }
+}
 
 
 void Graph2D_OpenGL::mousePressEvent(QMouseEvent *event)

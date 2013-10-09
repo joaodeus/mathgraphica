@@ -24,17 +24,16 @@ public:
 
 
 //protected slots:
-    void resizeGL();
+    void resizeGL(int width, int height);
     void initializeGL();
     void prepareShaderProgram();
     void prepareVertexBuffers();
-    void setGeometry();
+    //void setGeometry();
     void paintGL();
 
 
 protected:
     void hideEvent(QHideEvent *event);
-
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent (QMouseEvent * event);
     void mouseMoveEvent(QMouseEvent *event);
@@ -54,11 +53,14 @@ protected:
     QOpenGLShaderProgram m_shaderProgram;
     QOpenGLBuffer m_vertexPositionBuffer;
     QOpenGLBuffer m_vertexColorBuffer;
-    //QOpenGLBuffer m_projectionBuffer;
-    //QOpenGLBuffer m_orientationBuffer;
-    QTimer *timer;
+
+    GLint vertexAttr;
+    GLint matrixAttr;
+    GLint projAttr;
     QMatrix4x4 projection;
     QMatrix4x4 orientation;
+
+    QColor backgroundColor;
 
 
     //----3D axis
@@ -67,11 +69,9 @@ protected:
     void setup_Axis3D();
 
 
-
     //Graph3D m_graph3D;
     QList<Graph3D> m_graph3D_list;
 
-    QColor backgroundColor;
     int w; //width
     int h; //height
     double Range;
@@ -94,6 +94,11 @@ protected:
 
     bool bAutoRotate;
     bool bTimer3D;
+
+
+public:
+    QList<Graph3D> m_graph3DList;
+    void addGraph3D(const Graph3D &graph3d_);
 
 };
 

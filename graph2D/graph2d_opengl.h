@@ -6,12 +6,13 @@
 #include <QOpenGLContext>
 #include <QOpenGLBuffer>
 #include <QMouseEvent>
+#include <QTime>
 #include "graph2d.h"
 
 class Graph2D_OpenGL : public QGLWidget
 {
 public:
-    Graph2D_OpenGL(Calculator *calc_);
+    Graph2D_OpenGL();
     ~Graph2D_OpenGL();
 
     void initializeGL();
@@ -24,10 +25,25 @@ public:
     void paintGL();
 
 
+    QTime time;
+    bool areTimeGraphs();
+    void startStopTimer2D();
+    void stopTimer2D();
+
+protected:
+    virtual void timerEvent(QTimerEvent *event);
+    int Timer2D;
+    double t;
+    double t_delta;
+public:
+    void setTimeDelta(const double &t_delta_){t_delta = t_delta_;}
+    double getTimeDelta(){return t_delta;}
+
     void initializeAxis2D();
     void initializeAxis2DBackGroundDots();
     void drawAxis2D();
     void setBackGroundColor(const QColor &color_);
+    void SaveImageAs();
 
 protected:
     QOpenGLShaderProgram m_shaderProgram;
@@ -77,11 +93,10 @@ protected:
     //Graph2D m_graph2D;
 public:
     QList<Graph2D> m_graph2DList;
-
     void addGraph2D(const Graph2D &graph2d_);
 
 private:
-    Calculator *calc;
+  //  Calculator *calc;
 };
 
 #endif // GRAPH2D_OPENGL_H
