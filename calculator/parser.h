@@ -103,7 +103,7 @@ public:
     //grabs the variables from a expression, i.e:
     // expression = "5+x+y+z+var1" ; stores the variables "x", "y", "z" and "var1" in "list_variables"
     // and returns the number of variables (4 in this example)
-    int GetVariables(const QString &expression, QStringList &list_variables);
+    int GrabVariables(const QString &expression, QStringList &list_variables);
 
 
 
@@ -113,6 +113,9 @@ public:
 
     //check if expression is a valid math expression, like i.e: "2+3*cos(pi)"
     bool isValidExpression(const QString &expression);
+    //convenience method, save the result in value_
+    bool isValidExpression(const QString &expression, MyNumber &value_);
+
 
     //check if expression is a valid math expression with one variable, like i.e: "2+x"
     bool isValidExpression_fx(const QString &expression);
@@ -132,7 +135,7 @@ public:
 
 
 
-    //check if expression is a valid math expression with n variables (n > 1), like i.e: "5+x+y*z"
+    //check if expression is a valid math expression with n variables (n > 0), like i.e: "5+x+y*z"
     bool isValidExpression_fn(const QString &expression);
     //convenience function where the it check the number of variables in "expression" against "n"
     //bool isValidExpression_fn(const QString &expression, const uint n);
@@ -144,11 +147,12 @@ public:
     bool isValidEquation(const QString &expression, QString &equation_First_Member, QString &equation_Second_Member, QString &variable);
 
 
-
     //check if expression is a valid equation, explicit from a constant expression
     //the first member must be only the variable, and second member must be only a expression without variables
     // like i.e.: "x=4-5" or "var1=2+cos(pi)"
-    bool isValidEquation_Explicit_From_Constant(const QString &expression);
+    bool isValidEquation_Explicit_From_Constant(const QString &equation);
+    //convenience method, saves variable in variable_ and value in value_
+    bool isValidEquation_Explicit_From_Constant(const QString &equation, QString &variable_, MyNumber &value_);
 
     //check for errors after solving expressions with SolveExpression_...() methods
     bool error();

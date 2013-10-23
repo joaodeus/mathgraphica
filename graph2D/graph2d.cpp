@@ -23,6 +23,8 @@ Graph2D::Graph2D()
     bPolarGraph         = false;
     t                   = 0;
 
+    bufferSize = 0;
+
 }
 
 Graph2D::~Graph2D()
@@ -89,7 +91,7 @@ bool Graph2D::setupGraph()
     yy.clear();
 
     QStringList variables;
-    calc.GetVariables(m_graph2DExpression, variables);
+    calc.GrabVariables(m_graph2DExpression, variables);
 
     if (variables.size() > 2)
     {        
@@ -98,8 +100,8 @@ bool Graph2D::setupGraph()
     }
 
     double x_aux = m_xmin;
-    int size = (m_xmax - m_xmin) / m_delta;
-    for (int i = 0; i < size; i++)
+    bufferSize = (m_xmax - m_xmin) / m_delta;
+    for (int i = 0; i < bufferSize; i++)
     {
         xx.append(x_aux);
         x_aux += m_delta;
@@ -148,14 +150,13 @@ bool Graph2D::setupGraph()
 
 void Graph2D::setGraph2DArray(QList<double> &xx_, QList<double> &yy_)
 {
-
-    xx = xx_;
-    yy = yy_;
+    xx          = xx_;
+    yy          = yy_;
+    bufferSize  = xx.size();
 }
 
 Graph2D &Graph2D::operator =(const Graph2D &a)
 {
-
     m_graph2DExpression = a.m_graph2DExpression;
     m_xminExpression    = a.m_xminExpression;
     m_xmin              = a.m_xmin;
@@ -167,6 +168,7 @@ Graph2D &Graph2D::operator =(const Graph2D &a)
     yy                  = a.yy;
     m_graphColor        = a.m_graphColor;
     bPolarGraph         = a.bPolarGraph;
+    bufferSize          = a.bufferSize;
 
     return *this;
 }
@@ -203,25 +205,27 @@ void Graph2D::prepareBuffers()
     if (m_vertexBufferGraph2D.create()) qDebug() << "Success creating graph2D vertex position buffer";
     else qDebug()<<"vertex buffer failed to create";
     m_vertexBufferGraph2D.setUsagePattern(QOpenGLBuffer::StaticDraw);
-    if (m_vertexBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";  
+    if (m_vertexBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";
+    m_vertexBufferGraph2D.allocate(bufferSize * 3 * sizeof(float));
 }
 
 void Graph2D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
 {
     int size = xx.size();
 
+
     if (vertexPosition == NULL)
     {
         vertexPosition  = new QVector3D [size];
        // qDebug()<<"creating buffer in graph2D";
     }
-    else
+  /*  else
     {
-        //delete[] vertexPosition;
-        delete vertexPosition;
+        delete[] vertexPosition;
+        //delete vertexPosition;
         vertexPosition  = new QVector3D [size];
     }
-
+*/
 
     if (bPolarGraph)
     {
@@ -252,7 +256,8 @@ void Graph2D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
     m_vertexBufferGraph2D.bind();
     //if (m_vertexBufferGraph2D.bind()) qDebug() << "setBufferData() - Success biding vertex position graph 2D buffer";
     //else qDebug()<<"setBufferData() - something wrong";
-    m_vertexBufferGraph2D.allocate(vertexPosition, size * 3 * sizeof(float));
+//    m_vertexBufferGraph2D.allocate(vertexPosition, size * 3 * sizeof(float));
+    m_vertexBufferGraph2D.write(0, vertexPosition, size * 3 * sizeof(float));
 
   //  m_shaderProgram.disableAttributeArray("vertexColor");
     m_shaderProgram.setAttributeValue("vertexColor", m_graphColor);
@@ -268,15 +273,18 @@ void Graph2D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
 }
 
 
+
+
 void Graph2D::draw(QOpenGLShaderProgram &m_shaderProgram)
 {
 
+    m_shaderProgram.bind();
     m_vertexBufferGraph2D.bind();
-//    if (m_vertexBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";
-   // m_shaderProgram.enableAttributeArray("vertexPosition");
+   // if (m_vertexBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";
+    m_shaderProgram.enableAttributeArray("vertexPosition");
     m_shaderProgram.setAttributeBuffer("vertexPosition", GL_FLOAT, 0, 3);
 
-   // m_shaderProgram.disableAttributeArray("vertexColor");
+    m_shaderProgram.disableAttributeArray("vertexColor");
     m_shaderProgram.setUniformValue("vertexColor", m_graphColor);
 
     glDrawArrays(GL_LINE_STRIP, 0, xx.size());

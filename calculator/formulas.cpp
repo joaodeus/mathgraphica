@@ -46,7 +46,7 @@ QList<Complexo> Formulas::solve()
 
 void Formulas::calculateConstants()
 {
-    parser->GetVariables(m_formula, m_constants);
+    parser->GrabVariables(m_formula, m_constants);
 
     //set size of values equal to constants
     //if (m_values.size() < m_constants.size())

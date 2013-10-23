@@ -9,6 +9,7 @@
 #include <QOpenGLBuffer>
 #include <QTimer>
 #include <QMouseEvent>
+#include <QTime>
 
 #include "graph3D/graph3d.h"
 
@@ -20,17 +21,17 @@ public:
     Graph3D_OpenGL();
     //Graph3D_OpenGL(QScreen *screen = 0);
     ~Graph3D_OpenGL();
-    //QOpenGLFunctions_4_3_Core* m_funcs;
 
 
+    // Events
 //protected slots:
-    void resizeGL(int width, int height);
     void initializeGL();
     void prepareShaderProgram();
     void prepareVertexBuffers();
-    //void setGeometry();
+    void prepareGraphs();
+    void resizeGL(int width, int height);
+    void showEvent(QShowEvent *event);
     void paintGL();
-
 
 protected:
     void hideEvent(QHideEvent *event);
@@ -39,45 +40,39 @@ protected:
     void mouseMoveEvent(QMouseEvent *event);
     void wheelEvent(QWheelEvent * event );
     bool event(QEvent *event);
-    virtual void keyPressEvent(QKeyEvent *event);
     virtual void timerEvent(QTimerEvent *event);
-
-    void AutoRotate();
-
 public:
-    void axis3D();
-    void updateBackGroundColor(const QColor &color);
+    virtual void keyPressEvent(QKeyEvent *event);
+
+
+
+    // background color
+    void setBackGroundColor(const QColor &color_);
+private:
+    QColor backgroundColor;
 
 protected:
-    QOpenGLContext m_context;
-    QOpenGLShaderProgram m_shaderProgram;
-    QOpenGLBuffer m_vertexPositionBuffer;
-    QOpenGLBuffer m_vertexColorBuffer;
-
     GLint vertexAttr;
     GLint matrixAttr;
     GLint projAttr;
     QMatrix4x4 projection;
     QMatrix4x4 orientation;
 
-    QColor backgroundColor;
-
+    void AutoRotate();
 
     //----3D axis
+public:
+    void axis3D();
     QVector3D axis_3D[6];
     QVector3D axisColor[6];
     void setup_Axis3D();
 
-
-    //Graph3D m_graph3D;
-    QList<Graph3D> m_graph3D_list;
-
+    // window setup
     int w; //width
     int h; //height
     double Range;
-
-
     QPoint lastPos;
+
     double scale;
     double xRot;
     double yRot;
@@ -88,17 +83,29 @@ protected:
 
     int TimerRotate;
     int Timer3D;
-
-    double t; //time
-    double t_delta;//time interval
-
     bool bAutoRotate;
     bool bTimer3D;
 
+    // Time
+public:
+    void setTimeDelta(const double &t_delta_){t_delta = t_delta_;}
+    double getTimeDelta(){return t_delta;}
+    double t; //time
+    double t_delta;//time interval
+    QTime time; // used just for calculating the frames per second
 
+    // 3D graphs
 public:
     QList<Graph3D> m_graph3DList;
     void addGraph3D(const Graph3D &graph3d_);
+
+    // OpenGL stuff
+protected:
+    QOpenGLContext m_context;
+    QOpenGLShaderProgram m_shaderProgram;
+    QOpenGLBuffer m_vertexPositionBuffer;
+    QOpenGLBuffer m_vertexColorBuffer;
+
 
 };
 

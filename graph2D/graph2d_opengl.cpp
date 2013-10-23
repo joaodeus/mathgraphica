@@ -25,6 +25,8 @@ Graph2D_OpenGL::Graph2D_OpenGL()//: m_graph2D(calc_)
 
 Graph2D_OpenGL::~Graph2D_OpenGL()
 {
+    qDebug()<<"destructor, list size"<<m_graph2DList.size();
+    m_graph2DList.clear();
 
     //delete[] dots;
     //delete[] dotsColor;
@@ -161,9 +163,7 @@ void Graph2D_OpenGL::resizeGL(int width, int height)
 void Graph2D_OpenGL::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event);
-
     prepareGraphs();
-
     time.start();
 }
 
@@ -225,7 +225,7 @@ void Graph2D_OpenGL::paintGL()
     for (int i = 0; i < m_graph2DList.size(); i++)
     {
         m_graph2DList[i].draw(m_shaderProgram);
-        qDebug()<<m_graph2DList.size();
+     //   qDebug()<<m_graph2DList.size();
     }
 
 

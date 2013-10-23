@@ -10,6 +10,7 @@ Graph2D_Editor_gui::Graph2D_Editor_gui(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    m_graph2DEditorListPtr = NULL;
     ui->tableWidget_graph2D_list->setColumnCount(1);
 }
 
@@ -32,6 +33,10 @@ QString Graph2D_Editor_gui::getTimeDelta()
 void Graph2D_Editor_gui::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event);
+
+    if (m_graph2DEditorListPtr == NULL)
+        return;
+
 
     int size = m_graph2DEditorListPtr->size();
     ui->tableWidget_graph2D_list->setColumnCount(1);
@@ -69,6 +74,10 @@ void Graph2D_Editor_gui::on_pushButton_cancel_clicked()
 
 void Graph2D_Editor_gui::on_pushButton_add_clicked()
 {
+    if (m_graph2DEditorListPtr == NULL)
+        return;
+
+
     Graph2D_AddNew_gui newGraph2D_gui;
 
     newGraph2D_gui.exec();
@@ -133,6 +142,7 @@ void Graph2D_Editor_gui::on_pushButton_backGndColor_clicked()
 {
     QColorDialog dlg;
     m_backGroundColor = dlg.getColor();
+    close();
 }
 
 void Graph2D_Editor_gui::on_pushButton_delete_clicked()

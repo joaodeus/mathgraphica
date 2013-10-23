@@ -24,20 +24,43 @@ Graph3D::Graph3D()
     Red_d=1.0;      Green_d=0.3;    Blue_d=0.0; //vermelho
 */
 
+    m_graph3DExpression = "cos(x)*sin(y)*cos(t)";
+
+    m_xminExpression    = "-10";
+    m_xmin              = -10;
+    m_xmaxExpression    = "10";
+    m_xmax              = 10;
+
+    m_yminExpression    = "-10";
+    m_ymin              = -10;
+    m_ymaxExpression    = "10";
+    m_ymax              = 10;
+
+    m_deltaExpression   = "0.5";
+    m_delta  = 0.5;
+
+    m_variable_X        = "x";
+    m_variable_Y        = "y";
+
     colorA.setRgbF(0,0.3,1,1);
     colorB.setRgbF(0,0.2,0.8,1);
     colorC.setRgbF(0.8,0.2,0,1);
     colorD.setRgbF(1,0.3,0,1);
 
-    graph3D_fxy = NULL;
-    graph3D_color_upper_face = NULL;
-    graph3D_color_lower_face = NULL;
+    bufferSize = 0;
+
+    vertexPosition  = NULL;
+    vertexColor     = NULL;
+
+    //graph3D_fxy = NULL;
+    //graph3D_color_upper_face = NULL;
+   // graph3D_color_lower_face = NULL;
    // indices = NULL;
 
-    bMemoryError=false;
+    //bMemoryError=false;
 
-    k_x = 0;
-    k_y = 0;
+  //  k_x = 0;
+  //  k_y = 0;
 }
 
 Graph3D::~Graph3D()
@@ -144,6 +167,51 @@ void Graph3D::setGraph3DExpression(const QString &expression_)
 bool Graph3D::setupGraph()
 {
 
+    xx.clear();
+    yy.clear();
+    zz.clear();
+
+
+    QStringList variables;
+    calc.GrabVariables(m_graph3DExpression, variables);
+
+    if (variables.size() > 3)
+    {
+        //qDebug()<<"Error";
+        return false;
+    }
+
+    int xCount = (m_xmax - m_xmin) / m_delta + 1;
+    int yCount = (m_ymax - m_ymin) / m_delta + 1;
+    double x = m_xmin;
+    double y = m_ymin;
+
+    //for (int j = 0; j < yRows; j++)
+
+    int i = 0; // index for array elements
+
+    elements.clear();
+
+    for (double y = m_ymin; y <= m_ymax; y += m_delta)
+    {
+        for (double x = m_xmin; x <= m_xmax; x += m_delta)
+        {
+            xx.append(x);
+            yy.append(y);
+
+            elements.append(i);
+            elements.append(i + xCount);
+            i++;
+        }
+    }
+
+    calc.setVariable_Value(m_variable_X, xx);
+    calc.setVariable_Value(m_variable_Y, yy);
+
+    zz = calc.SolveExpression_list(m_graph3DExpression,xx.size());
+
+
+
 }
 
 
@@ -195,7 +263,7 @@ QColor Graph3D::getColorD()
 
 bool Graph3D::SetGraph3D(const Graph3D &graph3D, double t)
 {
-
+/*
     Calculator calc;
     QMessageBox msgBox;
 
@@ -307,16 +375,14 @@ bool Graph3D::SetGraph3D(const Graph3D &graph3D, double t)
     calc.setVariable_Value(m_variable_Y, arrai_y);
     calc.setVariable_Value("t", t);
     arrai_z = calc.SolveExpression_fx(m_graph3DExpression).numberListReal();
-    /*if (z3D.size() == 0)
-    {
-        z3D = setListElements(zz, arrai_x.size());
-    }*/
+
 
     qDebug("time array: %d", stopwatch.elapsed());
 
-
+*/
     return true;
 }
+
 
 void Graph3D::UpdateGraphTime(double t)
 {
@@ -327,7 +393,7 @@ void Graph3D::UpdateGraphTime(double t)
     stopwatch.start();
 
     calc.setVariable_Value("t", t);
-    arrai_z = calc.SolveExpression_fx(m_graph3DExpression).numberListReal();
+    //arrai_z = calc.SolveExpression_fx(m_graph3DExpression).numberListReal();
 
     qDebug("updating time array: %d", stopwatch.elapsed());
 
@@ -340,6 +406,11 @@ bool Graph3D::graph_has_variable_t()
 }
 
 void Graph3D::prepareBuffers()
+{
+
+}
+
+void Graph3D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
 {
 
 }
@@ -358,6 +429,11 @@ void Graph3D::draw(QOpenGLShaderProgram &m_shaderProgram, int &vertexAttrb, int 
     graph3D_color_lower_face = NULL;
     */
 
+
+
+
+
+    /*
     int size = sizeof(QVector3D)*arrai_x.size();
     graph3D_fxy=(QVector3D*)malloc(size);
     if (graph3D_fxy == NULL)
@@ -489,6 +565,6 @@ void Graph3D::draw(QOpenGLShaderProgram &m_shaderProgram, int &vertexAttrb, int 
     graph3D_fxy = NULL;
     graph3D_color_upper_face = NULL;
     graph3D_color_lower_face = NULL;
-
+*/
 
 }

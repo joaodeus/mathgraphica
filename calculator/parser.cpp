@@ -40,7 +40,7 @@ MyNumber Parser::SolveExpression_fx(const QString &expression_fx, const double &
     QList<MyNumber> values_List;
     QStringList variables_List;
 
-    GetVariables(expression_fx, variables_List);
+    GrabVariables(expression_fx, variables_List);
     values_List.append(MyNumber(value_x));
 
     return ParseExpressionToList(expression_fx, variables_List, values_List);
@@ -164,7 +164,7 @@ QList<double> Parser::SolveExpression_fx_List(const QString &expression_fx, QLis
 {
     QStringList variables_list;
 
-    GetVariables(expression_fx, variables_list);
+    GrabVariables(expression_fx, variables_list);
 
     //if it's a math expression like f(x) let's solve it
     if (variables_list.size() == 1)
@@ -353,7 +353,7 @@ QString Parser::Expression_ReplaceVariables_WithValues(QString expression, QStri
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-int Parser::GetVariables(const QString &expression, QStringList &list_variables)
+int Parser::GrabVariables(const QString &expression, QStringList &list_variables)
 {
     MyNumber variable;
     QString variable_aux;
@@ -382,6 +382,12 @@ bool Parser::isValidExpression(const QString &expression)
     return !error();
 }
 
+bool Parser::isValidExpression(const QString &expression, MyNumber &value_)
+{
+    value_ = SolveExpression(expression);
+    return !error();
+}
+
 
 bool Parser::isValidExpression_fx(const QString &expression)
 {
@@ -394,7 +400,7 @@ bool Parser::isValidExpression_fx(const QString &expression, QString &variable)
     QStringList variables_list;
 
     //it's a expression with one variable ...
-    if (GetVariables(expression,variables_list) == 1)
+    if (GrabVariables(expression,variables_list) == 1)
     {
         variable = variables_list[0];
         //now let's check if it's a valid expression_fx, we will use a random number "1.34" for that
@@ -412,7 +418,7 @@ bool Parser::isValidExpression_ft(const QString &expression)
     QStringList variables_list;
 
     //it's a expression with one variable ...
-    if (GetVariables(expression,variables_list) == 1)
+    if (GrabVariables(expression,variables_list) == 1)
     {
         //if variable is not 't' return false
         if (variables_list[0] != "t")
@@ -441,7 +447,7 @@ bool Parser::isValidExpression_fxt(const QString &expression, QString &variable)
     QStringList variables_list;
 
     //it's a expression with 2 variables ...
-    if (GetVariables(expression,variables_list) == 2)
+    if (GrabVariables(expression,variables_list) == 2)
     {
         if ( (variables_list[0] == "t") || (variables_list[1] == "t") )
         {
@@ -474,7 +480,7 @@ bool Parser::isValidExpression_fn(const QString &expression)
 {
     QStringList variables_list;
 
-    if (GetVariables(expression, variables_list) > 1)
+    if (GrabVariables(expression, variables_list) > 0)
     {
         QStringList values_list;
         for (int i=0;i<variables_list.size();i++)
@@ -549,7 +555,7 @@ bool Parser::isValidEquation(const QString &expression, QString &equation_First_
 
     if (        ( isValidExpression(equation_members[0]) || isValidExpression_fx(equation_members[0]) )
             &&  ( isValidExpression(equation_members[1]) || isValidExpression_fx(equation_members[1]) )
-            &&  ( GetVariables(expression, variables_aux) == 1 )  )
+            &&  ( GrabVariables(expression, variables_aux) == 1 )  )
     {
         variable = variables_aux[0];
         return true;
@@ -561,10 +567,46 @@ bool Parser::isValidEquation(const QString &expression, QString &equation_First_
 }
 
 
-
-bool Parser::isValidEquation_Explicit_From_Constant(const QString &expression)
+bool Parser::isValidEquation_Explicit_From_Constant(const QString &equation)
 {
-    QStringList equation_members = expression.split("=");
+    QString variable_aux;
+    MyNumber value_aux;
+    return isValidEquation_Explicit_From_Constant(equation, variable_aux, value_aux);
+}
+
+bool Parser::isValidEquation_Explicit_From_Constant(const QString &equation, QString &variable_, MyNumber &value_)
+{
+
+    QStringList equation_members = equation.split("=");
+    QStringList variables_aux;
+
+    if ( equation_members.size() != 2 )
+    {
+        return false;
+    }
+
+    if ( GrabVariables(equation, variables_aux) != 1 )
+    {
+        return false;
+    }
+
+
+
+   if ( ( (equation_members[0] == variables_aux[0])
+           || (equation_members[0] ==  ("("+ variables_aux[0] +")" )  ) )
+         && isValidExpression(equation_members[1], value_) )
+    {
+        variable_ = variables_aux[0];
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+
+    /*QStringList equation_members = expression.split("=");
     QStringList variables_aux;
 
     if ( equation_members.size() != 2 )
@@ -586,7 +628,7 @@ bool Parser::isValidEquation_Explicit_From_Constant(const QString &expression)
     else
     {
         return false;
-    }
+    }*/
 }
 
 

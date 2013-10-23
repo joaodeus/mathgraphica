@@ -13,8 +13,8 @@ Calculator::Calculator(): m_equation(&parser), m_integral(&parser), m_integralDo
 
 
 
-    variables_List.append("t");
-    values_List.append(MyNumber(0));
+ //   variables_List.append("t");
+ //   values_List.append(MyNumber(0));
 
 }
 
@@ -48,6 +48,14 @@ QList<double> Calculator::SolveExpression_list(const QString &expression, const 
 
     return aux.numberListReal();
 }
+
+
+MyNumber Calculator::SolveExpression_fn(const QString &expression_fn, QList<MyNumber> &values_List_, QStringList &variables_List_)
+{
+    return parser.SolveExpression_fn(expression_fn, values_List_, variables_List_);
+}
+
+
 
 /*
 void Calculator::clear_Variables_Values()
@@ -111,9 +119,9 @@ void Calculator::setVariable_Value(const QString &variable, const Matrix &value_
     setVariable_Value(variable, MyNumber(value_matrix));
 }
 
-int Calculator::GetVariables(const QString &expression, QStringList &list_variables)
+int Calculator::GrabVariables(const QString &expression, QStringList &list_variables)
 {
-    parser.GetVariables(expression,list_variables);
+    parser.GrabVariables(expression,list_variables);
     return list_variables.size();
 }
 
@@ -175,7 +183,7 @@ bool Calculator::isValid_Expression_with_time_variable(const QString &expression
 
     //now let's check if it has a tima variable
     QStringList variables;
-    parser.GetVariables(expression,variables);
+    parser.GrabVariables(expression,variables);
 
     for (int i = 0; i < variables.size(); i++)
     {
@@ -186,6 +194,11 @@ bool Calculator::isValid_Expression_with_time_variable(const QString &expression
     return false;
 }
 
+
+bool Calculator::isValidExpression_fn(const QString &expression)
+{
+    return parser.isValidExpression_fn(expression);
+}
 
 bool Calculator::isValidExpression(const QString &expression)
 {
@@ -204,6 +217,16 @@ MyNumber Calculator::isValidExpression(const QString &expression, bool &ok)
 bool Calculator::isValidEquation(const QString &equation)
 {
     return parser.isValidEquation(equation);
+}
+
+bool Calculator::isValidEquation_Explicit_From_Constant(const QString &equation)
+{
+    return parser.isValidEquation_Explicit_From_Constant(equation);
+}
+
+bool Calculator::isValidEquation_Explicit_From_Constant(const QString &equation, QString &variable_, MyNumber &value_)
+{
+    return parser.isValidEquation_Explicit_From_Constant(equation, variable_, value_);
 }
 
 
@@ -235,7 +258,26 @@ QList<Complexo> Calculator::SolveEquation(const QString &f1, const QString &f2)
 */
 
 
+void Calculator::addVariableValue(QString variable_, MyNumber value_)
+{
 
+    int index = variables_List.indexOf(variable_,0);
+    if (index != -1)
+    {
+        variables_List[index] = variable_;
+        values_List[index] = value_;
+    }
+}
+
+void Calculator::addVariableValue(QString variable_, QString value_)
+{
+    int index = variables_List.indexOf(variable_,0);
+    if (index != -1)
+    {
+        variables_List[index] = variable_;
+        values_List[index] = parser.SolveExpression(value_);
+    }
+}
 
 //QString Calculadora::f_replace_UserDefinedFunction(QString &f, QList<myFunction> list_functions)
 QString Calculator::Expression_Replace_User_Defined_Function(const QString &expression_, const QList<myFunction> &list_functions_)

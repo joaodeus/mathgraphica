@@ -8,18 +8,23 @@
 #include "gui/integral_gui.h"
 #include "gui/integraldouble_gui.h"
 #include "graph3D/graph3d_opengl.h"
-#include "graph3D/graph3d_container_gui.h"
 #include "gui/matrix_editor_gui.h"
 #include "gui/formulas_gui.h"
 #include "graph2D/graph2d_opengl.h"
 #include "graph2D/graph2d_container_gui.h"
 #include "graph2D/graph2d_addnew_gui.h"
+#include "graph3D/graph3d_container_gui.h"
+
+#include "graph/graph_container_gui.h"
+#include "graph3D/graph3d_editor_gui.h"
 
 
-#define TYPE_EXPRESSION         1
-#define TYPE_EQUATION           2
-#define TYPE_INTEGRAL           3
-#define TYPE_INTEGRAL_DOUBLE    4
+#define TYPE_EXPRESSION             1
+#define TYPE_EQUATION               2
+#define TYPE_INTEGRAL               3
+#define TYPE_INTEGRAL_DOUBLE        4
+#define TYPE_EXPRESSION_VARIABLES   5
+#define TYPE_EQUATION_ASSIGNMENT    6
 
 
 
@@ -68,8 +73,20 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
         ui->listWidget_results_history->addItem(item);
         ui->listWidget_results_history->addItem(item1);
         ui->listWidget_results_history->scrollToBottom();
+        return;
     }
 
+
+    QString variable;
+    MyNumber value;
+    if (calc.isValidEquation_Explicit_From_Constant(str_cmd_line, variable, value))
+    {
+        calc.setVariable_Value(variable, value);
+        QListWidgetItem *item = new QListWidgetItem(str_cmd_line,0,TYPE_EQUATION_ASSIGNMENT);
+        ui->listWidget_results_history->addItem(item);
+        ui->listWidget_results_history->scrollToBottom();
+        return;
+    }
 
     //check for equations
     if (calc.isValidEquation(str_cmd_line))
@@ -88,8 +105,24 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
             }
             ui->listWidget_results_history->scrollToBottom();
         }
+        return;
     }
 
+    if (calc.isValidExpression_fn(str_cmd_line))
+    {
+        number = calc.SolveExpression_fn(str_cmd_line, calc.values_List, calc.variables_List);
+        if (calc.error())
+            return;
+
+        QString solution = calc.formatResult(number);
+        QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_EXPRESSION_VARIABLES);
+        QListWidgetItem *item1  = new QListWidgetItem(solution,0,TYPE_EXPRESSION);
+        ui->listWidget_results_history->addItem(item);
+        ui->listWidget_results_history->addItem(item1);
+        ui->listWidget_results_history->scrollToBottom();
+
+        return;
+    }
 
     if (calc.m_integral.isValidIntegralSintaxe(str_cmd_line))
     {
@@ -319,25 +352,30 @@ void MainWindow::on_actionFormulas_triggered()
 void MainWindow::on_actionGraph_2D_triggered()
 {
 
-
     Graph2D_AddNew_gui newGraph_gui;
 
     newGraph_gui.exec();
     if (newGraph_gui.returnValue == 1)
     {
-        Graph2D_Container_gui *graph2d = new Graph2D_Container_gui;
         newGraph_gui.m_graph2D.setupGraph();
-        graph2d->m_graph2D_OpenGL->m_graph2DList.append(newGraph_gui.m_graph2D);
 
-        graph2d->show();
+        Graph2D_Container_gui *graph2dContainer = new Graph2D_Container_gui;
+        graph2dContainer->m_graph2D_OpenGL.m_graph2DList.append(newGraph_gui.m_graph2D);
+
+        graph2dContainer->show();
     }
 
 
-    //   graph2d->m_graph2D_OpenGL->addGraph2D(graph2D_1);
-  //  graph2d->m_graph2D_OpenGL->addGraph2D(m_graph2Dx);
+    /*
+    Graph2D_AddNew_gui newGraph_gui;
 
-
-
+    newGraph_gui.exec();
+    if (newGraph_gui.returnValue == 1)
+    {
+        newGraph_gui.m_graph2D.setupGraph();
+        g1.m_graph2D_OpenGL.m_graph2DList.append(newGraph_gui.m_graph2D);
+        g1.show();
+    }*/
 
 }
 
@@ -345,11 +383,11 @@ void MainWindow::on_actionGraph_2D_triggered()
 
 void MainWindow::on_actionGraph_3D_triggered()
 {
-    //Graph3D_OpenGL *graph = new Graph3D_OpenGL ;
-    //graph->show();
+  //  Graph3D_OpenGL *graph = new Graph3D_OpenGL ;
+   // graph->show();
 
-    Graph3D_Container_gui *graph3d = new Graph3D_Container_gui;
-    graph3d->show();
+    Graph3D_Container_gui *container = new Graph3D_Container_gui;
+    container->show();
 
 
 }

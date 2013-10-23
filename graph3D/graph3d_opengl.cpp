@@ -75,22 +75,6 @@ Graph3D_OpenGL::~Graph3D_OpenGL()
     //delete timer;
 }
 
-void Graph3D_OpenGL::setup_Axis3D()
-{
-    axis_3D[0].setX(Range); axis_3D[0].setY(0.0f); axis_3D[0].setZ(0.0f);
-    axis_3D[1].setX(-Range); axis_3D[1].setY(0.0f); axis_3D[1].setZ(0.0f);
-    axis_3D[2].setX(0.0f); axis_3D[2].setY(Range); axis_3D[2].setZ(0.0f);
-    axis_3D[3].setX(0.0f); axis_3D[3].setY(-Range); axis_3D[3].setZ(0.0f);
-    axis_3D[4].setX(0.0f); axis_3D[4].setY(0.0f); axis_3D[4].setZ(Range);
-    axis_3D[5].setX(0.0f); axis_3D[5].setY(0.0f); axis_3D[5].setZ(-Range);
-
-    axisColor[0].setX(1); axisColor[0].setY(0.4);axisColor[0].setZ(0);
-    axisColor[1].setX(1); axisColor[1].setY(0.4);axisColor[1].setZ(0);
-    axisColor[2].setX(0.6); axisColor[2].setY(1);axisColor[2].setZ(0.1);//(173,255,47
-    axisColor[3].setX(0.6); axisColor[3].setY(1);axisColor[3].setZ(0.1);
-    axisColor[4].setX(0); axisColor[4].setY(1);axisColor[4].setZ(1);
-    axisColor[5].setX(0); axisColor[5].setY(1);axisColor[5].setZ(1);
-}
 
 
 void Graph3D_OpenGL::initializeGL()
@@ -177,18 +161,24 @@ void Graph3D_OpenGL::prepareVertexBuffers()
 
 }
 
-/*
-void Graph3D_OpenGL::setGeometry()
-{       
-    m_shaderProgram.setUniformValue( "proj", projection );// Set projection to the shader    
-    m_shaderProgram.setUniformValue( "matrix", orientation );// Set orientation matrix to the shaderprogram
-}*/
+void Graph3D_OpenGL::prepareGraphs()
+{
+    for (int i = 0; i < m_graph3DList.size(); i++)
+    {
+        m_graph3DList[i].prepareBuffers();
+        m_graph3DList[i].setBufferData(m_shaderProgram);
+    }
 
-void Graph3D_OpenGL::updateBackGroundColor(const QColor &color)
+    updateGL();
+}
+
+
+
+void Graph3D_OpenGL::setBackGroundColor(const QColor &color)
 {
     backgroundColor=color;
-
     glClearColor(backgroundColor.redF(),backgroundColor.greenF(), backgroundColor.blueF(), 1.0f);
+    paintGL();
 }
 
 
@@ -202,6 +192,12 @@ void Graph3D_OpenGL::resizeGL(int width, int height)
   //  paintGL();
 }
 
+void Graph3D_OpenGL::showEvent(QShowEvent *event)
+{
+    Q_UNUSED(event);
+    prepareGraphs();
+    time.start();
+}
 
 void Graph3D_OpenGL::paintGL()
 {
@@ -255,6 +251,24 @@ void Graph3D_OpenGL::paintGL()
 
 
 
+void Graph3D_OpenGL::setup_Axis3D()
+{
+    axis_3D[0].setX(Range); axis_3D[0].setY(0.0f); axis_3D[0].setZ(0.0f);
+    axis_3D[1].setX(-Range); axis_3D[1].setY(0.0f); axis_3D[1].setZ(0.0f);
+    axis_3D[2].setX(0.0f); axis_3D[2].setY(Range); axis_3D[2].setZ(0.0f);
+    axis_3D[3].setX(0.0f); axis_3D[3].setY(-Range); axis_3D[3].setZ(0.0f);
+    axis_3D[4].setX(0.0f); axis_3D[4].setY(0.0f); axis_3D[4].setZ(Range);
+    axis_3D[5].setX(0.0f); axis_3D[5].setY(0.0f); axis_3D[5].setZ(-Range);
+
+    axisColor[0].setX(1); axisColor[0].setY(0.4);axisColor[0].setZ(0);
+    axisColor[1].setX(1); axisColor[1].setY(0.4);axisColor[1].setZ(0);
+    axisColor[2].setX(0.6); axisColor[2].setY(1);axisColor[2].setZ(0.1);//(173,255,47
+    axisColor[3].setX(0.6); axisColor[3].setY(1);axisColor[3].setZ(0.1);
+    axisColor[4].setX(0); axisColor[4].setY(1);axisColor[4].setZ(1);
+    axisColor[5].setX(0); axisColor[5].setY(1);axisColor[5].setZ(1);
+}
+
+
 void Graph3D_OpenGL::axis3D()
 {
     //m_shaderProgram.bind();
@@ -276,12 +290,10 @@ void Graph3D_OpenGL::hideEvent(QHideEvent * event)
 {
     Q_UNUSED(event);
     qDebug("Hiding window");
-    //destroy();
-    //delete this;
-    killTimer(TimerRotate);
-    TimerRotate = 0;
+ //   killTimer(TimerRotate);
+ //   TimerRotate = 0;
 
-    destroy();
+   // destroy();
 }
 
 
@@ -471,9 +483,9 @@ void Graph3D_OpenGL::timerEvent(QTimerEvent *event)
     {
         t+=t_delta;
         //m_graph3D.UpdateGraphTime(t);
-        for(int i=0;i<m_graph3D_list.size();i++)
+        for(int i = 0; i < m_graph3DList.size(); i++)
         {
-            m_graph3D_list[i].UpdateGraphTime(t);
+            m_graph3DList[i].UpdateGraphTime(t);
         }
 
         qDebug()<<t;
@@ -482,7 +494,6 @@ void Graph3D_OpenGL::timerEvent(QTimerEvent *event)
     }
 
     QGLWidget::timerEvent(event);
-    //QWindow::timerEvent(event);
 }
 
 

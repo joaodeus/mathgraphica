@@ -25,13 +25,12 @@ public:
     void paintGL();
 
 
-    QTime time;
+    QTime time; // used just for calculating the frames per second
     bool areTimeGraphs();
     void startStopTimer2D();
     void stopTimer2D();
 
-protected:
-    virtual void timerEvent(QTimerEvent *event);
+    void timerEvent(QTimerEvent *event);
     int Timer2D;
     double t;
     double t_delta;

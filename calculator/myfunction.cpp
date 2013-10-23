@@ -79,7 +79,7 @@ bool myFunction::SetFunction(QString &functionDefinition)
     //lets check if this variables are the same from m_function "4x+2+y"
     QStringList list_var_aux2;
 
-    parser->GetVariables(list[1],list_var_aux2);
+    parser->GrabVariables(list[1],list_var_aux2);
 
     //if they are different there is a error
     if (list_variables_aux != list_var_aux2)

@@ -157,7 +157,7 @@ Complexo Integral::solveIntegral()
     double b = upperLimit;
     QStringList variables;
 
-    if (parser->GetVariables(integralExpression,variables) > 1)
+    if (parser->GrabVariables(integralExpression,variables) > 1)
     {
         QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Invalid integral expression."));
         return 0;

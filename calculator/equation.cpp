@@ -145,7 +145,7 @@ QList<Complexo> Equation::solveEquation(const QString &f1, const QString &f2)
 
 
     QStringList variablesList;
-    if (parser->GetVariables(f1+"="+f2, variablesList) != 1)
+    if (parser->GrabVariables(f1+"="+f2, variablesList) != 1)
         return equation_solutions;
 
     QString variable = variablesList.at(0);

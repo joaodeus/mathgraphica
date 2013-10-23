@@ -8,6 +8,7 @@
 #include <QOpenGLShaderProgram>
 #include "calculator/calculator.h"
 
+
 class Graph2D
 {
 public:
@@ -72,6 +73,8 @@ private:
     QVector3D *vertexPosition;
     //QVector3D *vertexColor;
     QColor m_graphColor;
+    int bufferSize;
+
 public:
     void prepareBuffers();
     void setBufferData(QOpenGLShaderProgram &m_shaderProgram);

@@ -26,6 +26,11 @@ public:
     MyNumber SolveExpression_fx(const QString &expression);
     QList<double> SolveExpression_list(const QString &expression,const int &size);
 
+    //solves math expressions with n variables, i.e:
+    //expression_fn = "5+x+y+z+var1" ; variables_List = {x; y; z; var1} ; values_List = {2.3; 1; 5; 6.1}
+    MyNumber SolveExpression_fn(const QString &expression_fn, QList<MyNumber> &values_List_, QStringList &variables_List_);
+
+
 
     //void clear_Variables_Values();
     bool setVariable_Value(const QStringList &variables, const QList<MyNumber> &values);
@@ -34,7 +39,7 @@ public:
     void setVariable_Value(const QString &variable, const QList<double> &value_list);
     void setVariable_Value(const QString &variable, const Matrix &value_matrix);
 
-    int GetVariables(const QString &expression, QStringList &list_variables);
+    int GrabVariables(const QString &expression, QStringList &list_variables);
 
 
     QString formatResult( const Complexo &z);
@@ -54,15 +59,32 @@ public:
     //convenience method, saves the variable other than 't', in "variable"
     bool isValidExpression_fxt(const QString &expression, QString &variable);
 
-
     //can have many variables, one of them being a time variable
     bool isValid_Expression_with_time_variable(const QString &expression);
+
+    //check if expression is a valid math expression with n variables (n > 0), like i.e: "5+x+y*z"
+    bool isValidExpression_fn(const QString &expression);
+
     bool isValidExpression(const QString &expression);
     MyNumber isValidExpression(const QString &expression, bool &ok);
 
     bool isValidEquation(const QString &equation);
     //QList<Complexo> SolveEquation(const QString &equation_);
     //QList<Complexo> SolveEquation(const QString &f1, const QString &f2);
+
+  /*  //check
+    bool isValidEquation_Explicit_From_Constant(const QString &equation);
+    //convenience method, saves variable in variable_ and value in value_
+    bool isValidEquation_Explicit_From_Constant(const QString &expression, QString &variable_, MyNumber &value_);
+*/
+
+    //check if expression is a valid equation, explicit from a constant expression
+    //the first member must be only the variable, and second member must be only a expression without variables
+    // like i.e.: "x=4-5" or "var1=2+cos(pi)"
+    bool isValidEquation_Explicit_From_Constant(const QString &equation);
+    //convenience method, saves variable in variable_ and value in value_
+    bool isValidEquation_Explicit_From_Constant(const QString &equation, QString &variable_, MyNumber &value_);
+
 
 
     Equation m_equation;
@@ -76,10 +98,19 @@ public:
 private:
 
     Parser parser;    
+
+public:
+    // saves the variables and values defined by the user in the command line
+    // example: in "x=5"  "x" is saved in variables list, "5" is saved in values_list
     QStringList variables_List;
     QList<MyNumber> values_List;
 
 
+public:
+    void addVariableValue(QString variable_, MyNumber value_);
+    void addVariableValue(QString variable_, QString value_);
+
+private:
     //---functions-------------------------------
     QList<myFunction> m_FunctionsList;
 

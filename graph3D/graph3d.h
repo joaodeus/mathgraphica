@@ -41,9 +41,11 @@ public:
 
 private:
 
-    QList<double> arrai_x;
-    QList<double> arrai_y;
-    QList<double> arrai_z;
+    //QVector<QVector3D> array_3D;
+
+    QList<double> xx;
+    QList<double> yy;
+    QList<double> zz;
 
 
 
@@ -73,8 +75,12 @@ private:
 
     // drawing ---------------------------------------------
     QOpenGLBuffer m_vertexBufferGraph3D;
-    QOpenGLBuffer m_colorBufferGraph2D;
+    QOpenGLBuffer m_colorBufferGraph3D;
     QVector3D *vertexPosition;
+    QVector3D *vertexColor;
+    QList<int> elements; //array elements
+    int bufferSize;
+
 
 
     QColor colorA;
@@ -98,11 +104,14 @@ public:
 public:
 
     void prepareBuffers();
+    void setBufferData(QOpenGLShaderProgram &m_shaderProgram);
     void draw(QOpenGLShaderProgram &m_shaderProgram, int &vertexAttrib, int &colorAttrib);
+    // to deprecate SetGraph3D(...)
     bool SetGraph3D(const Graph3D &graph3D, double t);
+
     void UpdateGraphTime(double t);
     bool graph_has_variable_t();
-
+/*
     QVector3D *graph3D_fxy;
     QVector3D *graph3D_color_upper_face;
     QVector3D *graph3D_color_lower_face;
@@ -111,6 +120,8 @@ public:
     bool bMemoryError;
     int k_x;
     int k_y;
+*/
+
 
 };
 

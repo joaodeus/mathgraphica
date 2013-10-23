@@ -1,23 +1,25 @@
 #ifndef GRAPH3D_EDITOR_GUI_H
 #define GRAPH3D_EDITOR_GUI_H
 
-#include <QDialog>
 
-namespace Ui {
-class Graph3D_Editor_gui;
-}
+#include "graph2D/graph2d_editor_gui.h"
+#include "graph3d.h"
 
-class Graph3D_Editor_gui : public QDialog
+/*class TesteWidget : public TesteDlg
 {
-    Q_OBJECT
-
+  //  Q_OBJECT
 public:
-    explicit Graph3D_Editor_gui(QWidget *parent = 0);
-    ~Graph3D_Editor_gui();
+    explicit TesteWidget(TesteDlg *parent = 0);*/
+
+class Graph3D_Editor_gui : public Graph2D_Editor_gui
+{
+public:
+    explicit Graph3D_Editor_gui(Graph2D_Editor_gui *parent = 0);
+
+    //Graph3D_Editor_gui();
+    QList<Graph3D> *m_graph3DEditorListPtr;
 
 
-private:
-    Ui::Graph3D_Editor_gui *ui;
 };
 
 #endif // GRAPH3D_EDITOR_GUI_H

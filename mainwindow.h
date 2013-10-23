@@ -5,6 +5,9 @@
 #include <QListWidgetItem>
 #include "calculator/calculator.h"
 
+#include "graph2D/graph2d_container_gui.h"
+
+
 namespace Ui {
 class MainWindow;
 }
@@ -66,6 +69,10 @@ private:
     Matrix mat2;
     Matrix mat3;
     Matrix mat_copy_paste;
+
+    Graph2D_Container_gui g1;
+    Graph2D_Container_gui g2;
+
 
 };
 
