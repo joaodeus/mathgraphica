@@ -50,6 +50,7 @@ void SystemEq_gui::keyPressEvent(QKeyEvent *event)
 
 void SystemEq_gui::showEvent(QShowEvent *event)
 {
+    Q_UNUSED(event);
     GetMatrixToTableWidget(*mat, *ui->tableWidget_systemEquations);
     ui->spinBox_nEquations->setValue(mat->lineCount());
 }

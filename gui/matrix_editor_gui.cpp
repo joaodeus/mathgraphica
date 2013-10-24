@@ -42,6 +42,21 @@ Matrix_editor_gui::~Matrix_editor_gui()
     delete ui;
 }
 
+void Matrix_editor_gui::showEvent(QShowEvent *event)
+{
+    Q_UNUSED(event);
+
+    GetMatrixToTableWidget(*mat1, *ui->tableWidget_matrix1);
+    ui->spinBox_rows1->setValue(mat1->lineCount());
+    ui->spinBox_cols1->setValue(mat1->columnCount());
+
+    GetMatrixToTableWidget(*mat2, *ui->tableWidget_matrix2);
+    ui->spinBox_rows2->setValue(mat2->lineCount());
+    ui->spinBox_cols2->setValue(mat2->columnCount());
+
+    GetMatrixToTableWidget(*mat3, *ui->tableWidget_matrix3);
+
+}
 
 void Matrix_editor_gui::on_spinBox_rows1_valueChanged(int arg1)
 {
@@ -182,6 +197,7 @@ void Matrix_editor_gui::showMatrix()
 
 void Matrix_editor_gui::ContextMenu(QPoint pos)
 {
+    Q_UNUSED(pos);
     QMenu menu;
 
     menu.addAction(matrixRandomAct);

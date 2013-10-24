@@ -50,6 +50,10 @@ MainWindow::MainWindow(QWidget *parent) :
     //systemEquationMatrix.random();
     systemEquationMatrix.SetMatrixRandom(3,4);
 
+    //---Matrix Editor-------------------------
+    mat1.SetLinesCols(2,2);
+    mat2.SetLinesCols(2,2);
+    mat3.SetLinesCols(2,2);
 
     //---Functions-----------------------------
     m_functions_gui = new Functions_gui;

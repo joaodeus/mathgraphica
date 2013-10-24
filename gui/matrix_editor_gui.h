@@ -24,6 +24,9 @@ public:
     Matrix *mat_copy_paste;
     QTableWidget *tableWidget_mat;
 
+protected:
+    void showEvent(QShowEvent *event);
+
 private slots:
 
     void on_spinBox_rows1_valueChanged(int arg1);
