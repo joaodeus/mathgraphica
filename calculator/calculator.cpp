@@ -1,6 +1,6 @@
 #include "calculator.h"
 
-Calculator::Calculator(): m_equation(&parser), m_integral(&parser), m_integralDouble(&parser)
+Calculator::Calculator(): m_equation(&parser), m_integral(&parser), m_integralDouble(&parser), m_function(&parser)
 {    
     Formulas formula(&parser); // create one default formula
     formula.setFormula("En=m*C^2");
@@ -291,10 +291,148 @@ void Calculator::addVariableValue(QString variable_, QString value_)
     }
 }
 
-//QString Calculadora::f_replace_UserDefinedFunction(QString &f, QList<myFunction> list_functions)
-QString Calculator::Expression_Replace_User_Defined_Function(const QString &expression_, const QList<myFunction> &list_functions_)
+
+
+void Calculator::addFunction(const myFunction &function_)
 {
-  /*  QString str_aux;
+
+    for (int i = 0; i < m_FunctionsList.size(); i++)
+    {
+        if ( (m_FunctionsList[i].GetfunctionName() == function_.GetfunctionName())
+             && (m_FunctionsList[i].GetNumberVariables() == function_.GetNumberVariables() ) )
+        {
+            QString aux = function_.GetFunctionDefinition();
+            m_FunctionsList[i].SetFunction( aux ) ;
+
+            return;
+        }
+
+    }
+
+    m_FunctionsList.append(function_);
+
+}
+
+
+//QString Calculadora::f_replace_UserDefinedFunction(QString &f, QList<myFunction> list_functions)
+QString Calculator::Expression_Replace_User_Defined_Function(QString &expression_)
+{
+
+    QString str_aux;
+    int ii;
+
+
+    for(int i=0;i<expression_.size();i++)
+    {
+        ii=i;
+        str_aux="";
+        //str_aux=SacaFuncao(f,i);
+        parser.grabFunction_or_Variable_userdefined(expression_ , i, str_aux);
+
+        for(int l=0;l<m_FunctionsList.size() && str_aux !="" ;l++)
+        {
+            //if is the user definer function 'f'
+            if (str_aux == m_FunctionsList[l].GetfunctionName())
+            {
+
+                if (i >= (expression_.size()-1))
+                    return expression_; //error
+
+                //the next caracter should be a '(' , if not it's a expression with errors
+                if (expression_.at(i+1) != '(' )
+                    return expression_;//error
+
+                i=i+2;
+
+                if (i >= expression_.size())
+                    return expression_; //error
+
+                //i.e. f == "2+cos(3)+f1(4,func2(5))*2"
+                QString expression_aux;
+                expression_aux.clear();
+                int bracket_count = 0;
+                while( (expression_.at(i) != ')') || (bracket_count != 0) )
+                {
+                    if (expression_.at(i) == '(')
+                        bracket_count++;
+
+                    if (expression_.at(i) == ')')
+                        bracket_count--;
+
+                    expression_aux.append(expression_.at(i));
+
+
+                    i++;
+                    if (i >= expression_.size())
+                        return expression_;  //error
+                }
+
+                //lets get the arguments (4,func2(5))
+                // i.e:  4, func2(5)
+                QStringList arguments;
+               // arguments = f_aux.split(",");
+                //nota, alterar o split imediatamente em cima para um for de forma forma contar
+                //as virgulas das funcoes recursivas
+                /////////////////////////////////////////////////////////////
+                QString argument_aux;
+                argument_aux.clear();
+                bracket_count=0;
+                for(int j=0;j<expression_aux.size();j++)
+                {
+                    if (expression_aux.at(j) == '(')
+                        bracket_count++;
+                    if (expression_aux.at(j) == ')')
+                        bracket_count--;
+
+
+                    if ((expression_aux.at(j) == ',') && (bracket_count == 0))
+                    {
+                        arguments.append(argument_aux);
+                        argument_aux.clear();
+                    }
+                    else
+                    {
+                        argument_aux.append(expression_aux.at(j));
+                    }
+                }
+                arguments.append(argument_aux);
+
+                ////////////////////////////////////////////////////////////
+
+
+
+                //if the number of arguments macht the function arguments, ok
+                if (arguments.size() == m_FunctionsList[l].GetNumberVariables())
+                {
+                    QString function_aux = m_FunctionsList[l].GetFunction();
+                    QStringList variables_aux = m_FunctionsList[l].GetVariables();
+
+                    QString new_function =  parser.expression_replace_variables_with_values(function_aux,
+                                                   variables_aux, arguments);
+
+
+
+                    //new_function == "4+func2(5)"
+                    //lets replace new_function in f
+                    expression_.remove(ii,i-ii+1);
+                    expression_.insert(ii,"("+new_function+")");
+                    i=ii-1;
+                    break;
+                }
+                else //the function has the same name, but diferent arguments, so keep on searching
+                {
+                    i=ii;
+                }
+            }
+        }
+    }
+
+    //ERRO=false;
+    return expression_;
+
+
+  /*
+    QString str_aux;
     int ii;
 
     //ERRO=true;

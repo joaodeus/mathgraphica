@@ -4,8 +4,8 @@
 #include <QMainWindow>
 #include <QListWidgetItem>
 #include "calculator/calculator.h"
-
 #include "graph2D/graph2d_container_gui.h"
+#include "gui/functions_gui.h"
 
 
 namespace Ui {
@@ -51,6 +51,8 @@ private slots:
 
     void on_actionGraph_3D_triggered();
 
+    void on_actionFunctions_triggered();
+
 private:
     Ui::MainWindow *ui;
 
@@ -70,8 +72,11 @@ private:
     Matrix mat3;
     Matrix mat_copy_paste;
 
-    Graph2D_Container_gui g1;
-    Graph2D_Container_gui g2;
+   // Graph2D_Container_gui g1;
+   // Graph2D_Container_gui g2;
+
+
+    Functions_gui *m_functions_gui;
 
 
 };

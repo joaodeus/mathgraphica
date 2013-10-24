@@ -50,7 +50,7 @@
      <x>0</x>
      <y>0</y>
      <width>434</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
@@ -63,10 +63,13 @@
    </attribute>
    <addaction name="actionGraph_2D"/>
    <addaction name="actionGraph_3D"/>
+   <addaction name="separator"/>
    <addaction name="actionCalculator"/>
+   <addaction name="separator"/>
    <addaction name="actionEquation"/>
    <addaction name="separator"/>
    <addaction name="actionFormulas"/>
+   <addaction name="actionFunctions"/>
    <addaction name="separator"/>
    <addaction name="actionIntegral"/>
    <addaction name="actionIntegral_double"/>
@@ -175,6 +178,15 @@
    </property>
    <property name="text">
     <string>Graph 2D</string>
+   </property>
+  </action>
+  <action name="actionFunctions">
+   <property name="icon">
+    <iconset resource="mathgraphica.qrc">
+     <normaloff>:/images/images/functions.png</normaloff>:/images/images/functions.png</iconset>
+   </property>
+   <property name="text">
+    <string>Functions</string>
    </property>
   </action>
  </widget>

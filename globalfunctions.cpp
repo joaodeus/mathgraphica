@@ -34,15 +34,15 @@ void GetMatrixToTableWidget(Matrix &matrix, QTableWidget &tableWidgetMatrix)
 
 bool GetTableWidgetToMatrix(QTableWidget &tableWidgetMatrix, Matrix &matrix)
 {
-    int NumbeRows = tableWidgetMatrix.rowCount();
+    int NumberRows = tableWidgetMatrix.rowCount();
     int NumberColumns = tableWidgetMatrix.columnCount();
     Calculator calc;
     Complexo z;
     bool flagTableMatrixError=false;
 
-    matrix.SetLinesCols(NumbeRows,NumberColumns);
+    matrix.SetLinesCols(NumberRows,NumberColumns);
 
-    for(int i=0;i<NumbeRows;i++)
+    for(int i=0;i<NumberRows;i++)
     {
         for(int l=0;l<NumberColumns;l++)
         {
@@ -56,6 +56,26 @@ bool GetTableWidgetToMatrix(QTableWidget &tableWidgetMatrix, Matrix &matrix)
     }
 
     return flagTableMatrixError;
+}
+
+
+void QStringListToTableWidget(QStringList &list, QTableWidget &tableWidget)
+{
+
+    tableWidget.setRowCount(list.size());
+
+    for(int i = 0; i < list.size(); i++)
+    {
+        if (tableWidget.item(i,0) == 0)
+        {
+            QTableWidgetItem *newItem = new QTableWidgetItem(list.at(i));
+            tableWidget.setItem(i,0, newItem);
+        }
+        else
+        {
+            tableWidget.item(i,0)->setText(list.at(i));
+        }
+    }
 }
 
 

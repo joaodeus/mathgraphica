@@ -18,6 +18,9 @@
 #include "graph/graph_container_gui.h"
 #include "graph3D/graph3d_editor_gui.h"
 
+#include "calculator/myfunction.h"
+
+
 
 #define TYPE_EXPRESSION             1
 #define TYPE_EQUATION               2
@@ -25,6 +28,8 @@
 #define TYPE_INTEGRAL_DOUBLE        4
 #define TYPE_EXPRESSION_VARIABLES   5
 #define TYPE_EQUATION_ASSIGNMENT    6
+#define TYPE_FUNCTION               7
+
 
 
 
@@ -45,10 +50,16 @@ MainWindow::MainWindow(QWidget *parent) :
     //systemEquationMatrix.random();
     systemEquationMatrix.SetMatrixRandom(3,4);
 
+
+    //---Functions-----------------------------
+    m_functions_gui = new Functions_gui;
+    m_functions_gui->m_functionsListPtr = &calc.m_FunctionsList;
+    m_functions_gui->m_function = &calc.m_function;
 }
 
 MainWindow::~MainWindow()
 {
+    delete m_functions_gui;
     delete ui;
 }
 
@@ -61,6 +72,41 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
     bool ok = false;
 
    // QApplication::setOverrideCursor(Qt::WaitCursor);
+
+    //check if it's function definition like: "f1(x,y)=4x+2+y"
+    if (calc.m_function.SetFunction(str_cmd_line))
+    {
+        //calc.m_FunctionsList.append(calc.m_function);
+        calc.addFunction(calc.m_function);
+        QListWidgetItem *item=new QListWidgetItem(str_cmd_line,0,TYPE_FUNCTION);
+        ui->listWidget_results_history->addItem(item);
+        ui->listWidget_results_history->scrollToBottom();
+        return ;
+    }
+
+
+    QString str_cmd_line_aux = str_cmd_line;
+    calc.Expression_Replace_User_Defined_Function(str_cmd_line_aux);
+    //check for expressions, like "5+3"
+    number = calc.isValidExpression(str_cmd_line_aux, ok);
+    //if ( calc.isValidExpression(str_cmd_line) )
+    if (ok)
+    {
+        //QString solution = calc.formatResult(calc.SolveExpression(str_cmd_line));
+        QString solution = calc.formatResult(number);
+        QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_EXPRESSION);
+        QListWidgetItem *item1  = new QListWidgetItem(solution,0,TYPE_EXPRESSION);
+        ui->listWidget_results_history->addItem(item);
+        ui->listWidget_results_history->addItem(item1);
+        ui->listWidget_results_history->scrollToBottom();
+        return;
+    }
+
+
+
+
+
+
 
     //check for expressions, like "5+3"
     number = calc.isValidExpression(str_cmd_line, ok);
@@ -154,6 +200,7 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
 
 
 
+
     if (calc.m_integral.isValidIntegralSintaxe(str_cmd_line))
     {
         QString solution = calc.formatResult(calc.m_integral.solveIntegral());
@@ -163,6 +210,10 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
         ui->listWidget_results_history->addItem(item1);                
         ui->listWidget_results_history->scrollToBottom();
     }
+
+
+
+
 
   //  QApplication::restoreOverrideCursor();
 }
@@ -419,5 +470,20 @@ void MainWindow::on_actionGraph_3D_triggered()
     Graph3D_Container_gui *container = new Graph3D_Container_gui;
     container->show();
 
+
+}
+
+void MainWindow::on_actionFunctions_triggered()
+{
+   /* m_functions_gui->m_functions_List.clear();
+    for (int i = 0; i < calc.m_FunctionsList.size(); i++)
+    {
+        m_functions_gui->m_functions_List.append( calc.m_FunctionsList[i].GetFunctionDefinition());
+    }*/
+
+    m_functions_gui->updateFunctions();
+   // m_functions_gui->hide();
+ //   m_functions_gui->setWindowModality(Qt::WindowModal); //(m_functions_gui->windowState());
+    m_functions_gui->show();
 
 }

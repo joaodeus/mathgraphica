@@ -241,7 +241,7 @@ private:
 
 
 
-
+public:
     //replace in an expression, a list of varibles by a list of values
     //example: expression_ = "cos(x)+y*z" ; variables={x,y,z}; values={3,2,4}
     // will return "cos(3)+2*4"
@@ -249,7 +249,7 @@ private:
     //convenience function
     QString expression_replace_variables_with_values(const QString &expression_, QPair<QStringList, QStringList> &variables_values);
 
-
+private:
     // following methods solve functions/operators of the token list
     void SolveOperator(int &i);
     void SolveFunctions(int &i);

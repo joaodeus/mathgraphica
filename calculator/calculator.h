@@ -118,18 +118,22 @@ public:
     void addVariableValue(QString variable_, MyNumber value_);
     void addVariableValue(QString variable_, QString value_);
 
-private:
+
+public:
     //---functions-------------------------------
+    myFunction m_function;
     QList<myFunction> m_FunctionsList;
+    void addFunction(const myFunction &function_);
 
     //If there's a expression with user defined functions like: 2+f(5)+cos(3)
     //where f() is a user defined function like, for example, f(x)=4*x+2
     //it will return "2+(4*5+2)+cos(3)".
     //This function is called inside ParseExpressionToList(....), so we don't have to worry
     //about it anymore
-    QString Expression_Replace_User_Defined_Function(const QString &expression_, const QList<myFunction> &list_functions_);
+    QString Expression_Replace_User_Defined_Function(QString &expression_);
 
 
+private:
     //---format calculations results-------------
     FormatResult format;
 

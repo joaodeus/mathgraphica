@@ -82,6 +82,8 @@ bool myFunction::SetFunction(QString &functionDefinition)
     parser->GrabVariables(list[1],list_var_aux2);
 
     //if they are different there is a error
+    list_variables_aux.sort();
+    list_var_aux2.sort();
     if (list_variables_aux != list_var_aux2)
         return false;
 
