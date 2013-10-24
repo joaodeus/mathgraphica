@@ -56,12 +56,13 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
 {    
     QString str_cmd_line = ui->lineEdit_cmdLine->text();
 
+    QString variable;
     MyNumber number;
     bool ok = false;
 
-    QApplication::setOverrideCursor(Qt::WaitCursor);
+   // QApplication::setOverrideCursor(Qt::WaitCursor);
 
-    //check for expressions
+    //check for expressions, like "5+3"
     number = calc.isValidExpression(str_cmd_line, ok);
     //if ( calc.isValidExpression(str_cmd_line) )
     if (ok)
@@ -77,18 +78,43 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
     }
 
 
-    QString variable;
-    MyNumber value;
-    if (calc.isValidEquation_Explicit_From_Constant(str_cmd_line, variable, value))
+
+
+    //check for variable assignment like "x=5", or "y=2+cos(3)"
+    if (calc.isValidEquation_Explicit_From_Constant(str_cmd_line, variable, number))
     {
-        calc.setVariable_Value(variable, value);
+        calc.setVariable_Value(variable, number);
         QListWidgetItem *item = new QListWidgetItem(str_cmd_line,0,TYPE_EQUATION_ASSIGNMENT);
         ui->listWidget_results_history->addItem(item);
         ui->listWidget_results_history->scrollToBottom();
         return;
     }
 
-    //check for equations
+
+    //check for variable assignment like "x=y+5+2z"
+    //Note that variables y and z, must have been defined before with an assignment like "y=4", "z=cos(5)"
+    QString member1;
+    QString member2;
+    if (calc.isValidEquation_Explicit_From_Variables(str_cmd_line, member1, member2))
+    {
+        QStringList aux = str_cmd_line.split("=");
+        number = calc.SolveExpression_fn(member2, calc.values_List, calc.variables_List);
+        if (calc.error())
+            return;
+
+        calc.setVariable_Value(member1, number);
+        QString solution = calc.formatResult(number);
+        QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_EQUATION_ASSIGNMENT);
+        //QListWidgetItem *item1  = new QListWidgetItem(solution,0,TYPE_EXPRESSION);
+        ui->listWidget_results_history->addItem(item);
+        //ui->listWidget_results_history->addItem(item1);
+        ui->listWidget_results_history->scrollToBottom();
+
+        return;
+    }
+
+
+    //check for equations, like "2x^2+3x=4x-2"
     if (calc.isValidEquation(str_cmd_line))
     {
         //QList<Complexo> equationSolutions = calc.SolveEquation(str_cmd_line);
@@ -108,6 +134,8 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
         return;
     }
 
+    //check for expression with variables like: "x-4y+2z"
+    //Note that variables z, y and z, must have been defined before with an assignment like "x=4", "y=-2" and "z=cos(5)"
     if (calc.isValidExpression_fn(str_cmd_line))
     {
         number = calc.SolveExpression_fn(str_cmd_line, calc.values_List, calc.variables_List);
@@ -124,6 +152,8 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
         return;
     }
 
+
+
     if (calc.m_integral.isValidIntegralSintaxe(str_cmd_line))
     {
         QString solution = calc.formatResult(calc.m_integral.solveIntegral());
@@ -134,7 +164,7 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
         ui->listWidget_results_history->scrollToBottom();
     }
 
-    QApplication::restoreOverrideCursor();
+  //  QApplication::restoreOverrideCursor();
 }
 
 

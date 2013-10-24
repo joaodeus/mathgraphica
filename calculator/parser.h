@@ -154,6 +154,15 @@ public:
     //convenience method, saves variable in variable_ and value in value_
     bool isValidEquation_Explicit_From_Constant(const QString &equation, QString &variable_, MyNumber &value_);
 
+    //check if expression is a valid equation, explicit from other variables
+    //like i.e.:  "x=2y+z"
+    bool isValidEquation_Explicit_From_Variables(const QString &equation);
+    //convenience method, saves first member variable in "variable_first_member"
+    //and the variables of second member in "variables_second_member"
+    bool isValidEquation_Explicit_From_Variables(const QString &equation, QString &first_member, QString &second_member);
+
+
+
     //check for errors after solving expressions with SolveExpression_...() methods
     bool error();
 

@@ -485,7 +485,7 @@ bool Parser::isValidExpression_fn(const QString &expression)
         QStringList values_list;
         for (int i=0;i<variables_list.size();i++)
         {
-            //we create a list of a random value (i.e 1.34) to math the list of variables of the expression
+            //we create a list of a random values (i.e 1.34) to match the size of the list of variables of the expression
             values_list.append("1.34");
         }
 
@@ -576,7 +576,6 @@ bool Parser::isValidEquation_Explicit_From_Constant(const QString &equation)
 
 bool Parser::isValidEquation_Explicit_From_Constant(const QString &equation, QString &variable_, MyNumber &value_)
 {
-
     QStringList equation_members = equation.split("=");
     QStringList variables_aux;
 
@@ -590,8 +589,6 @@ bool Parser::isValidEquation_Explicit_From_Constant(const QString &equation, QSt
         return false;
     }
 
-
-
    if ( ( (equation_members[0] == variables_aux[0])
            || (equation_members[0] ==  ("("+ variables_aux[0] +")" )  ) )
          && isValidExpression(equation_members[1], value_) )
@@ -604,33 +601,69 @@ bool Parser::isValidEquation_Explicit_From_Constant(const QString &equation, QSt
     {
         return false;
     }
+}
 
 
-    /*QStringList equation_members = expression.split("=");
-    QStringList variables_aux;
+bool Parser::isValidEquation_Explicit_From_Variables(const QString &equation)
+{
+    QString member1;
+    QString member2;
+    return isValidEquation_Explicit_From_Variables(equation, member1, member2);
+}
+
+
+bool Parser::isValidEquation_Explicit_From_Variables(const QString &equation,
+                                             QString &first_member, QString &second_member)
+{
+    QStringList equation_members = equation.split("=");
 
     if ( equation_members.size() != 2 )
     {
         return false;
     }
 
-    if ( GetVariables(expression, variables_aux) != 1 )
+
+    //check if first member of equation has only one variable
+    QStringList variable_member1;
+    if ( GrabVariables(equation_members[0], variable_member1) != 1 )
     {
         return false;
     }
 
-    if ( ( (equation_members[0] == variables_aux[0])
-           || (equation_members[0] ==  ("("+ variables_aux[0] +")" )  ) )
-         && isValidExpression(equation_members[1]) )
+
+    //check if equation is explicit, i.e. if the variable of the equation first member is equal to the first member
+    if (equation_members[0] != variable_member1[0])
     {
+        return false;
+    }
+
+    //check if second member has at least one variable
+    QStringList variables_member2;
+    if ( GrabVariables(equation_members[1], variables_member2) < 1  )
+    {
+        return false;
+    }
+
+    //Let's check if the variable of the fist member isn't repeated in the second member
+    //(if there is, than it isn't an explicit equation)
+    if (variables_member2.contains(equation_members[0]))
+    {
+        return false;
+    }
+
+    //check is the second member is a valid expression
+    if (isValidExpression_fn(equation_members[1]))
+    {
+        first_member = equation_members[0];
+        second_member = equation_members[1];
         return true;
     }
     else
     {
         return false;
-    }*/
-}
+    }
 
+}
 
 
 bool Parser::error()

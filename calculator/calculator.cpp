@@ -229,6 +229,18 @@ bool Calculator::isValidEquation_Explicit_From_Constant(const QString &equation,
     return parser.isValidEquation_Explicit_From_Constant(equation, variable_, value_);
 }
 
+bool Calculator::isValidEquation_Explicit_From_Variables(const QString &equation)
+{
+    return parser.isValidEquation_Explicit_From_Variables(equation);
+}
+
+bool Calculator::isValidEquation_Explicit_From_Variables(const QString &equation,
+                                                         QString &first_member, QString &second_member)
+{
+    return parser.isValidEquation_Explicit_From_Variables(equation, first_member, second_member);
+}
+
+
 
 ///////////////////////////////////
 // Formulas

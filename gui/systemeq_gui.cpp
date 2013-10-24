@@ -32,6 +32,7 @@ SystemEq_gui::~SystemEq_gui()
 
 void SystemEq_gui::keyPressEvent(QKeyEvent *event)
 {
+    Q_UNUSED(event);
     if (mat->isCalculating)
     {
         int r = QMessageBox::warning(this, tr("Calculating..."),
