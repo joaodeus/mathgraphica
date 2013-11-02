@@ -2,7 +2,10 @@
 
 #include <QTime>
 
-Graph3D::Graph3D()
+Graph3D::Graph3D() //:
+//    m_vertexBufferGraph3D(QOpenGLBuffer::IndexBuffer),
+  //  m_colorBufferGraph3D(QOpenGLBuffer::VertexBuffer)//,
+    //m_iboBufferGraph3D(QOpenGLBuffer::IndexBuffer)
 {
 
     /*
@@ -42,10 +45,10 @@ Graph3D::Graph3D()
     m_variable_X        = "x";
     m_variable_Y        = "y";
 
-    colorA.setRgbF(0,0.3,1,1);
-    colorB.setRgbF(0,0.2,0.8,1);
-    colorC.setRgbF(0.8,0.2,0,1);
-    colorD.setRgbF(1,0.3,0,1);
+    colorA.setRgbF(1,1,0,1);
+    colorB.setRgbF(0,0,1,1);
+    colorC.setRgbF(0,1,1,1);
+    colorD.setRgbF(1,0.3,0.8,1);
 
     bufferSize = 0;
 
@@ -181,37 +184,76 @@ bool Graph3D::setupGraph()
         return false;
     }
 
-    int xCount = (m_xmax - m_xmin) / m_delta + 1;
-    int yCount = (m_ymax - m_ymin) / m_delta + 1;
-    double x = m_xmin;
-    double y = m_ymin;
+    xCount = ((m_xmax - m_xmin) / m_delta + 1) * 2;
+    yCount = ((m_ymax - m_ymin) / m_delta + 1) * 2;
+ //   double x = m_xmin;
+  //  double y = m_ymin;
 
-    //for (int j = 0; j < yRows; j++)
 
-    int i = 0; // index for array elements
-
+    //int i = 0; // index for array elements
     elements.clear();
 
-    for (double y = m_ymin; y <= m_ymax; y += m_delta)
+    double y;
+    double x;
+    for (y = m_ymin; y <= m_ymax; y += m_delta)
     {
-        for (double x = m_xmin; x <= m_xmax; x += m_delta)
+        for (x = m_xmin; x <= m_xmax; x += m_delta)
         {
             xx.append(x);
             yy.append(y);
 
-            elements.append(i);
-            elements.append(i + xCount);
-            i++;
+            //to refactor: remove the 2 following lines when using element indexes
+            xx.append(x);
+            yy.append(y+m_delta);
+            //elements.append(i);
+           // elements.append(i + xCount);
+           // i++;
         }
+
+        xx.append(x-m_delta);
+        yy.append(y+m_delta);
+
+        xx.append(m_xmin);
+        yy.append(y+m_delta);
+
     }
 
     calc.setVariable_Value(m_variable_X, xx);
     calc.setVariable_Value(m_variable_Y, yy);
-
+    calc.setVariable_Value("t",0);
     zz = calc.SolveExpression_list(m_graph3DExpression,xx.size());
 
+    return true;
+}
 
 
+Graph3D &Graph3D::operator =(const Graph3D &a)
+{
+
+    xx                  = a.xx;
+    yy                  = a.yy;
+    zz                  = a.zz;
+    m_graph3DExpression = a.m_graph3DExpression;
+
+    m_xminExpression    = a.m_xminExpression;
+    m_xmin              = a.m_xmin;
+    m_xmaxExpression    = a.m_xmaxExpression;
+    m_xmax              = a.m_xmax;
+    m_yminExpression    = a.m_yminExpression;
+    m_ymin              = a.m_ymin;
+    m_ymaxExpression    = a.m_ymaxExpression;
+    m_ymax              = a.m_ymax;
+    m_deltaExpression   = a.m_deltaExpression;
+    m_delta             = a.m_delta;
+    m_variable_X        = a.m_variable_X;
+    m_variable_Y        = a.m_variable_Y;
+    bufferSize          = a.bufferSize;
+    colorA              = a.colorA;
+    colorB              = a.colorB;
+    colorC              = a.colorC;
+    colorD              = a.colorD;
+
+    return *this;
 }
 
 
@@ -261,129 +303,6 @@ QColor Graph3D::getColorD()
 }
 
 
-bool Graph3D::SetGraph3D(const Graph3D &graph3D, double t)
-{
-/*
-    Calculator calc;
-    QMessageBox msgBox;
-
-    colorA=graph3D.colorA;
-    colorB=graph3D.colorB;
-    colorC=graph3D.colorC;
-    colorD=graph3D.colorD;
-
-
-    calc.setVariable_Value("x",1); calc.setVariable_Value("y",1);
-    calc.setVariable_Value("y",1);
-    calc.setVariable_Value("t",1);
-    calc.SolveExpression_fx(graph3D.m_graph3DExpression);
-    //calc.fxyz(graph3D.m_fxy,1,"x",1,"y",1,"t");
-    if (calc.error())
-    {
-        msgBox.setText(QObject::tr("Expression sintaxe error."));
-        msgBox.exec();
-        return false;
-    }
-    else
-    {
-        m_graph3DExpression = graph3D.m_graph3DExpression;
-    }
-
-
-    m_xmin=calc.SolveExpression(graph3D.m_xminExpression).numberReal();
-    m_xmin=graph3D.m_xmin;
-    if (calc.error())
-    {
-        msgBox.setText(QObject::tr("Invalid -x."));
-        msgBox.exec();
-        return false;
-    }
-
-    m_xmax=calc.SolveExpression(graph3D.m_xmaxExpression).numberReal();
-    m_xmax=graph3D.m_xmax;
-    if (calc.error())
-    {
-        msgBox.setText(QObject::tr("Invalid +x."));
-        msgBox.exec();
-        return false;
-    }
-
-    m_ymin=calc.SolveExpression(graph3D.m_yminExpression).numberReal();//calc.f(graph3D.m_ymin).r;
-    m_ymin=graph3D.m_ymin;
-    if (calc.error())
-    {
-        msgBox.setText(QObject::tr("Invalid -y."));
-        msgBox.exec();
-        return false;
-    }
-
-    m_ymax=calc.SolveExpression(graph3D.m_ymaxExpression).numberReal();//calc.f(graph3D.m_ymax).r;
-    m_ymax=graph3D.m_ymax;
-    if (calc.error())
-    {
-        msgBox.setText(QObject::tr("Invalid +y."));
-        msgBox.exec();
-        return false;
-    }
-
-    m_delta             = calc.SolveExpression(graph3D.m_deltaExpression).numberReal();//calc.f(graph3D.m_dxy).r;
-    m_deltaExpression   = graph3D.m_delta;
-    if (calc.error())
-    {
-        msgBox.setText(QObject::tr("Invalid dx, dy."));
-        msgBox.exec();
-        return false;
-    }
-    /////////////////////////////////////////////////////////////////////////////////////
-
-
-    QTime stopwatch;
-    stopwatch.start();
-
- //   stopwatch.restart();
-
-
-
-
-
-    arrai_x.clear();
-    arrai_y.clear();
-
-    k_x = int( (m_xmax-m_xmin)/m_delta );
-    k_y = int( (m_ymax-m_ymin)/m_delta );
-
-    double x=m_xmin;
-    double y=m_ymin;
-    for (int i=0;i<k_x;i++)
-    {
-        y=m_ymin;
-        for(int j=0;j<k_y;j++)
-        {
-            arrai_x.append(x);
-            arrai_y.append(y);
-            arrai_x.append(x+m_delta);
-            arrai_y.append(y);
-            y+=m_delta;
-        }
-        x+=m_delta;
-    }
-
-
-
-    //Complexo zz = calc.f_array_xy_t(m_fxy,m_varx,arrai_x,m_vary,arrai_y,z3D,t,"t");
-    calc.setVariable_Value(m_variable_X, arrai_x);
-    calc.setVariable_Value(m_variable_Y, arrai_y);
-    calc.setVariable_Value("t", t);
-    arrai_z = calc.SolveExpression_fx(m_graph3DExpression).numberListReal();
-
-
-    qDebug("time array: %d", stopwatch.elapsed());
-
-*/
-    return true;
-}
-
-
 void Graph3D::UpdateGraphTime(double t)
 {
 
@@ -407,164 +326,153 @@ bool Graph3D::graph_has_variable_t()
 
 void Graph3D::prepareBuffers()
 {
+    m_vertexBufferGraph3D.create();
+    m_vertexBufferGraph3D.setUsagePattern(QOpenGLBuffer::StaticDraw);
+    m_vertexBufferGraph3D.bind();
+    m_vertexBufferGraph3D.allocate(xx.size() * 3 * sizeof(float));
 
+    m_colorBufferGraph3D.create();
+    m_colorBufferGraph3D.setUsagePattern(QOpenGLBuffer::StaticDraw);
+    m_colorBufferGraph3D.bind();
+    m_colorBufferGraph3D.allocate(xx.size() * 3 * sizeof(float));
+
+
+  /*  m_iboBufferGraph3D.create();
+    m_iboBufferGraph3D.setUsagePattern(QOpenGLBuffer::StaticDraw);
+    m_iboBufferGraph3D.bind();
+    m_iboBufferGraph3D.allocate(elements.size());
+*/
 }
 
 void Graph3D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
 {
 
-}
+    int size = xx.size();
+    if (vertexPosition == NULL)
+        vertexPosition  = new QVector3D[ size ];
 
-void Graph3D::draw(QOpenGLShaderProgram &m_shaderProgram, int &vertexAttrb, int &colorAttrb)
-{
+    if (vertexColor == NULL)
+        vertexColor = new QVector3D[ size ];
 
-    /*
-    free(graph3D_fxy);
-    free(graph3D_color_upper_face);
-    free(graph3D_color_lower_face);
+/*    if (vertexElements == NULL)
+        vertexElements = new QVector3D[elements.size()];
 
-
-    graph3D_fxy = NULL;
-    graph3D_color_upper_face = NULL;
-    graph3D_color_lower_face = NULL;
-    */
-
-
-
-
-
-    /*
-    int size = sizeof(QVector3D)*arrai_x.size();
-    graph3D_fxy=(QVector3D*)malloc(size);
-    if (graph3D_fxy == NULL)
+    for (int j = 0; j < elements.size(); j++)
     {
-        qDebug()<<"Not enought memory";
-        bMemoryError=true;
-    }
+        vertexElements[j] = elements.at(j);
+    }*/
 
-    graph3D_color_upper_face =(QVector3D*)malloc(size);
-    if (graph3D_color_upper_face == NULL)
+    bool color_aux = true;
+    int i_color = 0;
+    int count_y = 0;
+    for (int i = 0; i < size;i++)
     {
-        free(graph3D_fxy);
-        graph3D_fxy = NULL;
-        qDebug()<<"Not enought memory";
-        bMemoryError=true;
-    }
-
-    graph3D_color_lower_face =(QVector3D*)malloc(size);
-    if (graph3D_color_lower_face == NULL)
-    {
-        free(graph3D_fxy);
-        graph3D_fxy = NULL;
-        free(graph3D_color_upper_face);
-        graph3D_color_upper_face = NULL;
-        qDebug()<<"Not enought memory";
-        bMemoryError=true;
-    }
+        vertexPosition[i].setX(xx[i]);
+        vertexPosition[i].setY(yy[i]);
+        vertexPosition[i].setZ(zz[i]);
 
 
-
-
-    for (int i=0;i<arrai_x.size();i++)
-    {
-        graph3D_fxy[i].setX(arrai_x.at(i));
-        graph3D_fxy[i].setY(arrai_y.at(i));
-        graph3D_fxy[i].setZ(arrai_z.at(i));
-    }
-
-
-
-
-    bool cor = true;
-    int i=0;
-    int xi=0;
-  //  double x=m_xmindouble;
-  //  double y=m_ymindouble;
-    for (int ii=0;ii<k_x;ii++)
-    {
-        if (xi%2 == 0)
-            cor=true;
-        else
-            cor=false;
-        xi++;
-
-        for(int jj=0;jj<k_y;jj++)
+        if (color_aux == true)
         {
-            if (cor)
+            if ( (i_color > 1) )
             {
-                graph3D_color_upper_face[i].setX(colorA.redF());
-                graph3D_color_upper_face[i].setY(colorA.greenF());
-                graph3D_color_upper_face[i].setZ(colorA.blueF());
-                graph3D_color_lower_face[i].setX(colorC.redF());
-                graph3D_color_lower_face[i].setY(colorC.greenF());
-                graph3D_color_lower_face[i].setZ(colorC.blueF());
-                i++;
-                graph3D_color_upper_face[i].setX(colorA.redF());
-                graph3D_color_upper_face[i].setY(colorA.greenF());
-                graph3D_color_upper_face[i].setZ(colorA.blueF());
-                graph3D_color_lower_face[i].setX(colorC.redF());
-                graph3D_color_lower_face[i].setY(colorC.greenF());
-                graph3D_color_lower_face[i].setZ(colorC.blueF());
-                i++;
-                cor=!cor;
+                vertexColor[i].setX(colorA.redF());
+                vertexColor[i].setY(colorA.greenF());
+                vertexColor[i].setZ(colorA.blueF());
             }
             else
             {
-                graph3D_color_upper_face[i].setX(colorB.redF());
-                graph3D_color_upper_face[i].setY(colorB.greenF());
-                graph3D_color_upper_face[i].setZ(colorB.blueF());
-                graph3D_color_lower_face[i].setX(colorD.redF());
-                graph3D_color_lower_face[i].setY(colorD.greenF());
-                graph3D_color_lower_face[i].setZ(colorD.blueF());
-                i++;
-                graph3D_color_upper_face[i].setX(colorB.redF());
-                graph3D_color_upper_face[i].setY(colorB.greenF());
-                graph3D_color_upper_face[i].setZ(colorB.blueF());
-                graph3D_color_lower_face[i].setX(colorD.redF());
-                graph3D_color_lower_face[i].setY(colorD.greenF());
-                graph3D_color_lower_face[i].setZ(colorD.blueF());
-                i++;
-                cor=!cor;
+                vertexColor[i].setX(colorB.redF());
+                vertexColor[i].setY(colorB.greenF());
+                vertexColor[i].setZ(colorB.blueF());
             }
+
+            i_color++;
+            if (i_color == 3 )
+                i_color = 0;
+
         }
-        cor=!cor;
+
+        else
+        {
+            if ( (i_color > 1) )
+            {
+                vertexColor[i].setX(colorB.redF());
+                vertexColor[i].setY(colorB.greenF());
+                vertexColor[i].setZ(colorB.blueF());
+            }
+            else
+            {
+                vertexColor[i].setX(colorA.redF());
+                vertexColor[i].setY(colorA.greenF());
+                vertexColor[i].setZ(colorA.blueF());
+            }
+
+            i_color++;
+            if (i_color == 3 )
+                i_color = 0;
+
+        }
+
+
+        count_y++;
+
+        if (count_y > yCount)
+        {
+            color_aux = !color_aux;
+            count_y  = 0;
+        }
+
+
+
     }
 
 
+    m_vertexBufferGraph3D.bind();
+    m_vertexBufferGraph3D.write(0, vertexPosition, size * 3 * sizeof(float));
+    m_shaderProgram.setAttributeBuffer("vertexPosition",GL_FLOAT,0, 3);
 
-    ////////////////////////////////////////////////////////////////////////////////////
+    m_colorBufferGraph3D.bind();
+    m_colorBufferGraph3D.write(0,vertexColor, size * 3 * sizeof(float));
+    m_shaderProgram.setAttributeBuffer("vertexColor",GL_FLOAT,0, 3);
 
-    m_shaderProgram.setAttributeArray(vertexAttrb, graph3D_fxy, 0);
-    m_shaderProgram.setAttributeArray(colorAttrb, graph3D_color_upper_face,0 );
 
-    glCullFace(GL_BACK);
-    glEnable(GL_CULL_FACE);
+  //  m_iboBufferGraph3D.bind();
+  //  m_iboBufferGraph3D.write(0, , GL_FLOAT, 0, 3);
 
-    for (int i=0;i<k_x;i++)
+
+
+    if (vertexPosition != NULL)
     {
-        glDrawArrays(GL_TRIANGLE_STRIP,i*(2*k_y),2*k_y);
+        delete[] vertexPosition;
+        vertexPosition = NULL;
+      //  qDebug()<<"deleting buffer in graph2D";
     }
 
-    m_shaderProgram.setAttributeArray(colorAttrb, graph3D_color_lower_face,0 );
-
-    glCullFace(GL_FRONT);
-    glEnable(GL_CULL_FACE);
-
-    for (int i=0;i<k_x;i++)
+    if (vertexColor != NULL)
     {
-        glDrawArrays(GL_TRIANGLE_STRIP,i*(2*k_y),2*k_y);
+        delete[] vertexColor;
+        vertexColor = NULL;
     }
 
+}
 
-    ///////////////////////////////////////////////////////////
-    free(graph3D_fxy);
-    free(graph3D_color_upper_face);
-    free(graph3D_color_lower_face);
+void Graph3D::draw(QOpenGLShaderProgram &m_shaderProgram)
+{
 
+    m_shaderProgram.bind();
+    m_vertexBufferGraph3D.bind();
+   // if (m_vertexBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";
+    m_shaderProgram.enableAttributeArray("vertexPosition");
+    m_shaderProgram.setAttributeBuffer("vertexPosition", GL_FLOAT, 0, 3);
 
-    graph3D_fxy = NULL;
-    graph3D_color_upper_face = NULL;
-    graph3D_color_lower_face = NULL;
-*/
+    m_colorBufferGraph3D.bind();
+    m_shaderProgram.enableAttributeArray("vertexColor");
+    m_shaderProgram.setAttributeBuffer("vertexColor", GL_FLOAT, 0, 3);
+
+    //glDrawElements(GL_TRIANGLES, elements.size(), GL_FLOAT, elements);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, xx.size());
+    //glDrawArrays(GL_TRIANGLE_STRIP, 0, 50);
+
 
 }

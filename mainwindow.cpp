@@ -468,11 +468,16 @@ void MainWindow::on_actionGraph_2D_triggered()
 
 void MainWindow::on_actionGraph_3D_triggered()
 {
-  //  Graph3D_OpenGL *graph = new Graph3D_OpenGL ;
-   // graph->show();
+    Graph3D m_graph3d;
+    m_graph3d.setupGraph();
 
-    Graph3D_Container_gui *container = new Graph3D_Container_gui;
-    container->show();
+    Graph3D_OpenGL *graph = new Graph3D_OpenGL ;
+    graph->addGraph3D(m_graph3d);
+    graph->show();
+
+
+    //Graph3D_Container_gui *container = new Graph3D_Container_gui;
+    //container->show();
 
 
 }

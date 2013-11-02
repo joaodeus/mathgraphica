@@ -1,7 +1,8 @@
 #ifndef SYSTEMEQ_GUI_H
 #define SYSTEMEQ_GUI_H
 
-#include <QDialog>
+//#include <QDialog>
+#include <QWidget>
 
 #include "calculator/matrix.h"
 
@@ -9,7 +10,8 @@ namespace Ui {
 class SystemEq_gui;
 }
 
-class SystemEq_gui : public QDialog
+//class SystemEq_gui : public QDialog
+class SystemEq_gui : public QWidget
 {
     Q_OBJECT
     

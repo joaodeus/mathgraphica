@@ -6,13 +6,14 @@
 #include "globalfunctions.h"
 
 SystemEq_gui::SystemEq_gui(QWidget *parent) :
-    QDialog(parent),
+  //  QDialog(parent),
+      QWidget(parent),
     ui(new Ui::SystemEq_gui)
 {
     ui->setupUi(this);
 
     setAttribute(Qt::WA_DeleteOnClose,true);
-    setWindowFlags(Qt::WindowSystemMenuHint); /*Qt::WindowMinMaxButtonsHint | */
+   // setWindowFlags(Qt::WindowSystemMenuHint); /*Qt::WindowMinMaxButtonsHint | */
     /*
         ui->tableWidget_systemEquations->setColumnCount(4);
         ui->tableWidget_systemEquations->setRowCount(3);

@@ -38,6 +38,8 @@ public:
     // it calculates and setup up the array's xx and yy
     bool setupGraph();
 
+    Graph3D &operator=(const Graph3D & );
+
 
 private:
 
@@ -46,7 +48,6 @@ private:
     QList<double> xx;
     QList<double> yy;
     QList<double> zz;
-
 
 
     QString m_graph3DExpression;
@@ -76,13 +77,18 @@ private:
     // drawing ---------------------------------------------
     QOpenGLBuffer m_vertexBufferGraph3D;
     QOpenGLBuffer m_colorBufferGraph3D;
+    //QOpenGLBuffer m_iboBufferGraph3D;
     QVector3D *vertexPosition;
     QVector3D *vertexColor;
+    //QVector3D *vertexElements;
+
+
     QList<int> elements; //array elements
     int bufferSize;
 
 
-
+    int xCount;
+    int yCount;
     QColor colorA;
     QColor colorB;
     QColor colorC;
@@ -105,10 +111,7 @@ public:
 
     void prepareBuffers();
     void setBufferData(QOpenGLShaderProgram &m_shaderProgram);
-    void draw(QOpenGLShaderProgram &m_shaderProgram, int &vertexAttrib, int &colorAttrib);
-    // to deprecate SetGraph3D(...)
-    bool SetGraph3D(const Graph3D &graph3D, double t);
-
+    void draw(QOpenGLShaderProgram &m_shaderProgram);
     void UpdateGraphTime(double t);
     bool graph_has_variable_t();
 /*

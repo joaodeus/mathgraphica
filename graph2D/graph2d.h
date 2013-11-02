@@ -35,7 +35,7 @@ public:
     // ... or set a graph from an array of values
     void setGraph2DArray(QList<double> &xx_, QList<double> &yy_);
 
-    Graph2D &operator=(const Graph2D & );
+    Graph2D &operator=(const Graph2D &a);
 
     void setPolarGraph(const bool &bPolarGraph_);
     bool isPolarGraph();

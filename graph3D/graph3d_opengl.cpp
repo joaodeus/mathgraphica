@@ -55,7 +55,7 @@ Graph3D_OpenGL::Graph3D_OpenGL()
     backgroundColor.setRgbF(0.0f, 0.0f, 0.0f, 1.0f);
 
 
-    setup_Axis3D();
+   // setup_Axis3D();
    // initializeGl();
   //  resize(QSize(800, 450));
 
@@ -233,6 +233,14 @@ void Graph3D_OpenGL::paintGL()
     //m_shaderProgram.bind();
 
     axis3D();
+
+    for (int i = 0; i < m_graph3DList.size(); i++)
+    {
+        m_graph3DList[i].draw(m_shaderProgram);
+    }
+
+
+
     //glDrawArrays(GL_TRIANGLES, 0, 6);
 
     //m_context.swapBuffers(this);
@@ -549,6 +557,5 @@ void Graph3D_OpenGL::AutoRotate()
 
 void Graph3D_OpenGL::addGraph3D(const Graph3D &graph3d_)
 {
-
-
+    m_graph3DList.append(graph3d_);
 }
