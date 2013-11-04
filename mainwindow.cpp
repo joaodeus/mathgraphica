@@ -96,7 +96,7 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
     //if ( calc.isValidExpression(str_cmd_line) )
     if (ok)
     {
-        //QString solution = calc.formatResult(calc.SolveExpression(str_cmd_line));
+       // str_cmd_line = str_cmd_line_aux;//bugs???
         QString solution = calc.formatResult(number);
         QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_EXPRESSION);
         QListWidgetItem *item1  = new QListWidgetItem(solution,0,TYPE_EXPRESSION);
@@ -105,12 +105,6 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
         ui->listWidget_results_history->scrollToBottom();
         return;
     }
-
-
-
-
-
-
 
     //check for expressions, like "5+3"
     number = calc.isValidExpression(str_cmd_line, ok);
@@ -252,6 +246,11 @@ void MainWindow::on_listWidget_results_history_itemDoubleClicked(QListWidgetItem
             on_actionIntegral_double_triggered();
     }
 
+
+    if (ui->listWidget_results_history->currentItem()->type() == TYPE_FUNCTION)
+    {
+        on_actionFunctions_triggered();
+    }
 
 
 }
@@ -476,8 +475,8 @@ void MainWindow::on_actionGraph_3D_triggered()
     graph->show();
 
 
-    //Graph3D_Container_gui *container = new Graph3D_Container_gui;
-    //container->show();
+    Graph3D_Container_gui *container = new Graph3D_Container_gui;
+    container->show();
 
 
 }
@@ -494,5 +493,10 @@ void MainWindow::on_actionFunctions_triggered()
    // m_functions_gui->hide();
  //   m_functions_gui->setWindowModality(Qt::WindowModal); //(m_functions_gui->windowState());
     m_functions_gui->show();
+
+}
+
+void MainWindow::on_actionVariables_triggered()
+{
 
 }

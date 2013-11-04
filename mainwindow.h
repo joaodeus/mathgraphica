@@ -53,6 +53,8 @@ private slots:
 
     void on_actionFunctions_triggered();
 
+    void on_actionVariables_triggered();
+
 private:
     Ui::MainWindow *ui;
 

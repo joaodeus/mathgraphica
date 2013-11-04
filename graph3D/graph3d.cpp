@@ -45,15 +45,22 @@ Graph3D::Graph3D() //:
     m_variable_X        = "x";
     m_variable_Y        = "y";
 
-    colorA.setRgbF(1,1,0,1);
+    colorA.setRgbF(1,0,0,1);
     colorB.setRgbF(0,0,1,1);
     colorC.setRgbF(0,1,1,1);
     colorD.setRgbF(1,0.3,0.8,1);
+
+    colorA.setRgbF(0,0.3,1,1);
+    colorB.setRgbF(0,0.2,0.8,1);
+    colorC.setRgbF(0.8,0.2,0,1);
+    colorD.setRgbF(1,0.3,0,1);
+
 
     bufferSize = 0;
 
     vertexPosition  = NULL;
     vertexColor     = NULL;
+    vertexBackColor = NULL;
 
     //graph3D_fxy = NULL;
     //graph3D_color_upper_face = NULL;
@@ -337,6 +344,12 @@ void Graph3D::prepareBuffers()
     m_colorBufferGraph3D.allocate(xx.size() * 3 * sizeof(float));
 
 
+    m_colorBackBufferGraph3D.create();
+    m_colorBackBufferGraph3D.setUsagePattern(QOpenGLBuffer::StaticDraw);
+    m_colorBackBufferGraph3D.bind();
+    m_colorBackBufferGraph3D.allocate(xx.size() * 3 * sizeof(float));
+
+
   /*  m_iboBufferGraph3D.create();
     m_iboBufferGraph3D.setUsagePattern(QOpenGLBuffer::StaticDraw);
     m_iboBufferGraph3D.bind();
@@ -353,6 +366,10 @@ void Graph3D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
 
     if (vertexColor == NULL)
         vertexColor = new QVector3D[ size ];
+
+    if (vertexBackColor == NULL)
+        vertexBackColor = new QVector3D[ size ];
+
 
 /*    if (vertexElements == NULL)
         vertexElements = new QVector3D[elements.size()];
@@ -379,12 +396,22 @@ void Graph3D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
                 vertexColor[i].setX(colorA.redF());
                 vertexColor[i].setY(colorA.greenF());
                 vertexColor[i].setZ(colorA.blueF());
+
+                vertexBackColor[i].setX(colorC.redF());
+                vertexBackColor[i].setY(colorC.greenF());
+                vertexBackColor[i].setZ(colorC.blueF());
+
             }
             else
             {
                 vertexColor[i].setX(colorB.redF());
                 vertexColor[i].setY(colorB.greenF());
                 vertexColor[i].setZ(colorB.blueF());
+
+                vertexBackColor[i].setX(colorD.redF());
+                vertexBackColor[i].setY(colorD.greenF());
+                vertexBackColor[i].setZ(colorD.blueF());
+
             }
 
             i_color++;
@@ -400,12 +427,21 @@ void Graph3D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
                 vertexColor[i].setX(colorB.redF());
                 vertexColor[i].setY(colorB.greenF());
                 vertexColor[i].setZ(colorB.blueF());
+
+                vertexBackColor[i].setX(colorD.redF());
+                vertexBackColor[i].setY(colorD.greenF());
+                vertexBackColor[i].setZ(colorD.blueF());
+
             }
             else
             {
                 vertexColor[i].setX(colorA.redF());
                 vertexColor[i].setY(colorA.greenF());
                 vertexColor[i].setZ(colorA.blueF());
+
+                vertexBackColor[i].setX(colorC.redF());
+                vertexBackColor[i].setY(colorC.greenF());
+                vertexBackColor[i].setZ(colorC.blueF());
             }
 
             i_color++;
@@ -430,11 +466,16 @@ void Graph3D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
 
     m_vertexBufferGraph3D.bind();
     m_vertexBufferGraph3D.write(0, vertexPosition, size * 3 * sizeof(float));
-    m_shaderProgram.setAttributeBuffer("vertexPosition",GL_FLOAT,0, 3);
+  //  m_shaderProgram.setAttributeBuffer("vertexPosition",GL_FLOAT,0, 3);
 
     m_colorBufferGraph3D.bind();
     m_colorBufferGraph3D.write(0,vertexColor, size * 3 * sizeof(float));
-    m_shaderProgram.setAttributeBuffer("vertexColor",GL_FLOAT,0, 3);
+    //m_shaderProgram.setAttributeBuffer("vertexColor",GL_FLOAT,0, 3);
+
+
+    m_colorBackBufferGraph3D.bind();
+    m_colorBackBufferGraph3D.write(0,vertexBackColor, size * 3 * sizeof(float));
+  //  m_shaderProgram.setAttributeBuffer("vertexColor",GL_FLOAT,0, 3);
 
 
   //  m_iboBufferGraph3D.bind();
@@ -455,24 +496,44 @@ void Graph3D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
         vertexColor = NULL;
     }
 
+    if (vertexBackColor != NULL)
+    {
+        delete[] vertexBackColor;
+        vertexBackColor = NULL;
+    }
+
 }
 
 void Graph3D::draw(QOpenGLShaderProgram &m_shaderProgram)
 {
 
-    m_shaderProgram.bind();
+  //  m_shaderProgram.bind();
+
+
+
     m_vertexBufferGraph3D.bind();
    // if (m_vertexBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";
-    m_shaderProgram.enableAttributeArray("vertexPosition");
+    //m_shaderProgram.enableAttributeArray("vertexPosition");
     m_shaderProgram.setAttributeBuffer("vertexPosition", GL_FLOAT, 0, 3);
 
     m_colorBufferGraph3D.bind();
-    m_shaderProgram.enableAttributeArray("vertexColor");
+    //m_shaderProgram.enableAttributeArray("vertexColor");
     m_shaderProgram.setAttributeBuffer("vertexColor", GL_FLOAT, 0, 3);
 
+
+    glCullFace(GL_FRONT);
     //glDrawElements(GL_TRIANGLES, elements.size(), GL_FLOAT, elements);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, xx.size());
     //glDrawArrays(GL_TRIANGLE_STRIP, 0, 50);
+
+
+    m_colorBackBufferGraph3D.bind();
+//    m_shaderProgram.enableAttributeArray("vertexColor");
+    m_shaderProgram.setAttributeBuffer("vertexColor", GL_FLOAT, 0, 3);
+
+
+    glCullFace(GL_BACK);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, xx.size());
 
 
 }

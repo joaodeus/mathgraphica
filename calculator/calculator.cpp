@@ -1,16 +1,9 @@
 #include "calculator.h"
 
 Calculator::Calculator(): m_equation(&parser), m_integral(&parser), m_integralDouble(&parser), m_function(&parser)
-{    
-    Formulas formula(&parser); // create one default formula
-    formula.setFormula("En=m*C^2");
-    formula.setDescription("Einstein mass–energy equivalence");
-    formula.calculateConstants();
-    QStringList values;
-    values<<"5000"<<"?"<<"3E8";
-    formula.setValues(values);
-    m_formulasList.append(formula);
+{
 
+    setPreDefinedFormulas();
 
 
  //   variables_List.append("t");
@@ -22,6 +15,60 @@ Calculator::~Calculator()
 {
 
 }
+
+
+void Calculator::setPreDefinedFormulas()
+{
+    Formulas formula(&parser); // create one default formula
+
+    //Einstein Formula
+    formula.setFormula("E=m*C^2");
+    formula.setDescription("Einstein mass–energy equivalence");
+    formula.calculateConstants();
+    QStringList values;
+    values<<"5000"<<"?"<<"3E8";
+    formula.setValues(values);
+    m_formulasList.append(formula);
+
+
+    //Quadratic equation
+    formula.setFormula("a*x^2 + b*x + c = 0");
+    formula.setDescription("Quadratic equation");
+    formula.calculateConstants();
+    formula.setMin("-1000");
+    formula.setMax("1000");
+    values.clear();
+    values<<"2"<<"?"<<"-2"<<"-4";
+    formula.setValues(values);
+    m_formulasList.append(formula);
+
+ /*   //Ideal Gas Formula
+    formula.setFormula("P*V=n*R*T");
+    formula.setDescription("Ideal Gas Formula");
+    formula.calculateConstants();
+    formula.setMin("-1E6");
+    formula.setMax("1E6");
+    values.clear();
+    values<<"50"<<"30"<<"?"<<"8.314"<<"350";
+    formula.setValues(values);
+    m_formulasList.append(formula);
+*/
+
+    //Circle Perimeter Formula
+    formula.setFormula("P=2*pi*r");
+    formula.setDescription("Circle Perimeter");
+    formula.calculateConstants();
+    formula.setMin("-1000");
+    formula.setMax("1000");
+    values.clear();
+    values<<"?"<<"30";
+    formula.setValues(values);
+    m_formulasList.append(formula);
+
+
+
+}
+
 
 MyNumber Calculator::SolveExpression(const QString &expression)
 {
@@ -251,9 +298,10 @@ void Calculator::addFormula()
     m_formulasList.append(formula);
 }
 
-void Calculator::removeFormula()
+void Calculator::removeFormula(int index)
 {
-
+    if ( (index >= 0) && (index < m_formulasList.size()) )
+        m_formulasList.removeAt(index);
 }
 
 /*

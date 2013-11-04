@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>434</width>
-    <height>291</height>
+    <width>479</width>
+    <height>334</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,8 +49,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>434</width>
-     <height>21</height>
+     <width>479</width>
+     <height>20</height>
     </rect>
    </property>
   </widget>
@@ -70,6 +70,7 @@
    <addaction name="separator"/>
    <addaction name="actionFormulas"/>
    <addaction name="actionFunctions"/>
+   <addaction name="actionVariables"/>
    <addaction name="separator"/>
    <addaction name="actionIntegral"/>
    <addaction name="actionIntegral_double"/>
@@ -187,6 +188,15 @@
    </property>
    <property name="text">
     <string>Functions</string>
+   </property>
+  </action>
+  <action name="actionVariables">
+   <property name="icon">
+    <iconset resource="mathgraphica.qrc">
+     <normaloff>:/images/images/variables.png</normaloff>:/images/images/variables.png</iconset>
+   </property>
+   <property name="text">
+    <string>Variables</string>
    </property>
   </action>
  </widget>

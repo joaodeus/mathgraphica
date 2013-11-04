@@ -31,6 +31,20 @@ void Formulas_gui::on_pushButton_new_clicked()
 
 void Formulas_gui::on_pushButton_del_clicked()
 {
+    int index = ui->tableWidget_formulas->currentRow();
+ //   index = ui->tableWidget_formulas->currentItem()->row();
+    if ( (index < 0) && (index >= ui->tableWidget_formulas->rowCount()) )
+        return;
+
+    QString aux = tr("Delete formula ?\n") + ui->tableWidget_formulas->item(index,0)->text();
+    int r = QMessageBox::warning(this, tr("Delete Formula"), aux, QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+    if (r == QMessageBox::Yes)
+    {
+        m_calculator->removeFormula(index);
+        ui->tableWidget_formulas->removeRow(index);
+    }
+
+
 
 }
 
@@ -38,8 +52,9 @@ void Formulas_gui::on_pushButton_validate_clicked()
 {
 
     m_calculator->m_formulasList[currentFormulaIndex].setFormula(ui->tableWidget_formulas->item(currentFormulaIndex,0)->text());
+    //set description
+    m_calculator->m_formulasList[currentFormulaIndex].setDescription(ui->tableWidget_formulas->item(currentFormulaIndex,1)->text());
     m_calculator->m_formulasList[currentFormulaIndex].calculateConstants();
-
     int size = m_calculator->m_formulasList.at(currentFormulaIndex).getConstants().size();
 
     ui->tableWidget_constants->setRowCount(size);
@@ -74,7 +89,6 @@ void Formulas_gui::on_pushButton_solve_clicked()
     m_calculator->m_formulasList[currentFormulaIndex].setPrecision(ui->lineEdit_precision->text());
 
 
-
     QStringList values;
     for (int i = 0; i < ui->tableWidget_constants->rowCount() ; i++)
     {
@@ -83,8 +97,8 @@ void Formulas_gui::on_pushButton_solve_clicked()
     m_calculator->m_formulasList[currentFormulaIndex].setValues(values);
     m_calculator->m_formulasList[currentFormulaIndex].solve();
 
-    ui->listWidget_solutions->clear();
 
+    ui->listWidget_solutions->clear();
     for (int i=0; i < m_calculator->m_formulasList[currentFormulaIndex].getSolution().size();i++)
     {
         QString solution = m_calculator->formatResult(m_calculator->m_formulasList[currentFormulaIndex].getSolution().at(i));

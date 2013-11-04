@@ -22,6 +22,9 @@ public:
     Calculator();
     ~Calculator();
 
+    void setPreDefinedFormulas();
+
+
     MyNumber SolveExpression(const QString &expression);
     MyNumber SolveExpression_fx(const QString &expression);
     QList<double> SolveExpression_list(const QString &expression,const int &size);
@@ -101,7 +104,7 @@ public:
     QList<Formulas> m_formulasList;
 
     void addFormula();
-    void removeFormula();
+    void removeFormula(int index);
 
 private:
 

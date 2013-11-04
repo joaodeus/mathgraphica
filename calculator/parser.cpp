@@ -1411,21 +1411,24 @@ bool Parser::grabFunction_predefined(const QString &expression_, int &index, QSt
 }
 
 // check this function, has a bug
-// hopefully bug solved
+// bug still not solved
 bool Parser::grabFunction_or_Variable_userdefined(const QString &expression_, int &index, QString &function_)
 {
-
+    int i = index;
     if ( !grabFunction_aux(expression_, index, function_) )     
         return false;
 
     MyNumber token_aux;
     token_aux.setOperatorFunction(function_);
 
-    if (token_aux.isFunction())        
-        return false;   
-    else
-        return true;
+    if (token_aux.isFunction())
+        return false;
 
+    if (grabConstants(expression_, i, function_))
+        return false;
+
+
+    return true;
 }
 
 

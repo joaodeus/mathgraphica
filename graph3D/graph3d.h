@@ -77,9 +77,13 @@ private:
     // drawing ---------------------------------------------
     QOpenGLBuffer m_vertexBufferGraph3D;
     QOpenGLBuffer m_colorBufferGraph3D;
+    QOpenGLBuffer m_colorBackBufferGraph3D;
+
     //QOpenGLBuffer m_iboBufferGraph3D;
     QVector3D *vertexPosition;
     QVector3D *vertexColor;
+    QVector3D *vertexBackColor;
+
     //QVector3D *vertexElements;
 
 

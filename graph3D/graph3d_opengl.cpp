@@ -97,7 +97,8 @@ void Graph3D_OpenGL::initializeGL()
     glEnable(GL_DEPTH_TEST);
     glFrontFace(GL_CCW);
     glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
+    //glCullFace(GL_BACK);
+    glCullFace(GL_FRONT);
 
 
     glClearColor(backgroundColor.redF(),backgroundColor.greenF(), backgroundColor.blueF(), 0.0f);
@@ -202,8 +203,15 @@ void Graph3D_OpenGL::showEvent(QShowEvent *event)
 void Graph3D_OpenGL::paintGL()
 {
     //m_context.makeCurrent(this);
-    QTime stopwatch;
-    stopwatch.start();
+
+    int tt = time.elapsed();
+    //qDebug("Time elapsed: %d ms", tt);
+    if (tt != 0)
+    {
+        qDebug("Time elapsed: %d ms, Fps: %lf ", tt, double(1000/tt));
+    }
+    time.restart();
+
     //qDebug()<<"real fps"<<frames /(time.elapsed() / 1000.0)/5;
     // Clear the background and depth-buffer for this frame
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -247,13 +255,7 @@ void Graph3D_OpenGL::paintGL()
     //m_shaderProgram.release();
 
 
-    qDebug("time elapsed: %d", stopwatch.elapsed());
-  /*  if (!(frames % 100)) {
-        time.start();
-        frames = 0;
-    }
-    frames ++;
-*/
+
 
 }
 
@@ -281,11 +283,13 @@ void Graph3D_OpenGL::axis3D()
 {
     //m_shaderProgram.bind();
 
-    if (m_vertexPositionBuffer.bind()) qDebug() << "Success biding vertex position buffer";
-   // m_shaderProgram.enableAttributeArray("vertexPosition");
+    //if (m_vertexPositionBuffer.bind()) qDebug() << "Success biding vertex position buffer";
+    m_vertexPositionBuffer.bind();
+    // m_shaderProgram.enableAttributeArray("vertexPosition");
     m_shaderProgram.setAttributeBuffer("vertexPosition", GL_FLOAT, 0, 3);
 
-    if (m_vertexColorBuffer.bind()) qDebug() << "Success biding vertex color buffer";
+    //if (m_vertexColorBuffer.bind()) qDebug() << "Success biding vertex color buffer";
+    m_vertexColorBuffer.bind();
     //m_shaderProgram.enableAttributeArray("vertexColor");
     m_shaderProgram.setAttributeBuffer("vertexColor", GL_FLOAT, 0, 3);
 
@@ -526,9 +530,9 @@ void Graph3D_OpenGL::AutoRotate()
     yRot+=AutoRoty;
     zRot+=AutoRotz;
 
-    qDebug()<<xRot;
-    qDebug()<<yRot;
-    qDebug()<<zRot;
+   // qDebug()<<xRot;
+   // qDebug()<<yRot;
+   // qDebug()<<zRot;
 
 
 

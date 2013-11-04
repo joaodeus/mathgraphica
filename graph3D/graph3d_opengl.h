@@ -106,7 +106,6 @@ protected:
     QOpenGLBuffer m_vertexPositionBuffer;
     QOpenGLBuffer m_vertexColorBuffer;
 
-
 };
 
 #endif // GRAPH3D_OPENGL_H

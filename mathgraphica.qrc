@@ -13,6 +13,7 @@
         <file>images/graf2d.png</file>
         <file>images/graf_2D.png</file>
         <file>images/functions.png</file>
+        <file>images/variables.png</file>
     </qresource>
     <qresource prefix="/shaders">
         <file>shaders/fragmentShaderES2.fsh</file>

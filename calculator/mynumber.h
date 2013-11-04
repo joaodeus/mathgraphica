@@ -69,7 +69,7 @@ public:
     bool isLeft_Parentheses();
     bool isRight_Parentheses();
     bool isParentheses_abs();
-  //  bool isConstant(); // check if it's a math constan: pi, e (euler) or i (imaginary number)
+    //bool isConstant(); // check if it's a math constan: pi, e (euler) or i (imaginary number)
     bool isImaginary(); //check if it's imaginary number
 
     int operatorPriority(); //return operator priority
