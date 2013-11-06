@@ -19,7 +19,8 @@ public:
     //Graph3D_Editor_gui();
     QList<Graph3D> *m_graph3DEditorListPtr;
 
-
+protected:
+    virtual void showEvent(QShowEvent *event);
 };
 
 #endif // GRAPH3D_EDITOR_GUI_H

@@ -17,7 +17,7 @@
 
 #include "graph/graph_container_gui.h"
 #include "graph3D/graph3d_editor_gui.h"
-
+#include "graph3D/graph3d_addnew_gui.h"
 #include "calculator/myfunction.h"
 
 
@@ -437,8 +437,8 @@ void MainWindow::on_actionGraph_2D_triggered()
 {
 
     Graph2D_AddNew_gui newGraph_gui;
-
     newGraph_gui.exec();
+
     if (newGraph_gui.returnValue == 1)
     {
         newGraph_gui.m_graph2D.setupGraph();
@@ -449,36 +449,33 @@ void MainWindow::on_actionGraph_2D_triggered()
         graph2dContainer->show();
     }
 
-
-    /*
-    Graph2D_AddNew_gui newGraph_gui;
-
-    newGraph_gui.exec();
-    if (newGraph_gui.returnValue == 1)
-    {
-        newGraph_gui.m_graph2D.setupGraph();
-        g1.m_graph2D_OpenGL.m_graph2DList.append(newGraph_gui.m_graph2D);
-        g1.show();
-    }*/
-
 }
 
 
 
 void MainWindow::on_actionGraph_3D_triggered()
 {
-    Graph3D m_graph3d;
+    Graph3D_AddNew_gui newGraph_gui;
+    newGraph_gui.exec();
+
+    if (newGraph_gui.returnValue == 1)
+    {
+        newGraph_gui.m_graph3D.setupGraph();
+
+        Graph3D_Container_gui *graph3dContainer = new Graph3D_Container_gui;
+        graph3dContainer->m_graph3D_OpenGL.m_graph3DList.append(newGraph_gui.m_graph3D);
+        graph3dContainer->show();
+    }
+
+/*    Graph3D m_graph3d;
     m_graph3d.setupGraph();
 
     Graph3D_OpenGL *graph = new Graph3D_OpenGL ;
     graph->addGraph3D(m_graph3d);
     graph->show();
 
-
     Graph3D_Container_gui *container = new Graph3D_Container_gui;
-    container->show();
-
-
+    container->show();*/
 }
 
 void MainWindow::on_actionFunctions_triggered()

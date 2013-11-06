@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>New Graph2D</string>
+   <string>New Graph 2D</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../mathgraphica.qrc">

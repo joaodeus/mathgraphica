@@ -2,6 +2,7 @@
 #define GRAPH2D_EDITOR_GUI_H
 
 #include <QDialog>
+#include <QTableWidget>
 #include "graph2d.h"
 
 namespace Ui {
@@ -46,6 +47,9 @@ private:
     Ui::Graph2D_Editor_gui *ui;
 
     void addNewGraph(const QString &str);
+
+public:
+    QTableWidget *tableWidget_graph; // to used in the derived class, to access ui->tableWidget_graph2D_list
 };
 
 #endif // GRAPH2D_EDITOR_GUI_H

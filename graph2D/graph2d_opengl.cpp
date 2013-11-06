@@ -348,6 +348,15 @@ void Graph2D_OpenGL::SaveImageAs()
     }
 }
 
+void Graph2D_OpenGL::hideEvent(QHideEvent *event)
+{
+    Q_UNUSED(event);
+    qDebug("Hiding window");
+
+    killTimer(Timer2D);
+    Timer2D = 0;
+
+}
 
 void Graph2D_OpenGL::mousePressEvent(QMouseEvent *event)
 {

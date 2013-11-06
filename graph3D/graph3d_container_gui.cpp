@@ -10,7 +10,7 @@ Graph3D_Container_gui::Graph3D_Container_gui()
 {
 
  //   setAttribute(Qt::WA_DeleteOnClose); //qDebug()<<"Delete on close: "<<testAttribute(Qt::WA_DeleteOnClose);
-    setWindowTitle("Graph3D");
+    setWindowTitle("Graph 3D");
     setWindowIcon(QIcon(":/images/images/graf3d.png"));
 
 
@@ -46,7 +46,7 @@ void Graph3D_Container_gui::on_pushButton_options_clicked()
 {
 
     Graph3D_Editor_gui graph3D_edit;
-    graph3D_edit.m_graph2DEditorListPtr = m_graph2DcontainerListPtr;
+    graph3D_edit.m_graph3DEditorListPtr = m_graph3DcontainerListPtr;
 
     QString aux = QString("%1").arg(m_graph3D_OpenGL.getTimeDelta());
     graph3D_edit.setTimeDelta(aux);
@@ -57,13 +57,13 @@ void Graph3D_Container_gui::on_pushButton_options_clicked()
     m_graph3D_OpenGL.setTimeDelta(calc.SolveExpression(graph3D_edit.getTimeDelta()).numberReal());
 
 
-//    m_graph3D_OpenGL.prepareGraphs();
+    m_graph3D_OpenGL.prepareGraphs();
     m_graph3D_OpenGL.setBackGroundColor(graph3D_edit.getBackGroundColor());
 
-    //if (!m_graph3D_OpenGL.areTimeGraphs())
-   // {
-      //  m_graph3D_OpenGL.stopTimer3D();
-   // }
+    if (!m_graph3D_OpenGL.areTimeGraphs())
+    {
+        m_graph3D_OpenGL.stopTimer3D();
+    }
 
 
 
@@ -76,5 +76,5 @@ void Graph3D_Container_gui::on_pushButton_saveImage_clicked()
 
 void Graph3D_Container_gui::on_pushButton_startStop_clicked()
 {
-
+    m_graph3D_OpenGL.startStopTimer3D();
 }

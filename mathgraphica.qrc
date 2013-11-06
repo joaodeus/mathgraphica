@@ -14,6 +14,7 @@
         <file>images/graf_2D.png</file>
         <file>images/functions.png</file>
         <file>images/variables.png</file>
+        <file>images/3D.png</file>
     </qresource>
     <qresource prefix="/shaders">
         <file>shaders/fragmentShaderES2.fsh</file>

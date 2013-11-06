@@ -16,7 +16,19 @@ public:
     ~Graph3D();
 
 
+    QString getGraph3DExpression()const{return m_graph3DExpression;}
+    QString getIntervalxMin()const{return m_xminExpression;}
+    QString getIntervalxMax()const{return m_xmaxExpression;}
+    QString getIntervalyMin()const{return m_yminExpression;}
+    QString getIntervalyMax()const{return m_ymaxExpression;}
+    QString getDelta()const{return m_deltaExpression;}
+    QString getVariable1()const{return m_variable_X;}
+    QString getVariable2()const{return m_variable_Y;}
+
+
     // set a graph from a math expression
+    void setGraph3DExpression(const QString &expression_);
+
     void setMinX(const double &minX_);
     void setMinX(const QString &minXExpression_);
 
@@ -29,10 +41,11 @@ public:
     void setMaxY(const double &maxY_);
     void setMaxY(const QString &maxYExpression_);
 
-
     void setDelta(const double delta_);
     void setDelta(const QString deltaExpression_);
-    void setGraph3DExpression(const QString &expression_);
+
+    void setVariable1(const QString &variable1_);
+    void setVariable2(const QString &variable2_);
 
     // setupGraph() must be called after setMin...(), setMax...(), setDelta() and setGraph3DExpression()
     // it calculates and setup up the array's xx and yy
@@ -41,15 +54,17 @@ public:
     Graph3D &operator=(const Graph3D & );
 
 
-private:
+    bool isTimeGraph(){return timeGraph3D;} // check if is a graph with a variable t (time)
+    //in "m_graph3DExpression"
+    // timeGraphs can be animated
 
-    //QVector<QVector3D> array_3D;
+private:
 
     QList<double> xx;
     QList<double> yy;
     QList<double> zz;
 
-
+    bool timeGraph3D;
     QString m_graph3DExpression;
 
     QString m_xminExpression;
@@ -72,7 +87,8 @@ private:
 
     Calculator calc;
 
-
+    double t; // time
+    bool bPolarGraph;
 
     // drawing ---------------------------------------------
     QOpenGLBuffer m_vertexBufferGraph3D;
@@ -116,7 +132,7 @@ public:
     void prepareBuffers();
     void setBufferData(QOpenGLShaderProgram &m_shaderProgram);
     void draw(QOpenGLShaderProgram &m_shaderProgram);
-    void UpdateGraphTime(double t);
+    void UpdateGraphTime(double t_, QOpenGLShaderProgram &m_shaderProgram);
     bool graph_has_variable_t();
 /*
     QVector3D *graph3D_fxy;
@@ -131,7 +147,6 @@ public:
 
 
 };
-
 
 
 #endif // GRAPH3D_H

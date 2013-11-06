@@ -27,6 +27,7 @@ Graph3D::Graph3D() //:
     Red_d=1.0;      Green_d=0.3;    Blue_d=0.0; //vermelho
 */
 
+    timeGraph3D         = true;
     m_graph3DExpression = "cos(x)*sin(y)*cos(t)";
 
     m_xminExpression    = "-10";
@@ -44,6 +45,11 @@ Graph3D::Graph3D() //:
 
     m_variable_X        = "x";
     m_variable_Y        = "y";
+
+    bPolarGraph         = false;
+    t                   = 0;
+
+
 
     colorA.setRgbF(1,0,0,1);
     colorB.setRgbF(0,0,1,1);
@@ -167,10 +173,20 @@ void Graph3D::setDelta(const QString deltaExpression_)
     }
 }
 
+void Graph3D::setVariable1(const QString &variable1_)
+{
+    m_variable_X = variable1_;
+}
+
+void Graph3D::setVariable2(const QString &variable2_)
+{
+    m_variable_Y = variable2_;
+}
 
 void Graph3D::setGraph3DExpression(const QString &expression_)
 {
     m_graph3DExpression = expression_;
+    timeGraph3D = calc.isValid_Expression_with_time_variable(m_graph3DExpression);
 }
 
 
@@ -310,18 +326,19 @@ QColor Graph3D::getColorD()
 }
 
 
-void Graph3D::UpdateGraphTime(double t)
+void Graph3D::UpdateGraphTime(double t_, QOpenGLShaderProgram &m_shaderProgram)
 {
-
-    Calculator calc;
+    t = t_;
 
     QTime stopwatch;
     stopwatch.start();
 
     calc.setVariable_Value("t", t);
-    //arrai_z = calc.SolveExpression_fx(m_graph3DExpression).numberListReal();
+    zz = calc.SolveExpression_list(m_graph3DExpression,xx.size());
 
-    qDebug("updating time array: %d", stopwatch.elapsed());
+    setBufferData(m_shaderProgram);
+
+    //qDebug("updating time array: %d", stopwatch.elapsed());
 
 }
 

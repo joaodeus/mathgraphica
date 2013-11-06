@@ -43,8 +43,9 @@ protected:
     virtual void timerEvent(QTimerEvent *event);
 public:
     virtual void keyPressEvent(QKeyEvent *event);
-
-
+    bool areTimeGraphs();
+    void startStopTimer3D();
+    void stopTimer3D();
 
     // background color
     void setBackGroundColor(const QColor &color_);

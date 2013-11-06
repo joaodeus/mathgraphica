@@ -302,8 +302,12 @@ void Graph3D_OpenGL::hideEvent(QHideEvent * event)
 {
     Q_UNUSED(event);
     qDebug("Hiding window");
- //   killTimer(TimerRotate);
- //   TimerRotate = 0;
+
+    killTimer(TimerRotate);
+    TimerRotate = 0;
+
+    killTimer(Timer3D);
+    Timer3D = 0;
 
    // destroy();
 }
@@ -385,8 +389,8 @@ bool Graph3D_OpenGL::event(QEvent *event)
     {
         if (TimerRotate != 0)
         {
-            killTimer(TimerRotate);
-            TimerRotate = 0;
+           // killTimer(TimerRotate);
+           // TimerRotate = 0;
         }
     }
 
@@ -479,6 +483,42 @@ void Graph3D_OpenGL::keyPressEvent(QKeyEvent *event)
     //QWindow::keyPressEvent(event);
 }
 
+bool Graph3D_OpenGL::areTimeGraphs()
+{
+    for (int i = 0; i < m_graph3DList.size() ; i++)
+    {
+        if (m_graph3DList[i].isTimeGraph())
+            return true;
+    }
+    return false;
+}
+
+void Graph3D_OpenGL::startStopTimer3D()
+{
+    if (Timer3D == 0 && areTimeGraphs())
+    {
+        Timer3D = startTimer(0);
+        return;
+    }
+
+    if (Timer3D != 0)
+    {
+        killTimer(Timer3D);
+        Timer3D = 0;
+        t       = 0;
+    }
+}
+
+
+void Graph3D_OpenGL::stopTimer3D()
+{
+    if (Timer3D != 0)
+    {
+        killTimer(Timer3D);
+        Timer3D = 0;
+        t       = 0;
+    }
+}
 
 void Graph3D_OpenGL::timerEvent(QTimerEvent *event)
 
@@ -497,7 +537,7 @@ void Graph3D_OpenGL::timerEvent(QTimerEvent *event)
         //m_graph3D.UpdateGraphTime(t);
         for(int i = 0; i < m_graph3DList.size(); i++)
         {
-            m_graph3DList[i].UpdateGraphTime(t);
+            m_graph3DList[i].UpdateGraphTime(t, m_shaderProgram);
         }
 
         qDebug()<<t;

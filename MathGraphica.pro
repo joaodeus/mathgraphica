@@ -46,7 +46,8 @@ SOURCES += main.cpp\
     graph/graph_editor_gui.cpp \
     graph3D/graph3d_container_gui.cpp \
     graph3D/graph3d_editor_gui.cpp \
-    gui/functions_gui.cpp
+    gui/functions_gui.cpp \
+    graph3D/graph3d_addnew_gui.cpp
 
 HEADERS  += mainwindow.h \
     graph3D/graph3d.h \
@@ -82,7 +83,8 @@ HEADERS  += mainwindow.h \
     graph/graph_editor_gui.h \
     graph3D/graph3d_container_gui.h \
     graph3D/graph3d_editor_gui.h \
-    gui/functions_gui.h
+    gui/functions_gui.h \
+    graph3D/graph3d_addnew_gui.h
 
 FORMS    += mainwindow.ui \
     gui/calculator_gui.ui \
@@ -98,7 +100,8 @@ FORMS    += mainwindow.ui \
     graph2D/graph2d_addnew_gui.ui \
     graph/graph_container_gui.ui \
     graph/graph_editor_gui.ui \
-    gui/functions_gui.ui
+    gui/functions_gui.ui \
+    graph3D/graph3d_addnew_gui.ui
 
 RESOURCES += \
     mathgraphica.qrc

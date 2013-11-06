@@ -12,6 +12,9 @@ Graph2D_Editor_gui::Graph2D_Editor_gui(QWidget *parent) :
 
     m_graph2DEditorListPtr = NULL;
     ui->tableWidget_graph2D_list->setColumnCount(1);
+
+    // to used in the derived class, to access ui->tableWidget_graph2D_list
+    tableWidget_graph = ui->tableWidget_graph2D_list;
 }
 
 Graph2D_Editor_gui::~Graph2D_Editor_gui()

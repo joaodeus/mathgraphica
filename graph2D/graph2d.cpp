@@ -12,7 +12,7 @@ Graph2D::Graph2D()
     m_graphColor.setRgbF(1,0,0); // default color - red
 
 
-    timeGraph2D         = false;
+    timeGraph2D         = true;
     m_graph2DExpression = "5*cos(x+t)";
     m_xminExpression    = "-50";
     m_xmin              = -50;

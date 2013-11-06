@@ -11,11 +11,11 @@ Graph2D_AddNew_gui::Graph2D_AddNew_gui(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->lineEdit_expression->setText("12*cos(2*x)");
+    /*ui->lineEdit_expression->setText("12*cos(2*x)");
     ui->lineEdit_xmax->setText("50");
     ui->lineEdit_xmin->setText("-50");
     ui->lineEdit_dx->setText("0.1");
-
+*/
     returnValue = -1;
 }
 

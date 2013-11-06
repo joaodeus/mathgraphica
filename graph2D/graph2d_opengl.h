@@ -76,7 +76,7 @@ protected:
    // QVector3D axisColor[4];
     QColor axisColor;
 
-
+    void hideEvent(QHideEvent *event);
     void mousePressEvent(QMouseEvent *event);
     void mouseDoubleClickEvent(QMouseEvent * event);
     void mouseMoveEvent(QMouseEvent *event);
