@@ -20,6 +20,12 @@ public:
     Calculator calc;
     Graph2D m_graph2D;
 
+    int existentGraphs_count;
+private:
+    QList<Graph2D> m_defaultGraph2D_List;
+    // creates the defaults graphs that are presented to the user
+    void create_Default_Graphs_List();
+
 protected:
     void showEvent(QShowEvent * event);
     void closeEvent(QCloseEvent * event);

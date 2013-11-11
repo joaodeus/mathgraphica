@@ -213,7 +213,7 @@ bool Graph3D::setupGraph()
   //  double y = m_ymin;
 
 
-    //int i = 0; // index for array elements
+    int i = 0; // index for array elements
     elements.clear();
 
     double y;
@@ -239,6 +239,7 @@ bool Graph3D::setupGraph()
         xx.append(m_xmin);
         yy.append(y+m_delta);
 
+
     }
 
     calc.setVariable_Value(m_variable_X, xx);
@@ -247,6 +248,11 @@ bool Graph3D::setupGraph()
     zz = calc.SolveExpression_list(m_graph3DExpression,xx.size());
 
     return true;
+}
+
+bool Graph3D::setupGraph2()
+{
+
 }
 
 
@@ -396,83 +402,62 @@ void Graph3D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
         vertexElements[j] = elements.at(j);
     }*/
 
-    bool color_aux = true;
+    bool bColor = true;
     int i_color = 0;
     int count_y = 0;
     for (int i = 0; i < size;i++)
     {
-        vertexPosition[i].setX(xx[i]);
-        vertexPosition[i].setY(yy[i]);
-        vertexPosition[i].setZ(zz[i]);
 
-
-        if (color_aux == true)
+        bPolarGraph = false;
+        if (bPolarGraph)
         {
-            if ( (i_color > 1) )
-            {
-                vertexColor[i].setX(colorA.redF());
-                vertexColor[i].setY(colorA.greenF());
-                vertexColor[i].setZ(colorA.blueF());
-
-                vertexBackColor[i].setX(colorC.redF());
-                vertexBackColor[i].setY(colorC.greenF());
-                vertexBackColor[i].setZ(colorC.blueF());
-
-            }
-            else
-            {
-                vertexColor[i].setX(colorB.redF());
-                vertexColor[i].setY(colorB.greenF());
-                vertexColor[i].setZ(colorB.blueF());
-
-                vertexBackColor[i].setX(colorD.redF());
-                vertexBackColor[i].setY(colorD.greenF());
-                vertexBackColor[i].setZ(colorD.blueF());
-
-            }
-
-            i_color++;
-            if (i_color == 3 )
-                i_color = 0;
-
+            /*vertexPosition[i].setX( yy[i] * cos(xx.at(i)) );
+            vertexPosition[i].setY( yy[i] * sin(xx.at(i)) );
+            vertexPosition[i].setZ(0);*/
+            vertexPosition[i].setX( sqrt( xx[i]*xx[i] + yy[i]*yy[i] + zz[i]*zz[i] ) );
+            vertexPosition[i].setY( atan( yy[i]/xx[i] ) );
+            vertexPosition[i].setZ( sqrt( xx[i]*xx[i] + yy[i]*yy[i] ) / zz[i] );
         }
-
         else
         {
-            if ( (i_color > 1) )
-            {
-                vertexColor[i].setX(colorB.redF());
-                vertexColor[i].setY(colorB.greenF());
-                vertexColor[i].setZ(colorB.blueF());
+            vertexPosition[i].setX(xx[i]);
+            vertexPosition[i].setY(yy[i]);
+            vertexPosition[i].setZ(zz[i]);
+        }
 
-                vertexBackColor[i].setX(colorD.redF());
-                vertexBackColor[i].setY(colorD.greenF());
-                vertexBackColor[i].setZ(colorD.blueF());
 
-            }
-            else
-            {
-                vertexColor[i].setX(colorA.redF());
-                vertexColor[i].setY(colorA.greenF());
-                vertexColor[i].setZ(colorA.blueF());
+        if (bColor)
+        {
 
-                vertexBackColor[i].setX(colorC.redF());
-                vertexBackColor[i].setY(colorC.greenF());
-                vertexBackColor[i].setZ(colorC.blueF());
-            }
+            vertexColor[i].setX(colorA.redF());
+            vertexColor[i].setY(colorA.greenF());
+            vertexColor[i].setZ(colorA.blueF());
 
-            i_color++;
-            if (i_color == 3 )
-                i_color = 0;
+            vertexBackColor[i].setX(colorC.redF());
+            vertexBackColor[i].setY(colorC.greenF());
+            vertexBackColor[i].setZ(colorC.blueF());
 
+            bColor = !bColor;
+        }
+        else
+        {
+            vertexColor[i].setX(colorB.redF());
+            vertexColor[i].setY(colorB.greenF());
+            vertexColor[i].setZ(colorB.blueF());
+
+            vertexBackColor[i].setX(colorD.redF());
+            vertexBackColor[i].setY(colorD.greenF());
+            vertexBackColor[i].setZ(colorD.blueF());
+
+            bColor = !bColor;
         }
 
 
         count_y++;
 
-        if (count_y > yCount)
+        if (count_y > yCount+1)
         {
-            color_aux = !color_aux;
+            bColor = !bColor;
             count_y  = 0;
         }
 

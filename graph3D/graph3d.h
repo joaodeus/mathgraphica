@@ -50,6 +50,7 @@ public:
     // setupGraph() must be called after setMin...(), setMax...(), setDelta() and setGraph3DExpression()
     // it calculates and setup up the array's xx and yy
     bool setupGraph();
+    bool setupGraph2();
 
     Graph3D &operator=(const Graph3D & );
 

@@ -10,6 +10,9 @@ Graph3D_AddNew_gui::Graph3D_AddNew_gui(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    existentGraphs_count = 0;
+    create_Default_Graphs_List();
+
     returnValue = -1;
 }
 
@@ -18,34 +21,96 @@ Graph3D_AddNew_gui::~Graph3D_AddNew_gui()
     delete ui;
 }
 
+// creates the defaults graphs that are presented to the user
+void Graph3D_AddNew_gui::create_Default_Graphs_List()
+{
+    QColor color;
+
+    // graph 0
+    m_defaultGraph3D_List.append(m_graph3D);
+
+    //graph 1
+    m_graph3D.setGraph3DExpression("(x^2+y^2)*cos(t)");
+    color.setRgbF(0.0,1.0,0.0); m_graph3D.setColorA(color);
+    color.setRgbF(0.2,0.9,0.3); m_graph3D.setColorB(color);
+    color.setRgbF(0.9,1.0,0.2); m_graph3D.setColorC(color);
+    color.setRgbF(0.8,0.9,0.3); m_graph3D.setColorD(color);
+    m_defaultGraph3D_List.append(m_graph3D);
+
+    //graph 2
+    m_graph3D.setGraph3DExpression("5*log|x*y|*cos(t)");
+    color.setRgbF(1.0,0.5,0.2); m_graph3D.setColorA(color);
+    color.setRgbF(1.0,0.7,0.0); m_graph3D.setColorB(color);
+    color.setRgbF(1.0,0.5,0.5); m_graph3D.setColorC(color);
+    color.setRgbF(1.0,0.4,0.4); m_graph3D.setColorD(color);
+    m_defaultGraph3D_List.append(m_graph3D);
+
+    //graph 3
+    m_graph3D.setGraph3DExpression("y*cos(t)");
+    color.setRgbF(0.6,0.3,0.1); m_graph3D.setColorA(color);
+    color.setRgbF(0.4,0.0,0.0); m_graph3D.setColorB(color);
+    color.setRgbF(0.8,0.8,0.8); m_graph3D.setColorC(color);
+    color.setRgbF(1.0,1.0,1.0); m_graph3D.setColorD(color);
+    m_defaultGraph3D_List.append(m_graph3D);
+
+    //graph 4
+    m_graph3D.setGraph3DExpression("12*cos(t)");
+    color.setRgbF(0.90,0.80,0.20); m_graph3D.setColorA(color);
+    color.setRgbF(0.95,0.65,0.10); m_graph3D.setColorB(color);
+    color.setRgbF(0.10,0.30,0.90); m_graph3D.setColorC(color);
+    color.setRgbF(1.00,0.40,0.0); m_graph3D.setColorD(color);
+    m_defaultGraph3D_List.append(m_graph3D);
+
+
+    //reset m_graph3D to default
+    Graph3D graph_aux;
+    m_graph3D = graph_aux;
+
+}
 
 void Graph3D_AddNew_gui::showEvent(QShowEvent * event)
 {
     Q_UNUSED(event);
     // loading the graph values
 
+    Graph3D graph_aux;
+    Graph3D *graph;
 
-    ui->lineEdit_fxy->setText(m_graph3D.getGraph3DExpression());
-    ui->lineEdit_xmin->setText(m_graph3D.getIntervalxMin());
-    ui->lineEdit_xmax->setText(m_graph3D.getIntervalxMax());
-    ui->lineEdit_ymin->setText(m_graph3D.getIntervalyMin());
-    ui->lineEdit_ymax->setText(m_graph3D.getIntervalyMax());
-    ui->lineEdit_dxdy->setText(m_graph3D.getDelta());
-    ui->lineEdit_x->setText(m_graph3D.getVariable1());
-    ui->lineEdit_y->setText(m_graph3D.getVariable2());
+    if (existentGraphs_count  == 0)
+    {
+        graph = &m_graph3D;
+    }
+    else if (existentGraphs_count < m_defaultGraph3D_List.size())
+    {
+        m_graph3D = m_defaultGraph3D_List[existentGraphs_count];
+        graph = &m_graph3D;
+    }
+   else
+    {
+        graph = &m_graph3D;
+    }
+
+    ui->lineEdit_fxy->setText(graph->getGraph3DExpression());
+    ui->lineEdit_xmin->setText(graph->getIntervalxMin());
+    ui->lineEdit_xmax->setText(graph->getIntervalxMax());
+    ui->lineEdit_ymin->setText(graph->getIntervalyMin());
+    ui->lineEdit_ymax->setText(graph->getIntervalyMax());
+    ui->lineEdit_dxdy->setText(graph->getDelta());
+    ui->lineEdit_x->setText(graph->getVariable1());
+    ui->lineEdit_y->setText(graph->getVariable2());
 
 
 //    ui->checkBox_polarGraph->setChecked(m_graph2D.isPolarGraph());
 
 
     ui->pushButton_colorA->setAutoFillBackground(true);
-    ui->pushButton_colorA->setStyleSheet( strFromColor(m_graph3D.getColorA()) );
+    ui->pushButton_colorA->setStyleSheet( strFromColor(graph->getColorA()) );
     ui->pushButton_colorB->setAutoFillBackground(true);
-    ui->pushButton_colorB->setStyleSheet( strFromColor(m_graph3D.getColorB()) );
+    ui->pushButton_colorB->setStyleSheet( strFromColor(graph->getColorB()) );
     ui->pushButton_colorC->setAutoFillBackground(true);
-    ui->pushButton_colorC->setStyleSheet( strFromColor(m_graph3D.getColorC()) );
+    ui->pushButton_colorC->setStyleSheet( strFromColor(graph->getColorC()) );
     ui->pushButton_colorD->setAutoFillBackground(true);
-    ui->pushButton_colorD->setStyleSheet( strFromColor(m_graph3D.getColorD()) );
+    ui->pushButton_colorD->setStyleSheet( strFromColor(graph->getColorD()) );
 
 
 }

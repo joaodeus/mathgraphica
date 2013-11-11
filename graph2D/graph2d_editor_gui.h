@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QTableWidget>
+#include <QCheckBox>
 #include "graph2d.h"
 
 namespace Ui {
@@ -33,23 +34,25 @@ private slots:
 
     void on_pushButton_cancel_clicked();
 
-    void on_pushButton_add_clicked();
+    virtual void on_pushButton_add_clicked();
 
-    void on_pushButton_edit_clicked();
+    virtual void on_pushButton_edit_clicked();
 
     void on_pushButton_backGndColor_clicked();
 
-    void on_pushButton_delete_clicked();
+    virtual void on_pushButton_delete_clicked();
 
     void on_tableWidget_graph2D_list_cellDoubleClicked(int row, int column);
 
 private:
     Ui::Graph2D_Editor_gui *ui;
 
-    void addNewGraph(const QString &str);
+    virtual void addNewGraph(const QString &str);
 
 public:
     QTableWidget *tableWidget_graph; // to used in the derived class, to access ui->tableWidget_graph2D_list
+    QCheckBox *checkBox3DRotation;
+    QLineEdit *lineEdit_t_delta;
 };
 
 #endif // GRAPH2D_EDITOR_GUI_H

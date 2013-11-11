@@ -9,12 +9,16 @@ Graph2D_Editor_gui::Graph2D_Editor_gui(QWidget *parent) :
     ui(new Ui::Graph2D_Editor_gui)
 {
     ui->setupUi(this);
+    ui->checkBox_automaticGraph3DRotation->hide();
 
     m_graph2DEditorListPtr = NULL;
     ui->tableWidget_graph2D_list->setColumnCount(1);
 
-    // to used in the derived class, to access ui->tableWidget_graph2D_list
-    tableWidget_graph = ui->tableWidget_graph2D_list;
+
+    // to used in the derived class, to access the widgets
+    tableWidget_graph   = ui->tableWidget_graph2D_list;
+    checkBox3DRotation  = ui->checkBox_automaticGraph3DRotation;
+
 }
 
 Graph2D_Editor_gui::~Graph2D_Editor_gui()
@@ -67,6 +71,7 @@ void Graph2D_Editor_gui::showEvent(QShowEvent *event)
 
 void Graph2D_Editor_gui::on_pushButton_ok_clicked()
 {
+    qDebug()<<"fecha-me";
     close();
 }
 
@@ -82,6 +87,7 @@ void Graph2D_Editor_gui::on_pushButton_add_clicked()
 
 
     Graph2D_AddNew_gui newGraph2D_gui;
+    newGraph2D_gui.existentGraphs_count = m_graph2DEditorListPtr->size();
 
     newGraph2D_gui.exec();
     if ( newGraph2D_gui.returnValue == 1 )
@@ -91,6 +97,7 @@ void Graph2D_Editor_gui::on_pushButton_add_clicked()
         addNewGraph(newGraph2D_gui.m_graph2D.getGraph2DExpression());
         close();
     }    
+
 }
 
 void Graph2D_Editor_gui::addNewGraph(const QString &str)
@@ -159,7 +166,7 @@ void Graph2D_Editor_gui::on_pushButton_delete_clicked()
     {
         QString str = "Do you want  to delete the selected 2D graph ?\n" + ui->tableWidget_graph2D_list->item(index, 0)->text();
 
-        if ( QMessageBox::warning(this,tr("3D Graphs"), str, QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel)
+        if ( QMessageBox::warning(this,tr("2D Graphs"), str, QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel)
              == QMessageBox::Yes)
         {
             m_graph2DEditorListPtr->removeAt(index);

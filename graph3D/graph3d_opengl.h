@@ -47,6 +47,10 @@ public:
     void startStopTimer3D();
     void stopTimer3D();
 
+    void setAutoRotation(const bool &autoRotation_);
+    bool getAutoRotation();
+
+public:
     // background color
     void setBackGroundColor(const QColor &color_);
 private:

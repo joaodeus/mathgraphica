@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>298</width>
-    <height>383</height>
+    <width>272</width>
+    <height>347</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,71 +19,56 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="4" column="1">
-    <widget class="QPushButton" name="pushButton_ok">
-     <property name="text">
-      <string>Ok</string>
+    <widget class="QLineEdit" name="lineEdit_t_delta">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
     </widget>
    </item>
    <item row="4" column="0">
-    <widget class="QPushButton" name="pushButton_cancel">
+    <widget class="QLabel" name="label">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
-      <string>Cancel</string>
+      <string>time interval [s]:</string>
      </property>
     </widget>
    </item>
    <item row="2" column="0" colspan="2">
     <widget class="QTableWidget" name="tableWidget_graph2D_list"/>
    </item>
-   <item row="0" column="1">
-    <widget class="QPushButton" name="pushButton_edit">
-     <property name="text">
-      <string>Edit Graph</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2">
-    <widget class="QFrame" name="frame">
-     <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <property name="lineWidth">
-      <number>0</number>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>time interval [s]:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEdit_t_delta">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item row="1" column="0">
     <widget class="QPushButton" name="pushButton_delete">
      <property name="text">
       <string>Delete Graph</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QPushButton" name="pushButton_cancel">
+     <property name="text">
+      <string>Cancel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QPushButton" name="pushButton_ok">
+     <property name="text">
+      <string>Ok</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QPushButton" name="pushButton_add">
+     <property name="text">
+      <string>Add Graph</string>
      </property>
     </widget>
    </item>
@@ -94,10 +79,17 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="0">
-    <widget class="QPushButton" name="pushButton_add">
+   <item row="0" column="1">
+    <widget class="QPushButton" name="pushButton_edit">
      <property name="text">
-      <string>Add Graph</string>
+      <string>Edit Graph</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QCheckBox" name="checkBox_automaticGraph3DRotation">
+     <property name="text">
+      <string>Automatic Graph 3D rotation</string>
      </property>
     </widget>
    </item>
@@ -111,7 +103,6 @@
   <tabstop>pushButton_delete</tabstop>
   <tabstop>pushButton_backGndColor</tabstop>
   <tabstop>tableWidget_graph2D_list</tabstop>
-  <tabstop>lineEdit_t_delta</tabstop>
  </tabstops>
  <resources>
   <include location="../mathgraphica.qrc"/>

@@ -18,33 +18,10 @@
     <normaloff>:/images/images/graf3d.png</normaloff>:/images/images/graf3d.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="6" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>-y =</string>
-     </property>
-    </widget>
+   <item row="1" column="3">
+    <widget class="QLineEdit" name="lineEdit_x"/>
    </item>
-   <item row="6" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_ymin"/>
-   </item>
-   <item row="5" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_ymax"/>
-   </item>
-   <item row="3" column="3" rowspan="5" colspan="2">
-    <widget class="QLabel" name="label_image">
-     <property name="text">
-      <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="../mathgraphica.qrc">:/images/images/3D.png</pixmap>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_xmin"/>
-   </item>
-   <item row="9" column="0" colspan="5">
+   <item row="8" column="0" colspan="5">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="pushButton_cancel">
@@ -62,52 +39,26 @@
      </item>
     </layout>
    </item>
-   <item row="5" column="0">
+   <item row="4" column="0">
     <widget class="QLabel" name="label_3">
      <property name="text">
       <string>+y =</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="4">
-    <widget class="QLineEdit" name="lineEdit_y"/>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>+x =</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0">
+   <item row="6" column="0">
     <widget class="QLabel" name="label_6">
      <property name="text">
       <string>dx,dy=</string>
      </property>
     </widget>
    </item>
-   <item row="7" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_dxdy"/>
-   </item>
-   <item row="3" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_xmax"/>
-   </item>
-   <item row="4" column="0">
+   <item row="3" column="0">
     <widget class="QLabel" name="label_5">
      <property name="text">
       <string>-x =</string>
      </property>
     </widget>
-   </item>
-   <item row="2" column="0" colspan="5">
-    <widget class="QCheckBox" name="checkBox">
-     <property name="text">
-      <string>polar graph</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="3">
-    <widget class="QLineEdit" name="lineEdit_x"/>
    </item>
    <item row="1" column="0" colspan="3">
     <widget class="QLabel" name="label_7">
@@ -115,6 +66,9 @@
       <string>variables:</string>
      </property>
     </widget>
+   </item>
+   <item row="5" column="1" colspan="2">
+    <widget class="QLineEdit" name="lineEdit_ymin"/>
    </item>
    <item row="0" column="3" colspan="2">
     <widget class="QLineEdit" name="lineEdit_fxy">
@@ -130,7 +84,7 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="0" colspan="5">
+   <item row="7" column="0" colspan="5">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>Graph colors:</string>
@@ -190,6 +144,45 @@
       </item>
      </layout>
     </widget>
+   </item>
+   <item row="2" column="3" rowspan="5" colspan="2">
+    <widget class="QLabel" name="label_image">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../mathgraphica.qrc">:/images/images/3D.png</pixmap>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1" colspan="2">
+    <widget class="QLineEdit" name="lineEdit_xmin"/>
+   </item>
+   <item row="4" column="1" colspan="2">
+    <widget class="QLineEdit" name="lineEdit_ymax"/>
+   </item>
+   <item row="1" column="4">
+    <widget class="QLineEdit" name="lineEdit_y"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>+x =</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>-y =</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1" colspan="2">
+    <widget class="QLineEdit" name="lineEdit_dxdy"/>
+   </item>
+   <item row="2" column="1" colspan="2">
+    <widget class="QLineEdit" name="lineEdit_xmax"/>
    </item>
   </layout>
  </widget>

@@ -25,7 +25,7 @@ private:
     //virtual slots
     void on_pushButton_exit_clicked();
     void on_pushButton_options_clicked();
-    void on_pushButton_saveImage_clicked();
+    //void on_pushButton_saveImage_clicked();
     void on_pushButton_startStop_clicked();
 
 };

@@ -335,7 +335,8 @@ void Graph3D_OpenGL::mouseReleaseEvent (QMouseEvent * event )
     {
         if ( !(AutoRotx==0 && AutoRoty==0 && AutoRotz==0) && bAutoRotate)
         {
-            TimerRotate = startTimer(5);
+            if (bAutoRotate)
+                TimerRotate = startTimer(5);
         }
     }
 
@@ -518,6 +519,22 @@ void Graph3D_OpenGL::stopTimer3D()
         Timer3D = 0;
         t       = 0;
     }
+}
+
+void Graph3D_OpenGL::setAutoRotation(const bool &autoRotation_)
+{
+    bAutoRotate = autoRotation_;
+
+    if (bAutoRotate ==  false)
+    {
+        killTimer(TimerRotate);
+        TimerRotate = 0;
+    }
+}
+
+bool Graph3D_OpenGL::getAutoRotation()
+{
+    return bAutoRotate;
 }
 
 void Graph3D_OpenGL::timerEvent(QTimerEvent *event)

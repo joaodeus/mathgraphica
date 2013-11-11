@@ -20,6 +20,12 @@ public:
     Calculator calc;
     Graph3D m_graph3D;
 
+    int existentGraphs_count;
+private:
+    QList<Graph3D> m_defaultGraph3D_List;
+    // creates the defaults graphs that are presented to the user
+    void create_Default_Graphs_List();
+
 protected:
     void showEvent(QShowEvent * event);
     void closeEvent(QCloseEvent * event);

@@ -51,7 +51,11 @@ void Graph3D_Container_gui::on_pushButton_options_clicked()
     QString aux = QString("%1").arg(m_graph3D_OpenGL.getTimeDelta());
     graph3D_edit.setTimeDelta(aux);
 
+    graph3D_edit.checkBox3DRotation->setChecked(m_graph3D_OpenGL.getAutoRotation());
+
     graph3D_edit.exec();
+
+    m_graph3D_OpenGL.setAutoRotation(graph3D_edit.checkBox3DRotation->isChecked());
 
     Calculator calc;
     m_graph3D_OpenGL.setTimeDelta(calc.SolveExpression(graph3D_edit.getTimeDelta()).numberReal());
@@ -68,11 +72,11 @@ void Graph3D_Container_gui::on_pushButton_options_clicked()
 
 
 }
-
+/*
 void Graph3D_Container_gui::on_pushButton_saveImage_clicked()
 {
 
-}
+}*/
 
 void Graph3D_Container_gui::on_pushButton_startStop_clicked()
 {

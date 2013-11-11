@@ -21,6 +21,19 @@ public:
 
 protected:
     virtual void showEvent(QShowEvent *event);
+
+
+private slots:
+
+    void on_pushButton_add_clicked();
+
+    void on_pushButton_edit_clicked();
+
+    void on_pushButton_delete_clicked();
+
+private:
+    void addNewGraph(const QString &str);
+
 };
 
 #endif // GRAPH3D_EDITOR_GUI_H
