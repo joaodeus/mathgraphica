@@ -43,6 +43,8 @@ private slots:
 
     void on_pushButton_colorD_clicked();
 
+    void on_pushButton_fxy_clicked();
+
 private:
     Ui::Graph3D_AddNew_gui *ui;
 

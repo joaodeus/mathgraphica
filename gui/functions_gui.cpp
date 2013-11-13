@@ -45,8 +45,22 @@ void Functions_gui::on_pushButton_new_clicked()
 
 void Functions_gui::on_pushButton_delete_clicked()
 {
+    int index = ui->tableWidget->currentRow();
+
+    if (index < 0 || index >= m_functionsListPtr->size())
+        return;
+
+
+    QString aux = tr("Delete function ?\n") + ui->tableWidget->item(index,0)->text();
+    int r = QMessageBox::warning(this, tr("Delete function"), aux, QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+    if (r == QMessageBox::Yes)
+    {
+        m_functionsListPtr->removeAt(index);
+        updateFunctions();
+    }
 
 }
+
 
 void Functions_gui::on_pushButton_ok_clicked()
 {

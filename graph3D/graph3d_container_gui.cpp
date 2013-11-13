@@ -69,14 +69,12 @@ void Graph3D_Container_gui::on_pushButton_options_clicked()
         m_graph3D_OpenGL.stopTimer3D();
     }
 
-
-
 }
-/*
+
 void Graph3D_Container_gui::on_pushButton_saveImage_clicked()
 {
-
-}*/
+    m_graph3D_OpenGL.SaveImageAs();
+}
 
 void Graph3D_Container_gui::on_pushButton_startStop_clicked()
 {

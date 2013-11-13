@@ -29,7 +29,7 @@ protected slots:
 
     virtual void on_pushButton_options_clicked();
 
-    void on_pushButton_saveImage_clicked();
+    virtual void on_pushButton_saveImage_clicked();
 
     virtual void on_pushButton_startStop_clicked();
 

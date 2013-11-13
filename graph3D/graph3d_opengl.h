@@ -56,6 +56,9 @@ public:
 private:
     QColor backgroundColor;
 
+public:
+    void SaveImageAs();
+
 protected:
     GLint vertexAttr;
     GLint matrixAttr;

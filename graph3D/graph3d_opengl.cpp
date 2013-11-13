@@ -2,7 +2,8 @@
 
 //#include <QCoreApplication>
 #include <QTime>
-
+#include <QFileDialog>
+#include <QImageWriter>
 
 Graph3D_OpenGL::Graph3D_OpenGL()
 //Graph3D_OpenGL::Graph3D_OpenGL(QScreen *screen)
@@ -180,6 +181,35 @@ void Graph3D_OpenGL::setBackGroundColor(const QColor &color)
     backgroundColor=color;
     glClearColor(backgroundColor.redF(),backgroundColor.greenF(), backgroundColor.blueF(), 1.0f);
     paintGL();
+}
+
+void Graph3D_OpenGL::SaveImageAs()
+{
+    QString filename;
+    filename = QFileDialog::getSaveFileName( this,
+                                            tr("Save File"),
+                                            getenv( "HOME" ), tr(" Image (*.png)") );
+                                            //getenv( "HOME" ), fileformat );
+
+    if( !filename.endsWith( ".png" ) )
+    {
+        filename.append( ".png" );
+    }
+
+    QPixmap imagepix = renderPixmap( );
+    QImage image = grabFrameBuffer( );
+    QImageWriter imageWriter(filename,"png");
+
+    //imageWriter.setQuality(100);
+
+    if( imageWriter.canWrite() )
+    {
+        imageWriter.write(image);
+    }
+    else
+    {
+        QMessageBox::warning( this, tr("Save Image"), tr("Error saving image.") );
+    }
 }
 
 

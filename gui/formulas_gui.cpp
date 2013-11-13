@@ -44,8 +44,6 @@ void Formulas_gui::on_pushButton_del_clicked()
         ui->tableWidget_formulas->removeRow(index);
     }
 
-
-
 }
 
 void Formulas_gui::on_pushButton_validate_clicked()

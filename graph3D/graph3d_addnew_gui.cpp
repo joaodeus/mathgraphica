@@ -2,6 +2,7 @@
 #include "ui_graph3d_addnew_gui.h"
 
 #include <QColorDialog>
+#include "gui/calculator_gui.h"
 
 
 Graph3D_AddNew_gui::Graph3D_AddNew_gui(QWidget *parent) :
@@ -181,4 +182,15 @@ void Graph3D_AddNew_gui::on_pushButton_colorD_clicked()
     m_graph3D.setColorD(color);
     ui->pushButton_colorD->setAutoFillBackground(true);
     ui->pushButton_colorD->setStyleSheet(strFromColor(color));
+}
+
+void Graph3D_AddNew_gui::on_pushButton_fxy_clicked()
+{
+    Calculator_gui calc;
+    calc.SetLineEditCalcExpression(ui->lineEdit_fxy->text());
+
+    if (calc.exec() == QDialog::Accepted)
+    {
+        ui->lineEdit_fxy->setText(calc.GetLineEditCalcExpression());
+    }
 }
