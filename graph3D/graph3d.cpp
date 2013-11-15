@@ -380,6 +380,14 @@ void Graph3D::prepareBuffers()
 */
 }
 
+void Graph3D::releaseBuffers()
+{
+    qDebug()<<"release buffers";
+    m_vertexBufferGraph3D.release();
+    m_colorBufferGraph3D.release();
+    m_colorBackBufferGraph3D.release();
+}
+
 void Graph3D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
 {
 

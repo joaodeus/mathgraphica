@@ -131,6 +131,7 @@ public:
 public:
 
     void prepareBuffers();
+    void releaseBuffers();
     void setBufferData(QOpenGLShaderProgram &m_shaderProgram);
     void draw(QOpenGLShaderProgram &m_shaderProgram);
     void UpdateGraphTime(double t_, QOpenGLShaderProgram &m_shaderProgram);

@@ -19,9 +19,11 @@ public:
     void prepareShaderProgram();
     void prepareVertexBuffers();
     void prepareGraphs();
+    void releaseGraphs();
     //void prepareGraph(int index);
     void resizeGL(int width, int height);
     void showEvent(QShowEvent *event);
+    void closeEvent(QCloseEvent *event);
     void paintGL();
 
 

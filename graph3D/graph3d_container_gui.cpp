@@ -29,6 +29,10 @@ void Graph3D_Container_gui::showEvent(QShowEvent *event)
     m_HBoxLayout->addWidget(&m_graph3D_OpenGL);
 }
 
+void Graph3D_Container_gui::closeEvent(QCloseEvent *event)
+{
+    m_graph3D_OpenGL.closeEvent(event);
+}
 
 void Graph3D_Container_gui::keyPressEvent(QKeyEvent *event)
 {

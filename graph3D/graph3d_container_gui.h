@@ -18,6 +18,8 @@ public:
     QList<Graph3D> *m_graph3DcontainerListPtr;
 
     void showEvent(QShowEvent *event);
+    void closeEvent(QCloseEvent *event);
+
     void keyPressEvent(QKeyEvent *event);
 
 

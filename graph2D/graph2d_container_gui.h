@@ -23,6 +23,7 @@ public:
 
 protected:
     virtual void showEvent(QShowEvent *event);
+    virtual void closeEvent(QCloseEvent *event);
 
 protected slots:
     virtual void on_pushButton_exit_clicked();

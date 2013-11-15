@@ -514,3 +514,8 @@ void MainWindow::on_actionOutput_Format_triggered()
     }
 
 }
+
+void MainWindow::on_actionExit_triggered()
+{
+    close();
+}

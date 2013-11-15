@@ -209,6 +209,13 @@ void Graph2D::prepareBuffers()
     m_vertexBufferGraph2D.allocate(bufferSize * 3 * sizeof(float));
 }
 
+void Graph2D::releaseBuffers()
+{
+    qDebug()<<"release buffers";
+    m_vertexBufferGraph2D.release();
+}
+
+
 void Graph2D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
 {
     int size = xx.size();

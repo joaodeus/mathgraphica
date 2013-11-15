@@ -174,7 +174,13 @@ void Graph3D_OpenGL::prepareGraphs()
     updateGL();
 }
 
-
+void Graph3D_OpenGL::releaseGraphs()
+{
+    for (int i = 0; i < m_graph3DList.size(); i++)
+    {
+        m_graph3DList[i].releaseBuffers();
+    }
+}
 
 void Graph3D_OpenGL::setBackGroundColor(const QColor &color)
 {
@@ -229,6 +235,12 @@ void Graph3D_OpenGL::showEvent(QShowEvent *event)
     prepareGraphs();
     time.start();
 }
+
+void Graph3D_OpenGL::closeEvent(QCloseEvent *event)
+{
+    releaseGraphs();
+}
+
 
 void Graph3D_OpenGL::paintGL()
 {

@@ -77,6 +77,7 @@ private:
 
 public:
     void prepareBuffers();
+    void releaseBuffers();
     void setBufferData(QOpenGLShaderProgram &m_shaderProgram);
     void draw(QOpenGLShaderProgram &m_shaderProgram);
     void setColor(const QColor &color_);

@@ -7,6 +7,7 @@
 Graph2D_OpenGL::Graph2D_OpenGL()//: m_graph2D(calc_)
 {
     //calc = calc_;
+    setAttribute(Qt::WA_DeleteOnClose);//qDebug()<<"Delete on close: "<<testAttribute(Qt::WA_DeleteOnClose);
 
     setMouseTracking(true);
     background_dots = NULL;
@@ -162,10 +163,18 @@ void Graph2D_OpenGL::resizeGL(int width, int height)
 
 void Graph2D_OpenGL::showEvent(QShowEvent *event)
 {
+    qDebug()<<"showing";
     Q_UNUSED(event);
     prepareGraphs();
     time.start();
 }
+
+void Graph2D_OpenGL::closeEvent(QCloseEvent *event)
+{
+    //qDebug()<<"closing graphopengl";
+    releaseGraphs();
+}
+
 
 void Graph2D_OpenGL::prepareGraphs()
 {
@@ -180,15 +189,15 @@ void Graph2D_OpenGL::prepareGraphs()
     updateGL();
 }
 
-/*
-void Graph2D_OpenGL::prepareGraph(int index)
-{
-    m_graph2DList[index].prepareBuffers();
-    m_graph2DList[index].setBufferData(m_shaderProgram);
 
-    updateGL();
+void Graph2D_OpenGL::releaseGraphs()
+{   
+    for (int i = 0; i < m_graph2DList.size(); i++)
+    {
+        m_graph2DList[i].releaseBuffers();
+    }
 }
-*/
+
 
 void Graph2D_OpenGL::paintGL()
 {

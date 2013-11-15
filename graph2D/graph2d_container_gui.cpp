@@ -8,7 +8,7 @@ Graph2D_Container_gui::Graph2D_Container_gui(QWidget *parent) :
     ui(new Ui::Graph2D_Container_gui)
 {
     ui->setupUi(this);
-    //setAttribute(Qt::WA_DeleteOnClose);//qDebug()<<"Delete on close: "<<testAttribute(Qt::WA_DeleteOnClose);
+    setAttribute(Qt::WA_DeleteOnClose);//qDebug()<<"Delete on close: "<<testAttribute(Qt::WA_DeleteOnClose);
 
     //m_graph2D_OpenGL = new Graph2D_OpenGL;
     m_graph2DcontainerListPtr = &m_graph2D_OpenGL.m_graph2DList;
@@ -19,7 +19,7 @@ Graph2D_Container_gui::Graph2D_Container_gui(QWidget *parent) :
 
 Graph2D_Container_gui::~Graph2D_Container_gui()
 {
-    qDebug()<<"I'm gonna die";
+    //qDebug()<<"I'm gonna die";
     //delete m_graph2D_OpenGL;
     m_graph2DcontainerListPtr = NULL;
     delete ui;
@@ -32,6 +32,11 @@ void Graph2D_Container_gui::showEvent(QShowEvent *event)
     ui->horizontalLayout->addWidget(&m_graph2D_OpenGL);
 }
 
+void Graph2D_Container_gui::closeEvent(QCloseEvent *event)
+{
+    m_graph2D_OpenGL.closeEvent(event);
+    //qDebug()<<"closeEvent";
+}
 
 void Graph2D_Container_gui::on_pushButton_exit_clicked()
 {
