@@ -19,6 +19,11 @@ public:
     void setFormat(const char &format_);
     void setGroupDigits(const bool &bGroup_);
 
+    bool getAutomaticPrecision();
+    int  getPrecision();
+    char getFormat();
+    bool getGroup();
+
     QString formatResult(const Complexo &z);
     QString formatResult(const double &x);
     QString formatResult(Matrix &matrix);

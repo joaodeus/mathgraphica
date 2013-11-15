@@ -19,6 +19,7 @@
 #include "graph3D/graph3d_editor_gui.h"
 #include "graph3D/graph3d_addnew_gui.h"
 #include "calculator/myfunction.h"
+#include "gui/formatresult_gui.h"
 
 
 
@@ -495,5 +496,21 @@ void MainWindow::on_actionFunctions_triggered()
 
 void MainWindow::on_actionVariables_triggered()
 {
+
+}
+
+void MainWindow::on_actionAbout_Qt_triggered()
+{
+    QMessageBox::aboutQt (this, "Math Graphica");
+}
+
+void MainWindow::on_actionOutput_Format_triggered()
+{
+    FormatResult_gui gui;
+    gui.m_format = calc.format;
+    if (gui.exec() == QDialog::Accepted)
+    {
+        calc.format = gui.m_format;
+    }
 
 }

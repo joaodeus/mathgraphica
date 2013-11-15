@@ -53,6 +53,60 @@
      <height>20</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuGraph">
+    <property name="title">
+     <string>Graph</string>
+    </property>
+    <addaction name="actionGraph_2D"/>
+    <addaction name="actionGraph_3D"/>
+   </widget>
+   <widget class="QMenu" name="menuCalculo">
+    <property name="title">
+     <string>Calculos</string>
+    </property>
+    <addaction name="actionCalculator"/>
+    <addaction name="actionEquation"/>
+    <addaction name="separator"/>
+    <addaction name="actionFormulas"/>
+    <addaction name="actionFunctions"/>
+    <addaction name="actionVariables"/>
+    <addaction name="separator"/>
+    <addaction name="actionSystem_of_equations"/>
+    <addaction name="actionMatrix"/>
+   </widget>
+   <widget class="QMenu" name="menuIntegration">
+    <property name="title">
+     <string>Integration</string>
+    </property>
+    <addaction name="actionIntegral"/>
+    <addaction name="actionIntegral_double"/>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="actionOutput_Format"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionHelp"/>
+    <addaction name="actionAbout_MathGraphica"/>
+    <addaction name="actionAbout_Qt"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuGraph"/>
+   <addaction name="menuCalculo"/>
+   <addaction name="menuIntegration"/>
+   <addaction name="menuSettings"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -197,6 +251,31 @@
    </property>
    <property name="text">
     <string>Variables</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </action>
+  <action name="actionAbout_MathGraphica">
+   <property name="text">
+    <string>About MathGraphica</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+  </action>
+  <action name="actionOutput_Format">
+   <property name="text">
+    <string>Output format</string>
    </property>
   </action>
  </widget>

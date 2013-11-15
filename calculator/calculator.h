@@ -45,6 +45,8 @@ public:
     int GrabVariables(const QString &expression, QStringList &list_variables);
 
 
+    //---format calculations results-------------
+    FormatResult format;
     QString formatResult( const Complexo &z);
     QString formatResult( const double &x);
     QString formatResult(MyNumber num);
@@ -134,11 +136,6 @@ public:
     //This function is called inside ParseExpressionToList(....), so we don't have to worry
     //about it anymore
     QString Expression_Replace_User_Defined_Function(QString &expression_);
-
-
-private:
-    //---format calculations results-------------
-    FormatResult format;
 
 };
 

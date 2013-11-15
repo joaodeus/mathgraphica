@@ -5,13 +5,13 @@ FormatResult::FormatResult()
     bAutomaticPrecision = true;
     precision = -1;
     format = 'G';
-    bGroup = false;
+    bGroup = true;
 
     //int precision=-1;//default
     //char format='G'; //auto, 'E' or 'f'
-    //E - format as [-]9.9E[+|-]999
-    //f - format as [-]9.9
-    //G - use E or f format, whichever is the most concise
+    //E - format as [-]9.9E[+|-]999 - scientific
+    //f - format as [-]9.9 - fixed decimal
+    //G - use E or f format, whichever is the most concise - automatic
 }
 
 
@@ -219,6 +219,26 @@ void FormatResult::setFormat(const char &format_)
 void FormatResult::setGroupDigits(const bool &bGroup_)
 {
     bGroup = bGroup_;
+}
+
+bool FormatResult::getAutomaticPrecision()
+{
+    return bAutomaticPrecision;
+}
+
+int FormatResult::getPrecision()
+{
+    return precision;
+}
+
+char FormatResult::getFormat()
+{
+    return format;
+}
+
+bool FormatResult::getGroup()
+{
+    return bGroup;
 }
 
 /*

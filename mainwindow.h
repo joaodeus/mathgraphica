@@ -55,6 +55,10 @@ private slots:
 
     void on_actionVariables_triggered();
 
+    void on_actionAbout_Qt_triggered();
+
+    void on_actionOutput_Format_triggered();
+
 private:
     Ui::MainWindow *ui;
 
