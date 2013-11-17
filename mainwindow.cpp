@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QKeyEvent>
+#include <QtSql>
 #include "gui/calculator_gui.h"
 #include "gui/equation_gui.h"
 #include "gui/systemeq_gui.h"
@@ -20,6 +21,7 @@
 #include "graph3D/graph3d_addnew_gui.h"
 #include "calculator/myfunction.h"
 #include "gui/formatresult_gui.h"
+#include "gui/about_gui.h"
 
 
 
@@ -518,4 +520,18 @@ void MainWindow::on_actionOutput_Format_triggered()
 void MainWindow::on_actionExit_triggered()
 {
     close();
+}
+
+void MainWindow::on_actionAbout_MathGraphica_triggered()
+{
+    About_gui gui;
+    gui.exec();
+
+
+    QSqlDatabase db;
+    db =  QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("fileName.db3");
+    db.open();
+    // db.close(); // for close connection
+
 }

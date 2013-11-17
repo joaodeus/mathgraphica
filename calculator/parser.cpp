@@ -584,13 +584,18 @@ bool Parser::isValidEquation_Explicit_From_Constant(const QString &equation, QSt
         return false;
     }
 
+    equation_members[0].remove(" ");
+    equation_members[1].remove(" ");
+
+
+
     if ( GrabVariables(equation, variables_aux) != 1 )
     {
         return false;
     }
 
-   if ( ( (equation_members[0] == variables_aux[0])
-           || (equation_members[0] ==  ("("+ variables_aux[0] +")" )  ) )
+    if ( ( (equation_members[0] == variables_aux[0])
+           || (equation_members[0] == ( "("+ variables_aux[0] +")" ) ) )
          && isValidExpression(equation_members[1], value_) )
     {
         variable_ = variables_aux[0];

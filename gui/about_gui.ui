@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>294</width>
-    <height>340</height>
+    <height>298</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/images/images/calculator.png&quot;/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;MathGraphica - Freeware&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Advanced scientific calculator:&lt;/p&gt;&lt;p&gt;- Graphs 2D / 3D / 4D&lt;/p&gt;&lt;p&gt;- Imaginary numbers&lt;/p&gt;&lt;p&gt;- Integrals, matrices, equations&lt;/p&gt;&lt;p&gt;- Formulas, functions, variables&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Version: 2.0 &lt;/span&gt;(2013)&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Email:&lt;/span&gt; math.graphica@gmail.com&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Web:&lt;/span&gt; http://soft-ingenium.planetaclix.pt/&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/images/images/calculator.png&quot;/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;MathGraphica - Freeware&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Advanced scientific calculator:&lt;/p&gt;&lt;p&gt;- Graphs 2D / 3D / 4D&lt;/p&gt;&lt;p&gt;- Imaginary numbers&lt;/p&gt;&lt;p&gt;- Integrals, matrices, equations&lt;/p&gt;&lt;p&gt;- Formulas, functions, variables&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Version: 2.0 &lt;/span&gt;(2013)&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Email:&lt;/span&gt; math.graphica@gmail.com&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Web: &lt;/span&gt;&lt;a href=&quot;http://soft-ingenium.planetaclix.pt/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://soft-ingenium.planetaclix.pt/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>

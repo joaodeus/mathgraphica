@@ -42,6 +42,18 @@ void Calculator::setPreDefinedFormulas()
     formula.setValues(values);
     m_formulasList.append(formula);
 
+
+    //Quadratic equation explict to x
+    formula.setFormula("x1 = (-b+sqrt(b^2-4*a*c))/(2*a)");
+    formula.setDescription("Quadratic equation explicit to x1");
+    formula.calculateConstants();
+    values.clear();
+    values<<"?"<<"3"<<"1"<<"5";
+    formula.setValues(values);
+    m_formulasList.append(formula);
+
+
+
  /*   //Ideal Gas Formula
     formula.setFormula("P*V=n*R*T");
     formula.setDescription("Ideal Gas Formula");
