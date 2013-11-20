@@ -33,6 +33,35 @@ MyNumber sinc(MyNumber &number_)
 }
 
 
+
+MyNumber cis(MyNumber &number_)
+{
+    MyNumber z;
+
+    if (number_.Type() == "number")
+    {
+        z.SetMyNumber( cis(number_.numberComplexo()) );
+        return z;
+    }
+
+    if (number_.Type() == "list")
+    {
+        QList<Complexo> list = number_.numberListComplexo();
+        z.SetMyNumber(cis(list));
+        return z;
+    }
+
+    if (number_.Type() == "matrix")
+    {
+        Matrix mat = number_.numberMatrix();
+        z.SetMyNumber( cis(mat) );
+        return z;
+    }
+
+    return z;
+}
+
+
 MyNumber sin(MyNumber &number_)
 {
     MyNumber z;

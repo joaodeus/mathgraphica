@@ -1755,6 +1755,12 @@ void Parser::SolveFunctions(int &i)
         return;
     }
 
+    if ( type == QObject::tr("cis") )
+    {
+        m_tokenNumberList[i] = cis(Degree_Rad_Grad_aux);
+        m_tokenNumberList.remove(i+1);
+        return;
+    }
 
     if ( type == QObject::tr("sin") )
     {

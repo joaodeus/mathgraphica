@@ -41,6 +41,10 @@ private slots:
 
     void on_pushButton_fx_clicked();
 
+    void on_checkBox_parametricGraph_clicked(bool checked);
+
+    void on_pushButton_fx_2_clicked();
+
 private:
     Ui::Graph2D_AddNew_gui *ui;
 

@@ -39,7 +39,16 @@ public:
 
     void setPolarGraph(const bool &bPolarGraph_);
     bool isPolarGraph();
+private:
+    bool bPolarGraph;
 
+public:
+    void setParametric(const bool &bParametricGraph_);
+    bool isParametricGraph();
+private:
+    bool bParametricGraph;
+
+public:
     void UpdateGraphTime(double t_, QOpenGLShaderProgram &m_shaderProgram);
     void setTime(const double &t_){ t = t_;}
 
@@ -60,9 +69,10 @@ private:
 
     QList<double> xx;
     QList<double> yy;
+    QList<int> poles_interval;
 
     double t; // time
-    bool bPolarGraph;
+
 
     Calculator calc;
 

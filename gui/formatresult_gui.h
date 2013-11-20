@@ -32,6 +32,9 @@ private slots:
 
     void on_radioButton_fixedDecimal_clicked(bool checked);
 
+
+    void on_checkBox_polarForm_clicked(bool checked);
+
 private:
     Ui::FormatResult_gui *ui;
 };

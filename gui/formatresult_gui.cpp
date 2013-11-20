@@ -27,6 +27,8 @@ void FormatResult_gui::showEvent(QShowEvent *event)
     else if (m_format.getFormat() == 'f')
         ui->radioButton_fixedDecimal->setChecked(true);
 
+    ui->checkBox_polarForm->setChecked(m_format.getPolarForm());
+
     //E - format as [-]9.9E[+|-]999 - scientific
     //f - format as [-]9.9 - fixed decimal
     //G - use E or f format, whichever is the most concise - automatic
@@ -68,4 +70,10 @@ void FormatResult_gui::on_radioButton_scientific_clicked(bool checked)
 void FormatResult_gui::on_radioButton_fixedDecimal_clicked(bool checked)
 {
     m_format.setFormat('f');
+}
+
+
+void FormatResult_gui::on_checkBox_polarForm_clicked(bool checked)
+{
+    m_format.setPolarForm(checked);
 }

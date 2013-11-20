@@ -11,6 +11,9 @@ Graph2D_AddNew_gui::Graph2D_AddNew_gui(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    on_checkBox_polarGraph_clicked(false);
+    on_checkBox_parametricGraph_clicked(false);
+
     existentGraphs_count = 0;
     create_Default_Graphs_List();
 
@@ -181,6 +184,11 @@ void Graph2D_AddNew_gui::on_pushButton_color2D_clicked()
 void Graph2D_AddNew_gui::on_checkBox_polarGraph_clicked(bool checked)
 {
     m_graph2D.setPolarGraph(checked);
+
+    if (checked)
+        ui->checkBox_parametricGraph->setDisabled(true);
+    else
+        ui->checkBox_parametricGraph->setDisabled(false);
 }
 
 void Graph2D_AddNew_gui::on_pushButton_fx_clicked()
@@ -191,5 +199,46 @@ void Graph2D_AddNew_gui::on_pushButton_fx_clicked()
     if (calc.exec() == QDialog::Accepted)
     {
         ui->lineEdit_expression->setText(calc.GetLineEditCalcExpression());
+    }
+}
+
+void Graph2D_AddNew_gui::on_checkBox_parametricGraph_clicked(bool checked)
+{
+
+    if (checked)
+    {
+        ui->checkBox_polarGraph->setDisabled(true);
+        ui->lineEdit_expression2->setVisible(true);
+        ui->pushButton_fx_2->setVisible(true);
+
+        ui->pushButton_fx->setText("f1(t) =");
+
+        ui->label_x_plus->setText("+t =");
+        ui->label_x_minus->setText("-t =");
+        ui->label_delta->setText("dt =");
+    }
+    else
+    {
+        ui->checkBox_polarGraph->setDisabled(false);
+        ui->lineEdit_expression2->setVisible(false);
+        ui->pushButton_fx_2->setVisible(false);
+
+        ui->pushButton_fx->setText("f(x,t) =");
+
+        ui->label_x_plus->setText("+x =");
+        ui->label_x_minus->setText("-x =");
+        ui->label_delta->setText("dx =");
+    }
+
+}
+
+void Graph2D_AddNew_gui::on_pushButton_fx_2_clicked()
+{
+    Calculator_gui calc;
+    calc.SetLineEditCalcExpression(ui->lineEdit_expression2->text());
+
+    if (calc.exec() == QDialog::Accepted)
+    {
+        ui->lineEdit_expression2->setText(calc.GetLineEditCalcExpression());
     }
 }

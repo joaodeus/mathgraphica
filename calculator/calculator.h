@@ -45,6 +45,14 @@ public:
     int GrabVariables(const QString &expression, QStringList &list_variables);
 
 
+public:
+    void setDegreeRadGrad(const int isDegreeRadGrad_);
+    int getDegreeRadGrad();
+private:
+    int Degree_Rad_Grad;
+
+
+public:
     //---format calculations results-------------
     FormatResult format;
     QString formatResult( const Complexo &z);
@@ -52,8 +60,7 @@ public:
     QString formatResult(MyNumber num);
 
     bool error();
-    void setDegreeRadGrad(const int isDegreeRadGrad_);
-    int getDegreeRadGrad();
+
 
     //check if expression is a valid math expression f(t) with one 't' time variable, like i.e: "2+t"
     bool isValidExpression_ft(const QString &expression);
@@ -107,8 +114,6 @@ public:
 
     void addFormula();
     void removeFormula(int index);
-
-private:
 
     Parser parser;    
 

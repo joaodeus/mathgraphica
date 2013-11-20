@@ -168,7 +168,7 @@ public:
 
 
 private:
-    int Degree_Rad_Grad; // Flag_Graus_Rad_Grados
+    int Degree_Rad_Grad;
 public:
     void setDegreeRadGrad(const int isDegreeRadGrad_);
     int getDegreeRadGrad();

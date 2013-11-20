@@ -6,6 +6,8 @@
 
 MyNumber sinc(MyNumber &number_);
 
+MyNumber cis(MyNumber &number_);
+
 MyNumber sin(MyNumber &number_);
 MyNumber cos(MyNumber &number_);
 MyNumber tan(MyNumber &number_);

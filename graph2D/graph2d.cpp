@@ -20,8 +20,10 @@ Graph2D::Graph2D()
     m_xmax              = 50;
     m_deltaExpression   = "0.1";
     m_delta             = 0.1;
-    bPolarGraph         = false;
     t                   = 0;
+
+    bPolarGraph         = false;
+    bParametricGraph    = false;
 
     bufferSize = 0;
 
@@ -109,8 +111,6 @@ bool Graph2D::setupGraph()
 
 
 
-
-
     if (calc.isValid_Expression_with_time_variable(m_graph2DExpression) && (variables.size() == 2) )
     {
         calc.setVariable_Value("t", t);
@@ -124,6 +124,7 @@ bool Graph2D::setupGraph()
         return true;
     }
 
+
     if (variables.size() == 1)
     {
         if (variables[0]== "t")
@@ -132,18 +133,20 @@ bool Graph2D::setupGraph()
             calc.setVariable_Value(variables[0], xx);
 
         yy = calc.SolveExpression_list(m_graph2DExpression, xx.size());
+
         return true;
     }
+
 
     if (variables.size() == 0)
     {
         yy = calc.SolveExpression_list(m_graph2DExpression, xx.size());
+
         return true;
     }
 
+
     return false;
-
-
 
 }
 
@@ -177,12 +180,29 @@ Graph2D &Graph2D::operator =(const Graph2D &a)
 void Graph2D::setPolarGraph(const bool &bPolarGraph_)
 {
     bPolarGraph = bPolarGraph_;
+
+    if (bPolarGraph)
+        setParametric(false);
 }
 
 bool Graph2D::isPolarGraph()
 {
     return bPolarGraph;
 }
+
+void Graph2D::setParametric(const bool &bParametricGraph_)
+{
+    bParametricGraph = bParametricGraph_;
+
+    if (bParametricGraph)
+        setPolarGraph(false);
+}
+
+bool Graph2D::isParametricGraph()
+{
+    return bParametricGraph;
+}
+
 
 void Graph2D::UpdateGraphTime(double t_, QOpenGLShaderProgram &m_shaderProgram)
 {
@@ -246,13 +266,48 @@ void Graph2D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
     }
     else
     {
-        for (int i = 0; i < size;i++)
+        double infinity = 200;
+        int interval_size_between_poles = 0;
+        poles_interval.clear();
+        poles_interval.append(0);
+
+        for (int i = 0; i < size - 2;i++)
         {
+
+            interval_size_between_poles++;
 
             vertexPosition[i].setX(xx[i]);
             vertexPosition[i].setY(yy[i]);
             vertexPosition[i].setZ(0);
+
+            if ( (yy[i] * yy[i+1] < 0) &&  ( fabs(yy[i] -yy[i+1] ) > fabs(yy[i] -yy[i+2]) ) )
+            {
+                // save infinity poles
+                if (yy[i] < 0)
+                {
+                    vertexPosition[i].setY(-infinity);
+                    vertexPosition[i+1].setY(infinity);
+
+                    vertexPosition[i+1].setX(xx[i+1]);
+                }
+                else
+                {
+                    vertexPosition[i].setY(infinity);
+                    vertexPosition[i+1].setY(-infinity);
+
+                    vertexPosition[i+1].setX(xx[i+1]);
+                }
+
+                poles_interval.append(interval_size_between_poles);
+                poles_interval.append(i+1);
+                interval_size_between_poles = 1;
+
+                i++;
+            }
         }
+
+        poles_interval.append(interval_size_between_poles );
+
     }
 
 
@@ -294,7 +349,19 @@ void Graph2D::draw(QOpenGLShaderProgram &m_shaderProgram)
     m_shaderProgram.disableAttributeArray("vertexColor");
     m_shaderProgram.setUniformValue("vertexColor", m_graphColor);
 
-    glDrawArrays(GL_LINE_STRIP, 0, xx.size());
+    if (bPolarGraph)
+    {
+        glDrawArrays(GL_LINE_STRIP, 0, xx.size());
+    }
+    else
+    {
+        for (int i=0;i<poles_interval.size();i=i+2)
+        {
+            glDrawArrays(GL_LINE_STRIP, poles_interval[i],poles_interval[i+1]);
+        }
+    }
+
+
 }
 
 void Graph2D::setColor(const QColor &color_)

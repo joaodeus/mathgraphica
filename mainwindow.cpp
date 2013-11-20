@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QKeyEvent>
-#include <QtSql>
+//#include <QtSql>
 #include "gui/calculator_gui.h"
 #include "gui/equation_gui.h"
 #include "gui/systemeq_gui.h"
@@ -267,6 +267,7 @@ void MainWindow::on_listWidget_results_history_currentItemChanged(QListWidgetIte
 
 bool MainWindow::eventFilter(QObject *target, QEvent *event)
 {
+
     if (  event->type() == QEvent::KeyPress)
     {
 
@@ -279,7 +280,7 @@ bool MainWindow::eventFilter(QObject *target, QEvent *event)
             ui->listWidget_results_history->setCurrentRow(ui->listWidget_results_history->count()-1);
         }
 
-        /*Note: 16777220 is the second Enter key from the keyboard*/
+        //Note: 16777220 is the second Enter key from the keyboard
         if ((keyEvent->key() == 16777220 || keyEvent->key() == Qt::Key_Enter)
                 && ui->listWidget_results_history->hasFocus())
         {
@@ -288,6 +289,7 @@ bool MainWindow::eventFilter(QObject *target, QEvent *event)
     }
     // standard event processing
     return QObject::eventFilter(target, event);
+
 }
 
 
@@ -527,11 +529,11 @@ void MainWindow::on_actionAbout_MathGraphica_triggered()
     About_gui gui;
     gui.exec();
 
-
+/*
     QSqlDatabase db;
     db =  QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("fileName.db3");
     db.open();
     // db.close(); // for close connection
-
+*/
 }

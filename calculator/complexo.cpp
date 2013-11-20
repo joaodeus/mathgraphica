@@ -547,6 +547,25 @@ QList<Complexo> sinc(const QList<Complexo> &x)
 }
 
 
+Complexo cis(const Complexo &o)
+{
+    Complexo j(0,1);
+    double o_ = cabs(o);
+    return cos(o_)+j*sin(o_);
+}
+
+QList<Complexo> cis(QList<Complexo> &o)
+{
+    QList<Complexo> y;
+    for(int i=0;i < o.size(); i++)
+    {
+        y.append(cis(o.at(i)));
+    }
+    return y;
+}
+
+
+
 Complexo cos(const Complexo &x)
 {
     Complexo j(0,1);

@@ -38,6 +38,10 @@ Graph3D_OpenGL::Graph3D_OpenGL()
     yRot = 0;
     zRot = 0;
     scale=1;
+    scaleX = scaleY = scaleZ = 1;
+    minScale = 0.01;
+    maxScale = 80;
+    scaleDelta = 1.25;
 
     AutoRotx = 0;
     AutoRoty = 0;
@@ -238,6 +242,7 @@ void Graph3D_OpenGL::showEvent(QShowEvent *event)
 
 void Graph3D_OpenGL::closeEvent(QCloseEvent *event)
 {
+    Q_UNUSED(event);
     releaseGraphs();
 }
 
@@ -274,6 +279,8 @@ void Graph3D_OpenGL::paintGL()
     orientation.rotate(yRot, 0.0f, 1.0f, 0.0f );
     orientation.rotate(zRot, 0.0f, 0.0f, 1.0f );
     orientation.scale(scale);
+    orientation.scale(scaleX, scaleY, scaleZ);
+
 
     m_shaderProgram.setUniformValue( "proj", projection );// Set projection to the shader
     m_shaderProgram.setUniformValue( "matrix", orientation );// Set orientation matrix to the shaderprogram
@@ -411,15 +418,19 @@ void Graph3D_OpenGL::mouseMoveEvent(QMouseEvent *event)
 
 void Graph3D_OpenGL::wheelEvent(QWheelEvent * event )
 {
-    if (event->delta()<0)
-        if (scale > 0.01)
-            scale/=1.25;
+    /*double minScale = 0.01;
+    double maxScale = 20;
+    double scaleDelta = 1.25;
+*/
+    if (event->delta() < 0)
+        if (scale > minScale)
+            scale /= scaleDelta;
 
-    if (event->delta()>0)
-        if (scale < 20)
-            scale*=1.25;
+    if (event->delta() > 0)
+        if (scale < maxScale)
+            scale *= scaleDelta;
 
-   // qDebug()<<scale;
+
 
     event->accept();
     updateGL();
@@ -491,8 +502,9 @@ bool Graph3D_OpenGL::event(QEvent *event)
 void Graph3D_OpenGL::keyPressEvent(QKeyEvent *event)
 {
 
+    qDebug()<<event->key();
     if (event->key() == Qt::Key_Up)
-        xRot-=5;
+        xRot-=5;    
 
     if (event->key() == Qt::Key_Down)
         xRot+=5;
@@ -511,13 +523,51 @@ void Graph3D_OpenGL::keyPressEvent(QKeyEvent *event)
 
 
 
+   /* double minScale = 0.01;
+    double maxScale = 20;
+    double scaleDelta = 1.25;
+*/
     if (event->key() == Qt::Key_Minus)
-        if (scale > 0.01)
-            scale/=1.25;
+        if (scale > minScale)
+            scale /= scaleDelta;
 
     if (event->key() == Qt::Key_Plus)
-        if (scale < 20)
-            scale*=1.25;
+        if (scale < maxScale)
+            scale *= scaleDelta;
+
+
+    // reduces x scale
+    if (event->key() == Qt::Key_1)
+        if (scaleX > minScale)
+            scaleX /= scaleDelta;
+
+    // expands x scale
+    if (event->key() == Qt::Key_2)
+        if (scaleX < maxScale)
+            scaleX *= scaleDelta;
+
+    // reduces y scale
+    if (event->key() == Qt::Key_3)
+        if (scaleY > minScale)
+            scaleY /= scaleDelta;
+
+    // expands y scale
+    if (event->key() == Qt::Key_4)
+        if (scaleY < maxScale)
+            scaleY *= scaleDelta;
+
+
+    // reduces z scale
+    if (event->key() == Qt::Key_5)
+        if (scaleZ > minScale)
+            scaleZ /= scaleDelta;
+
+    // expands z scale
+    if (event->key() == Qt::Key_6)
+        if (scaleZ < maxScale)
+            scaleZ *= scaleDelta;
+
+
 
     updateGL();
     //paintGL();

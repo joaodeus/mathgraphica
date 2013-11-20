@@ -18,23 +18,31 @@ public:
     void setPrecision(const int &precision_);
     void setFormat(const char &format_);
     void setGroupDigits(const bool &bGroup_);
+    void setPolarForm(const bool &bPolarForm_);
 
     bool getAutomaticPrecision();
     int  getPrecision();
     char getFormat();
     bool getGroup();
+    bool getPolarForm();
 
+    QString formatPolarForm(const Complexo &z);
     QString formatResult(const Complexo &z);
     QString formatResult(const double &x);
     QString formatResult(Matrix &matrix);
     QString formatResult(MyNumber &num);
 
+    void setDegreeRadGrad(int &Degree_Rad_Grad_){Degree_Rad_Grad = Degree_Rad_Grad_;}
+    int getDegreeRadGrad(){return Degree_Rad_Grad;}
 private:
+    int Degree_Rad_Grad;
+
     QString groupDigits(const QString &str, const bool &bGroup);
     bool bAutomaticPrecision;
     int precision;
     char format;
     bool bGroup;
+    bool bPolarForm;
 
 };
 

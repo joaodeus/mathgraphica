@@ -42,7 +42,11 @@
     </widget>
    </item>
    <item row="2" column="0" colspan="2">
-    <widget class="QTableWidget" name="tableWidget_graph2D_list"/>
+    <widget class="QTableWidget" name="tableWidget_graph2D_list">
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>200</number>
+     </attribute>
+    </widget>
    </item>
    <item row="1" column="0">
     <widget class="QPushButton" name="pushButton_delete">

@@ -83,7 +83,13 @@ public:
     double Range;
     QPoint lastPos;
 
+    double minScale;
+    double maxScale;
+    double scaleDelta;
     double scale;
+    double scaleX;
+    double scaleY;
+    double scaleZ;
     double xRot;
     double yRot;
     double zRot;

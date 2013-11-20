@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>335</width>
-    <height>167</height>
+    <height>191</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,6 +38,13 @@
        <widget class="QRadioButton" name="radioButton_fixedDecimal">
         <property name="text">
          <string>fixed decimal</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QCheckBox" name="checkBox_polarForm">
+        <property name="text">
+         <string>polar form</string>
         </property>
        </widget>
       </item>

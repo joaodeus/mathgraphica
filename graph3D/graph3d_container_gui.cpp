@@ -36,6 +36,7 @@ void Graph3D_Container_gui::closeEvent(QCloseEvent *event)
 
 void Graph3D_Container_gui::keyPressEvent(QKeyEvent *event)
 {
+    qDebug()<<"container: "<<event->key();
     m_graph3D_OpenGL.keyPressEvent(event);
 }
 

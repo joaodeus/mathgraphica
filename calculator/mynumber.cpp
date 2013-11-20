@@ -180,6 +180,9 @@ bool MyNumber::isFunction(QString &function_)
     if (!type.compare(QObject::tr("sinc"),Qt::CaseInsensitive))
         return true;
 
+    if (!type.compare(QObject::tr("cis"),Qt::CaseInsensitive))
+        return true;
+
 
     if (!type.compare(QObject::tr("sin"),Qt::CaseInsensitive))
         return true;
@@ -381,11 +384,11 @@ void MyNumber::showNumber()
 {
 
     if (type == "number")
-        QMessageBox::about(0,"resultados",QString("%1+i%2").arg(number_complexo.r).arg(number_complexo.i));
+        QMessageBox::about(0,"results",QString("%1+i%2").arg(number_complexo.r).arg(number_complexo.i));
 
     // add show to list
     if (type == "list")
-        QMessageBox::about(0,"resultados","todo: add a list viewer");
+        QMessageBox::about(0,"results","todo: add a list viewer");
 
     if (type == "matrix")
         number_matrix.Show();

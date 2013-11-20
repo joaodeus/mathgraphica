@@ -138,6 +138,7 @@ protected:
 //Matrix functions
 
 Matrix sinc(Matrix &mat);
+Matrix cis(Matrix &mat);
 Matrix sin(Matrix &mat);
 Matrix cos(Matrix &mat);
 Matrix tan(Matrix &mat);

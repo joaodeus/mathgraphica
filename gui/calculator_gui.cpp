@@ -25,6 +25,7 @@ Calculator_gui::Calculator_gui(QWidget *parent) :
     connect(ui->pushButton_pi,SIGNAL(clicked()),mapper, SLOT(map()));
     connect(ui->pushButton_abs_parentesis,SIGNAL(clicked()), mapper, SLOT(map()));
     connect(ui->pushButton_abs, SIGNAL(clicked()), mapper, SLOT(map()));
+    connect(ui->pushButton_cis, SIGNAL(clicked()), mapper, SLOT(map()));
     connect(ui->pushButton_par_left, SIGNAL(clicked()), mapper, SLOT(map()));
     connect(ui->pushButton_par_right, SIGNAL(clicked()), mapper, SLOT(map()));
     connect(ui->pushButton_power, SIGNAL(clicked()), mapper, SLOT(map()));
@@ -93,6 +94,7 @@ Calculator_gui::Calculator_gui(QWidget *parent) :
     mapper->setMapping(ui->pushButton_pi,"pi");
     mapper->setMapping(ui->pushButton_abs_parentesis,"|");
     mapper->setMapping(ui->pushButton_abs,"abs(");
+    mapper->setMapping(ui->pushButton_cis,"cis(");
     mapper->setMapping(ui->pushButton_par_left,"(");
     mapper->setMapping(ui->pushButton_par_right,")");
     mapper->setMapping(ui->pushButton_power,"^");
@@ -226,3 +228,4 @@ void Calculator_gui::setDegreeRadGrad(const int &DegreeRadGrad_)
     }
 
 }
+

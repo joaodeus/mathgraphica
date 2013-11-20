@@ -35,6 +35,7 @@ private slots:
     void on_radioButton_grad_clicked();
     void on_radioButton_rad_clicked();
     void on_radioButton_degree_clicked();
+
 };
 
 #endif // CALCULATOR_GUI_H

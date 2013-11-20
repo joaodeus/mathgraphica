@@ -118,6 +118,11 @@ double sinc(const double &x);
 Complexo sinc(Complexo);
 QList<Complexo> sinc(const QList<Complexo> &x);
 
+//polar form for complex numbers
+Complexo cis(const Complexo &o);
+QList<Complexo> cis(QList<Complexo> &o);
+
+
 Complexo cos(const Complexo &x);
 QList<double> cos(QList<double> &x);
 QList<Complexo> cos(QList<Complexo> &x);

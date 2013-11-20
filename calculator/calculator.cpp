@@ -1,7 +1,15 @@
 #include "calculator.h"
 
+#define DEGREE  0
+#define RAD     1
+#define GRAD    2
+
+
 Calculator::Calculator(): m_equation(&parser), m_integral(&parser), m_integralDouble(&parser), m_function(&parser)
+
 {
+
+    setDegreeRadGrad(RAD);
 
     setPreDefinedFormulas();
 
@@ -44,7 +52,7 @@ void Calculator::setPreDefinedFormulas()
 
 
     //Quadratic equation explict to x
-    formula.setFormula("x1 = (-b+sqrt(b^2-4*a*c))/(2*a)");
+    formula.setFormula("x=(-b+sqrt(b^2-4*a*c))/(2*a)");
     formula.setDescription("Quadratic equation explicit to x1");
     formula.calculateConstants();
     values.clear();
@@ -66,6 +74,7 @@ void Calculator::setPreDefinedFormulas()
     m_formulasList.append(formula);
 */
 
+    /*
     //Circle Perimeter Formula
     formula.setFormula("P=2*pi*r");
     formula.setDescription("Circle Perimeter");
@@ -76,7 +85,7 @@ void Calculator::setPreDefinedFormulas()
     values<<"?"<<"30";
     formula.setValues(values);
     m_formulasList.append(formula);
-
+*/
 
 
 }
@@ -84,16 +93,19 @@ void Calculator::setPreDefinedFormulas()
 
 MyNumber Calculator::SolveExpression(const QString &expression)
 {
+    parser.setDegreeRadGrad(Degree_Rad_Grad);
     return parser.SolveExpression(expression);
 }
 
 MyNumber Calculator::SolveExpression_fx(const QString &expression)
 {
+    parser.setDegreeRadGrad(Degree_Rad_Grad);
     return parser.SolveExpression_fn(expression, values_List, variables_List);
 }
 
 QList<double> Calculator::SolveExpression_list(const QString &expression, const int &size)
 {
+    parser.setDegreeRadGrad(Degree_Rad_Grad);
     MyNumber aux = parser.SolveExpression_fn(expression, values_List, variables_List);
     if (aux.numberListComplexo().size() == 0)
     {
@@ -111,6 +123,7 @@ QList<double> Calculator::SolveExpression_list(const QString &expression, const 
 
 MyNumber Calculator::SolveExpression_fn(const QString &expression_fn, QList<MyNumber> &values_List_, QStringList &variables_List_)
 {
+    parser.setDegreeRadGrad(Degree_Rad_Grad);
     return parser.SolveExpression_fn(expression_fn, values_List_, variables_List_);
 }
 
@@ -187,16 +200,19 @@ int Calculator::GrabVariables(const QString &expression, QStringList &list_varia
 
 QString Calculator::formatResult( const Complexo &z)
 {
+    format.setDegreeRadGrad(Degree_Rad_Grad);
     return format.formatResult(z);
 }
 
 QString Calculator::formatResult( const double &x)
 {
+    format.setDegreeRadGrad(Degree_Rad_Grad);
     return format.formatResult(x);
 }
 
 QString Calculator::formatResult(MyNumber num)
 {
+    format.setDegreeRadGrad(Degree_Rad_Grad);
     return format.formatResult(num);
 }
 
@@ -204,16 +220,6 @@ QString Calculator::formatResult(MyNumber num)
 bool Calculator::error()
 {
     return parser.error();
-}
-
-void Calculator::setDegreeRadGrad(const int isDegreeRadGrad_)
-{
-    parser.setDegreeRadGrad(isDegreeRadGrad_);
-}
-
-int Calculator::getDegreeRadGrad()
-{
-    return parser.getDegreeRadGrad();
 }
 
 
@@ -314,6 +320,18 @@ void Calculator::removeFormula(int index)
 {
     if ( (index >= 0) && (index < m_formulasList.size()) )
         m_formulasList.removeAt(index);
+}
+
+
+
+void Calculator::setDegreeRadGrad(const int isDegreeRadGrad_)
+{
+    Degree_Rad_Grad = isDegreeRadGrad_;
+}
+
+int Calculator::getDegreeRadGrad()
+{
+    return Degree_Rad_Grad;
 }
 
 /*

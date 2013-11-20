@@ -24,8 +24,21 @@ Formulas_gui::~Formulas_gui()
 void Formulas_gui::on_pushButton_new_clicked()
 {
 
-    ui->tableWidget_formulas->setRowCount(ui->tableWidget_formulas->rowCount()+1);
+    int count = ui->tableWidget_formulas->rowCount();
+    ui->tableWidget_formulas->setRowCount(count+1);
     m_calculator->addFormula();
+
+    if (ui->tableWidget_formulas->item(count, 0) == 0)
+    {
+        QTableWidgetItem *newFormula = new QTableWidgetItem("");
+        ui->tableWidget_formulas->setItem(count, 0, newFormula);
+    }
+
+    if (ui->tableWidget_formulas->item(count, 1) == 0)
+    {
+        QTableWidgetItem *newDescription = new QTableWidgetItem("");
+        ui->tableWidget_formulas->setItem(count, 1, newDescription);
+    }
 
 }
 

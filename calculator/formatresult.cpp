@@ -1,17 +1,30 @@
 #include "formatresult.h"
 
+#define DEGREE  0
+#define RAD     1
+#define GRAD    2
+
+
 FormatResult::FormatResult()
 {
+    Degree_Rad_Grad = 1;
+
     bAutomaticPrecision = true;
-    precision = -1;
-    format = 'G';
-    bGroup = true;
+    precision           = -1;
+    format              = 'G';
+    bGroup              = true;
+    bPolarForm          = false;
 
     //int precision=-1;//default
     //char format='G'; //auto, 'E' or 'f'
     //E - format as [-]9.9E[+|-]999 - scientific
     //f - format as [-]9.9 - fixed decimal
     //G - use E or f format, whichever is the most concise - automatic
+
+    // add polar form
+    //P - format complex numbers as r*e^(o*i)
+    //where r is radius and o is the angle, i is imaginary
+
 }
 
 
@@ -77,6 +90,38 @@ QString FormatResult::groupDigits(const QString &str, const bool &bGroup)
     return final;
 }
 
+
+QString FormatResult::formatPolarForm(const Complexo &z)
+{
+    double radius = sqrt(z.r * z.r + z.i * z.i);
+    double angle = atan2(z.i, z.r);
+
+    if (angle < 0)
+    {
+        angle = PI + (PI + angle);
+    }
+
+    switch (Degree_Rad_Grad)
+    {
+    case DEGREE: //degree
+        angle = angle * 180/PI;
+        //Degree_Rad_Grad_aux.SetMyNumber(180/PI);
+        break;
+
+    case RAD: //rad
+        break;
+
+    case GRAD: //grad
+        angle = angle * 200/PI;
+        break;
+    }
+
+    QString radius_str = groupDigits(QString("%1").arg(radius,0,format,precision),bGroup);
+    QString angle_str = groupDigits(QString("%1").arg(angle,0,format,precision),bGroup);
+    return QString("%1cis(%2)").arg(radius).arg(angle);
+
+}
+
 //QString FormatResult::formatResult(const Complexo &z, bool bAutomaticPrecision, int precision, char format, bool bGroup)
 QString FormatResult::formatResult(const Complexo &z)
 {
@@ -92,11 +137,19 @@ QString FormatResult::formatResult(const Complexo &z)
    // char format;
    // format='G';
 
-    if (z.i ==0) //if imaginary is null
+    // if format is polar form
+    if (bPolarForm)
     {
-        aux=QString("%1").arg(z.r,0,format,precision);
+        return formatPolarForm(z);
+    }
+
+
+    // if format is not polar form
+
+    if (z.i ==0) //if imaginary is null
+    {            
+        aux=QString("%1").arg(z.r, 0, format, precision);
         aux=groupDigits(aux,bGroup);
-        //aux=QString("%1").arg(z.r,0,'G',25);
     }
     else // imaginary is not null
     {
@@ -133,24 +186,15 @@ QString FormatResult::formatResult(const Complexo &z)
                 }
             }
 
-            /*
-            if (z.i > 0)
-                aux=QString("%1+%2i").arg(z.r,0,format,precision).arg(z.i,0,format,precision);
-            else
-                aux=QString("%1-%2i").arg(z.r,0,format,precision).arg(-z.i,0,format,precision);
-                */
         }
         else
         {
             aux=groupDigits(QString("%1").arg(z.i,0,format,precision),bGroup);
             aux=aux+"i";
-            //aux=QString("%1i").arg(z.i,0,format,precision);
         }
     }
 
-//  AfxMessageBox(aux);
     return aux;
-
 }
 
 QString FormatResult::formatResult(const double &x)
@@ -221,6 +265,12 @@ void FormatResult::setGroupDigits(const bool &bGroup_)
     bGroup = bGroup_;
 }
 
+void FormatResult::setPolarForm(const bool &bPolarForm_)
+{
+    bPolarForm = bPolarForm_;
+}
+
+
 bool FormatResult::getAutomaticPrecision()
 {
     return bAutomaticPrecision;
@@ -239,6 +289,11 @@ char FormatResult::getFormat()
 bool FormatResult::getGroup()
 {
     return bGroup;
+}
+
+bool FormatResult::getPolarForm()
+{
+    return bPolarForm;
 }
 
 /*

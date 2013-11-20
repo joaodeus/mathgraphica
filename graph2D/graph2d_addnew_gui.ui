@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>299</width>
-    <height>323</height>
+    <width>274</width>
+    <height>312</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,6 +18,73 @@
     <normaloff>:/images/images/graf2d.png</normaloff>:/images/images/graf2d.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <widget class="QPushButton" name="pushButton_fx_2">
+     <property name="text">
+      <string>f2(t) =</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="1" colspan="2">
+    <widget class="QPushButton" name="pushButton_Ok">
+     <property name="text">
+      <string>Ok</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="0">
+    <widget class="QPushButton" name="pushButton_cancel">
+     <property name="text">
+      <string>Cancel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QCheckBox" name="checkBox_polarGraph">
+     <property name="text">
+      <string>polar</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="2">
+    <widget class="QLineEdit" name="lineEdit_dx"/>
+   </item>
+   <item row="6" column="1">
+    <widget class="QLabel" name="label_x_minus">
+     <property name="text">
+      <string>-x =</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="2">
+    <widget class="QLineEdit" name="lineEdit_xmax"/>
+   </item>
+   <item row="5" column="0" rowspan="3">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../mathgraphica.qrc">:/images/images/graf_2D.png</pixmap>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="2">
+    <widget class="QPushButton" name="pushButton_color2D">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" colspan="2">
+    <widget class="QLineEdit" name="lineEdit_expression2"/>
+   </item>
    <item row="0" column="0">
     <widget class="QPushButton" name="pushButton_fx">
      <property name="sizePolicy">
@@ -30,6 +97,22 @@
       <string>f(x,t) =</string>
      </property>
     </widget>
+   </item>
+   <item row="8" column="0">
+    <widget class="QLabel" name="label_8">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Graph color:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="2">
+    <widget class="QLineEdit" name="lineEdit_xmin"/>
    </item>
    <item row="0" column="1" colspan="2">
     <widget class="QLineEdit" name="lineEdit_expression">
@@ -44,105 +127,42 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QCheckBox" name="checkBox_polarGraph">
+   <item row="4" column="1" colspan="2">
+    <widget class="QCheckBox" name="checkBox_parametricGraph">
      <property name="text">
-      <string>polar graph</string>
+      <string>parametric</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="0" rowspan="3">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="../mathgraphica.qrc">:/images/images/graf_2D.png</pixmap>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>+x =</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="2">
-    <widget class="QLineEdit" name="lineEdit_xmax"/>
-   </item>
-   <item row="3" column="1">
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>-x =</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="2">
-    <widget class="QLineEdit" name="lineEdit_xmin"/>
-   </item>
-   <item row="4" column="1">
-    <widget class="QLabel" name="label_6">
+   <item row="7" column="1">
+    <widget class="QLabel" name="label_delta">
      <property name="text">
       <string>dx =</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="2">
-    <widget class="QLineEdit" name="lineEdit_dx"/>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="label_8">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
+   <item row="5" column="1">
+    <widget class="QLabel" name="label_x_plus">
      <property name="text">
-      <string>Graph color:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="2">
-    <widget class="QPushButton" name="pushButton_color2D">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="2">
-    <widget class="QPushButton" name="pushButton_Ok">
-     <property name="text">
-      <string>Ok</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0">
-    <widget class="QPushButton" name="pushButton_cancel">
-     <property name="text">
-      <string>Cancel</string>
+      <string>+x =</string>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>pushButton_Ok</tabstop>
-  <tabstop>pushButton_cancel</tabstop>
   <tabstop>pushButton_fx</tabstop>
   <tabstop>lineEdit_expression</tabstop>
+  <tabstop>pushButton_fx_2</tabstop>
+  <tabstop>lineEdit_expression2</tabstop>
   <tabstop>checkBox_polarGraph</tabstop>
+  <tabstop>checkBox_parametricGraph</tabstop>
   <tabstop>lineEdit_xmax</tabstop>
   <tabstop>lineEdit_xmin</tabstop>
   <tabstop>lineEdit_dx</tabstop>
   <tabstop>pushButton_color2D</tabstop>
+  <tabstop>pushButton_cancel</tabstop>
+  <tabstop>pushButton_Ok</tabstop>
  </tabstops>
  <resources>
   <include location="../mathgraphica.qrc"/>

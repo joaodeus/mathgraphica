@@ -1273,6 +1273,24 @@ Matrix sinc(Matrix &mat)
     return z;
 }
 
+
+Matrix cis(Matrix &mat)
+{
+    Matrix z;
+    z.SetLinesCols(mat.lineCount(),mat.columnCount());
+
+    for (int c=0;c<mat.columnCount();c++)
+    {
+        for (int l=0;l<mat.lineCount();l++)
+        {
+            z.SetLineColNumber(l,c,cis(mat.GetLineColNumber(l,c)));
+        }
+    }
+
+    return z;
+}
+
+
 Matrix sin(Matrix &mat)
 {
     Matrix z;
