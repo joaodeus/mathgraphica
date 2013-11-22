@@ -202,9 +202,9 @@ void Graph2D_OpenGL::releaseGraphs()
 void Graph2D_OpenGL::paintGL()
 {
     int tt = time.elapsed();
-    qDebug("Time elapsed: %d ms", tt);
+    //qDebug("Time elapsed: %d ms", tt);
     if (tt != 0)
-        qDebug("Fps: %lf ", double(1000/tt));
+        qDebug("Time elapsed: %d ms - Fps: %lf ", tt, double(1000/tt));
     time.restart();
 
 

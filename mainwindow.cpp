@@ -85,7 +85,7 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
     {
         //calc.m_FunctionsList.append(calc.m_function);
         calc.addFunction(calc.m_function);
-        QListWidgetItem *item=new QListWidgetItem(str_cmd_line,0,TYPE_FUNCTION);
+        QListWidgetItem *item = new QListWidgetItem(str_cmd_line,0,TYPE_FUNCTION);
         ui->listWidget_results_history->addItem(item);
         ui->listWidget_results_history->scrollToBottom();
         return ;
@@ -94,7 +94,7 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
 
     QString str_cmd_line_aux = str_cmd_line;
     calc.Expression_Replace_User_Defined_Function(str_cmd_line_aux);
-    //check for expressions, like "5+3"
+    //check for expressions, like "5+3" on the expression str_cmd_line_aux
     number = calc.isValidExpression(str_cmd_line_aux, ok);
     //if ( calc.isValidExpression(str_cmd_line) )
     if (ok)

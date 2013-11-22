@@ -180,6 +180,7 @@ void Calculator::setVariable_Value(const QString &variable, const double &value)
     setVariable_Value(variable, MyNumber(value));
 }
 
+
 void Calculator::setVariable_Value(const QString &variable, const QList<double> &value_list)
 {
     setVariable_Value(variable, MyNumber(value_list));
@@ -225,16 +226,19 @@ bool Calculator::error()
 
 bool Calculator::isValidExpression_ft(const QString &expression)
 {
+    parser.setDegreeRadGrad(Degree_Rad_Grad);
     return parser.isValidExpression_ft(expression);
 }
 
 bool Calculator::isValidExpression_fxt(const QString &expression)
 {
+    parser.setDegreeRadGrad(Degree_Rad_Grad);
     return parser.isValidExpression_fxt(expression);
 }
 
 bool Calculator::isValidExpression_fxt(const QString &expression, QString &variable)
 {
+    parser.setDegreeRadGrad(Degree_Rad_Grad);
     return parser.isValidExpression_fxt(expression,variable);
 }
 
@@ -242,6 +246,8 @@ bool Calculator::isValidExpression_fxt(const QString &expression, QString &varia
 
 bool Calculator::isValid_Expression_with_time_variable(const QString &expression)
 {
+    parser.setDegreeRadGrad(Degree_Rad_Grad);
+
     //check if it's a valid expression
     if (parser.isValidExpression_fn(expression) == false)
         return false;
@@ -262,6 +268,7 @@ bool Calculator::isValid_Expression_with_time_variable(const QString &expression
 
 bool Calculator::isValidExpression_fn(const QString &expression)
 {
+    parser.setDegreeRadGrad(Degree_Rad_Grad);
     return parser.isValidExpression_fn(expression);
 }
 
@@ -273,6 +280,7 @@ bool Calculator::isValidExpression(const QString &expression)
 
 MyNumber Calculator::isValidExpression(const QString &expression, bool &ok)
 {
+    parser.setDegreeRadGrad(Degree_Rad_Grad);
     MyNumber number = parser.SolveExpression(expression);
     ok = !parser.error();
     return number;
@@ -281,27 +289,32 @@ MyNumber Calculator::isValidExpression(const QString &expression, bool &ok)
 
 bool Calculator::isValidEquation(const QString &equation)
 {
+    parser.setDegreeRadGrad(Degree_Rad_Grad);
     return parser.isValidEquation(equation);
 }
 
 bool Calculator::isValidEquation_Explicit_From_Constant(const QString &equation)
 {
+    parser.setDegreeRadGrad(Degree_Rad_Grad);
     return parser.isValidEquation_Explicit_From_Constant(equation);
 }
 
 bool Calculator::isValidEquation_Explicit_From_Constant(const QString &equation, QString &variable_, MyNumber &value_)
 {
+    parser.setDegreeRadGrad(Degree_Rad_Grad);
     return parser.isValidEquation_Explicit_From_Constant(equation, variable_, value_);
 }
 
 bool Calculator::isValidEquation_Explicit_From_Variables(const QString &equation)
 {
+    parser.setDegreeRadGrad(Degree_Rad_Grad);
     return parser.isValidEquation_Explicit_From_Variables(equation);
 }
 
 bool Calculator::isValidEquation_Explicit_From_Variables(const QString &equation,
                                                          QString &first_member, QString &second_member)
 {
+    parser.setDegreeRadGrad(Degree_Rad_Grad);
     return parser.isValidEquation_Explicit_From_Variables(equation, first_member, second_member);
 }
 

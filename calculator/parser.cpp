@@ -11,7 +11,7 @@ Parser::Parser()
 {
     bError=false;
 
-    setDegreeRadGrad(RAD);
+    Degree_Rad_Grad = RAD;
     //Degree_Rad_Grad = RAD;
     //Degree=0; Rad=1(default); Grad=2
 
@@ -676,7 +676,7 @@ bool Parser::error()
     return bError;
 }
 
-void Parser::setDegreeRadGrad(const int isDegreeRadGrad_)
+void Parser::setDegreeRadGrad(const int &isDegreeRadGrad_)
 {
     Degree_Rad_Grad = isDegreeRadGrad_;
 }

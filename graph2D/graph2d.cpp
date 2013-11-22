@@ -222,16 +222,19 @@ void Graph2D::UpdateGraphTime(double t_, QOpenGLShaderProgram &m_shaderProgram)
 
 void Graph2D::prepareBuffers()
 {
-    if (m_vertexBufferGraph2D.create()) qDebug() << "Success creating graph2D vertex position buffer";
-    else qDebug()<<"vertex buffer failed to create";
+    //if (m_vertexBufferGraph2D.create()) qDebug() << "Success creating graph2D vertex position buffer";
+    //else qDebug()<<"vertex buffer failed to create";
+    m_vertexBufferGraph2D.create();
     m_vertexBufferGraph2D.setUsagePattern(QOpenGLBuffer::StaticDraw);
-    if (m_vertexBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";
+
+    //if (m_vertexBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";
+    m_vertexBufferGraph2D.bind();
     m_vertexBufferGraph2D.allocate(bufferSize * 3 * sizeof(float));
 }
 
 void Graph2D::releaseBuffers()
 {
-    qDebug()<<"release buffers";
+    //qDebug()<<"release buffers";
     m_vertexBufferGraph2D.release();
 }
 
@@ -340,6 +343,11 @@ void Graph2D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
 void Graph2D::draw(QOpenGLShaderProgram &m_shaderProgram)
 {
 
+  //  prepareBuffers();
+
+
+    /////////////////////////////////////
+
     m_shaderProgram.bind();
     m_vertexBufferGraph2D.bind();
    // if (m_vertexBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";
@@ -360,6 +368,10 @@ void Graph2D::draw(QOpenGLShaderProgram &m_shaderProgram)
             glDrawArrays(GL_LINE_STRIP, poles_interval[i],poles_interval[i+1]);
         }
     }
+
+    //////////////////////////////////////////////
+
+   // releaseBuffers();
 
 
 }
