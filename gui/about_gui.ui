@@ -11,7 +11,14 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>About</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../mathgraphica.qrc">
+    <normaloff>:/images/images/calculator.png</normaloff>:/images/images/calculator.png</iconset>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -39,7 +46,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../mathgraphica.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

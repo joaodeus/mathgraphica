@@ -106,6 +106,11 @@ public:
                                                  QString &first_member, QString &second_member);
 
 
+    //check if it's a matrix variable assignment
+    //like i.e: "x = matrix"
+    //this will invoke a gui matrix and save the user input in "x"
+    bool isValidMatrixGuiVarible(const QString &matrixVariable);
+
 
     Equation m_equation;
     Integral m_integral;

@@ -319,6 +319,14 @@ bool Calculator::isValidEquation_Explicit_From_Variables(const QString &equation
 }
 
 
+bool Calculator::isValidMatrixGuiVarible(const QString &matrixVariable)
+{
+
+
+    return false;
+}
+
+
 
 ///////////////////////////////////
 // Formulas
