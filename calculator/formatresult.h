@@ -32,7 +32,7 @@ public:
     QString formatResult(Matrix &matrix);
     QString formatResult(MyNumber &num);
 
-    void setDegreeRadGrad(int &Degree_Rad_Grad_){Degree_Rad_Grad = Degree_Rad_Grad_;}
+    void setDegreeRadGrad(const int &Degree_Rad_Grad_){Degree_Rad_Grad = Degree_Rad_Grad_;}
     int getDegreeRadGrad(){return Degree_Rad_Grad;}
 private:
     int Degree_Rad_Grad;

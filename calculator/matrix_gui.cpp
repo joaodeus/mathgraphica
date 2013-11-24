@@ -7,13 +7,13 @@ Matrix_gui::Matrix_gui(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    setAttribute(Qt::WA_DeleteOnClose,true);
+    //setAttribute(Qt::WA_DeleteOnClose,true);
     setWindowFlags(Qt::WindowSystemMenuHint); /*Qt::WindowMinMaxButtonsHint | */
 
     returnValue = -1;
 
-    ui->pushButton_more_options->setText(">>");
-    setMatrixDisplayOnly(false);
+//    ui->pushButton_more_options->setText(">>");
+    setMatrixEditable(true);
     //true  <<
     //false >>
 
@@ -85,7 +85,7 @@ void Matrix_gui::setMatrix(const int &row, const int &column, const QVector<QStr
 
 }
 
-void Matrix_gui::setMatrixDisplayOnly(const bool &bDisplayMatrix)
+void Matrix_gui::setMatrixEditable(const bool &bDisplayMatrix)
 {
     ui->label_rows->setVisible(bDisplayMatrix);
     ui->label_columns->setVisible(bDisplayMatrix);
@@ -97,6 +97,10 @@ void Matrix_gui::setMatrixDisplayOnly(const bool &bDisplayMatrix)
     ui->pushButton_zeros->setVisible(bDisplayMatrix);
     ui->pushButton_diagonal->setVisible(bDisplayMatrix);
     ui->pushButton_more_options->setVisible(bDisplayMatrix);
+
+    if (bDisplayMatrix)
+        ui->pushButton_more_options->setText("<<");
+
 
 }
 

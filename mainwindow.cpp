@@ -32,6 +32,8 @@
 #define TYPE_EXPRESSION_VARIABLES   5
 #define TYPE_EQUATION_ASSIGNMENT    6
 #define TYPE_FUNCTION               7
+#define TYPE_MATRIX_ASSIGNMENT      8
+
 
 
 
@@ -199,6 +201,56 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
         return;
     }
 
+    if (calc.isValidExpression_fn(str_cmd_line_aux))
+    {
+        number = calc.SolveExpression_fn(str_cmd_line_aux, calc.values_List, calc.variables_List);
+        if (calc.error())
+            return;
+
+        QString solution = calc.formatResult(number);
+        QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_EXPRESSION_VARIABLES);
+        QListWidgetItem *item1  = new QListWidgetItem(solution,0,TYPE_EXPRESSION);
+        ui->listWidget_results_history->addItem(item);
+        ui->listWidget_results_history->addItem(item1);
+        ui->listWidget_results_history->scrollToBottom();
+
+        return;
+    }
+
+    if (str_cmd_line == "matrix")
+    {
+        Matrix mat;
+        mat.Show();
+    }
+
+    // if it's a matrix assignment like: "x=matrix"
+    if (calc.isValidMatrixGuiVarible(str_cmd_line))
+    {
+        QStringList aux = str_cmd_line.split("=");
+        Matrix mat;
+
+        int index;
+        if (calc.checkIfVariableExists(aux[0], index)) //if variable exists
+        {
+            if (calc.values_List[index].Type() == "matrix") //and if it is a matrix
+            {
+                mat = calc.values_List[index].numberMatrix(); // the let's make it default in the gui
+            }
+        }
+
+        mat.setGuiMatrix(); // show the matrix gui
+
+
+
+        calc.setVariable_Value(aux[0], mat);
+
+        QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_MATRIX_ASSIGNMENT);
+        ui->listWidget_results_history->addItem(item);
+        ui->listWidget_results_history->scrollToBottom();
+
+        return;
+    }
+
 
 
 
@@ -351,6 +403,8 @@ void MainWindow::on_actionEquation_triggered()
 void MainWindow::on_actionSystem_of_equations_triggered()
 {
     SystemEq_gui *systemEq = new SystemEq_gui;
+
+    systemEq->calc = calc;
 
     systemEq->mat = &systemEquationMatrix;
     systemEq->show();

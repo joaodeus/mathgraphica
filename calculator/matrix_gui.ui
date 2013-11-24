@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>325</width>
-    <height>306</height>
+    <width>405</width>
+    <height>393</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -34,13 +34,6 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="2">
-    <widget class="QSpinBox" name="spinBox_rows">
-     <property name="maximum">
-      <number>9999</number>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="3">
     <widget class="QLabel" name="label_columns">
      <property name="text">
@@ -58,53 +51,10 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1" colspan="4">
-    <widget class="QTableWidget" name="tableWidget_matrix"/>
-   </item>
-   <item row="5" column="3" colspan="2">
-    <widget class="QPushButton" name="pushButton_zeros">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>zeros</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="3" colspan="2">
-    <widget class="QPushButton" name="pushButton_diagonal">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>diagonal</string>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="1" colspan="2">
-    <widget class="QPushButton" name="pushButton_ok">
-     <property name="text">
-      <string>Ok</string>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="3" colspan="2">
-    <widget class="QPushButton" name="pushButton_cancel">
-     <property name="text">
-      <string>Cancel</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="1" colspan="4">
-    <widget class="QPushButton" name="pushButton_more_options">
-     <property name="text">
-      <string>&lt;&lt;</string>
+   <item row="0" column="2">
+    <widget class="QSpinBox" name="spinBox_rows">
+     <property name="maximum">
+      <number>9999</number>
      </property>
     </widget>
    </item>
@@ -134,8 +84,77 @@
      </property>
     </widget>
    </item>
+   <item row="8" column="1" colspan="4">
+    <widget class="QPushButton" name="pushButton_more_options">
+     <property name="text">
+      <string>&lt;&lt;</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="3" colspan="2">
+    <widget class="QPushButton" name="pushButton_diagonal">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>diagonal</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" colspan="4">
+    <widget class="QTableWidget" name="tableWidget_matrix">
+     <property name="contextMenuPolicy">
+      <enum>Qt::CustomContextMenu</enum>
+     </property>
+     <property name="tabKeyNavigation">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="3" colspan="2">
+    <widget class="QPushButton" name="pushButton_zeros">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>zeros</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="1" colspan="2">
+    <widget class="QPushButton" name="pushButton_cancel">
+     <property name="text">
+      <string>Cancel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="3" colspan="2">
+    <widget class="QPushButton" name="pushButton_ok">
+     <property name="text">
+      <string>Ok</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>spinBox_rows</tabstop>
+  <tabstop>spinBox_columns</tabstop>
+  <tabstop>pushButton_ones</tabstop>
+  <tabstop>pushButton_zeros</tabstop>
+  <tabstop>pushButton_random</tabstop>
+  <tabstop>pushButton_diagonal</tabstop>
+  <tabstop>pushButton_more_options</tabstop>
+  <tabstop>pushButton_ok</tabstop>
+  <tabstop>pushButton_cancel</tabstop>
+  <tabstop>tableWidget_matrix</tabstop>
+ </tabstops>
  <resources>
   <include location="../mathgraphica.qrc"/>
  </resources>

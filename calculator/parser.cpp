@@ -12,7 +12,6 @@ Parser::Parser()
     bError=false;
 
     Degree_Rad_Grad = RAD;
-    //Degree_Rad_Grad = RAD;
     //Degree=0; Rad=1(default); Grad=2
 
 }
@@ -1451,6 +1450,9 @@ bool Parser::grabConstants(const QString &expression_, int &index, QString &cons
     if (!constants_.compare("i",Qt::CaseInsensitive))
         return true;
 
+    if (!constants_.compare("matrix",Qt::CaseInsensitive))
+        return true;
+
     return false;
 }
 
@@ -1722,7 +1724,6 @@ void Parser::SolveFunctions(int &i)
         m_tokenNumberList.remove(i+1);
         return;
     }
-
 
 
     MyNumber Degree_Rad_Grad_aux;

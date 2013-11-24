@@ -42,14 +42,16 @@ public:
     void setVariable_Value(const QString &variable, const QList<double> &value_list);
     void setVariable_Value(const QString &variable, const Matrix &value_matrix);
 
+    bool checkIfVariableExists(const QString &variable, int &index);
+
     int GrabVariables(const QString &expression, QStringList &list_variables);
 
 
 public:
-    void setDegreeRadGrad(const int isDegreeRadGrad_);
+    void setDegreeRadGrad(const int &isDegreeRadGrad_);
     int getDegreeRadGrad();
-private:
-    int Degree_Rad_Grad;
+//private:
+//    int Degree_Rad_Grad;
 
 
 public:
@@ -109,7 +111,7 @@ public:
     //check if it's a matrix variable assignment
     //like i.e: "x = matrix"
     //this will invoke a gui matrix and save the user input in "x"
-    bool isValidMatrixGuiVarible(const QString &matrixVariable);
+    bool isValidMatrixGuiVarible(const QString &matrixVariable_);
 
 
     Equation m_equation;

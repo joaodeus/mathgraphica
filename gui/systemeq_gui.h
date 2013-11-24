@@ -4,6 +4,7 @@
 //#include <QDialog>
 #include <QWidget>
 
+#include "calculator/calculator.h"
 #include "calculator/matrix.h"
 
 namespace Ui {
@@ -20,6 +21,7 @@ public:
     ~SystemEq_gui();
     
     Matrix *mat;
+    Calculator calc;
 
 protected:
     void keyPressEvent(QKeyEvent *event);

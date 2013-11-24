@@ -64,8 +64,8 @@ public:
     bool bAbortSystemEquationCalculation;
     bool isCalculating;
 
-    bool bShowButtons;
-    void setVisibleButtons(bool bShow);
+    //bool bShowButtons;
+    //void setVisibleButtons(bool bShow);
   //  double sizeHeader; // header size for matrix show
   //  void setHeaderSize(double size);
 
@@ -108,9 +108,12 @@ public:
 
 
     ///////////////////////////
-    // show matrix in a dialog 
+    // show matrix in a widget
 
     void Show();
+
+    //set Matrix from a widget
+    void setGuiMatrix();
 
     ///////////////
     // system of Equations

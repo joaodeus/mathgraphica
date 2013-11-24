@@ -1,8 +1,6 @@
 #include "systemeq_gui.h"
 #include "ui_systemeq_gui.h"
 
-//#include <QTime>
-#include "calculator/calculator.h"
 #include "globalfunctions.h"
 
 SystemEq_gui::SystemEq_gui(QWidget *parent) :
@@ -62,7 +60,6 @@ void SystemEq_gui::show_SystemEq_result()
     ui->tableWidget_systemEq_result->setColumnCount(1);
     ui->tableWidget_systemEq_result->setRowCount(mat->X.size());
 
-    Calculator calc;
 
     for(int l=0;l<mat->X.size();l++)
     {

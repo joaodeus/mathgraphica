@@ -10,7 +10,7 @@ Matrix::Matrix()
     ERRO=false;
     bAbortSystemEquationCalculation=false;
     isCalculating=false;
-    bShowButtons =true;
+   // bShowButtons =true;
   //  sizeHeader=1;
 
 }
@@ -315,23 +315,27 @@ void Matrix::VectorToMatrix(int col, int line,QVector<QString> &vect)
         return ;
     }
 
-    //matriz.clear();
-    matriz=vect;
+    matriz.clear();
+    //matriz=vect;
     matrixComplexElements.clear();
 
     int k=0;
     Calculator calc;
 
+    matriz.resize(line*col);
+    matrixComplexElements.resize(line*col);
 
-    for(int j=0;j<line;j++)
+
+    for(int c=0;c<col;c++)
     {
-        for(int i=0;i<col;i++)
+        for(int l=0;l<line;l++)
         {
-           // matriz.append(listStr.at(k));
-            matrixComplexElements.append( calc.SolveExpression( vect.at(k) ).numberComplexo() );
+            SetLineColNumber(l, c, calc.SolveExpression( vect.at(k) ).numberComplexo() );
+            //matrixComplexElements.append( calc.SolveExpression( vect.at(k) ).numberComplexo() );
             k++;
         }
     }
+
 
 
 }
@@ -1098,15 +1102,30 @@ void Matrix::Show()
     Matrix_gui *matrix_show = new Matrix_gui;
     matrix_show->setMatrix(NLine,NCol,this->matriz);
 
+    matrix_show->setMatrixEditable(false);
+    matrix_show->setAttribute(Qt::WA_DeleteOnClose,true);
     //if ( matrix_show.exec() == QDialog::Accepted)
     matrix_show->show();
-    {
-        VectorToMatrix(matrix_show->NCol, matrix_show->NLine, matrix_show->matrixList);
-    }
+   // {
+//        VectorToMatrix(matrix_show->NCol, matrix_show->NLine, matrix_show->matrixList);
+    //}
 
 }
 
 
+void Matrix::setGuiMatrix()
+{
+    Matrix_gui mat_gui;
+
+    mat_gui.setMatrix(NLine, NCol, matriz);
+
+    mat_gui.exec();
+    if (mat_gui.returnValue == 1)
+    {
+        VectorToMatrix(mat_gui.NCol, mat_gui.NLine, mat_gui.matrixList);
+    }
+
+}
 
 
 
@@ -1251,10 +1270,11 @@ void Matrix::setHeaderSize(double size)
     this->sizeHeader = size;
 }*/
 
+/*
 void Matrix::setVisibleButtons(bool bShow)
 {
     bShowButtons = bShow;
-}
+}*/
 
 
 Matrix sinc(Matrix &mat)

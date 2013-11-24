@@ -29,7 +29,7 @@ public:
     void setHeaderResize();
 
     //if true, only displays matrix, if false also allows editing
-    void setMatrixDisplayOnly(const bool &bDisplayMatrix);
+    void setMatrixEditable(const bool &bDisplayMatrix);
 
 protected:
     void hideEvent(QHideEvent *event);
