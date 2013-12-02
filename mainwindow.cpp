@@ -22,6 +22,7 @@
 #include "calculator/myfunction.h"
 #include "gui/formatresult_gui.h"
 #include "gui/about_gui.h"
+#include "calculator/matrix_gui.h"
 
 
 
@@ -112,7 +113,7 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
     }
 
     //check for expressions, like "5+3"
-    number = calc.isValidExpression(str_cmd_line, ok);
+    number = calc.isValidExpression(str_cmd_line_aux, ok);
     //if ( calc.isValidExpression(str_cmd_line) )
     if (ok)
     {
@@ -130,10 +131,10 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
 
 
     //check for variable assignment like "x=5", or "y=2+cos(3)"
-    if (calc.isValidEquation_Explicit_From_Constant(str_cmd_line, variable, number))
+    if (calc.isValidEquation_Explicit_From_Constant(str_cmd_line_aux, variable, number))
     {
         calc.setVariable_Value(variable, number);
-        QListWidgetItem *item = new QListWidgetItem(str_cmd_line,0,TYPE_EQUATION_ASSIGNMENT);
+        QListWidgetItem *item = new QListWidgetItem(str_cmd_line_aux,0,TYPE_EQUATION_ASSIGNMENT);
         ui->listWidget_results_history->addItem(item);
         ui->listWidget_results_history->scrollToBottom();
         return;
@@ -144,9 +145,9 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
     //Note that variables y and z, must have been defined before with an assignment like "y=4", "z=cos(5)"
     QString member1;
     QString member2;
-    if (calc.isValidEquation_Explicit_From_Variables(str_cmd_line, member1, member2))
+    if (calc.isValidEquation_Explicit_From_Variables(str_cmd_line_aux, member1, member2))
     {
-        QStringList aux = str_cmd_line.split("=");
+        QStringList aux = str_cmd_line_aux.split("=");
         number = calc.SolveExpression_fn(member2, calc.values_List, calc.variables_List);
         if (calc.error())
             return;
@@ -164,13 +165,13 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
 
 
     //check for equations, like "2x^2+3x=4x-2"
-    if (calc.isValidEquation(str_cmd_line))
+    if (calc.isValidEquation(str_cmd_line_aux))
     {
         //QList<Complexo> equationSolutions = calc.SolveEquation(str_cmd_line);
-        QList<Complexo> equationSolutions = calc.m_equation.solveEquation(str_cmd_line);
+        QList<Complexo> equationSolutions = calc.m_equation.solveEquation(str_cmd_line_aux);
         if (equationSolutions.size() > 0)
         {
-            QListWidgetItem *item = new QListWidgetItem(str_cmd_line,0,TYPE_EQUATION);
+            QListWidgetItem *item = new QListWidgetItem(str_cmd_line_aux,0,TYPE_EQUATION);
             ui->listWidget_results_history->addItem(item);
 
             for (int i=0;i<equationSolutions.size();i++)
@@ -185,23 +186,7 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
 
     //check for expression with variables like: "x-4y+2z"
     //Note that variables z, y and z, must have been defined before with an assignment like "x=4", "y=-2" and "z=cos(5)"
-    if (calc.isValidExpression_fn(str_cmd_line))
-    {
-        number = calc.SolveExpression_fn(str_cmd_line, calc.values_List, calc.variables_List);
-        if (calc.error())
-            return;
-
-        QString solution = calc.formatResult(number);
-        QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_EXPRESSION_VARIABLES);
-        QListWidgetItem *item1  = new QListWidgetItem(solution,0,TYPE_EXPRESSION);
-        ui->listWidget_results_history->addItem(item);
-        ui->listWidget_results_history->addItem(item1);
-        ui->listWidget_results_history->scrollToBottom();
-
-        return;
-    }
-
-    if (calc.isValidExpression_fn(str_cmd_line_aux))
+   if (calc.isValidExpression_fn(str_cmd_line_aux))
     {
         number = calc.SolveExpression_fn(str_cmd_line_aux, calc.values_List, calc.variables_List);
         if (calc.error())
@@ -217,16 +202,52 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
         return;
     }
 
+
+
     if (str_cmd_line == "matrix")
     {
-        Matrix mat;
-        mat.Show();
+        //Matrix mat;
+        //mat.setGuiMatrix();
+
+        Matrix_gui mat_gui;
+        mat_gui.mat_copy_paste = &mat_copy_paste;
+
+        mat_gui.exec();
+        //matrix_gui->mat_copy_paste  = &mat_copy_paste;
+
     }
 
     // if it's a matrix assignment like: "x=matrix"
-    if (calc.isValidMatrixGuiVarible(str_cmd_line))
+    if (calc.isValidMatrixGuiVarible(str_cmd_line_aux))
     {
-        QStringList aux = str_cmd_line.split("=");
+        QStringList aux = str_cmd_line_aux.split("=");
+
+        Matrix_gui mat_gui;
+        mat_gui.mat_copy_paste = &mat_copy_paste;
+
+        int index;
+        if (calc.checkIfVariableExists(aux[0], index)) //if variable exists
+        {
+            if (calc.values_List[index].Type() == "matrix") //and if it is a matrix
+            {
+                mat_gui.mat = calc.values_List[index].numberMatrix(); // the let's make it default in the gui
+            }
+        }
+
+        mat_gui.exec();
+        if (mat_gui.returnValue == 1)
+        {
+            calc.setVariable_Value(aux[0], mat_gui.mat);
+        }
+
+        QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_MATRIX_ASSIGNMENT);
+        ui->listWidget_results_history->addItem(item);
+        ui->listWidget_results_history->scrollToBottom();
+
+        return;
+
+        /*
+        QStringList aux = str_cmd_line_aux.split("=");
         Matrix mat;
 
         int index;
@@ -249,12 +270,13 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
         ui->listWidget_results_history->scrollToBottom();
 
         return;
+        */
     }
 
 
 
 
-    if (calc.m_integral.isValidIntegralSintaxe(str_cmd_line))
+    if (calc.m_integral.isValidIntegralSintaxe(str_cmd_line_aux))
     {
         QString solution = calc.formatResult(calc.m_integral.solveIntegral());
         QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_INTEGRAL);

@@ -18,7 +18,7 @@ public:
     int columnCount() const{return NCol;}
 
     void AddLines(int n_lines);
-    void SetLinesCols(int,int);//defines the size of the matrix lines*columns
+    void SetLinesCols(int Lines,int Columns);//defines the size of the matrix lines*columns
     void SetLineColText(int L,int C,QString text);//set text in the position c*l
     void SetLineColNumber(int,int,Complexo);//set number in the position c*l
     //override all elements of line nLine with lineElements, return true if suceed otherwise return false
@@ -102,7 +102,7 @@ public:
     friend Matrix operator/( const Complexo &a, Matrix &b);
 
     friend Matrix operator^( Matrix &a, Matrix &b);
-    friend Matrix operator^( Matrix &a, const double &b);
+    friend Matrix operator^( Matrix &a, const int &b);
     friend Matrix operator^( Matrix &a, const Complexo &b);
     friend Matrix operator^( const Complexo &a, Matrix &b);
 

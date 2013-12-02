@@ -41,13 +41,13 @@ void Matrix::AddLines(int n_lines)
 }
 
 
-void Matrix::SetLinesCols(int L,int C)
+void Matrix::SetLinesCols(int Lines, int Columns)
 {
-    NLine = L;
-    NCol = C;
+    NLine = Lines;
+    NCol = Columns;
 
-    matriz.resize(L*C);
-    matrixComplexElements.resize(L*C);
+    matriz.resize(Lines*Columns);
+    matrixComplexElements.resize(Lines*Columns);
 
    /* matriz.clear();
     matrixComplexElements.clear();
@@ -941,10 +941,42 @@ Matrix operator^( Matrix &a, Matrix &b)
     return Matrix();
 }
 
-Matrix operator^( Matrix &a, const double &b)
+Matrix operator^( Matrix &a, const int &b)
 {
 
-    Matrix z;
+
+    if ( b == -1)
+    {
+        Matrix z = a;
+        return z.inverse();
+    }
+
+    if (b == 0)
+    {
+        Matrix z = a;
+        z.SetMatrixDiagonal(a.lineCount(), a.columnCount());
+        return z;
+    }
+
+    Matrix z = a;
+    if ( b > 0)
+    {
+        for (int i = 0; i < b-1; i++)
+            z = z * a;
+
+        return z;
+    }
+    else
+    {
+        for (int i = 0; i > b+1; i--)
+            z = z * a;
+
+        return z.inverse();
+    }
+
+
+
+    /*Matrix z;
     int NLines=a.lineCount();
     int NCols=a.columnCount();
 
@@ -957,13 +989,16 @@ Matrix operator^( Matrix &a, const double &b)
             z.SetLineColNumber(l,c,a.GetLineColNumber(l,c)^b);
         }
     }
-    return z;    
+    return z;*/
 
 }
 
 Matrix operator^( Matrix &a, const Complexo &b)
 {
 
+    return a^int(b.r);
+
+    /*
     Matrix z;
     int NLines=a.lineCount();
     int NCols=a.columnCount();
@@ -978,6 +1013,7 @@ Matrix operator^( Matrix &a, const Complexo &b)
         }
     }
     return z;
+*/
 
 }
 
@@ -1100,7 +1136,8 @@ void Matrix::Show()
 {
 
     Matrix_gui *matrix_show = new Matrix_gui;
-    matrix_show->setMatrix(NLine,NCol,this->matriz);
+    //matrix_show->setMatrix(NLine,NCol,this->matriz);
+    matrix_show->mat = *this;
 
     matrix_show->setMatrixEditable(false);
     matrix_show->setAttribute(Qt::WA_DeleteOnClose,true);
@@ -1117,7 +1154,8 @@ void Matrix::setGuiMatrix()
 {
     Matrix_gui mat_gui;
 
-    mat_gui.setMatrix(NLine, NCol, matriz);
+    mat_gui.mat = *this;
+//    mat_gui.setMatrix(NLine, NCol, matriz);
 
     mat_gui.exec();
     if (mat_gui.returnValue == 1)

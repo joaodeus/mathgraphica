@@ -209,7 +209,7 @@ void Matrix_editor_gui::ContextMenu(QPoint pos)
     menu.addAction(matrixDeterminantAct);
     menu.addAction(matrixCopyAct);
     menu.addAction(matrixPasteAct);
-    menu.addAction(matrixShowAct);
+   // menu.addAction(matrixShowAct);
 
     menu.exec(QCursor::pos());
 

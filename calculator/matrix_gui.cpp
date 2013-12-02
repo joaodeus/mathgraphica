@@ -1,5 +1,8 @@
 #include "matrix_gui.h"
 #include "ui_matrix_gui.h"
+#include "globalfunctions.h"
+#include "calculator/calculator.h"
+#include <QMenu>
 
 Matrix_gui::Matrix_gui(QWidget *parent) :
     QDialog(parent),
@@ -18,6 +21,7 @@ Matrix_gui::Matrix_gui(QWidget *parent) :
     //false >>
 
 
+    createActions();
 
 
     /////////////////////////////
@@ -49,8 +53,22 @@ void Matrix_gui::setHeaderResize()
     headerH->setSectionResizeMode(QHeaderView::ResizeToContents);
 }
 
+
+void Matrix_gui::setMatrix(const Matrix &mat_)
+{
+    mat = mat_;
+}
+
+
+void Matrix_gui::setMatrixCopyPaste(Matrix &matCopyPaste_)
+{
+    mat_copy_paste = &matCopyPaste_;
+}
+
+/*
 void Matrix_gui::setMatrix(const int &row, const int &column, const QVector<QString> &matrixList_)
 {
+
     NLine = row;
     NCol = column;
     matrixList<<matrixList_;
@@ -81,12 +99,14 @@ void Matrix_gui::setMatrix(const int &row, const int &column, const QVector<QStr
             }
 
         }
-    }
+    } 
 
 }
+*/
 
 void Matrix_gui::setMatrixEditable(const bool &bDisplayMatrix)
 {
+    bMatrixEditable = bDisplayMatrix;
     ui->label_rows->setVisible(bDisplayMatrix);
     ui->label_columns->setVisible(bDisplayMatrix);
     ui->spinBox_rows->setVisible(bDisplayMatrix);
@@ -103,6 +123,29 @@ void Matrix_gui::setMatrixEditable(const bool &bDisplayMatrix)
 
 
 }
+
+
+void Matrix_gui::showEvent(QShowEvent *event)
+{
+
+    Q_UNUSED(event);
+
+    GetMatrixToTableWidget(mat, *ui->tableWidget_matrix);
+    ui->spinBox_rows->setValue(mat.lineCount());
+    ui->spinBox_columns->setValue(mat.columnCount());
+
+    //GetMatrixToTableWidget(*mat1, *ui->tableWidget_matrix1);
+    //ui->spinBox_rows1->setValue(mat1->lineCount());
+    //ui->spinBox_cols1->setValue(mat1->columnCount());
+
+}
+
+void Matrix_gui::closeEvent(QCloseEvent *event)
+{
+    Q_UNUSED(event);
+    GetTableWidgetToMatrix(*ui->tableWidget_matrix, mat);
+}
+
 
 void Matrix_gui::hideEvent(QHideEvent *event)
 {
@@ -252,4 +295,129 @@ void Matrix_gui::on_pushButton_more_options_clicked()
         ui->pushButton_diagonal->show();
         ui->pushButton_more_options->setText("<<");
     }
+}
+
+void Matrix_gui::createActions()
+{
+
+    matrixRandomAct = new QAction(tr("Random Matrix"), this);
+    //newFormulaAct->setShortcuts(QKeySequence::New);
+  //  newFormulaAct->setStatusTip(tr("Add a new formula to the list"));
+    connect(matrixRandomAct, SIGNAL(triggered()), this, SLOT(matrixRandom()));
+
+
+    matrixZerosAct = new QAction(tr("Zeros Matrix"), this);
+    connect(matrixZerosAct, SIGNAL(triggered()), this, SLOT(matrixZeros()));
+
+    matrixOnesAct = new QAction(tr("Ones Matrix"), this);
+    connect(matrixOnesAct, SIGNAL(triggered()), this, SLOT(matrixOnes()));
+
+    matrixDiagonalAct = new QAction(tr("Diagonal Matrix"), this);
+    connect(matrixDiagonalAct, SIGNAL(triggered()), this, SLOT(matrixDiagonal()));
+
+    matrixInverseAct = new QAction(tr("Inverse Matrix"), this);
+    connect(matrixInverseAct, SIGNAL(triggered()), this, SLOT(matrixInverse()));
+
+    matrixTransposeAct = new QAction(tr("Transpose Matrix"), this);
+    connect(matrixTransposeAct, SIGNAL(triggered()), this, SLOT(matrixTranspose()));
+
+    matrixDeterminantAct = new QAction(tr("Matrix Determinant"), this);
+    connect(matrixDeterminantAct, SIGNAL(triggered()), this, SLOT(matrixDeterminant()));
+
+    matrixCopyAct = new QAction(tr("Copy Matrix"), this);
+    connect(matrixCopyAct, SIGNAL(triggered()), this, SLOT(matrixCopy()));
+
+    matrixPasteAct = new QAction(tr("Paste Matrix"), this);
+    connect(matrixPasteAct, SIGNAL(triggered()), this, SLOT(matrixPaste()));
+
+
+    //matrixShowAct = new QAction(tr("Show Matrix"), this);
+    //connect(matrixShowAct, SIGNAL(triggered()), this, SLOT(showMatrix()));
+
+}
+
+void Matrix_gui::on_tableWidget_matrix_customContextMenuRequested(const QPoint &pos)
+{
+    if (isMatrixEditable() == false)
+        return;
+
+    Q_UNUSED(pos);
+    QMenu menu;
+
+    menu.addAction(matrixRandomAct);
+    menu.addAction(matrixOnesAct);
+    menu.addAction(matrixZerosAct);
+    menu.addAction(matrixDiagonalAct);
+    menu.addAction(matrixInverseAct);
+    menu.addAction(matrixTransposeAct);
+    menu.addAction(matrixDeterminantAct);
+    menu.addAction(matrixCopyAct);
+    menu.addAction(matrixPasteAct);
+
+    menu.exec(QCursor::pos());
+}
+
+
+//////////////////////////////////////////////
+// Context menu
+
+
+void Matrix_gui::matrixRandom()
+{
+    mat.SetMatrixRandom(ui->tableWidget_matrix->rowCount(), ui->tableWidget_matrix->columnCount());
+    GetMatrixToTableWidget(mat,*ui->tableWidget_matrix);
+}
+
+void Matrix_gui::matrixZeros()
+{
+    mat.SetMatrixZeros(ui->tableWidget_matrix->rowCount(), ui->tableWidget_matrix->columnCount());
+    GetMatrixToTableWidget(mat,*ui->tableWidget_matrix);
+}
+
+void Matrix_gui::matrixOnes()
+{
+    mat.SetMatrixOnes(ui->tableWidget_matrix->rowCount(), ui->tableWidget_matrix->columnCount());
+    GetMatrixToTableWidget(mat,*ui->tableWidget_matrix);
+}
+
+void Matrix_gui::matrixDiagonal()
+{
+    mat.SetMatrixDiagonal(ui->tableWidget_matrix->rowCount(), ui->tableWidget_matrix->columnCount());
+    GetMatrixToTableWidget(mat, *ui->tableWidget_matrix);
+}
+
+void Matrix_gui::matrixInverse()
+{
+    mat = mat.inverse();
+    GetMatrixToTableWidget(mat, *ui->tableWidget_matrix);
+}
+
+void Matrix_gui::matrixTranspose()
+{
+    mat = mat.transpose();
+    GetMatrixToTableWidget(mat, *ui->tableWidget_matrix);
+}
+
+void Matrix_gui::matrixDeterminant()
+{
+    Calculator calc;
+    GetTableWidgetToMatrix(*ui->tableWidget_matrix,mat);
+    Complexo det = mat.Determinant();
+    if (mat.ERRO == false)
+        QMessageBox::about(0,"Matrix Determinant",calc.formatResult( det) );
+}
+
+
+void Matrix_gui::matrixCopy()
+{
+    GetTableWidgetToMatrix(*ui->tableWidget_matrix,*mat_copy_paste);
+}
+
+
+
+void Matrix_gui::matrixPaste()
+{
+    mat.SetMatrixRandom(ui->tableWidget_matrix->rowCount(), ui->tableWidget_matrix->columnCount());
+    mat = *mat_copy_paste;
+    GetMatrixToTableWidget(mat,*ui->tableWidget_matrix);
 }
