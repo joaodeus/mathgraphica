@@ -122,7 +122,7 @@ public:
     void addFormula();
     void removeFormula(int index);
 
-    Parser parser;    
+    Parser parser;
 
 public:
     // saves the variables and values defined by the user in the command line
@@ -148,6 +148,13 @@ public:
     //This function is called inside ParseExpressionToList(....), so we don't have to worry
     //about it anymore
     QString Expression_Replace_User_Defined_Function(QString &expression_);
+
+
+    //---Read/Write functions, variables, formulas...-----------
+
+    bool loadData();
+    bool saveData();
+
 
 };
 

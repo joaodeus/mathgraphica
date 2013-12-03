@@ -1,4 +1,6 @@
 #include "calculator.h"
+#include <QFile>
+
 
 #define DEGREE  0
 #define RAD     1
@@ -668,6 +670,57 @@ QString Calculator::Expression_Replace_User_Defined_Function(QString &expression
 
 
 
+bool Calculator::loadData()
+{
+
+    QStringList functions_aux;
+    m_formulasList.clear();
+
+    //reads the data
+    QFile file("mathgr.dat");
+    if (file.open(QIODevice::ReadOnly))
+    {
+        QDataStream in(&file);
+        in>>functions_aux;       
+        file.close();
+    }
+
+
+
+    for (int i=0;i<functions_aux.size();i++)
+    {
+        QString aux = functions_aux.at(i);
+        if (m_function.SetFunction(aux))
+        {
+            addFunction(m_function);
+        }
+    }
+
+    return true;
+}
+
+
+bool Calculator::saveData()
+{
+    QStringList functions_aux;
+
+    for (int i=0;i<m_FunctionsList.size();i++)
+    {
+        functions_aux.append(m_FunctionsList.at(i).GetFunctionDefinition());
+    }
+
+
+    QFile file("mathgr.dat");
+    if (file.open(QIODevice::WriteOnly))
+    {
+        QDataStream out(&file);   // we will serialize the data into the file
+        out<<functions_aux;
+        file.close();
+    }
+
+    return true;
+
+}
 
 
 

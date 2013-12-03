@@ -1,9 +1,10 @@
 #include "mynumber.h"
 
+
 MyNumber::MyNumber()
 {
-}
 
+}
 
 MyNumber::MyNumber(const double &x)
 {

@@ -19,7 +19,8 @@ public:
     ~Functions_gui();
     
     int valueReturn;
-    //QStringList m_functions_List;
+    //myFunction m_function;
+    //QList<myFunction>  m_functions_List;
     myFunction *m_function;
     QList<myFunction> *m_functionsListPtr;
 

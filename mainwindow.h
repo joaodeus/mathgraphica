@@ -6,7 +6,7 @@
 #include "calculator/calculator.h"
 #include "graph2D/graph2d_container_gui.h"
 #include "gui/functions_gui.h"
-
+#include "database/databasemanager.h"
 
 namespace Ui {
 class MainWindow;
@@ -87,6 +87,9 @@ private:
 
 
     Functions_gui *m_functions_gui;
+
+    // Database
+    DatabaseManager m_db;
 
 
 };

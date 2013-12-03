@@ -61,14 +61,34 @@ MainWindow::MainWindow(QWidget *parent) :
     mat2.SetLinesCols(2,2);
     mat3.SetLinesCols(2,2);
 
+
+
+
+    //---Database_-----------------------------
+   // m_db.openDB();
+   // m_db.createTableVariables();
+
+    //---Load data-----------------------------
+    calc.loadData();
+
     //---Functions-----------------------------
     m_functions_gui = new Functions_gui;
+    //m_functions_gui->m_functions_List   = calc.m_FunctionsList;
+    //m_functions_gui->m_function         = calc.m_function;
     m_functions_gui->m_functionsListPtr = &calc.m_FunctionsList;
     m_functions_gui->m_function = &calc.m_function;
+
+
+
+
 }
 
 MainWindow::~MainWindow()
 {
+    //---Save data-----------------------------
+    calc.saveData();
+
+
     delete m_functions_gui;
     delete ui;
 }
@@ -561,16 +581,14 @@ void MainWindow::on_actionGraph_3D_triggered()
 
 void MainWindow::on_actionFunctions_triggered()
 {
-   /* m_functions_gui->m_functions_List.clear();
-    for (int i = 0; i < calc.m_FunctionsList.size(); i++)
-    {
-        m_functions_gui->m_functions_List.append( calc.m_FunctionsList[i].GetFunctionDefinition());
-    }*/
+
+    //m_functions_gui->m_functions_List   = calc.m_FunctionsList;
+    //m_functions_gui->m_function         = calc.m_function;
 
     m_functions_gui->updateFunctions();
-   // m_functions_gui->hide();
- //   m_functions_gui->setWindowModality(Qt::WindowModal); //(m_functions_gui->windowState());
     m_functions_gui->show();
+
+    Functions_gui gui;
 
 }
 

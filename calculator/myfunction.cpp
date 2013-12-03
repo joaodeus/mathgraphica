@@ -1,13 +1,33 @@
 #include "myfunction.h"
-
-
 #include <QStringList>
+
+
+/*
+myFunction::myFunction()
+{
+    parserAllocated = true;
+    parser = new Parser;
+}*/
+
 
 myFunction::myFunction(Parser *parser_)
 {
-
+   // parserAllocated = false;
     parser = parser_;
 }
+
+myFunction::~myFunction()
+{
+    //if (parserAllocated)
+      //  delete parser;
+}
+
+/*
+void myFunction::setParser(Parser *parser_)
+{
+    parser = parser_;
+}*/
+
 
 bool myFunction::SetFunction(QString &functionDefinition)
 {
@@ -111,57 +131,24 @@ bool myFunction::SetFunction(QString &functionDefinition)
 
     return true;
 
-    /*
-    QString m_functionName; //e.g. m_functionName="f1";
-    QString m_function; // e.g. m_function="4x+2"
-    QString m_functionDefinition; // e.g. m_functionDefinition="f1(x)=4x+2";
-    int m_number_variables; // e.g n_number_variable=1;
-    QStringList m_variables; // e.g. m_variables.at(0)="x";
-    */
-
 }
 
 
+/*
 QDataStream & operator<< (QDataStream& stream, const myFunction& function)
 {
-    /*
-    stream<<function.m_function;
-    stream<<function.m_functionDefinition;
-    stream<<function.m_functionName;
-    stream<<function.m_number_variables;
-    stream<<function.m_variables;
-*/
 
-    stream<<function.GetFunction();
     stream<<function.GetFunctionDefinition();
-    stream<<function.GetfunctionName();
-    stream<<function.GetNumberVariables();
-    stream<<function.GetVariables();
 
     return stream;
 }
 
 QDataStream & operator>> (QDataStream& stream, myFunction& function)
 {
-    QString m_functionName; //e.g. m_functionName="f1";
-    QString m_function; // e.g. m_function="4x+2+y"
-    QString m_functionDefinition; // e.g. m_functionDefinition="f1(x)=4x+2+y";
-    int m_number_variables; // e.g n_number_variable=2;
-    QStringList m_variables; // e.g. m_variables.at(0)="x";m_variables.at(1)="y"
+      QString m_functionDefinition_aux; // e.g. m_functionDefinition="f1(x)=4x+2+y";
+    stream>>m_functionDefinition_aux;
+  //  function.SetFunction(m_functionDefinition_aux);
 
-    stream>>m_function;
-    stream>>m_functionDefinition;
-    stream>>m_functionName;
-    stream>>m_number_variables;
-    stream>>m_variables;
-
-    function.SetFunction(m_functionDefinition);
-    /*
-    stream>>function.GetFunction();
-    stream>>function.GetFunctionDefinition();
-    stream>>function.GetfunctionName();
-    stream>>function.GetNumberVariables();
-    stream>>function.GetVariables();
-*/
     return stream;
 }
+*/

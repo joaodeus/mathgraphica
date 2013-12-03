@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui opengl
+QT       += core gui opengl sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -49,7 +49,8 @@ SOURCES += main.cpp\
     gui/functions_gui.cpp \
     graph3D/graph3d_addnew_gui.cpp \
     gui/formatresult_gui.cpp \
-    gui/about_gui.cpp
+    gui/about_gui.cpp \
+    database/databasemanager.cpp
 
 HEADERS  += mainwindow.h \
     graph3D/graph3d.h \
@@ -88,7 +89,8 @@ HEADERS  += mainwindow.h \
     gui/functions_gui.h \
     graph3D/graph3d_addnew_gui.h \
     gui/formatresult_gui.h \
-    gui/about_gui.h
+    gui/about_gui.h \
+    database/databasemanager.h
 
 FORMS    += mainwindow.ui \
     gui/calculator_gui.ui \

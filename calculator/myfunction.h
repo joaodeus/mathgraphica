@@ -8,10 +8,16 @@
 class myFunction
 {
 public:
+    //myFunction();
     myFunction(Parser *parser_);
+    ~myFunction();
+
+    //void setParser(Parser *parser_);
 
 private:
     Parser *parser;
+    //bool parserAllocated;
+
     QString m_functionName; //e.g. m_functionName="f1";
     QString m_function; // e.g. m_function="4x+2+y"
     QString m_functionDefinition; // e.g. m_functionDefinition="f1(x)=4x+2+y";
@@ -39,7 +45,7 @@ public:
 
 };
 
-QDataStream & operator<< (QDataStream& stream, const myFunction& function);
-QDataStream & operator>> (QDataStream& stream, myFunction& function);
+//QDataStream & operator<< (QDataStream& stream, const myFunction& function);
+//QDataStream & operator>> (QDataStream& stream, myFunction& function);
 
 #endif // MYFUNCTION_H
