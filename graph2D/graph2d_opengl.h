@@ -63,7 +63,19 @@ protected:
 
     int w;//width
     int h;//height
+public:
+    void setRange(const double &Range_){Range = Range_;}
+    double getRange(){return Range;}
+    void setMaxZoom(const double &zoom_){maxScale = zoom_;}
+    double getMaxZoom(){return maxScale;}
+    void setMinZoom(const double &zoom_){minScale = zoom_;}
+    double getMinZoom(){return minScale;}
+
+protected:
     double Range;
+    double minScale;
+    double maxScale;
+    double scaleDelta;
     double scale;
     QVector3D *dots;// = new QVector3D[number_of_dots];
     QVector3D *dotsColor;// = new QVector3D[number_of_dots];

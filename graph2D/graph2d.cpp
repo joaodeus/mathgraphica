@@ -7,10 +7,12 @@ Graph2D::Graph2D()
     //calc = calc_;
 
 
-
     vertexPosition  = NULL;
     m_graphColor.setRgbF(1,0,0); // default color - red
 
+
+    m_graph2DExpression_f1 = "12*cos(t)";
+    m_graph2DExpression_f2 = "12*sin(2*t)";
 
     timeGraph2D         = true;
     m_graph2DExpression = "5*cos(x+t)";
@@ -87,8 +89,22 @@ void Graph2D::setGraph2DExpression(const QString &expression_)
     timeGraph2D = calc.isValid_Expression_with_time_variable(m_graph2DExpression);
 }
 
+void Graph2D::setGraph2DExpression_f1(const QString &expression_f1_)
+{
+    m_graph2DExpression_f1 = expression_f1_;
+}
+
+void Graph2D::setGraph2DExpression_f2(const QString &expression_f2_)
+{
+    m_graph2DExpression_f2 = expression_f2_;
+}
+
+
 bool Graph2D::setupGraph()
 {
+    if (isParametricGraph())
+        return setupGraphParametric();
+
     xx.clear();
     yy.clear();
 
@@ -150,6 +166,76 @@ bool Graph2D::setupGraph()
 
 }
 
+bool Graph2D::setupGraphParametric()
+{
+    xx.clear();
+    yy.clear();
+
+
+    QStringList variables_f1;
+    calc.GrabVariables(m_graph2DExpression_f1, variables_f1);
+    if (variables_f1.size() > 2)
+    {
+        //qDebug()<<"Error";
+        return false;
+    }
+
+
+    QStringList variables_f2;
+    calc.GrabVariables(m_graph2DExpression_f2, variables_f2);
+    if (variables_f2.size() > 2)
+    {
+        return false;
+    }
+
+    if (variables_f1.size() == 1 && variables_f2.size() == 1)
+    {
+        if (variables_f1[0] != variables_f2[0]) // error, variables from f1 and f2 mismatch
+            return false;
+    }
+
+    QList<double> tt;
+    double x_aux = m_xmin;
+    bufferSize = (m_xmax - m_xmin) / m_delta;
+    for (int i = 0; i < bufferSize; i++)
+    {
+        tt.append(x_aux);
+        x_aux += m_delta;
+    }
+
+
+    if (calc.isValidExpression(m_graph2DExpression_f1) || calc.isValidExpression_ft(m_graph2DExpression_f1))
+    {
+        if (variables_f1.size() == 1)
+        {
+            calc.setVariable_Value(variables_f1[0], tt);
+        }
+        xx = calc.SolveExpression_list(m_graph2DExpression_f1, tt.size());
+    }
+    else
+    {
+        return false;
+    }
+
+
+
+    if (calc.isValidExpression(m_graph2DExpression_f2) || calc.isValidExpression_ft(m_graph2DExpression_f2))
+    {
+        if (variables_f2.size() == 1)
+        {
+            calc.setVariable_Value(variables_f2[0], tt);
+        }
+        yy = calc.SolveExpression_list(m_graph2DExpression_f2, tt.size());
+    }
+    else
+    {
+        return false;
+    }
+
+
+    return false;
+}
+
 
 void Graph2D::setGraph2DArray(QList<double> &xx_, QList<double> &yy_)
 {
@@ -160,18 +246,21 @@ void Graph2D::setGraph2DArray(QList<double> &xx_, QList<double> &yy_)
 
 Graph2D &Graph2D::operator =(const Graph2D &a)
 {
-    m_graph2DExpression = a.m_graph2DExpression;
-    m_xminExpression    = a.m_xminExpression;
-    m_xmin              = a.m_xmin;
-    m_xmaxExpression    = a.m_xmaxExpression;
-    m_xmax              = a.m_xmax;
-    m_deltaExpression   = a.m_deltaExpression;
-    m_delta             = a.m_delta;
-    xx                  = a.xx;
-    yy                  = a.yy;
-    m_graphColor        = a.m_graphColor;
-    bPolarGraph         = a.bPolarGraph;
-    bufferSize          = a.bufferSize;
+    m_graph2DExpression_f1  = a.m_graph2DExpression_f1;
+    m_graph2DExpression_f2  = a.m_graph2DExpression_f2;
+    m_graph2DExpression     = a.m_graph2DExpression;
+    m_xminExpression        = a.m_xminExpression;
+    m_xmin                  = a.m_xmin;
+    m_xmaxExpression        = a.m_xmaxExpression;
+    m_xmax                  = a.m_xmax;
+    m_deltaExpression       = a.m_deltaExpression;
+    m_delta                 = a.m_delta;
+    xx                      = a.xx;
+    yy                      = a.yy;
+    m_graphColor            = a.m_graphColor;
+    bPolarGraph             = a.bPolarGraph;
+    bParametricGraph        = a.bParametricGraph;
+    bufferSize              = a.bufferSize;
 
     return *this;
 }

@@ -1073,7 +1073,6 @@ QList<Complexo> asech(QList<Complexo> &x)
 }
 
 
-
 QDataStream & operator<< (QDataStream& stream, const Complexo& complexo)
 {
     stream<<complexo;

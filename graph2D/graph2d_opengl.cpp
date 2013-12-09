@@ -12,8 +12,11 @@ Graph2D_OpenGL::Graph2D_OpenGL()//: m_graph2D(calc_)
     setMouseTracking(true);
     background_dots = NULL;
 
-    Range   = 50;
-    scale   = 1;
+    Range       = 50;
+    minScale    = 0.005;
+    maxScale    = 100;
+    scaleDelta  = 1.25;
+    scale       = 1;
     backgroundColor.setRgbF(0,0,0,1);
     axisColor.setRgbF(1,1,1,1);
     //axisColor.setRgbF(0.9,0.9,0.9,1);
@@ -405,17 +408,18 @@ void Graph2D_OpenGL::mouseMoveEvent(QMouseEvent *event)
 
 void Graph2D_OpenGL::wheelEvent(QWheelEvent * event)
 {
+
     if (event->delta()<0)
-        if (scale > 0.05)
+        if (scale > minScale)
         {
-            scale/=1.25;
+            scale/=scaleDelta;
             translate_xy += (MouseCoordinates_ToViewport(event->pos()) - lastPos)* scale;
         }
 
     if (event->delta()>0)
-        if (scale < 20)
+        if (scale < maxScale)
         {
-            scale*=1.25;
+            scale*=scaleDelta;
             translate_xy += (MouseCoordinates_ToViewport(event->pos()) - lastPos)* scale;
         }
 
@@ -473,13 +477,12 @@ bool Graph2D_OpenGL::event(QEvent *event)
                 // factor so that adding another finger later will continue zooming
                 // by adding new scale factor to the existing remembered value.
 
-
                 scale *= currentScaleFactor;
                 currentScaleFactor = 1;
-                if (scale < 0.05)
-                    scale=0.05;
-                if (scale > 20)
-                    scale=20;
+                if (scale < minScale)
+                    scale=minScale;
+                if (scale > maxScale)
+                    scale=maxScale;
 
                 /*if (currentScaleFactor<1)
                     if (scale > 0.01)

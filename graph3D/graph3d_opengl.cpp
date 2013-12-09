@@ -30,6 +30,8 @@ Graph3D_OpenGL::Graph3D_OpenGL()
 
     // resize(QSize(800, 450));
 
+    setAttribute(Qt::WA_AcceptTouchEvents);
+    qDebug()<<"touch is: "<<testAttribute(Qt::WA_AcceptTouchEvents);
 
     t=0;
     t_delta=0.5;
@@ -456,6 +458,7 @@ bool Graph3D_OpenGL::event(QEvent *event)
     case QEvent::TouchUpdate:
     case QEvent::TouchEnd:
     {
+        qDebug()<<"touch event";
         QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
         QList<QTouchEvent::TouchPoint> touchPoints = touchEvent->touchPoints();
         if (touchPoints.count() == 2)

@@ -674,7 +674,7 @@ bool Calculator::loadData()
 {
 
     QStringList functions_aux;
-    m_formulasList.clear();
+  //  m_formulasList.clear();
 
     //reads the data
     QFile file("mathgr.dat");

@@ -127,6 +127,14 @@ void Graph2D_AddNew_gui::showEvent(QShowEvent * event)
     ui->checkBox_polarGraph->setChecked(graph->isPolarGraph());
 
 
+    if (graph->isParametricGraph())
+    {
+        ui->lineEdit_expression->setText(graph->getGraph2DExpression_f1());
+        ui->lineEdit_expression2->setText(graph->getGraph2DExpression_f2());
+        ui->lineEdit_expression2->setVisible(true);
+        ui->checkBox_parametricGraph->setChecked(true);
+    }
+
     ui->pushButton_color2D->setAutoFillBackground(true);
     ui->pushButton_color2D->setStyleSheet( strFromColor(graph->getColor()) );
 
@@ -154,9 +162,25 @@ void Graph2D_AddNew_gui::closeEvent(QCloseEvent * event)
     Q_UNUSED(event);
     // saving the user values to the graph
     //qDebug()<<"close";
-    m_graph2D.setGraph2DExpression(ui->lineEdit_expression->text());
+
     m_graph2D.setInterval(ui->lineEdit_xmin->text(), ui->lineEdit_xmax->text());
     m_graph2D.setDelta(ui->lineEdit_dx->text());
+
+    m_graph2D.setPolarGraph(ui->checkBox_polarGraph->isChecked());
+    m_graph2D.setParametric(ui->checkBox_parametricGraph->isChecked());
+
+
+    if (m_graph2D.isParametricGraph())
+    {
+        m_graph2D.setGraph2DExpression_f1(ui->lineEdit_expression->text());
+        m_graph2D.setGraph2DExpression_f2(ui->lineEdit_expression2->text());
+    }
+    else
+    {
+        m_graph2D.setGraph2DExpression(ui->lineEdit_expression->text());
+    }
+
+
 }
 
 
@@ -207,6 +231,7 @@ void Graph2D_AddNew_gui::on_checkBox_parametricGraph_clicked(bool checked)
 
     if (checked)
     {
+        m_graph2D.setParametric(checked);
         ui->checkBox_polarGraph->setDisabled(true);
         ui->lineEdit_expression2->setVisible(true);
         ui->pushButton_fx_2->setVisible(true);

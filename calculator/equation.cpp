@@ -1,5 +1,8 @@
 #include "equation.h"
 
+// for debbugging with 2D graphs
+//#include "graph2D/graph2d_opengl.h"
+
 Equation::Equation(Parser *parser_)
 {
     parser = parser_;
@@ -113,7 +116,7 @@ QList<Complexo> Equation::solveEquation(const QString &f1, const QString &f2)
 
     m_f1 = f1;
     m_f2 = f2;
-    double initial_delta = delta;
+    double delta_aux = delta;
 
     //double incremento_maximo=incremento; //debug porpuse
     //double incremento_minimo=incremento; //debug porpuse
@@ -153,11 +156,6 @@ QList<Complexo> Equation::solveEquation(const QString &f1, const QString &f2)
     double fa = parser->SolveExpression_fx(f1,min,variable).numberReal();
     double fb = parser->SolveExpression_fx(f2,min,variable).numberReal();
 
-    //QList<double> faxx;
-    //QList<double> fayy;
-    //QList<double> fbxx;
-    //QList<double> fbyy;
-
 
     flagCalculationEquation=true;
     flagAbortFunction=false;
@@ -170,19 +168,28 @@ QList<Complexo> Equation::solveEquation(const QString &f1, const QString &f2)
     double dab;
     double dab1;
 
-    for(double i=min ; i<=max ; i+=delta)
+    // Debbuging 2D graphs -------------------------------
+    QList<double> graph1_xx;
+    QList<double> graph1_yy;
+    QList<double> graph2_xx;
+    QList<double> graph2_yy;
+    // Debbuging 2D graphs -------------------------------
+
+
+
+    for(double i=min ; i<=max ; i+=delta_aux)
     {
-        l   = i + delta;
+        l   = i + delta_aux;
         fa1 = parser->SolveExpression_fx(f1,l,variable).numberReal();
         fb1 = parser->SolveExpression_fx(f2,l,variable).numberReal();
 
         // aux variables to draw debug graphs--------------------
-       // faxx.append(i);
-       // fayy.append(fa1);
+        //graph1_xx.append(i);
+        //graph1_yy.append(fa1);
+        //graph2_xx.append(i);
+        //graph2_yy.append(fb1);
+        // aux variables to draw debug graphs--------------------
 
-      //  fbxx.append(i);
-      //  fbyy.append(fb1);
-     //------------------------------------------------------------
 
         QCoreApplication::processEvents();
 
@@ -217,10 +224,10 @@ QList<Complexo> Equation::solveEquation(const QString &f1, const QString &f2)
             dab=dab1;
 
         if (da < 0.2*dab)
-            delta += delta*0.05;//5%
+            delta_aux += delta_aux*0.05;//5% increase
         else
         {
-            delta = initial_delta;
+            delta_aux = delta;
             //if (incremento > 0.1*incremento_inicial) //10%
             //    incremento=incremento-incremento*0.1;//10%
         }
@@ -273,25 +280,26 @@ QList<Complexo> Equation::solveEquation(const QString &f1, const QString &f2)
 
 
     //---graph for debug porpuse-------------------------------
-/*
-    GLGraph *graph_fa = new GLGraph();
-    GLGraph *graph_fb = new GLGraph();
+    /*
+    Graph2D_OpenGL *graph = new Graph2D_OpenGL;
+    Graph2D graph_1;
+    Graph2D graph_2;
 
+    graph_1.setGraph2DArray(graph1_xx, graph1_yy);
+    graph_2.setGraph2DArray(graph2_xx, graph2_yy);
+    graph_2.setColor(0,0,1);
 
-    graph_fa->SetGraph2D(faxx,fayy);
-    graph_fa->showNormal();
-    graph_fa->updateGL();
+    graph->addGraph2D(graph_1);
+    graph->addGraph2D(graph_2);
 
-    graph_fb->SetGraph2D(fbxx,fbyy);
-    graph_fb->showNormal();
-    graph_fb->updateGL();
-*/
-    //-------------------------------------------------------------------
+    graph->setMinZoom(0.00001);
+    graph->show();
 
+    qDebug()<<"graph1 array size: " <<graph1_xx.size();
+    qDebug()<<"graph2 array size: " <<graph2_xx.size();
+    */
+    //---graph for debug porpuse-------------------------------
 
-
-  //  str.sprintf("maximo=%lf\nminimo=%lf\ncontador=%d",incremento_maximo,incremento_minimo,contador);
-  //  QMessageBox::about(0,"",str);
 
     return equation_solutions;
 }

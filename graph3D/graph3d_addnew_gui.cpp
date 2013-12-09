@@ -54,12 +54,22 @@ void Graph3D_AddNew_gui::create_Default_Graphs_List()
     color.setRgbF(1.0,1.0,1.0); m_graph3D.setColorD(color);
     m_defaultGraph3D_List.append(m_graph3D);
 
+    /*
     //graph 4
     m_graph3D.setGraph3DExpression("12*cos(t)");
     color.setRgbF(0.90,0.80,0.20); m_graph3D.setColorA(color);
     color.setRgbF(0.95,0.65,0.10); m_graph3D.setColorB(color);
     color.setRgbF(0.10,0.30,0.90); m_graph3D.setColorC(color);
     color.setRgbF(1.00,0.40,0.0); m_graph3D.setColorD(color);
+    m_defaultGraph3D_List.append(m_graph3D);
+*/
+
+    //graph 5
+    m_graph3D.setGraph3DExpression("10*abs(cos(t))*(exp((-(((x-4)^2+(y-4)^2)^2))/1000)+exp((-(((x+4)^2+(y+4)^2)^2))/1000)+0.1*exp(-(((x+4)^2+(y+4)^2)^2))+0.1*exp(-(((x-4)^2+(y-4)^2)^2)))");
+    color.setRgbF(0,0,0); m_graph3D.setColorA(color);
+    color.setRgbF(1,1,1); m_graph3D.setColorB(color);
+    color.setRgbF(0.8,0.8,0.8); m_graph3D.setColorC(color);
+    color.setRgbF(0.2,0.2,0.2); m_graph3D.setColorD(color);
     m_defaultGraph3D_List.append(m_graph3D);
 
 

@@ -15,7 +15,11 @@ public:
     Graph2D();
     ~Graph2D();
 
-    QString getGraph2DExpression()const{return m_graph2DExpression;}
+    QString getGraph2DExpression()const{return m_graph2DExpression;} // normal and polar graphs
+
+    QString getGraph2DExpression_f1()const{return m_graph2DExpression_f1;} // parametric graphs
+    QString getGraph2DExpression_f2()const{return m_graph2DExpression_f1;} // parametric graphs
+
     QString getIntervalMin()const{return m_xminExpression;}
     QString getIntervalMax()const{return m_xmaxExpression;}
     QString getDelta()const{return m_deltaExpression;}
@@ -27,10 +31,16 @@ public:
     void setDelta(const double delta_);
     void setDelta(const QString deltaExpression_);
     void setGraph2DExpression(const QString &expression_);
+    void setGraph2DExpression_f1(const QString &expression_f1_);
+    void setGraph2DExpression_f2(const QString &expression_f2_);
+
+
+
 
     // setupGraph() must be called after setInterval(), setDelta() and setGraph2DExpression()
     // it calculates and setup up the array's xx and yy
     bool setupGraph();
+    bool setupGraphParametric();
 
     // ... or set a graph from an array of values
     void setGraph2DArray(QList<double> &xx_, QList<double> &yy_);
@@ -59,7 +69,11 @@ public:
 private:
 
     bool timeGraph2D;
-    QString m_graph2DExpression;
+    QString m_graph2DExpression; //used for normal and polar graphs
+    QString m_graph2DExpression_f1; //used for parametric f1(t) graph
+    QString m_graph2DExpression_f2; //used for parametric f2(t) graph
+
+
     QString m_xminExpression;
     double m_xmin;
     QString m_xmaxExpression;

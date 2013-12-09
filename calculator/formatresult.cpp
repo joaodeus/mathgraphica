@@ -211,7 +211,7 @@ QString FormatResult::formatResult(MyNumber &num)
     else if (num.Type() == "matrix")
     {
         Matrix m = num.numberMatrix();
-        m.Show();
+        //m.Show();
         return formatResult(m);
     }
     return "";

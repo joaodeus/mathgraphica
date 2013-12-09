@@ -25,6 +25,7 @@ Matrix_gui::Matrix_gui(QWidget *parent) :
 
 
     /////////////////////////////
+    /*
     headerH = new QHeaderView(Qt::Horizontal,this);
     headerH->setDefaultSectionSize(int(headerH->defaultSectionSize()));
     headerH->setSectionResizeMode(QHeaderView::Interactive);
@@ -35,7 +36,7 @@ Matrix_gui::Matrix_gui(QWidget *parent) :
     headerV = new QHeaderView(Qt::Vertical,this);
     headerV->setDefaultSectionSize(int(1.5*headerV->defaultSectionSize()));
     ui->tableWidget_matrix->setVerticalHeader(headerV);
-
+*/
 }
 
 Matrix_gui::~Matrix_gui()
@@ -338,11 +339,17 @@ void Matrix_gui::createActions()
 
 void Matrix_gui::on_tableWidget_matrix_customContextMenuRequested(const QPoint &pos)
 {
-    if (isMatrixEditable() == false)
-        return;
-
     Q_UNUSED(pos);
     QMenu menu;
+
+    if (isMatrixEditable() == false)
+    {
+        menu.addAction(matrixDeterminantAct);
+        menu.addAction(matrixCopyAct);
+        menu.exec(QCursor::pos());
+        return;
+    }
+
 
     menu.addAction(matrixRandomAct);
     menu.addAction(matrixOnesAct);
@@ -417,7 +424,9 @@ void Matrix_gui::matrixCopy()
 
 void Matrix_gui::matrixPaste()
 {
-    mat.SetMatrixRandom(ui->tableWidget_matrix->rowCount(), ui->tableWidget_matrix->columnCount());
+    //mat.SetMatrixRandom(ui->tableWidget_matrix->rowCount(), ui->tableWidget_matrix->columnCount());
     mat = *mat_copy_paste;
     GetMatrixToTableWidget(mat,*ui->tableWidget_matrix);
+    ui->spinBox_rows->setValue(mat.lineCount());
+    ui->spinBox_columns->setValue(mat.columnCount());
 }

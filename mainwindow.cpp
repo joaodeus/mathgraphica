@@ -187,8 +187,11 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
     //check for equations, like "2x^2+3x=4x-2"
     if (calc.isValidEquation(str_cmd_line_aux))
     {
-        //QList<Complexo> equationSolutions = calc.SolveEquation(str_cmd_line);
+        //QList<Complexo> equationSolutions = calc.SolveEquation(str_cmd_line);        
+        QApplication::setOverrideCursor(Qt::WaitCursor);
         QList<Complexo> equationSolutions = calc.m_equation.solveEquation(str_cmd_line_aux);
+        QApplication::restoreOverrideCursor();
+
         if (equationSolutions.size() > 0)
         {
             QListWidgetItem *item = new QListWidgetItem(str_cmd_line_aux,0,TYPE_EQUATION);
@@ -212,7 +215,18 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
         if (calc.error())
             return;
 
-        QString solution = calc.formatResult(number);
+        QString solution;
+
+        if (number.Type() == "matrix")
+        {
+            Matrix_gui *mat_gui = new Matrix_gui;
+            mat_gui->mat_copy_paste = &mat_copy_paste;
+            mat_gui->mat = number.numberMatrix();
+            mat_gui->setMatrixEditable(false);
+            mat_gui->show();
+        }
+        solution = calc.formatResult(number);
+
         QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_EXPRESSION_VARIABLES);
         QListWidgetItem *item1  = new QListWidgetItem(solution,0,TYPE_EXPRESSION);
         ui->listWidget_results_history->addItem(item);
