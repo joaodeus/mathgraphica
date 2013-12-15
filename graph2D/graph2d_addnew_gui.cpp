@@ -132,6 +132,7 @@ void Graph2D_AddNew_gui::showEvent(QShowEvent * event)
         ui->lineEdit_expression->setText(graph->getGraph2DExpression_f1());
         ui->lineEdit_expression2->setText(graph->getGraph2DExpression_f2());
         ui->lineEdit_expression2->setVisible(true);
+        ui->pushButton_fx_2->setVisible(true);
         ui->checkBox_parametricGraph->setChecked(true);
     }
 

@@ -6,6 +6,9 @@ It will store the other classes: Number, Complexo, ...
 responsible for parsing, calculations, ...
 */
 
+
+#include <QDataStream>
+
 #include "mynumber.h"
 #include "parser.h"
 #include "matrix.h"
@@ -125,6 +128,7 @@ public:
     Parser parser;
 
 public:
+    //---Variables-------------------------------
     // saves the variables and values defined by the user in the command line
     // example: in "x=5"  "x" is saved in variables list, "5" is saved in values_list
     QStringList variables_List;

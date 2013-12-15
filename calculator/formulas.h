@@ -8,6 +8,7 @@
 class Formulas
 {
 public:
+    //Formulas();
     Formulas(Parser *parser_);
     ~Formulas();
 
@@ -51,6 +52,7 @@ private:
     QList<Complexo> m_solution;
 
     Parser *parser;
+    //bool parserAllocated;
 
 };
 

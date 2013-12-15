@@ -50,7 +50,7 @@ SOURCES += main.cpp\
     graph3D/graph3d_addnew_gui.cpp \
     gui/formatresult_gui.cpp \
     gui/about_gui.cpp \
-    database/databasemanager.cpp
+    graph3D/graph3d_addnew_gui_tabwidget.cpp
 
 HEADERS  += mainwindow.h \
     graph3D/graph3d.h \
@@ -90,7 +90,7 @@ HEADERS  += mainwindow.h \
     graph3D/graph3d_addnew_gui.h \
     gui/formatresult_gui.h \
     gui/about_gui.h \
-    database/databasemanager.h
+    graph3D/graph3d_addnew_gui_tabwidget.h
 
 FORMS    += mainwindow.ui \
     gui/calculator_gui.ui \
@@ -109,7 +109,8 @@ FORMS    += mainwindow.ui \
     gui/functions_gui.ui \
     graph3D/graph3d_addnew_gui.ui \
     gui/formatresult_gui.ui \
-    gui/about_gui.ui
+    gui/about_gui.ui \
+    graph3D/graph3d_addnew_gui_tabwidget.ui
 
 RESOURCES += \
     mathgraphica.qrc

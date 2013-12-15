@@ -946,7 +946,7 @@ MyNumber operator^(MyNumber &a, MyNumber &b)
 ///////////////////////////////////////////////////////////
 // getters()
 
-Complexo MyNumber::numberComplexo()
+Complexo MyNumber::numberComplexo() const
 {
     return number_complexo;
 }
@@ -957,12 +957,12 @@ double MyNumber::numberReal()
 }
 
 
-Matrix MyNumber::numberMatrix()
+Matrix MyNumber::numberMatrix() const
 {
     return number_matrix;
 }
 
-QList<Complexo> MyNumber::numberListComplexo()
+QList<Complexo> MyNumber::numberListComplexo() const
 {
     return number_list;
 }
@@ -978,7 +978,64 @@ QList<double> MyNumber::numberListReal()
     return aux;
 }
 
-QString MyNumber::Type()
+QString MyNumber::Type() const
 {
     return type;
 }
+
+
+
+///////////////////////////////////////////////////////////////
+
+
+QDataStream & operator<< (QDataStream& stream, const MyNumber& myNumber)
+{
+
+    stream<<myNumber.Type();
+
+    if (myNumber.Type() == "number")
+    {
+        stream<<myNumber.numberComplexo();
+    }
+    else if (myNumber.Type() == "list")
+    {
+        stream<<myNumber.numberListComplexo();
+    }
+    else if (myNumber.Type() == "matrix")
+    {
+        Matrix mat = myNumber.numberMatrix();
+        stream<<mat;
+    }
+
+    return stream;
+}
+
+QDataStream & operator>> (QDataStream& stream, MyNumber& myNumber)
+{
+    QString type;
+
+    stream>>type;
+
+    if (type == "number")
+    {
+        Complexo z;
+        stream>>z;
+        myNumber.SetMyNumber(z);
+    }
+    else if (type == "list")
+    {
+        QList<Complexo> list;
+        stream>>list;
+        myNumber.SetMyNumber(list);
+    }
+    else if (type == "matrix")
+    {
+        Matrix matrix;
+        stream>>matrix;
+        myNumber.SetMyNumber(matrix);
+    }
+
+
+    return stream;
+}
+

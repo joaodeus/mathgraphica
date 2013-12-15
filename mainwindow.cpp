@@ -15,6 +15,7 @@
 #include "graph2D/graph2d_container_gui.h"
 #include "graph2D/graph2d_addnew_gui.h"
 #include "graph3D/graph3d_container_gui.h"
+#include "graph3D/graph3d_addnew_gui_tabwidget.h"
 
 #include "graph/graph_container_gui.h"
 #include "graph3D/graph3d_editor_gui.h"
@@ -61,12 +62,6 @@ MainWindow::MainWindow(QWidget *parent) :
     mat2.SetLinesCols(2,2);
     mat3.SetLinesCols(2,2);
 
-
-
-
-    //---Database_-----------------------------
-   // m_db.openDB();
-   // m_db.createTableVariables();
 
     //---Load data-----------------------------
     calc.loadData();
@@ -581,6 +576,9 @@ void MainWindow::on_actionGraph_3D_triggered()
         graph3dContainer->m_graph3D_OpenGL.m_graph3DList.append(newGraph_gui.m_graph3D);
         graph3dContainer->show();
     }
+
+    Graph3D_AddNew_gui_TabWidget gui;
+    gui.exec();
 
 /*    Graph3D m_graph3d;
     m_graph3d.setupGraph();

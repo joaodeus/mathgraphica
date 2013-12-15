@@ -1,16 +1,16 @@
 
 #include "complexo.h"
 
-Complexo::Complexo(double a,double b)
+Complexo::Complexo(double r_,double i_)
 {
-    r=a;
-    i=b;
+    r = r_;
+    i = i_;
 }
 
-Complexo::Complexo(const double a)
+Complexo::Complexo(const double r_)
 {
-    r=a;
-    i=0;
+    r = r_;
+    i = 0;
 }
 
 Complexo::Complexo(const Complexo &z)
@@ -1073,14 +1073,32 @@ QList<Complexo> asech(QList<Complexo> &x)
 }
 
 
-QDataStream & operator<< (QDataStream& stream, const Complexo& complexo)
+QDataStream & operator<< (QDataStream& stream, const Complexo& z)
 {
-    stream<<complexo;
+    //double re = compl.r;
+    //double im = compl.i;
+
+    //stream<<compl;
+    //stream<<im;
+
+    //stream<<complexo;
+    stream<<z.r;
+    stream<<z.i;
     return stream;
 }
 
-QDataStream & operator>> (QDataStream& stream, Complexo& complexo)
+QDataStream & operator>> (QDataStream& stream, Complexo& z)
 {
-    stream>>complexo;
+  /*  double re;
+    double im;
+    stream>>re;
+    stream>>im;
+    complexo.r = re;
+    complexo.i = im;
+*/
+    //stream>>complexo;
+
+    stream>>z.r;
+    stream>>z.i;
     return stream;
 }

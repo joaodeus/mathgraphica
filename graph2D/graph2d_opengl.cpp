@@ -266,7 +266,7 @@ bool Graph2D_OpenGL::areTimeGraphs()
 {
     for (int i = 0; i < m_graph2DList.size() ; i++)
     {
-        if (m_graph2DList[i].isTimeGraph())
+        if (m_graph2DList[i].isTimeGraph() && (!m_graph2DList[i].isParametricGraph()))
             return true;
     }
     return false;

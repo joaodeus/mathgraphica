@@ -2,17 +2,20 @@
 #include <QStringList>
 
 
-/*
-myFunction::myFunction()
-{
-    parserAllocated = true;
-    parser = new Parser;
-}*/
+
+//myFunction::myFunction()
+//{
+    //if an object of myfunctions is instaciated with this constructor
+    //let's garantee that parser is allocated, to avoid a memory crash
+    //when using SetFunction(....)
+//    parserAllocated = true;
+  //  parser = new Parser;
+//}
 
 
 myFunction::myFunction(Parser *parser_)
 {
-   // parserAllocated = false;
+  //  parserAllocated = false;
     parser = parser_;
 }
 
@@ -134,10 +137,9 @@ bool myFunction::SetFunction(QString &functionDefinition)
 }
 
 
-/*
+
 QDataStream & operator<< (QDataStream& stream, const myFunction& function)
 {
-
     stream<<function.GetFunctionDefinition();
 
     return stream;
@@ -145,10 +147,9 @@ QDataStream & operator<< (QDataStream& stream, const myFunction& function)
 
 QDataStream & operator>> (QDataStream& stream, myFunction& function)
 {
-      QString m_functionDefinition_aux; // e.g. m_functionDefinition="f1(x)=4x+2+y";
+    QString m_functionDefinition_aux; // e.g. m_functionDefinition="f1(x)=4x+2+y";
     stream>>m_functionDefinition_aux;
-  //  function.SetFunction(m_functionDefinition_aux);
+    function.SetFunction(m_functionDefinition_aux);
 
     return stream;
 }
-*/

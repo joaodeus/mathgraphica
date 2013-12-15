@@ -3,9 +3,21 @@
 #include "equation.h"
 //#include <QDebug>
 
+
+//Formulas::Formulas()
+//{
+    //if an object of myfunctions is instaciated with this constructor
+    //let's garantee that parser is allocated, to avoid a memory crash
+    //when using SetFunction(....)
+//    parserAllocated = true;
+  //  parser = new Parser;
+//}
+
+
 Formulas::Formulas(Parser *parser_)
 {
-    parser      = parser_;
+    //parserAllocated = false;
+    parser          = parser_;
 
     //m_formula   = "En=m*C^2";
     m_min       = "-1E6";
@@ -21,6 +33,9 @@ Formulas::~Formulas()
 {
     m_constants.clear();
     m_values.clear();
+
+  //  if (parserAllocated)
+    //    delete parser;
 }
 
 QList<Complexo> Formulas::solve()

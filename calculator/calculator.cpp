@@ -13,7 +13,7 @@ Calculator::Calculator(): m_equation(&parser), m_integral(&parser), m_integralDo
 
     setDegreeRadGrad(RAD);
 
-    setPreDefinedFormulas();
+   // setPreDefinedFormulas();
 
 
  //   variables_List.append("t");
@@ -668,58 +668,93 @@ QString Calculator::Expression_Replace_User_Defined_Function(QString &expression
 
 
 
-
+//////////////////////////////////////////////////
 
 bool Calculator::loadData()
 {
 
-    QStringList functions_aux;
-  //  m_formulasList.clear();
-
-    //reads the data
     QFile file("mathgr.dat");
     if (file.open(QIODevice::ReadOnly))
     {
+
         QDataStream in(&file);
-        in>>functions_aux;       
-        file.close();
-    }
 
+        in>>variables_List;
+        in>>values_List;
 
-
-    for (int i=0;i<functions_aux.size();i++)
-    {
-        QString aux = functions_aux.at(i);
-        if (m_function.SetFunction(aux))
+        //--functions--------------------------
+        m_FunctionsList.clear();
+        int size_functionList;
+        in>>size_functionList;
+        for(int i=0;i<size_functionList;i++)
         {
-            addFunction(m_function);
+            myFunction function(&parser);
+            in>>function;
+            m_FunctionsList.append(function);
         }
+
+
+        //--formulas---------------------------
+        m_formulasList.clear();
+        int size_FormulasList;
+        in>>size_FormulasList;
+        for(int i=0;i<size_FormulasList;i++)
+        {
+            Formulas formula(&parser);
+            in>>formula;
+            m_formulasList.append(formula);
+        }
+
+        //in>>m_FunctionsList;
+        //in>>m_formulasList;
+
+        file.close();
+        return true;
+    }
+    else
+    {
+        setPreDefinedFormulas();
+        return false;
     }
 
-    return true;
 }
 
 
 bool Calculator::saveData()
 {
-    QStringList functions_aux;
-
-    for (int i=0;i<m_FunctionsList.size();i++)
-    {
-        functions_aux.append(m_FunctionsList.at(i).GetFunctionDefinition());
-    }
-
 
     QFile file("mathgr.dat");
     if (file.open(QIODevice::WriteOnly))
     {
+
         QDataStream out(&file);   // we will serialize the data into the file
-        out<<functions_aux;
+
+        out<<variables_List;
+        out<<values_List;
+
+
+        //--functions--------------------------
+        out<<m_FunctionsList.size();
+        for(int i=0;i<m_FunctionsList.size();i++)
+        {
+            out<<m_FunctionsList[i];
+        }
+        //out<<m_FunctionsList;
+
+        //--formulas--------------------------
+        out<<m_formulasList.size();
+        for(int i=0;i<m_formulasList.size();i++)
+        {
+            out<<m_formulasList[i];
+        }
+        //out<<m_formulasList;
+
         file.close();
+
+        return true;
     }
-
-    return true;
-
+    else
+        return false;
 }
 
 

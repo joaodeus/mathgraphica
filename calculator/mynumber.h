@@ -3,6 +3,7 @@
 
 #include <QVector>
 #include <QMessageBox>
+#include <QDataStream>
 #include "complexo.h"
 #include "matrix.h"
 
@@ -44,13 +45,13 @@ public:
     void SetMyNumber(const QList<double> &list_);
 
 
-    Complexo numberComplexo();
+    Complexo numberComplexo() const;
     double numberReal();
     //QString numberString();
-    Matrix numberMatrix();
-    QList<Complexo> numberListComplexo();
+    Matrix numberMatrix() const;
+    QList<Complexo> numberListComplexo() const;
     QList<double> numberListReal();
-    QString Type();
+    QString Type() const;
 
     void setOperatorFunction(const QString &type_); //set this has a operator(+,-, ...) or function (sin, cos, ....)
     bool isNumber(); // check if it's a number
@@ -94,6 +95,10 @@ private:
     Matrix number_matrix;
 
 };
+
+
+QDataStream & operator<< (QDataStream& stream, const MyNumber& myNumber);
+QDataStream & operator>> (QDataStream& stream, MyNumber& myNumber);
 
 
 #endif // MYNUMBER_H

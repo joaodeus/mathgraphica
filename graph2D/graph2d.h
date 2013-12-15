@@ -18,7 +18,7 @@ public:
     QString getGraph2DExpression()const{return m_graph2DExpression;} // normal and polar graphs
 
     QString getGraph2DExpression_f1()const{return m_graph2DExpression_f1;} // parametric graphs
-    QString getGraph2DExpression_f2()const{return m_graph2DExpression_f1;} // parametric graphs
+    QString getGraph2DExpression_f2()const{return m_graph2DExpression_f2;} // parametric graphs
 
     QString getIntervalMin()const{return m_xminExpression;}
     QString getIntervalMax()const{return m_xmaxExpression;}
@@ -54,7 +54,7 @@ private:
 
 public:
     void setParametric(const bool &bParametricGraph_);
-    bool isParametricGraph();
+    bool isParametricGraph() const;
 private:
     bool bParametricGraph;
 

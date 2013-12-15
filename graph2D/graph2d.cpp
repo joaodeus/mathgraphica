@@ -287,7 +287,7 @@ void Graph2D::setParametric(const bool &bParametricGraph_)
         setPolarGraph(false);
 }
 
-bool Graph2D::isParametricGraph()
+bool Graph2D::isParametricGraph() const
 {
     return bParametricGraph;
 }
@@ -296,6 +296,9 @@ bool Graph2D::isParametricGraph()
 void Graph2D::UpdateGraphTime(double t_, QOpenGLShaderProgram &m_shaderProgram)
 {
     t = t_;
+    if (isParametricGraph())
+        return;
+
     if (isTimeGraph() == false)
         return;
 

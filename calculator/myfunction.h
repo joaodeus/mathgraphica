@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QStringList>
+#include <QDataStream>
 #include "parser.h"
 
 class myFunction
@@ -16,7 +17,7 @@ public:
 
 private:
     Parser *parser;
-    //bool parserAllocated;
+//    bool parserAllocated;
 
     QString m_functionName; //e.g. m_functionName="f1";
     QString m_function; // e.g. m_function="4x+2+y"
@@ -45,7 +46,7 @@ public:
 
 };
 
-//QDataStream & operator<< (QDataStream& stream, const myFunction& function);
-//QDataStream & operator>> (QDataStream& stream, myFunction& function);
+QDataStream & operator<< (QDataStream& stream, const myFunction& function);
+QDataStream & operator>> (QDataStream& stream, myFunction& function);
 
 #endif // MYFUNCTION_H

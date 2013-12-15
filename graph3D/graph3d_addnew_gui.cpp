@@ -11,6 +11,8 @@ Graph3D_AddNew_gui::Graph3D_AddNew_gui(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    on_checkBox_parametricGraph_clicked(false);
+
     existentGraphs_count = 0;
     create_Default_Graphs_List();
 
@@ -203,4 +205,48 @@ void Graph3D_AddNew_gui::on_pushButton_fxy_clicked()
     {
         ui->lineEdit_fxy->setText(calc.GetLineEditCalcExpression());
     }
+}
+
+void Graph3D_AddNew_gui::on_pushButton_f2_clicked()
+{
+    Calculator_gui calc;
+    calc.SetLineEditCalcExpression(ui->lineEdit_expression2->text());
+
+    if (calc.exec() == QDialog::Accepted)
+    {
+        ui->lineEdit_expression2->setText(calc.GetLineEditCalcExpression());
+    }
+}
+
+void Graph3D_AddNew_gui::on_pushButton_f3_clicked()
+{
+    Calculator_gui calc;
+    calc.SetLineEditCalcExpression(ui->lineEdit_expression3->text());
+
+    if (calc.exec() == QDialog::Accepted)
+    {
+        ui->lineEdit_expression3->setText(calc.GetLineEditCalcExpression());
+    }
+}
+
+void Graph3D_AddNew_gui::on_checkBox_parametricGraph_clicked(bool checked)
+{
+
+    ui->lineEdit_expression2->setVisible(checked);
+    ui->lineEdit_expression3->setVisible(checked);
+    ui->pushButton_f2->setVisible(checked);
+    ui->pushButton_f3->setVisible(checked);
+    ui->label_variables->setVisible(!checked);
+    ui->lineEdit_x->setVisible(!checked);
+    ui->lineEdit_y->setVisible(!checked);
+    ui->pushButton_colorB->setVisible(!checked);
+    ui->pushButton_colorC->setVisible(!checked);
+    ui->pushButton_colorD->setVisible(!checked);
+
+    ui->label_y_minus->setVisible(!checked);
+    ui->label_y_plus->setVisible(!checked);
+    ui->lineEdit_ymin->setVisible(!checked);
+    ui->lineEdit_ymax->setVisible(!checked);
+
+
 }

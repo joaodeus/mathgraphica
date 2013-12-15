@@ -52,15 +52,27 @@ void Graph2D_Editor_gui::showEvent(QShowEvent *event)
 
     for (int i = 0; i < size; i++)
     {
+        QString graphExpressionAux;
+
+        if (m_graph2DEditorListPtr->at(i).isParametricGraph())
+        {
+            graphExpressionAux = m_graph2DEditorListPtr->at(i).getGraph2DExpression_f1() +
+                    "; " + m_graph2DEditorListPtr->at(i).getGraph2DExpression_f2();
+        }
+        else
+        {
+            graphExpressionAux = m_graph2DEditorListPtr->at(i).getGraph2DExpression();
+        }
+
         if (ui->tableWidget_graph2D_list->item(i,0) == 0)
         {
-            QTableWidgetItem *newItem = new QTableWidgetItem( m_graph2DEditorListPtr->at(i).getGraph2DExpression() );
+            QTableWidgetItem *newItem = new QTableWidgetItem( graphExpressionAux );
             ui->tableWidget_graph2D_list->setItem(i, 0, newItem);
 
         }
         else
         {
-            ui->tableWidget_graph2D_list->item(i,0)->setText( m_graph2DEditorListPtr->at(i).getGraph2DExpression()  );
+            ui->tableWidget_graph2D_list->item(i,0)->setText( graphExpressionAux );
         }
 
         ui->tableWidget_graph2D_list->item(i,0)->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);

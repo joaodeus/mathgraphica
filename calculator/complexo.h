@@ -3,7 +3,7 @@
 
 #include <math.h>
 #include <QList>
-
+#include <QDataStream>
 
 //#define PI      3.1415926535897932384
 /* Constants rounded for 21 decimals.
@@ -31,12 +31,13 @@ class Complexo
 
 public:
     Complexo();
-    Complexo(double,double);
-    Complexo(const Complexo &);
-    Complexo(const double);
+    Complexo(double r_, double i_);
+    Complexo(const Complexo &z);
+    Complexo(const double r_);
     virtual ~Complexo();
 
-    double r, i;
+    double r;
+    double i;
 
     void clear();
 
@@ -212,7 +213,8 @@ QList<Complexo> log(QList<Complexo> &x);
 
 
 
-QDataStream & operator<< (QDataStream& stream, const Complexo& complexo);
-QDataStream & operator>> (QDataStream& stream, Complexo& complexo);
+QDataStream & operator<< (QDataStream& stream, const Complexo& z);
+QDataStream & operator>> (QDataStream& stream, Complexo& z);
+
 
 #endif // COMPLEXO_H

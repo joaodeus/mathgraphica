@@ -4,6 +4,7 @@
 #include <QString>
 #include <QStringList>
 #include <QVector>
+#include <QDataStream>
 #include <QCoreApplication>
 #include "complexo.h"
 
