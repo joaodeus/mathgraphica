@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Graph3DParametric_AddNew_gui</class>
+ <widget class="QDialog" name="Graph3DParametric_AddNew_gui">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>282</width>
+    <height>336</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Graph 3D Parametric</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../mathgraphica.qrc">
+    <normaloff>:/images/images/3D_parametric.png</normaloff>:/images/images/3D_parametric.png</iconset>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="3">
+    <widget class="QPushButton" name="pushButton_f1">
+     <property name="text">
+      <string>f1(t) =</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3">
+    <widget class="QLineEdit" name="lineEdit_f1">
+     <property name="readOnly">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="3">
+    <widget class="QPushButton" name="pushButton_f2">
+     <property name="text">
+      <string>f2(t) =</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <widget class="QLineEdit" name="lineEdit_f2"/>
+   </item>
+   <item row="2" column="0" colspan="3">
+    <widget class="QPushButton" name="pushButton_f3">
+     <property name="text">
+      <string>f3(t) =</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <widget class="QLineEdit" name="lineEdit_f3"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_t_plus">
+     <property name="text">
+      <string>+t =</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="3" rowspan="3">
+    <widget class="QLabel" name="label_image">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../mathgraphica.qrc">:/images/images/3D.png</pixmap>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_t_minus">
+     <property name="text">
+      <string>-t =</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="label_delta">
+     <property name="text">
+      <string>dt =</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1" colspan="2">
+    <widget class="QLineEdit" name="lineEdit_dt"/>
+   </item>
+   <item row="6" column="0" colspan="2">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Color:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="3">
+    <widget class="QPushButton" name="pushButton_color">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0" colspan="4">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="pushButton_cancel">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_ok">
+       <property name="text">
+        <string>Ok</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="1" colspan="2">
+    <widget class="QLineEdit" name="lineEdit_tmax"/>
+   </item>
+   <item row="4" column="1" colspan="2">
+    <widget class="QLineEdit" name="lineEdit_tmin"/>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>pushButton_f1</tabstop>
+  <tabstop>lineEdit_f1</tabstop>
+  <tabstop>pushButton_f2</tabstop>
+  <tabstop>lineEdit_f2</tabstop>
+  <tabstop>pushButton_f3</tabstop>
+  <tabstop>lineEdit_f3</tabstop>
+  <tabstop>lineEdit_tmax</tabstop>
+  <tabstop>lineEdit_tmin</tabstop>
+  <tabstop>lineEdit_dt</tabstop>
+  <tabstop>pushButton_color</tabstop>
+  <tabstop>pushButton_cancel</tabstop>
+  <tabstop>pushButton_ok</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../mathgraphica.qrc"/>
+ </resources>
+ <connections/>
+</ui>
