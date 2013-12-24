@@ -29,17 +29,6 @@ void Functions_gui::showEvent(QShowEvent *event)
 void Functions_gui::updateFunctions()
 {
 
-    /*QStringList aux_list;
-    for (int i = 0; i < m_functions_List.size(); i++)
-    {
-
-        aux_list.append(m_functions_List.at(i).GetFunctionDefinition());
-
-    }
-
-    QStringListToTableWidget(aux_list, *ui->tableWidget);
-*/
-
     if (m_functionsListPtr == NULL)
         return;
 

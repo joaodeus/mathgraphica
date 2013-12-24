@@ -158,11 +158,11 @@ void Graph3D_OpenGL::prepareVertexBuffers()
     if (m_shaderProgram.bind()) qDebug() << "Success biding shader program";
 
 
-    bool t1 = m_vertexPositionBuffer.bind();
+    m_vertexPositionBuffer.bind();
     m_shaderProgram.enableAttributeArray("vertexPosition");
     m_shaderProgram.setAttributeBuffer("vertexPosition", GL_FLOAT, 0, 3);
 
-    bool t2 = m_vertexColorBuffer.bind();
+    m_vertexColorBuffer.bind();
     m_shaderProgram.enableAttributeArray("vertexColor");
     m_shaderProgram.setAttributeBuffer("vertexColor", GL_FLOAT, 0, 3);
 

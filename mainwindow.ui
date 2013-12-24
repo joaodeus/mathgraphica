@@ -14,7 +14,7 @@
    <string>MathGraphica</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="mathgraphica.qrc">
+   <iconset>
     <normaloff>:/images/images/calculator.png</normaloff>:/images/images/calculator.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -117,6 +117,7 @@
    </attribute>
    <addaction name="actionGraph_2D"/>
    <addaction name="actionGraph_3D"/>
+   <addaction name="actionGraph_3D_Parametric"/>
    <addaction name="separator"/>
    <addaction name="actionCalculator"/>
    <addaction name="separator"/>
@@ -135,7 +136,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionCalculator">
    <property name="icon">
-    <iconset resource="mathgraphica.qrc">
+    <iconset>
      <normaloff>:/images/images/calculator.png</normaloff>:/images/images/calculator.png</iconset>
    </property>
    <property name="text">
@@ -150,7 +151,7 @@
   </action>
   <action name="actionGraph_3D">
    <property name="icon">
-    <iconset resource="mathgraphica.qrc">
+    <iconset>
      <normaloff>:/images/images/graf3d.png</normaloff>:/images/images/graf3d.png</iconset>
    </property>
    <property name="text">
@@ -162,7 +163,7 @@
   </action>
   <action name="actionEquation">
    <property name="icon">
-    <iconset resource="mathgraphica.qrc">
+    <iconset>
      <normaloff>:/images/images/equation2.png</normaloff>:/images/images/equation2.png</iconset>
    </property>
    <property name="text">
@@ -174,7 +175,7 @@
   </action>
   <action name="actionSystem_of_equations">
    <property name="icon">
-    <iconset resource="mathgraphica.qrc">
+    <iconset>
      <normaloff>:/images/images/sist_eq2.png</normaloff>:/images/images/sist_eq2.png</iconset>
    </property>
    <property name="text">
@@ -186,7 +187,7 @@
   </action>
   <action name="actionIntegral">
    <property name="icon">
-    <iconset resource="mathgraphica.qrc">
+    <iconset>
      <normaloff>:/images/images/integral.png</normaloff>:/images/images/integral.png</iconset>
    </property>
    <property name="text">
@@ -198,7 +199,7 @@
   </action>
   <action name="actionIntegral_double">
    <property name="icon">
-    <iconset resource="mathgraphica.qrc">
+    <iconset>
      <normaloff>:/images/images/integralD.png</normaloff>:/images/images/integralD.png</iconset>
    </property>
    <property name="text">
@@ -207,7 +208,7 @@
   </action>
   <action name="actionMatrix">
    <property name="icon">
-    <iconset resource="mathgraphica.qrc">
+    <iconset>
      <normaloff>:/images/images/matrix2.png</normaloff>:/images/images/matrix2.png</iconset>
    </property>
    <property name="text">
@@ -219,7 +220,7 @@
   </action>
   <action name="actionFormulas">
    <property name="icon">
-    <iconset resource="mathgraphica.qrc">
+    <iconset>
      <normaloff>:/images/images/formulas2.png</normaloff>:/images/images/formulas2.png</iconset>
    </property>
    <property name="text">
@@ -228,7 +229,7 @@
   </action>
   <action name="actionGraph_2D">
    <property name="icon">
-    <iconset resource="mathgraphica.qrc">
+    <iconset>
      <normaloff>:/images/images/graf2d.png</normaloff>:/images/images/graf2d.png</iconset>
    </property>
    <property name="text">
@@ -237,7 +238,7 @@
   </action>
   <action name="actionFunctions">
    <property name="icon">
-    <iconset resource="mathgraphica.qrc">
+    <iconset>
      <normaloff>:/images/images/functions.png</normaloff>:/images/images/functions.png</iconset>
    </property>
    <property name="text">
@@ -246,7 +247,7 @@
   </action>
   <action name="actionVariables">
    <property name="icon">
-    <iconset resource="mathgraphica.qrc">
+    <iconset>
      <normaloff>:/images/images/variables.png</normaloff>:/images/images/variables.png</iconset>
    </property>
    <property name="text">
@@ -278,10 +279,17 @@
     <string>Output format</string>
    </property>
   </action>
+  <action name="actionGraph_3D_Parametric">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/images/images/3D_parametric.png</normaloff>:/images/images/3D_parametric.png</iconset>
+   </property>
+   <property name="text">
+    <string>Graph 3D Parametric</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="mathgraphica.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

@@ -6,7 +6,7 @@
 #include "calculator/calculator.h"
 #include "graph2D/graph2d_container_gui.h"
 #include "gui/functions_gui.h"
-#include "database/databasemanager.h"
+#include "gui/variables_gui.h"
 
 namespace Ui {
 class MainWindow;
@@ -63,6 +63,8 @@ private slots:
 
     void on_actionAbout_MathGraphica_triggered();
 
+    void on_actionGraph_3D_Parametric_triggered();
+
 private:
     Ui::MainWindow *ui;
 
@@ -88,8 +90,7 @@ private:
 
     Functions_gui *m_functions_gui;
 
-    // Database
-    DatabaseManager m_db;
+    Variables_gui *m_variables_gui;
 
 
 };

@@ -45,11 +45,6 @@ private slots:
 
     void on_pushButton_fxy_clicked();
 
-    void on_pushButton_f2_clicked();
-
-    void on_pushButton_f3_clicked();
-
-    void on_checkBox_parametricGraph_clicked(bool checked);
 
 private:
     Ui::Graph3D_AddNew_gui *ui;

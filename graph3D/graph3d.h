@@ -134,6 +134,8 @@ public:
     void releaseBuffers();
     void setBufferData(QOpenGLShaderProgram &m_shaderProgram);
     void draw(QOpenGLShaderProgram &m_shaderProgram);
+    void draw2(QOpenGLShaderProgram &m_shaderProgram);
+
     void UpdateGraphTime(double t_, QOpenGLShaderProgram &m_shaderProgram);
     bool graph_has_variable_t();
 /*

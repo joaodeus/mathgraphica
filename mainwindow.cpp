@@ -14,18 +14,19 @@
 #include "graph2D/graph2d_opengl.h"
 #include "graph2D/graph2d_container_gui.h"
 #include "graph2D/graph2d_addnew_gui.h"
-#include "graph3D/graph3d_container_gui.h"
-#include "graph3D/graph3d_addnew_gui_tabwidget.h"
 
-#include "graph/graph_container_gui.h"
+
+//#include "graph/graph_container_gui.h"
+
 #include "graph3D/graph3d_editor_gui.h"
+#include "graph3D/graph3d_container_gui.h"
 #include "graph3D/graph3d_addnew_gui.h"
 #include "calculator/myfunction.h"
 #include "gui/formatresult_gui.h"
 #include "gui/about_gui.h"
 #include "calculator/matrix_gui.h"
 
-
+#include "graph3DParametric/graph3dparametric_addnew_gui.h"
 
 #define TYPE_EXPRESSION             1
 #define TYPE_EQUATION               2
@@ -74,6 +75,8 @@ MainWindow::MainWindow(QWidget *parent) :
     m_functions_gui->m_function = &calc.m_function;
 
 
+    //---Variables-----------------------------
+    m_variables_gui = new Variables_gui;
 
 
 }
@@ -85,6 +88,7 @@ MainWindow::~MainWindow()
 
 
     delete m_functions_gui;
+    delete m_variables_gui;
     delete ui;
 }
 
@@ -577,8 +581,8 @@ void MainWindow::on_actionGraph_3D_triggered()
         graph3dContainer->show();
     }
 
-    Graph3D_AddNew_gui_TabWidget gui;
-    gui.exec();
+    //Graph3D_AddNew_gui_TabWidget gui;
+    //gui.exec();
 
 /*    Graph3D m_graph3d;
     m_graph3d.setupGraph();
@@ -600,13 +604,12 @@ void MainWindow::on_actionFunctions_triggered()
     m_functions_gui->updateFunctions();
     m_functions_gui->show();
 
-    Functions_gui gui;
-
 }
 
 void MainWindow::on_actionVariables_triggered()
 {
 
+    m_variables_gui->show();
 }
 
 void MainWindow::on_actionAbout_Qt_triggered()
@@ -642,4 +645,13 @@ void MainWindow::on_actionAbout_MathGraphica_triggered()
     db.open();
     // db.close(); // for close connection
 */
+}
+
+void MainWindow::on_actionGraph_3D_Parametric_triggered()
+{
+
+    Graph3DParametric_AddNew_gui gui;
+    gui.exec();
+
+
 }

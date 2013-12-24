@@ -213,7 +213,6 @@ bool Graph3D::setupGraph()
   //  double y = m_ymin;
 
 
-    int i = 0; // index for array elements
     elements.clear();
 
     double y;
@@ -411,7 +410,6 @@ void Graph3D::setBufferData(QOpenGLShaderProgram &m_shaderProgram)
     }*/
 
     bool bColor = true;
-    int i_color = 0;
     int count_y = 0;
     for (int i = 0; i < size;i++)
     {
@@ -534,6 +532,56 @@ void Graph3D::draw(QOpenGLShaderProgram &m_shaderProgram)
     glCullFace(GL_FRONT);
     //glDrawElements(GL_TRIANGLES, elements.size(), GL_FLOAT, elements);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, xx.size());
+    //glDrawArrays(GL_TRIANGLE_STRIP, 0, 50);
+
+
+    m_colorBackBufferGraph3D.bind();
+//    m_shaderProgram.enableAttributeArray("vertexColor");
+    m_shaderProgram.setAttributeBuffer("vertexColor", GL_FLOAT, 0, 3);
+
+
+    glCullFace(GL_BACK);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, xx.size());
+
+}
+
+
+
+void Graph3D::draw2(QOpenGLShaderProgram &m_shaderProgram)
+{
+
+  //  m_shaderProgram.bind();
+
+    m_vertexBufferGraph3D.bind();
+   // if (m_vertexBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";
+    //m_shaderProgram.enableAttributeArray("vertexPosition");
+    m_shaderProgram.setAttributeBuffer("vertexPosition", GL_FLOAT, 0, 3);
+
+  //  m_colorBufferGraph3D.bind();
+    //m_shaderProgram.enableAttributeArray("vertexColor");
+//    m_shaderProgram.setAttributeBuffer("vertexColor", GL_FLOAT, 0, 3);
+    m_shaderProgram.disableAttributeArray("vertexColor");
+    QColor color1;
+    color1.setRgbF(0,1,0);
+    m_shaderProgram.setAttributeValue("vertexColor", color1);
+
+    glCullFace(GL_FRONT);
+    //glDrawElements(GL_TRIANGLES, elements.size(), GL_FLOAT, elements);
+    glDrawArrays(GL_TRIANGLES, 0, xx.size());
+
+    QColor color2;
+    color2.setRgbF(0,1,1);
+    m_shaderProgram.setAttributeValue("vertexColor", color2);
+    glDrawArrays(GL_TRIANGLES, 1, xx.size()-1);
+
+
+    QColor color3;
+    color2.setRgbF(0,1,1);
+    m_shaderProgram.setAttributeValue("vertexColor", color3);
+    glDrawArrays(GL_TRIANGLES, 2, xx.size()-2);
+
+
+
     //glDrawArrays(GL_TRIANGLE_STRIP, 0, 50);
 
 

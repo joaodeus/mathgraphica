@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui opengl sql
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -50,7 +50,8 @@ SOURCES += main.cpp\
     graph3D/graph3d_addnew_gui.cpp \
     gui/formatresult_gui.cpp \
     gui/about_gui.cpp \
-    graph3D/graph3d_addnew_gui_tabwidget.cpp
+    gui/variables_gui.cpp \
+    graph3DParametric/graph3dparametric_addnew_gui.cpp
 
 HEADERS  += mainwindow.h \
     graph3D/graph3d.h \
@@ -90,7 +91,8 @@ HEADERS  += mainwindow.h \
     graph3D/graph3d_addnew_gui.h \
     gui/formatresult_gui.h \
     gui/about_gui.h \
-    graph3D/graph3d_addnew_gui_tabwidget.h
+    gui/variables_gui.h \
+    graph3DParametric/graph3dparametric_addnew_gui.h
 
 FORMS    += mainwindow.ui \
     gui/calculator_gui.ui \
@@ -110,7 +112,8 @@ FORMS    += mainwindow.ui \
     graph3D/graph3d_addnew_gui.ui \
     gui/formatresult_gui.ui \
     gui/about_gui.ui \
-    graph3D/graph3d_addnew_gui_tabwidget.ui
+    gui/variables_gui.ui \
+    graph3DParametric/graph3dparametric_addnew_gui.ui
 
 RESOURCES += \
     mathgraphica.qrc
