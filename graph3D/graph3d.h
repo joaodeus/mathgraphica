@@ -96,12 +96,13 @@ private:
     QOpenGLBuffer m_colorBufferGraph3D;
     QOpenGLBuffer m_colorBackBufferGraph3D;
 
-    //QOpenGLBuffer m_iboBufferGraph3D;
+    QOpenGLBuffer m_elementsBufferGraph3D;
+
     QVector3D *vertexPosition;
     QVector3D *vertexColor;
     QVector3D *vertexBackColor;
 
-    //QVector3D *vertexElements;
+    GLint *vertexElements;
 
 
     QList<int> elements; //array elements
@@ -131,10 +132,15 @@ public:
 public:
 
     void prepareBuffers();
+    void prepareBuffers2();
     void releaseBuffers();
+    void releaseBuffers2();
     void setBufferData(QOpenGLShaderProgram &m_shaderProgram);
+    void setBufferData2(QOpenGLShaderProgram &m_shaderProgram);
     void draw(QOpenGLShaderProgram &m_shaderProgram);
     void draw2(QOpenGLShaderProgram &m_shaderProgram);
+
+    void draw_aux(QOpenGLShaderProgram &m_shaderProgram);
 
     void UpdateGraphTime(double t_, QOpenGLShaderProgram &m_shaderProgram);
     bool graph_has_variable_t();

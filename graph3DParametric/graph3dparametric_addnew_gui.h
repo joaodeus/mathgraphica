@@ -2,6 +2,7 @@
 #define GRAPH3DPARAMETRIC_ADDNEW_GUI_H
 
 #include <QDialog>
+#include "graph3dparametric.h"
 
 namespace Ui {
 class Graph3DParametric_AddNew_gui;
@@ -16,7 +17,12 @@ public:
     ~Graph3DParametric_AddNew_gui();
 
     int returnValue;
+    Graph3DParametric m_graph3Dparametric;
 
+
+protected:
+    void showEvent(QShowEvent * event);
+    void closeEvent(QCloseEvent * event);
 
 private slots:
     void on_pushButton_color_clicked();

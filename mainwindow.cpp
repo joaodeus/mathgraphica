@@ -595,6 +595,22 @@ void MainWindow::on_actionGraph_3D_triggered()
     container->show();*/
 }
 
+
+void MainWindow::on_actionGraph_3D_Parametric_triggered()
+{
+
+    Graph3DParametric_AddNew_gui gui;
+    gui.exec();
+
+    if (gui.returnValue == 1)
+    {
+
+    }
+
+
+}
+
+
 void MainWindow::on_actionFunctions_triggered()
 {
 
@@ -647,11 +663,4 @@ void MainWindow::on_actionAbout_MathGraphica_triggered()
 */
 }
 
-void MainWindow::on_actionGraph_3D_Parametric_triggered()
-{
 
-    Graph3DParametric_AddNew_gui gui;
-    gui.exec();
-
-
-}
