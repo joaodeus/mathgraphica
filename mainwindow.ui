@@ -14,7 +14,7 @@
    <string>MathGraphica</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="mathgraphica.qrc">
     <normaloff>:/images/images/calculator.png</normaloff>:/images/images/calculator.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -117,7 +117,6 @@
    </attribute>
    <addaction name="actionGraph_2D"/>
    <addaction name="actionGraph_3D"/>
-   <addaction name="actionGraph_3D_Parametric"/>
    <addaction name="separator"/>
    <addaction name="actionCalculator"/>
    <addaction name="separator"/>
@@ -136,7 +135,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionCalculator">
    <property name="icon">
-    <iconset>
+    <iconset resource="mathgraphica.qrc">
      <normaloff>:/images/images/calculator.png</normaloff>:/images/images/calculator.png</iconset>
    </property>
    <property name="text">
@@ -151,7 +150,7 @@
   </action>
   <action name="actionGraph_3D">
    <property name="icon">
-    <iconset>
+    <iconset resource="mathgraphica.qrc">
      <normaloff>:/images/images/graf3d.png</normaloff>:/images/images/graf3d.png</iconset>
    </property>
    <property name="text">
@@ -160,10 +159,13 @@
    <property name="toolTip">
     <string>Graph 3D</string>
    </property>
+   <property name="shortcut">
+    <string>3</string>
+   </property>
   </action>
   <action name="actionEquation">
    <property name="icon">
-    <iconset>
+    <iconset resource="mathgraphica.qrc">
      <normaloff>:/images/images/equation2.png</normaloff>:/images/images/equation2.png</iconset>
    </property>
    <property name="text">
@@ -172,10 +174,13 @@
    <property name="toolTip">
     <string>Solve equations</string>
    </property>
+   <property name="shortcut">
+    <string>E</string>
+   </property>
   </action>
   <action name="actionSystem_of_equations">
    <property name="icon">
-    <iconset>
+    <iconset resource="mathgraphica.qrc">
      <normaloff>:/images/images/sist_eq2.png</normaloff>:/images/images/sist_eq2.png</iconset>
    </property>
    <property name="text">
@@ -184,10 +189,13 @@
    <property name="toolTip">
     <string>System of equations</string>
    </property>
+   <property name="shortcut">
+    <string>S</string>
+   </property>
   </action>
   <action name="actionIntegral">
    <property name="icon">
-    <iconset>
+    <iconset resource="mathgraphica.qrc">
      <normaloff>:/images/images/integral.png</normaloff>:/images/images/integral.png</iconset>
    </property>
    <property name="text">
@@ -196,19 +204,25 @@
    <property name="toolTip">
     <string>Integral</string>
    </property>
+   <property name="shortcut">
+    <string>I</string>
+   </property>
   </action>
   <action name="actionIntegral_double">
    <property name="icon">
-    <iconset>
+    <iconset resource="mathgraphica.qrc">
      <normaloff>:/images/images/integralD.png</normaloff>:/images/images/integralD.png</iconset>
    </property>
    <property name="text">
     <string>Integral double</string>
    </property>
+   <property name="shortcut">
+    <string>D</string>
+   </property>
   </action>
   <action name="actionMatrix">
    <property name="icon">
-    <iconset>
+    <iconset resource="mathgraphica.qrc">
      <normaloff>:/images/images/matrix2.png</normaloff>:/images/images/matrix2.png</iconset>
    </property>
    <property name="text">
@@ -217,41 +231,56 @@
    <property name="toolTip">
     <string>Matrix</string>
    </property>
+   <property name="shortcut">
+    <string>M</string>
+   </property>
   </action>
   <action name="actionFormulas">
    <property name="icon">
-    <iconset>
+    <iconset resource="mathgraphica.qrc">
      <normaloff>:/images/images/formulas2.png</normaloff>:/images/images/formulas2.png</iconset>
    </property>
    <property name="text">
     <string>Formulas</string>
    </property>
+   <property name="shortcut">
+    <string>F</string>
+   </property>
   </action>
   <action name="actionGraph_2D">
    <property name="icon">
-    <iconset>
+    <iconset resource="mathgraphica.qrc">
      <normaloff>:/images/images/graf2d.png</normaloff>:/images/images/graf2d.png</iconset>
    </property>
    <property name="text">
     <string>Graph 2D</string>
    </property>
+   <property name="shortcut">
+    <string>2</string>
+   </property>
   </action>
   <action name="actionFunctions">
    <property name="icon">
-    <iconset>
+    <iconset resource="mathgraphica.qrc">
      <normaloff>:/images/images/functions.png</normaloff>:/images/images/functions.png</iconset>
    </property>
    <property name="text">
     <string>Functions</string>
    </property>
+   <property name="shortcut">
+    <string>F</string>
+   </property>
   </action>
   <action name="actionVariables">
    <property name="icon">
-    <iconset>
+    <iconset resource="mathgraphica.qrc">
      <normaloff>:/images/images/variables.png</normaloff>:/images/images/variables.png</iconset>
    </property>
    <property name="text">
     <string>Variables</string>
+   </property>
+   <property name="shortcut">
+    <string>V</string>
    </property>
   </action>
   <action name="actionExit">
@@ -263,15 +292,24 @@
    <property name="text">
     <string>Help</string>
    </property>
+   <property name="shortcut">
+    <string>H</string>
+   </property>
   </action>
   <action name="actionAbout_MathGraphica">
    <property name="text">
     <string>About MathGraphica</string>
    </property>
+   <property name="shortcut">
+    <string>A</string>
+   </property>
   </action>
   <action name="actionAbout_Qt">
    <property name="text">
     <string>About Qt</string>
+   </property>
+   <property name="shortcut">
+    <string>Q</string>
    </property>
   </action>
   <action name="actionOutput_Format">
@@ -281,7 +319,7 @@
   </action>
   <action name="actionGraph_3D_Parametric">
    <property name="icon">
-    <iconset>
+    <iconset resource="mathgraphica.qrc">
      <normaloff>:/images/images/3D_parametric.png</normaloff>:/images/images/3D_parametric.png</iconset>
    </property>
    <property name="text">
@@ -290,6 +328,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="mathgraphica.qrc"/>
+ </resources>
  <connections/>
 </ui>

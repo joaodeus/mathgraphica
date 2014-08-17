@@ -19,7 +19,7 @@ void GetMatrixToTableWidget(Matrix &matrix, QTableWidget &tableWidgetMatrix)
             if (tableWidgetMatrix.item(l,c) == 0)
             {
                 QTableWidgetItem *newItem = new QTableWidgetItem(matrix.GetLineColText(l,c));
-                QString str = matrix.GetLineColText(l,c);
+                //QString str = matrix.GetLineColText(l,c);
                 tableWidgetMatrix.setItem(l,c, newItem);
             }
             else

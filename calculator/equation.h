@@ -33,6 +33,7 @@ public:
     QString getEquation_member1(){return m_f1;}
     QString getEquation_member2(){return m_f2;}
 
+    void teste();
 
 private:
     double min;

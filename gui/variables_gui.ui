@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Variables</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../mathgraphica.qrc">
+    <normaloff>:/images/images/variables.png</normaloff>:/images/images/variables.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -29,7 +33,13 @@
     </widget>
    </item>
    <item row="1" column="0" colspan="2">
-    <widget class="QTableWidget" name="tableWidget"/>
+    <widget class="QTableWidget" name="tableWidget">
+     <column>
+      <property name="text">
+       <string>variables</string>
+      </property>
+     </column>
+    </widget>
    </item>
    <item row="2" column="0">
     <widget class="QPushButton" name="pushButton_cancel">
@@ -47,6 +57,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../mathgraphica.qrc"/>
+ </resources>
  <connections/>
 </ui>

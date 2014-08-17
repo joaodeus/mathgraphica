@@ -1,7 +1,7 @@
 #include "equation.h"
 
 // for debbugging with 2D graphs
-//#include "graph2D/graph2d_opengl.h"
+#include "graph2D/graph2d_opengl.h"
 
 Equation::Equation(Parser *parser_)
 {
@@ -168,13 +168,14 @@ QList<Complexo> Equation::solveEquation(const QString &f1, const QString &f2)
     double dab;
     double dab1;
 
+    /*
     // Debbuging 2D graphs -------------------------------
     QList<double> graph1_xx;
     QList<double> graph1_yy;
     QList<double> graph2_xx;
     QList<double> graph2_yy;
     // Debbuging 2D graphs -------------------------------
-
+*/
 
 
     for(double i=min ; i<=max ; i+=delta_aux)
@@ -183,13 +184,14 @@ QList<Complexo> Equation::solveEquation(const QString &f1, const QString &f2)
         fa1 = parser->SolveExpression_fx(f1,l,variable).numberReal();
         fb1 = parser->SolveExpression_fx(f2,l,variable).numberReal();
 
+        /*
         // aux variables to draw debug graphs--------------------
-        //graph1_xx.append(i);
-        //graph1_yy.append(fa1);
-        //graph2_xx.append(i);
-        //graph2_yy.append(fb1);
+        graph1_xx.append(i);
+        graph1_yy.append(fa1);
+        graph2_xx.append(i);
+        graph2_yy.append(fb1);
         // aux variables to draw debug graphs--------------------
-
+        */
 
         QCoreApplication::processEvents();
 
@@ -280,7 +282,7 @@ QList<Complexo> Equation::solveEquation(const QString &f1, const QString &f2)
 
 
     //---graph for debug porpuse-------------------------------
-    /*
+/*
     Graph2D_OpenGL *graph = new Graph2D_OpenGL;
     Graph2D graph_1;
     Graph2D graph_2;
@@ -297,7 +299,7 @@ QList<Complexo> Equation::solveEquation(const QString &f1, const QString &f2)
 
     qDebug()<<"graph1 array size: " <<graph1_xx.size();
     qDebug()<<"graph2 array size: " <<graph2_xx.size();
-    */
+*/
     //---graph for debug porpuse-------------------------------
 
 
@@ -351,5 +353,44 @@ double Equation::root_finder(Parser *p, QString f1, QString f2, QString variable
         else
             return root_finder(p,f1,f2,variable,a,d,precision);
     }
+
+}
+
+
+
+/// para apagar
+
+void Equation::teste()
+{
+
+    // creates data arrays
+    QList<double> graph1_xx;
+    QList<double> graph1_yy;
+    QList<double> graph2_xx;
+    QList<double> graph2_yy;
+
+    // fill with data
+    for (double x = -10;x < 10; x=x+0.1)
+    {
+        graph1_xx.append(x);
+        graph1_yy.append(12*cos(x));
+        graph2_xx.append(x);
+        graph2_yy.append(x*x);
+    }
+
+    Graph2D graph_1;
+    graph_1.setGraph2DArray(graph1_xx, graph1_yy);
+    graph_1.setColor(1,0,0);
+
+    Graph2D graph_2;
+    graph_2.setGraph2DArray(graph2_xx, graph2_yy);
+    graph_2.setColor(0,1,0);
+
+    // OpenGL Window
+    Graph2D_OpenGL *graph = new Graph2D_OpenGL;
+    graph->addGraph2D(graph_1);
+    graph->addGraph2D(graph_2);
+
+    graph->show();
 
 }

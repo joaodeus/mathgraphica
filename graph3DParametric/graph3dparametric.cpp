@@ -31,3 +31,10 @@ QColor Graph3DParametric::getColor()
 {
     return m_color;
 }
+
+
+
+bool Graph3DParametric::setupGraph()
+{
+
+}

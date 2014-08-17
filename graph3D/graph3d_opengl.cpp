@@ -44,6 +44,9 @@ Graph3D_OpenGL::Graph3D_OpenGL()
     minScale = 0.01;
     maxScale = 80;
     scaleDelta = 1.25;
+    tx = 0;
+    ty = 0;
+    tz = 0;
 
     AutoRotx = 0;
     AutoRoty = 0;
@@ -276,7 +279,8 @@ void Graph3D_OpenGL::paintGL()
 
 
     orientation.setToIdentity();
-    orientation.translate(0.0f, 0.0f, 0.0f );
+    //orientation.translate(0.0f, 0.0f, 0.0f );
+    orientation.translate( tx, ty, tz );
     orientation.rotate(xRot, 1.0f, 0.0f, 0.0f );
     orientation.rotate(yRot, 0.0f, 1.0f, 0.0f );
     orientation.rotate(zRot, 0.0f, 0.0f, 1.0f );
@@ -523,6 +527,25 @@ void Graph3D_OpenGL::keyPressEvent(QKeyEvent *event)
 
     if (event->key() == Qt::Key_9)
         zRot+=5;
+
+
+    // translate
+    double translate_delta = 5;
+    if (event->key() == Qt::Key_Q)
+        tx -= translate_delta;
+    if (event->key() == Qt::Key_W)
+        tx += translate_delta;
+
+    if (event->key() == Qt::Key_A)
+        ty -= translate_delta;
+    if (event->key() == Qt::Key_S)
+        ty += translate_delta;
+
+    if (event->key() == Qt::Key_Z)
+        tz -= translate_delta;
+    if (event->key() == Qt::Key_X)
+        tz += translate_delta;
+
 
 
 

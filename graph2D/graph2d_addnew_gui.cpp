@@ -14,6 +14,9 @@ Graph2D_AddNew_gui::Graph2D_AddNew_gui(QWidget *parent) :
     on_checkBox_polarGraph_clicked(false);
     on_checkBox_parametricGraph_clicked(false);
 
+    //hide it for version 2.0.0 has it is not ready
+    ui->checkBox_parametricGraph->setVisible(false);
+
     existentGraphs_count = 0;
     create_Default_Graphs_List();
 

@@ -65,6 +65,8 @@ private slots:
 
     void on_actionGraph_3D_Parametric_triggered();
 
+    void on_actionHelp_triggered();
+
 private:
     Ui::MainWindow *ui;
 

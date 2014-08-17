@@ -273,7 +273,7 @@ bool Graph3D::setupGraph2()
 
     double y;
     double x;
-    for (y = m_ymin; y <= m_ymax; y += m_delta)
+   /* for (y = m_ymin; y <= m_ymax; y += m_delta)
     {
 
         for (x = m_xmin; x <= m_xmax; x += m_delta)
@@ -287,7 +287,7 @@ bool Graph3D::setupGraph2()
     calc.setVariable_Value(m_variable_Y, yy);
     calc.setVariable_Value("t",0);
     zz = calc.SolveExpression_list(m_graph3DExpression,xx.size());
-
+*/
 
     // calculate elements indexes
     yCount = 0;
@@ -316,10 +316,37 @@ bool Graph3D::setupGraph2()
             elements.append(i+xCount);
             elements.append(i+1);
             elements.append(i+1+xCount);
+
+            //////////////////////////////
+
+            xx.append(x);
+            yy.append(y);
+
+            xx.append(x);
+            yy.append(y+m_delta);
+
+            xx.append(x+m_delta);
+            yy.append(y);
+
+            xx.append(x);
+            yy.append(y+m_delta);
+
+            xx.append(x+m_delta);
+            yy.append(y);
+
+            xx.append(x+m_delta);
+            yy.append(y+m_delta);
+
             i++;
         }
         i++;
     }
+
+
+    calc.setVariable_Value(m_variable_X, xx);
+    calc.setVariable_Value(m_variable_Y, yy);
+    calc.setVariable_Value("t",0);
+    zz = calc.SolveExpression_list(m_graph3DExpression,xx.size());
 
 
     return true;
@@ -641,11 +668,12 @@ void Graph3D::setBufferData2(QOpenGLShaderProgram &m_shaderProgram)
         vertexPosition[i].setZ(zz[i]);
     }
 
+    int i_aux = 0;
 
     for (int i = 0; i < size2; i++)
     {
 
-        if ( i % 2)
+        if ( i_aux < 3)
         {
 
             vertexColor[i].setX(colorA.redF());
@@ -666,6 +694,9 @@ void Graph3D::setBufferData2(QOpenGLShaderProgram &m_shaderProgram)
             vertexBackColor[i].setY(colorD.greenF());
             vertexBackColor[i].setZ(colorD.blueF());
         }
+
+        if (i_aux > 5)
+            i_aux = 0;
 
 
         vertexElements[i] = elements.at(i);
@@ -765,9 +796,9 @@ void Graph3D::draw2(QOpenGLShaderProgram &m_shaderProgram)
 
 
     glCullFace(GL_FRONT);
-    glDrawElements(GL_TRIANGLES, 5, GL_INT, vertexElements);
+    //glDrawElements(GL_TRIANGLES, elements.size(), GL_INT, vertexElements);
 
-    //glDrawArrays(GL_TRIANGLE_STRIP, 0, xx.size());
+    glDrawArrays(GL_TRIANGLES, 0, xx.size());
 
 
     m_colorBackBufferGraph3D.bind();
@@ -776,9 +807,9 @@ void Graph3D::draw2(QOpenGLShaderProgram &m_shaderProgram)
 
 
     glCullFace(GL_BACK);
-    glDrawElements(GL_TRIANGLES, elements.size(), GL_INT, vertexElements);
+//    glDrawElements(GL_TRIANGLES, elements.size(), GL_INT, vertexElements);
 
-    //glDrawArrays(GL_TRIANGLE_STRIP, 0, xx.size());
+    glDrawArrays(GL_TRIANGLES, 0, xx.size());
 
 
 }

@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QKeyEvent>
+#include <QDesktopServices>
 //#include <QtSql>
 #include "gui/calculator_gui.h"
 #include "gui/equation_gui.h"
@@ -27,6 +28,7 @@
 #include "calculator/matrix_gui.h"
 
 #include "graph3DParametric/graph3dparametric_addnew_gui.h"
+#include "graph3DParametric/graph3dparametric_opengl.h"
 
 #define TYPE_EXPRESSION             1
 #define TYPE_EQUATION               2
@@ -77,6 +79,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //---Variables-----------------------------
     m_variables_gui = new Variables_gui;
+    m_variables_gui->m_variables_ListPtr = &calc.variables_List;
+    m_variables_gui->m_values_ListPtr = &calc.values_List;
 
 
 }
@@ -604,6 +608,10 @@ void MainWindow::on_actionGraph_3D_Parametric_triggered()
 
     if (gui.returnValue == 1)
     {
+        gui.m_graph3Dparametric.setupGraph();
+
+        Graph3DParametric_OpenGL *m_graph3DParametricOpenGL = new Graph3DParametric_OpenGL;
+        m_graph3DParametricOpenGL->show();
 
     }
 
@@ -617,7 +625,7 @@ void MainWindow::on_actionFunctions_triggered()
     //m_functions_gui->m_functions_List   = calc.m_FunctionsList;
     //m_functions_gui->m_function         = calc.m_function;
 
-    m_functions_gui->updateFunctions();
+    //m_functions_gui->updateFunctions();
     m_functions_gui->show();
 
 }
@@ -664,3 +672,13 @@ void MainWindow::on_actionAbout_MathGraphica_triggered()
 }
 
 
+
+void MainWindow::on_actionHelp_triggered()
+{
+    QString path = QString("file:///%1/%2")
+      .arg(QApplication::applicationDirPath())
+      .arg(tr("mat_html/mat_manual_en.html"));
+
+    if (! QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode)))
+        QMessageBox::about(0,tr("Error"),tr("Help file not found"));
+}

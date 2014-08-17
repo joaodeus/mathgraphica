@@ -9,13 +9,14 @@ Functions_gui::Functions_gui(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //m_functionsListPtr = NULL;
-    valueReturn = -1;
+    valueReturn         = -1;
+    m_functionsListPtr  = NULL;
+
 }
 
 Functions_gui::~Functions_gui()
 {
-    //m_functionsListPtr = NULL;
+    m_functionsListPtr = NULL;
     delete ui;
 }
 
@@ -50,6 +51,8 @@ void Functions_gui::on_pushButton_new_clicked()
 
 void Functions_gui::on_pushButton_delete_clicked()
 {
+
+
     int index = ui->tableWidget->currentRow();
 
     //if (index < 0 || index >= m_functions_List.size())
@@ -77,7 +80,7 @@ void Functions_gui::on_pushButton_ok_clicked()
         return;
 
     //-- to refactor, check wich functions have been changed and only update those
-    // for now wI'm felling lazy and will just delete and copy
+    // for now wI'm felling lazy and will just delete all and then copy all from tablewidget
 
     //(*m_functionsListPtr).clear();
     m_functionsListPtr->clear();

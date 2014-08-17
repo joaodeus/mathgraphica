@@ -2,6 +2,7 @@
 #define VARIABLES_GUI_H
 
 #include <QWidget>
+#include "calculator/mynumber.h"
 
 namespace Ui {
 class Variables_gui;
@@ -16,9 +17,11 @@ public:
     ~Variables_gui();
 
     int valueReturn;
-
+    QStringList *m_variables_ListPtr;
+    QList<MyNumber> *m_values_ListPtr;
 
     void showEvent(QShowEvent *event);
+    void updateVariables();
 
 
 private slots:

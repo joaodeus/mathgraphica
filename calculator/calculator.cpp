@@ -396,6 +396,11 @@ void Calculator::addVariableValue(QString variable_, MyNumber value_)
         variables_List[index] = variable_;
         values_List[index] = value_;
     }
+    else
+    {
+        variables_List.append(variable_);
+        values_List.append(value_);
+    }
 }
 
 void Calculator::addVariableValue(QString variable_, QString value_)
@@ -406,9 +411,12 @@ void Calculator::addVariableValue(QString variable_, QString value_)
         variables_List[index] = variable_;
         values_List[index] = parser.SolveExpression(value_);
     }
+    else
+    {
+        variables_List.append(variable_);
+        values_List.append(parser.SolveExpression(value_));
+    }
 }
-
-
 
 void Calculator::addFunction(const myFunction &function_)
 {
@@ -427,9 +435,7 @@ void Calculator::addFunction(const myFunction &function_)
     }
 
     m_FunctionsList.append(function_);
-
 }
-
 
 //QString Calculadora::f_replace_UserDefinedFunction(QString &f, QList<myFunction> list_functions)
 QString Calculator::Expression_Replace_User_Defined_Function(QString &expression_)

@@ -62,9 +62,9 @@ public:
     void SaveImageAs();
 
 protected:
-    GLint vertexAttr;
-    GLint matrixAttr;
-    GLint projAttr;
+  //  GLint vertexAttr;
+  //  GLint matrixAttr;
+  //  GLint projAttr;
     QMatrix4x4 projection;
     QMatrix4x4 orientation;
 
@@ -93,6 +93,9 @@ public:
     double xRot;
     double yRot;
     double zRot;
+    double tx;
+    double ty;
+    double tz;
     double AutoRotx;
     double AutoRoty;
     double AutoRotz;
