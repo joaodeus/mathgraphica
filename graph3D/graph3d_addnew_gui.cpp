@@ -162,36 +162,49 @@ void Graph3D_AddNew_gui::on_pushButton_colorA_clicked()
 {
     QColorDialog dlg;
     QColor color = dlg.getColor();
-    m_graph3D.setColorA(color);
-    ui->pushButton_colorA->setAutoFillBackground(true);
-    ui->pushButton_colorA->setStyleSheet(strFromColor(color));
+    if (color.isValid())
+    {
+        m_graph3D.setColorA(color);
+        ui->pushButton_colorA->setAutoFillBackground(true);
+        ui->pushButton_colorA->setStyleSheet(strFromColor(color));
+    }
+
 }
 
 void Graph3D_AddNew_gui::on_pushButton_colorB_clicked()
 {
     QColorDialog dlg;
     QColor color = dlg.getColor();
-    m_graph3D.setColorB(color);
-    ui->pushButton_colorB->setAutoFillBackground(true);
-    ui->pushButton_colorB->setStyleSheet(strFromColor(color));
+    if (color.isValid())
+    {
+        m_graph3D.setColorB(color);
+        ui->pushButton_colorB->setAutoFillBackground(true);
+        ui->pushButton_colorB->setStyleSheet(strFromColor(color));
+    }
 }
 
 void Graph3D_AddNew_gui::on_pushButton_colorC_clicked()
 {
     QColorDialog dlg;
     QColor color = dlg.getColor();
-    m_graph3D.setColorC(color);
-    ui->pushButton_colorC->setAutoFillBackground(true);
-    ui->pushButton_colorC->setStyleSheet(strFromColor(color));
+    if (color.isValid())
+    {
+        m_graph3D.setColorC(color);
+        ui->pushButton_colorC->setAutoFillBackground(true);
+        ui->pushButton_colorC->setStyleSheet(strFromColor(color));
+    }
 }
 
 void Graph3D_AddNew_gui::on_pushButton_colorD_clicked()
 {
     QColorDialog dlg;
     QColor color = dlg.getColor();
-    m_graph3D.setColorD(color);
-    ui->pushButton_colorD->setAutoFillBackground(true);
-    ui->pushButton_colorD->setStyleSheet(strFromColor(color));
+    if (color.isValid())
+    {
+        m_graph3D.setColorD(color);
+        ui->pushButton_colorD->setAutoFillBackground(true);
+        ui->pushButton_colorD->setStyleSheet(strFromColor(color));
+    }
 }
 
 void Graph3D_AddNew_gui::on_pushButton_fxy_clicked()

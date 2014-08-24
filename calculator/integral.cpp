@@ -3,14 +3,13 @@
 Integral::Integral(Parser *parser_)
 {
     parser                      = parser_;
-    lowerLimit                  = -10;
-    lowerLimitExpression        = "-10";
-    upperLimit                  = 10;
-    upperLimitExpression        = "10";
-    integralExpression          = "2x^2-3";
+    lowerLimit                  = 0;
+    lowerLimitExpression        = "0";
+    upperLimit                  = 1.5708;
+    upperLimitExpression        = "pi/2";
+    integralExpression          = "2*cos(x)";
     numberOfIntervals           = 100;
     numberOfIntervalsExpression = "100";
-
 }
 
 

@@ -71,6 +71,7 @@
      <string>Calculos</string>
     </property>
     <addaction name="actionCalculator"/>
+    <addaction name="actionBaseConverter"/>
     <addaction name="actionEquation"/>
     <addaction name="separator"/>
     <addaction name="actionFormulas"/>
@@ -119,7 +120,7 @@
    <addaction name="actionGraph_3D"/>
    <addaction name="separator"/>
    <addaction name="actionCalculator"/>
-   <addaction name="separator"/>
+   <addaction name="actionBaseConverter"/>
    <addaction name="actionEquation"/>
    <addaction name="separator"/>
    <addaction name="actionFormulas"/>
@@ -324,6 +325,21 @@
    </property>
    <property name="text">
     <string>Graph 3D Parametric</string>
+   </property>
+  </action>
+  <action name="actionBaseConverter">
+   <property name="icon">
+    <iconset resource="mathgraphica.qrc">
+     <normaloff>:/images/images/binary.png</normaloff>:/images/images/binary.png</iconset>
+   </property>
+   <property name="text">
+    <string>BaseConverter</string>
+   </property>
+   <property name="toolTip">
+    <string>Base converter</string>
+   </property>
+   <property name="shortcut">
+    <string>B</string>
    </property>
   </action>
  </widget>

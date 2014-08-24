@@ -204,9 +204,12 @@ void Graph2D_AddNew_gui::on_pushButton_color2D_clicked()
 {            
     QColorDialog dlg;
     QColor color = dlg.getColor();
-    m_graph2D.setColor(color);
-    ui->pushButton_color2D->setAutoFillBackground(true);
-    ui->pushButton_color2D->setStyleSheet(strFromColor(color));
+    if (color.isValid())
+    {
+        m_graph2D.setColor(color);
+        ui->pushButton_color2D->setAutoFillBackground(true);
+        ui->pushButton_color2D->setStyleSheet(strFromColor(color));
+    }
 }
 
 void Graph2D_AddNew_gui::on_checkBox_polarGraph_clicked(bool checked)

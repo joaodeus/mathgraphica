@@ -1,0 +1,574 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Math Graphica</title>
+
+<link rel="stylesheet" href="style" type="text/css"></head>
+<body><div style="text-align: center;"><big><big>&#8220;<font size="4"><big><big><i>Math
+Graphica&#8221; &nbsp;- &nbsp;&nbsp;Quick and
+Dirty Manual</i></big></big></font></big></big><span class="Apple-style-span" style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; font-size: medium;"><span class="Apple-style-span" style="font-size: 26px; text-align: center;"><i><a href="../mat_mobile_html/math_mobile_manual_en.html" target="_top"><small><br></small></a></i></span></span></div>
+<p style="margin-bottom: 0cm;" align="center"><img style="width: 128px; height: 128px;" alt="logo" src="math_logo128.png"></p><p style="margin-bottom: 0cm; text-align: center;"><big>Version 2. (2014)</big></p><p style="margin-bottom: 0cm;" align="center"></p>
+<big>-&nbsp;</big><a href="#What_is_Math_Graphica_" target="_top"><big>What is&nbsp;Math Graphica ?</big></a><br><big>- <a href="#Conventions" target="_top">Conventions</a></big><br><big>-&nbsp;<a href="#Math_Graphica_main_window" target="_top">Math Graphica Main window</a><br>- <a href="#Calculator" target="_top">Calculator</a><br></big><big>- <a target="_top" href="#Output_Format">Output Format</a></big><big><br>- <a href="#Equation" target="_top">Equation</a><br>- <a href="#Integration_and_Double_Integration" target="_top">Integrals and Double Integrals</a><br>&nbsp; &nbsp; - <a href="#Simple_integration:" target="_top">Integral</a><br>&nbsp; &nbsp; - <a href="#Double_integration:" target="_top">Double integral</a><br>- <a href="#Graphs" target="_top">Graph's</a><br>&nbsp; &nbsp; -&nbsp;<a href="#3D_Graphs" target="_top">3D / 4D Graph's</a><br>&nbsp;&nbsp;&nbsp; - <a href="#2D_Graphs" target="_top">2D Graph's</a><br>- <a href="#System_of_Equations" target="_top">System of Equations</a><br>- <a href="#Command_line" target="_top">Command Line</a><br>-&nbsp;<a target="_top" href="#User_defined_functions">User defined Functions</a><br></big><big>- <a target="_top" href="mat_manual_en.html#Variables">Variables</a></big><br><big>- <a href="#Formulas" target="_top">Formulas</a></big><br><big>- <a target="_top" href="#Base_number_converter">Base number converter</a></big><br><big>- <a href="#Matrix" target="_top">Matrix</a><br>- <a href="#Contact" target="_top">Contact</a><br><br><br><br></big>
+<ul>
+<li>
+<p style="margin-bottom: 0cm;" align="justify"><big><font size="4"><big><i><a name="What_is_Math_Graphica_"></a>What is Math Graphica ?</i></big></font></big></p>
+</li>
+</ul>
+
+<p style="margin-bottom: 0cm;" align="justify"><big>Math
+Graphica aims to be
+a very easy to use math software. The idea is for you to use it right
+away without having to read this manual, and yet, give you the
+flexibility and power to perform more sophisticated calculation in a
+very easy way. </big></p>
+<p style="margin-bottom: 0cm;" align="justify"><big>Some
+features of Math
+Graphica: expression parser with real and complex numbers,
+trigonometric functions, 2D / 3D graphs, integrals and equation
+system.</big></p><p style="margin-bottom: 0cm;" align="justify"></p><p style="margin-bottom: 0cm;" align="justify"><big></big> </p>
+<ul><li><big><font size="4"><big><i><a name="Conventions"></a>Conventions</i></big></font></big></li></ul><p style="margin-bottom: 0cm;" align="justify"><big>Some conventions used by Math Graphica:</big><br><br><big>- Floating point numbers use the dot notation: &nbsp; &nbsp;3.2 &nbsp; (correct)<br>&nbsp;not
+the comma notation &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+3,2 &nbsp; (wrong)<br><br>- Imaginary numbers use the following notation: &nbsp; &nbsp; &nbsp;2+3i &nbsp; (</big><big>correct</big><big>)<br>&nbsp;and
+not &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 2+i3 &nbsp; (</big><big>wrong</big><big>)<br><br>-
+Variables can be defined with letters, numbers and underscore character
+'_' , but must always start with a letter. Can not be equal to
+operators, variables or functions defined by Math Graphica:<br><br></big>&nbsp;&nbsp;&nbsp;&nbsp;<big>
+&nbsp;&nbsp;&nbsp; x &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; (</big><big>correct</big><big>)<br>&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; x2 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; (</big><big>correct</big><big>)<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; minha_variavel_2 &nbsp;&nbsp;&nbsp; (</big><big>correct</big><big>)<br>&nbsp; &nbsp; <br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; _x &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; (wrong</big><big>)<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 2variavel </big><big>&nbsp;&nbsp;&nbsp; (wrong</big><big>)</big><big><br></big>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <big>&nbsp; i &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; (</big><big>wrong</big><big>)</big><big> it's the imaginary number)<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; e &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</big><big>(</big><big>wrong</big><big>, it't the Neper number)</big><br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;E <big>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; (</big><big>wrong</big><big>, é a operator )</big></p><p style="margin-bottom: 0cm;" align="justify"><big></big>&nbsp;</p>
+<ul>
+<li>
+<p style="margin-bottom: 0cm;" align="justify"><big><font size="4"><big><i><a name="Math_Graphica_main_window"></a>Math Graphica main window</i></big></font></big></p>
+</li>
+</ul>
+
+<p style="margin-bottom: 0cm; text-align: left;"><img title="MainWindow" style="width: 486px; height: 363px;" alt="MainWindow" src="mainwindow.png"><br>
+</p>
+<br><big>MathGraphica has a command line where you can perform must of the available features (see <a href="mat_manual_en.html#Command_line" target="_top">Command Line</a></big>)<big>, but you can also use the user friendly menu. Most icons are self explanatory, and have tooltips to help you.</big><br><br><br>
+<ul>
+<li>
+<p style="margin-bottom: 0cm;" align="justify"><big><font size="4"><big><i><a name="Calculator"></a>Calculator</i></big></font></big></p>
+</li>
+</ul>
+<p style="margin-bottom: 0cm;" align="justify"><img style="width: 32px; height: 32px;" alt="Calculator icon" src="calculadora.png"><br>
+</p>
+
+
+<p style="margin-bottom: 0cm; text-align: left;"><img title="calculator" style="width: 517px; height: 395px;" alt="calculator" src="calculator.png"><br>
+</p>
+<br>
+<big>
+You can see all the
+available functions and start clicking, or typing the expression you
+want to calculate. Then press Ok.&nbsp;Or you can just use the
+command line in the main window to write the desired
+mathematical expression instead.<br><br>Next image show the result for the math expression&nbsp;cos(3)+2/5</big><p style="margin-bottom: 0cm; text-align: left;"><img title="MainWindow" style="width: 478px; height: 356px;" alt="MainWindow" src="mainwcalc.png"><br></p>
+<p style="margin-bottom: 0cm;" align="justify"><big>Math
+Graphica saves a
+list of all calculations. Just click to bring then to the command
+line, or double click them to open the calculator dialog.</big></p><p style="margin-bottom: 0cm; font-weight: bold; text-decoration: underline;" align="justify"><big>You can navigate throw the command line and the calculation list with the Up, Down and Enter keys.</big></p><p style="margin-bottom: 0cm;" align="justify"></p><p style="margin-bottom: 0cm;" align="justify"></p><ul><li><big><font size="4"><big><i><a name="Output_Format"></a>Output Format</i></big></font></big></li></ul><big>In
+the previous example, when calculating 'cos(3)+2/5' the result was
+'-3.789 63 - 9.109 23i'. We can format the result in mainwindow menu 'Settings'
+-&gt; 'Output Format'<br><br><img title="Output format" style="width: 341px; height: 225px;" alt="Output format" src="outputformat.png"><br><br>We have 3 options for the format output:<br><br>- <span style="font-weight: bold;">scientific</span>: Always uses the scientific notation, in this case the result display would be '-3.789 626E+00 - 9.109 228E+00i'<br>- <span style="font-weight: bold;">fixed decimal</span>: Always uses the fixed decimal notation, this is the default option<br>- <span style="font-weight: bold;">automatic</span>: automatically choose one the above options, the one that best fits the result.<br><br>Fixed
+decimal with automatic precision will always display the result with 6
+decimal digits. If you disable automatic precision, you be able to
+choose the number of decimal digits.<br>Note that automatic format with
+automatic precision disabled, will override the number of decimal
+digits defined and will display the most suitable digits.<br>The <span style="font-weight: bold;">'group digit'</span> option is self explanatory, it will group the digits by inserting a white space in any group of 3 digits.<br><br>group digits enabled: &nbsp; &nbsp;&nbsp;-3.789 63 - 9.109 23i<br>group digits disabled &nbsp;&nbsp;&nbsp;&nbsp;-3.78963 - 9.10923i<br><br></big><big>-&nbsp;<span style="font-weight: bold;">polar form: </span>changes the results to the polar coordinate system using the cis() function<span style="font-weight: bold;"><br><br></span>Example: 4+4i = 5.65685cis(45)<br><span style="font-weight: bold;"></span></big><ul><li><p style="margin-bottom: 0cm;" align="justify"><big><font size="4"><big><i>Functions / operators /
+constants available:</i></big></font></big></p>
+</li>
+</ul>
+<p style="margin-bottom: 0cm;"><br>
+</p>
+<p style="margin-bottom: 0cm;"><big>When writing a
+floting point number use
+'.' ( 3.2 ok) and not the ',' ( 3,2 wrong)</big></p>
+<br><table style="width: 560px; height: 306px;" border="1" bordercolor="#000000" cellpadding="4" cellspacing="4">
+<col style="font-weight: bold; font-style: italic;" width="92"> <col style="font-weight: bold; font-style: italic;" width="347"> <tbody>
+<tr style="font-weight: bold;">
+<td colspan="2" style="width: 451px; vertical-align: top;">
+<p>Constants</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="92">
+<p style="width: 28px;">pi</p>
+</td>
+<td style="width: 347px;">
+<p style="margin-left: 0px; width: 591px;"> Pi number, 3.1415...</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="92">
+<p> e</p>
+</td>
+<td style="width: 347px;">
+<p> Nepper number 2.71... (do not use 'E' )</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="92">
+<p>i</p>
+</td>
+<td width="347">
+<p>Imaginary number, use this notation: 2+3.2i&nbsp;</p>
+<p>do not use: 2+i3.2</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-bottom: 0cm;"><br>
+</p>
+<table style="width: 563px; height: 606px;" border="1" bordercolor="#000000" cellpadding="4" cellspacing="4">
+<col width="92"> <col width="351"> <tbody>
+<tr>
+<td colspan="2" valign="top" width="455">
+<p>Operators</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="92">
+<p style="width: 28px;">+</p>
+</td>
+<td style="width: 351px;">
+<p style="margin-left: 0px; width: 488px;">sum</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="92">
+<p>-</p>
+</td>
+<td width="351">
+<p>subtration</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="92">
+<p>*</p>
+</td>
+<td width="351">
+<p>multiplication</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="92">
+<p>/</p>
+</td>
+<td width="351">
+<p>division</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="92">
+<p>^</p>
+</td>
+<td width="351">
+<p>Power</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="92">
+<p>| </p>
+</td>
+<td style="width: 351px;">
+<p>Absolute value, e.g. |-10| = 10 </p>
+<p>(this is not a logical operator)</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="92">
+<p> E</p>
+</td>
+<td width="351">
+<p> Same as *10^, example:&nbsp; 3E2 = 3*10^2 = 300</p>
+<p>(do not use 'e' , 'e' is the Nepper number)</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p style="margin-bottom: 0cm;"><br>
+</p>
+<table style="width: 569px; height: 356px;" border="1" bordercolor="#000000" cellpadding="4" cellspacing="4">
+<col width="208"> <col width="222"> <tbody>
+<tr>
+<td colspan="2" valign="top" width="442">
+<p> Trigonometric functions</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="208">
+<p> sin, cos, tan, cotg, csc, sec</p>
+</td>
+<td width="222">
+<p>Trigonometric </p>
+</td>
+</tr>
+<tr valign="top">
+<td width="208">
+<p> asin, acos, atan, acotg, acsc, asec</p>
+</td>
+<td width="222">
+<p>Inverse trigonometric </p>
+</td>
+</tr>
+<tr valign="top">
+<td width="208">
+<p> sinh, cosh, tanh, cotgh, csch, sech</p>
+</td>
+<td width="222">
+<p>hyperbolic</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="208">
+<p> asinh, acosh, atanh, acotgh, acsch, asech</p>
+</td>
+<td width="222">
+<p>Hyperbolic inverse</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-bottom: 0cm;"></p>
+<table style="width: 570px; height: 402px;" border="1" bordercolor="#000000" cellpadding="4" cellspacing="4">
+<col width="92"> <col width="336"> <tbody>
+<tr>
+<td colspan="2" valign="top" width="440">
+<p>Other functions</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="92">
+<p>sqrt</p>
+</td>
+<td width="336">
+<p>Square root</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="92">
+<p>log</p>
+</td>
+<td width="336">
+<p>Natural logarithm</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="92">
+<p>ln</p>
+</td>
+<td width="336">
+<p>Exponencial logarithm</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="92">
+<p>exp </p>
+</td>
+<td width="336">
+<p>Exponencial, example:&nbsp; exp(3) &nbsp;&nbsp;<br>same as: &nbsp;e^3</p>
+</td>
+</tr>
+<tr valign="top">
+<td width="92">
+<p>sinc</p>
+</td>
+<td width="336">
+<p>Sinc function, sinc(x) = sin(pi*x)/(pi*x)</p>
+</td>
+</tr><tr><td>real</td><td>real part of a complex number, i.e. &nbsp; &nbsp;real(3-2i) = 3</td></tr><tr><td>imag</td><td>imaginary part of a complex number i. e. &nbsp;real (3-2i) = -2i</td></tr><tr><td>abs</td><td>Equal to the Absolute value, e.g. &nbsp; &nbsp;abs(-10) = 10</td></tr>
+</tbody>
+</table>
+<p style="margin-bottom: 0cm;"><big><br>
+</big></p>
+<p style="margin-bottom: 0cm;"><big>All functions
+are case insensitive, you
+can write cos(3) or Cos(3), except for 'e', the Nepper number wich is
+different from operator 'E'.</big></p>
+<p style="margin-bottom: 0cm;"> </p><p style="margin-bottom: 0cm;"></p>
+<ul>
+<li>
+<p style="margin-bottom: 0cm;" align="justify"><big><font size="4"><big><i><a name="Equation"></a>Equation</i></big></font></big></p>
+</li>
+</ul>
+<p style="margin-bottom: 0cm;"><img style="width: 32px; height: 32px;" alt="Equation icon" src="equation2.png"><br>
+</p>
+<big><img title="Equation" style="width: 368px; height: 273px;" alt="Equation" src="equation.png"></big>
+
+<p style="margin-bottom: 0cm;"><big>Just write any
+equation you like in the
+f(x) and g(x) edit boxes. </big></p>
+<p style="margin-bottom: 0cm;"><big>You can also use
+other variable
+different than 'x', just use 'y', or 'myvar1' the program Math
+Graphica will automatically detect the variable.&nbsp;</big></p><p style="margin-bottom: 0cm;"><big>The 'min' and 'max'
+edit are the limits of the search interval, 'delta' is the step increment of the numeric algorithm, and
+'precision' is the precision result. The default values will be ok
+for the must common situations. </big></p>
+
+<p style="margin-bottom: 0cm;"><big>The solution:</big></p>
+<p style="margin-bottom: 0cm;"><img title="Equation Solution" style="width: 485px; height: 361px;" alt="Equation Solution" src="equationsolution.png"><br></p>
+<br>
+<p style="margin-bottom: 0cm;"><big>The program will
+automatically create a
+variable ''x' and, has in this case, of multiple solution, assign
+the last value ( x = 3 in this example). We'll see more about
+variable later in the 'command line' section.</big></p>
+<p style="margin-bottom: 0cm;"><big>Again, you
+wouldn't need to call the
+equation dialog, could just write it in the command line. The only
+thing about the dialog is that will give you more options (setting the search interval, precision and delta). </big></p>
+<p style="margin-bottom: 0cm;"><big>Also if you
+double click the equation
+in the mainwindow list, it will bring the equation dialog. If you
+double click the result t will bring the calculator dialog. </big></p>
+<p style="margin-bottom: 0cm;"><big>Please do not
+use equations like:</big></p>
+<p style="margin-bottom: 0cm;"><big>x=x+1</big></p>
+<p style="margin-bottom: 0cm;"><big>This is correct
+only in programming
+language where '=' is the assignement operator and 'x' is incremented
+one unit, but mathematically is a equation without solution. </big></p>
+<p style="margin-bottom: 0cm;"><big>If you do this,
+Math Graphica will&nbsp;not find a solution. Math Graphica uses a
+very
+fast, but experimental search algorithm, but this algorithm looses is
+speed when dealing with parallel expressions like 'x' and 'x+1'
+wich are parallel lines. As you probably noticed, Math Graphica
+solved the early equation 'x^2-4x=3x-2' in almost no time, searching
+in a interval of 120.000.000 (-1E6 to 1E6 using steps of 0.1). That´s
+very fast. </big></p>
+<br>
+<br><br>
+<ul>
+<li>
+<p style="margin-bottom: 0cm;" align="justify"><big><font size="4"><big><i><a name="Integration_and_Double_Integration"></a>Integrals and Double
+Integrals</i></big></font></big></p>
+</li>
+</ul>
+
+
+
+<br><big>
+<a name="Simple_integration:"></a>
+Simple integral:</big>
+<p style="margin-bottom: 0cm;" align="justify">
+<img style="width: 32px; height: 32px;" alt="Integration" src="integral.png"></p>
+<img title="Integral" style="width: 378px; height: 192px;" alt="Integral" src="integralEditor.png"><br>
+<p style="margin-bottom: 0cm;"><big>Notice you can
+use expressions like
+'pi/2'&nbsp;in the integration intervals. Also if you don't
+remember all the available functions Math Graphica has to offer, just
+click in the f(x) button and it will open the calculator dialog where
+you can compose your function to integrate ( in this picture is
+2*cos(x) ). 'm' is a quality factor, the higher the slower calculation
+will be, but you will get better accuracy. Actually 'm' is the number of intervals in the Simpson's
+composite numerical integration rule.</big></p>
+<p style="margin-bottom: 0cm;"></p>
+<p style="margin-bottom: 0cm;"><big><a name="Double_integration:"></a>Double
+integral:</big></p>
+<p style="margin-bottom: 0cm;" align="justify"><img style="width: 32px; height: 32px;" alt="double integration" src="integralD.png">
+</p>
+<p style="margin-bottom: 0cm;"><img title="double integral" style="width: 449px; height: 217px;" alt="double integral" src="integralDoubleEditor.png"><br>
+</p>
+<br>
+<p style="margin-bottom: 0cm;"><big>Also notice you
+can use expressions
+like '2*x' and '-x' in the limits of the inner integral. This is
+very useful. Again you can click the f(x,y) button to bring the
+calculator dialog to help you compose the integration expression.</big></p>
+<br>
+<big>Here's the solutions:</big>
+<p style="margin-bottom: 0cm;"><big><img title="integrals solution" style="width: 485px; height: 363px;" alt="integrals solution" src="integralSolutions.png"><br>
+</big></p>
+<p style="margin-bottom: 0cm;"><big>Please note that we could just have calculated the integrals directly in the command line.</big></p>
+<br>
+<br><br>
+<ul>
+<li>
+<p style="margin-bottom: 0cm;" align="justify"><big><font size="4"><big><i><a name="Graphs"></a>Graph's</i></big></font></big></p></li>
+</ul>
+
+<p style="margin-bottom: 0cm;"><big><a name="3D_Graphs"></a>3D / 4D Graph's </big></p>
+<br>
+<img style="width: 32px; height: 32px;" alt="3D Graph" src="graf3d.png">
+<p style="margin-bottom: 0cm;" align="justify"><img title="Graph 3D" style="width: 322px; height: 372px;" alt="Graph 3D" src="graph3dDialog.png"></p>
+<p style="margin-bottom: 0cm;"></p>
+<p style="margin-bottom: 0cm;"><big>As you notice by
+now, all dialog's have
+predefined values in the edit boxes, to help you fill more
+confortable in the first time you're using the program. So, we will just use the graph expression "cos(x)*sin(y)*cos(t)".</big></p><p style="margin-bottom: 0cm;"><big>Please note that we must define the graph variables, x and y in this example. We
+could have used cos(u)*sin(v)*cis(t), we would just have to define the
+variables u, v in the variables line edits. The t variable it's a
+special variable that defines time, therefore does not need to be
+defined, and makes this a 4D graph (3 spacial dimensions x, y, z, plus
+a time dimension t).&nbsp;</big></p><p style="margin-bottom: 0cm;"><big>Note also the graphs color buttons, that you can click to change the four predefined graph colors.</big></p><p style="margin-bottom: 0cm;"><big>Clicking OK, we get the
+following picture.</big></p><p style="margin-bottom: 0cm;"><big></big></p><p style="margin-bottom: 0cm;"><img style="width: 529px; height: 393px;" alt="Graph 3D" title="Graph 3D" src="graph3d_new.png"></p><p style="margin-bottom: 0cm;"><big>You can drag the graph with the mouse to do a 3D rotation, and you can zoom with the mouse wheel.&nbsp;</big></p><p style="margin-bottom: 0cm;"><big>The 'Exit' button will, obviously, exit the graph window. 'Sabe Image' saves the graph as a png image file.&nbsp;</big></p><p style="margin-bottom: 0cm;"><big>'Start/Stop'
+button will start/stop the 4D effect, the time variable will start
+being incremented and you will see a graph with a moving effect.</big></p><p style="margin-bottom: 0cm;"><big>The button '(+)' will give you a new editor with more options:</big></p><p style="margin-bottom: 0cm;"><big><img style="width: 276px; height: 376px;" alt="Graph3D Editor" title="Graph3D Editor" src="graph3dEditor.png"></big></p><p style="margin-bottom: 0cm;"><big>You can:</big></p><p style="margin-bottom: 0cm;"><big>- create a new graph</big></p><p style="margin-bottom: 0cm;"><big>- delete a graph from the list</big></p><p style="margin-bottom: 0cm;"><big>-
+edit&nbsp;the graphs: press any graph of the list and click the button
+'Edit Graph' or just double click the graph from the list</big></p><p style="margin-bottom: 0cm;"><big>- change the background color</big></p><p style="margin-bottom: 0cm;"><big>-
+change the automatic graph 3D rotation. If you have already drag the
+graph you have noticed, when you release the mouse button, the rotation
+doesn't terminate abruptly, but smoothly fades away. You can change
+this behaviour by unsetting this option and the rotation will
+immediately stop after&nbsp;the mouse button release.</big></p><p style="margin-bottom: 0cm;"><big>-
+change the time interval increment of the time t variable that causes
+the graph to 4D movement effect. This will make the graph movement
+faster or slower.</big></p><br>
+
+<p style="margin-bottom: 0cm;"><big>You can also zoom the graph with the keyboard '+' and '-' (all axis) and with '1', '2', '3', '4', '5', '6' for zooming in out in the x, y, z axis.&nbsp;</big></p><p style="margin-bottom: 0cm;"><big>Graph rotation also should work with '8', '9' and the arrows keys.</big></p><p style="margin-bottom: 0cm;"><big></big></p><big>Next image show you the window with several graphs: </big><br><p style="margin-bottom: 0cm;"><big><img style="width: 533px; height: 397px;" alt="Graphs 4D" title="Graphs 4D" src="severalgraphs3D.png"></big></p><br><br><br><p style="margin-bottom: 0cm;"><big><a name="2D_Graphs"></a>2D Graph's</big></p>
+<p style="margin-bottom: 0cm;"><big><img style="width: 32px; height: 32px;" alt="Graph 2D icon" src="graf2d.png"></big></p><p style="margin-bottom: 0cm;"><big>The graph 2D editor allows us to define the graph function, the graph limits ('-x and 'x'), the&nbsp;color, the 'dx' wich is the delta of the graph dots.</big></p><p style="margin-bottom: 0cm;"><big>We can also define if the graph will be polar or cartesian with the checkbox.&nbsp;</big></p><p style="margin-bottom: 0cm;"><big>The
+variable 'x' does not need to be defined, MathGraphica will automatic
+detect the variable name, you can use any other names like 'u',
+'myVar'. The variable 't' also does not need to be defined, it's
+automatic recognized as a time variable. So this will be a graph with
+two spacial dimensions,&nbsp;x and y, and a time&nbsp;t dimension. This graphs have a beautifull animation effect&nbsp;as time t is being increment.<br>
+</big></p>
+<p style="margin-bottom: 0cm;"><big><img title="Graph 2D Editor" style="width: 282px; height: 338px;" alt="Graph 2D Editor" src="graph2dEditor.png"><br>
+</big></p>
+<p style="margin-bottom: 0cm;"></p>
+<p style="margin-bottom: 0cm;"><big>The '5*cos(x-t)' graph window:</big></p>
+<p style="margin-bottom: 0cm;"><big><img title="Graph 2D" style="width: 529px; height: 395px;" alt="Graph 2D" src="graph2d.png"><br>
+</big></p>
+<br><big>Use the whell mouse for zoom, and click
+and drag to move the graph.</big> The graph window has some buttons:<br><big><br>- Exit: exits the graph window<br>- Save Image: saves the graph image has a png file<br>- Start/Stop:&nbsp;start/stop the increment of the time variable t wich causes the movement animation effect <br>- (+) : &nbsp;open a new editor with more options:<br><br><img style="width: 276px; height: 372px;" alt="graph 2d options editor" title="graph 2d options editor" src="graph2dOptionsEditor.png"><br></big><big><br>This
+editor is very similar to the 3D graph options editor. We have a graph
+list, where we can add more graphs,&nbsp;delete or edit existing ones.<br>We
+can change the background color, change the delta time interval for
+graphs with time t variables wich causes the graph movement to be
+slower or faster.<br><br>Here is a image with a graph window with several graphs: </big><p style="margin-bottom: 0cm;"><big><img style="width: 527px; height: 394px;" alt="graphs 2D" title="graphs 2D" src="severalgraphs2D.png"></big></p><br><br><br>
+
+<ul>
+<li>
+<p style="margin-bottom: 0cm;" align="justify"><big><font size="4"><big><i><a name="System_of_Equations"></a>System of Equations</i></big></font></big></p>
+</li>
+</ul>
+<p style="margin-bottom: 0cm;"><img style="width: 32px; height: 32px;" alt="System of equations" src="sist_eq2.png"><br>
+</p>
+<p style="margin-bottom: 0cm;"><big>Just select the
+number of equations you
+want to calculate, then enter the values or if you want press the
+random button, that will generates numbers for your equation system.
+Then press solve, and there's your solution. </big></p>
+<p style="margin-bottom: 0cm;"><big><img title="System of Equations" style="width: 737px; height: 354px;" alt="System of Equations" src="systemEquationEditor.png"><br>
+</big></p>
+<p style="margin-bottom: 0cm;"><big>Note that&nbsp;you can
+use complex numbers and expression's in the equation system.</big></p>
+<p style="margin-bottom: 0cm;"></p><p style="margin-bottom: 0cm;"><br>
+</p>
+<ul>
+<li>
+<p style="margin-bottom: 0cm;" align="justify"><big><font size="4"><big><i><a name="Command_line"></a>Command line</i></big></font></big></p>
+</li>
+</ul>
+
+<p style="margin-bottom: 0cm;"><big>We can use the
+command line to create
+variables. Just type 'y=3.2' and we have a variable named y with
+value 3.2. Now you can define z = y+3, and we have a z variable with
+6.2 value.</big></p>
+<p style="margin-bottom: 0cm;"><big>You also can
+type expressions like
+'z+2*y' and Math Graphica will show you the result.</big></p>
+<p style="margin-bottom: 0cm;"><big>Also you can use
+names for variables
+like 'myvar2'. Remember it must start with a letter, then use
+letters, underscores and numbers. </big></p>
+
+<p style="margin-bottom: 0cm;"><big><img title="Command Line" style="width: 486px; height: 362px;" alt="Command Line" src="commandline.png"><br>
+</big></p>
+<big><br>You can navigate throw the command line and the list of calculations by pressing the arrows key up and down.<br>Pressing
+"Enter" in the command line is the same as clicking the "Ok"
+button,&nbsp;calcutes the expression in the command line and displays
+the result in calculation list.<br>
+</big>
+<p style="margin-bottom: 0cm;"><big>If you exit Math
+Graphica and start it
+again, it will retain the variables and their values, so you can use
+it again.</big></p>
+<p style="margin-bottom: 0cm;"></p><p style="margin-bottom: 0cm;"></p><ul><li><big><font size="4"><big><i><a name="Variables"></a>Variables</i></big></font></big></li></ul>
+<img style="width: 32px; height: 32px;" alt="variables" src="variables.png"><br><br><img style="width: 235px; height: 322px;" alt="variables dialog" src="variablesEditor.png"><br><br><big>To manaje the variables created in the command line we have the above dialog. It will show all the variables created so far. <br>We can set new names and values by editing. We can also add new variables here, or delete existing ones.</big><br><br><br><ul><li><big><font size="4"><big><i><a name="User_defined_functions"></a>User defined Functions</i></big></font></big></li></ul><img style="width: 32px; height: 32px;" alt="functions" title="functions" src="functions.png"><br><br><big>Imagine
+you want to define a mathematical function like f(x) = 2*x+3, and them
+you want to evalute for x= 3, something like f(3) = 2*(3)+3 = 9&nbsp; <br><br>Then just type in the command line:<br><br>f(x)=2*x+3<br><br>to calculate the function to the value of x= 3, just type in the command line:<br><br>f(3)<br><br>This is as simples as it gets. You can play around with expressions embebeding functions like:<br><br>2*f(4+3i)+7<br><br>Thats
+right, you can use an expression, or a complex number, as an input for
+the function, you can define all the function you want and use it as a
+argument to other functions.<br><br>We can create a function called average with two arguments that return the average value of those arguments, like <br><br>average(a, b) = (a+b)/2<br><br>We called the arguments , "a" and "b", but we can name them something more descriptive, as "my_first_argument" or "argument_2".<br><br><br><img style="width: 482px; height: 361px;" alt="user defined functions" title="user defined functions" src="userDefinedFunctions.png"><br><br></big><br><big>To manage all this functions we have a dialog editor wich will help you, just click in the main window "functions" icon:<br></big><br><img style="width: 225px; height: 324px;" alt="user defined functions editor" title="user defined functions editor" src="functionEditor.png"><br><br><big>It
+displays the two functions defined so far. We can edit the two
+functions. By clicking the 'New' button we can also create new
+functions in the editor, and clicking the 'Delete' button will deletethe selected function. <br><br>Please
+avoid creating functions with the same name, even if they have
+different&nbsp;number of arguments, probably it will
+cause&nbsp;undefined behaviours.<br></big><br><br>
+<ul>
+<li>
+<p style="margin-bottom: 0cm;" align="justify"><big><font size="4"><big><i><a name="Formulas"></a>Formulas</i></big></font></big></p>
+</li>
+</ul>
+<p style="margin-bottom: 0cm;"><img style="width: 32px; height: 32px;" alt="formulas icon" src="formulas2.png"><br>
+</p>
+<p style="margin-bottom: 0cm;"><big>This is a very
+powerfull feature. You can define any formula you like and solve it
+just like that. There are already some predefined formulas, but you can
+add as many you like by clicking in the "New" button.&nbsp;</big></p>
+<p style="margin-bottom: 0cm;"><big><img title="Formulas Editor" style="width: 684px; height: 531px;" alt="Formulas Editor" src="formulasEditor.png"><br>
+</big></p>
+<p style="margin-bottom: 0cm;"><big>Selected the formula you want, and then press 'Validate'.&nbsp;</big></p><p style="margin-bottom: 0cm;"><big><span style="text-decoration: underline; font-weight: bold;">The list of 'Constans' will automatically be filled with the variables from the formula</span>
+(in this example they are 'a', 'x', 'b' and 'c').</big></p><p style="margin-bottom: 0cm;"><big>In
+this example we have choose formula 2), the quadratic equation, so we want to find
+'x' and assign same values to 'a', 'b' and 'c'. The variable we want to
+find should always be assigned with '?'. If you double click on x, the value '?' will be automatic placed.</big></p><p style="margin-bottom: 0cm;"><big>Now we just press 'Solve' and we have our solution (-1, 2).&nbsp;</big></p><p style="margin-bottom: 0cm; font-weight: bold;"><big>MathGraphica
+however, cannot solve formulas with solutions that are complex
+imaginary numbers, so if we have choosen values like: a=2, b=2 and c=2,
+wich are complex roots, with would fail to find a solution. A
+workaround for this is to define a formula explicit to a variable, like
+formula number 3) wich is the first root of the quadratic equation.
+This will gives a solution even of it is a complex imaginary number.</big></p><p style="margin-bottom: 0cm;"><big>The
+last formula, in row 4, calculates the average value of the grades of 3
+students. Look how versatile this is, we can actually name variables
+like 'average', 'mary', 'john' and 'william'.</big></p><p style="margin-bottom: 0cm;"><big>The
+'min' and 'max' fields define the range of values from wich the
+solutions will be searched. 'delta' is the small interval from wich
+MathGraphica searches the solutions and 'precision' is exactly that,
+the
+precision or acuracy we will get in&nbsp;the solutions. You can alter
+this pre
+defined values, but they will be ok for the most situations.</big></p><p style="margin-bottom: 0cm;"><big>All formulas and values assigned to the variables are saved between sessions of Math graphica.</big><br></p><br><br><ul><li><big><font size="4"><big><i><a name="Base_number_converter"></a>Base number converter</i></big></font></big></li></ul><big><font size="4"><big><i><img style="width: 32px; height: 32px;" alt="Base number converter" title="Base number converter" src="binary.png"><br></i></big></font>Base number converter performs conversions between decimal, binary, octal and hexadecimal numbers.<br></big><br><img style="width: 455px; height: 275px;" alt="Base number converter" title="Base number converter" src="base_converter.png"><br><big><br>Just
+type any number in any base, and the other bases are automatically
+converteded. 'Clear' is a convenience button to clear the line edits.<font size="4"><big><i><br><br><br></i></big></font></big><ul><li><big><font size="4"><big><i><a name="Matrix"></a>Matrix</i></big></font></big></li></ul><img title="matrix" style="width: 32px; height: 32px;" alt="matrix" src="matrix2.png"><br><big>Matrix
+Operations Editor lets you define two matrixes and perform sum,
+subtraction and multiplication. Other operations are available in a
+popup menu wich appears with the right mouse click.</big><br><br><img title="matrices operations editor" style="width: 569px; height: 432px;" alt="matrices operations editor" src="matricesOperationsEditor.png"><br><br><big>Define the two upper matrices, define the operation (sum, subtraction or multiplication) in the combo box, and clik 'Calculate'.<br>The
+result will appear in the lower matrix. <br><br>By right clicking in the
+matrixes, a context menu will give you some options: create a random
+matrix, a matrix with&nbsp;ones, a matrix with zeros and a diagonal
+matrix. You can also inverse or transpose the matrix, and copy paste between matrix1, matrix2 and result.<br><br>However this matrix operations editor&nbsp;is limited has you can only do operations between two matrices.<br><br>You
+can achieve much more if you use the command line. Next we'll see how
+you can use the command line to create matrices, assign matrices to
+variables, and do operations between several matrices. <br><br>Matrices
+are defined in command line with square brackets, with comma separating
+rows, and semicolon separating lines, like this:<br><br>[2,3;4,6]<br><br>Then, you can do calculations like this:<br><br>[2,3;4,6]*[-7,2;0,3]<br><br>pressing Enter will give you the result:<br><br>[-14, 13 ; -28, 26]<br><br><img style="width: 471px; height: 349px;" alt="Matrix in the command line" title="Matrix in the command line" src="cmdMatrix.png"><br><br>However if you want to reuse the matrices it will be more convenient to save it in a variable, like this:<br><br>matrix_a=[2,3;4,6]<br>matrix_b=[-7,2;0,3]<br>matrix_a*matrix_b<br><br>The
+result will be displayed both in the command line and&nbsp;in a
+graphical window that will popup. Graphical windows are much more
+convenient for matrix display than the command line.<br><br><img style="width: 864px; height: 416px;" alt="Matrix operations in the command line" title="Matrix operations in the command line" src="cmdMatrixMultiplication.png"><br><br>Declaring matrices like&nbsp;</big><big>[2,3;4,6]</big><big> in the command line it's ok if the matrix is small enought but for huge matrices this may not be very convenient.&nbsp;<br><br>You
+can declare you matrix in a graphical window rather then in the command
+line, just type the macro "matrix" in the command line and graphical
+editor will appear. You can define the number of rows, columns, and
+also use the available buttons to create a one, zero, diagonal matrix. <br><br>However
+if you just type the macro "matrix", after you close the graphical
+window, your matrix will be lost becase it was not saved.<br>You should&nbsp;assign the macro "matrix" to a variable, like this:<br><br>my_matrix = matrix<br><br>Then after you close the graphic editor the matrix will be saved in the variable </big><big>my_matrix</big><big>.<br><br><img style="width: 890px; height: 421px;" alt="matrix editor" title="matrix editor" src="cmdMatrixEditor.png"><br></big><big><br>There's also a right click popup menu that will give extra options
+like, inverse and transpose matrix, and copy paste between matrices and
+the matrix operations editor.</big><br><br><br><br>
+<ul>
+<li><big><font size="4"><big><i><a name="Contact"></a>Contact</i></big></font></big></li>
+</ul>
+<big>Contact&nbsp;for
+bug reporting, suggestions, comments, feature requests at:<br></big><big><br>Email: <br><a href="mailto:math.graphica@gmail.com">math.graphica@gmail.com</a></big><big><br><br>Web: <br><a href="http://soft-ingenium.planetaclix.pt/" target="_blank">soft-ingenium.planetaclix.pt</a></big><br><br></body></html>

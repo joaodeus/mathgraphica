@@ -228,4 +228,3 @@ void Calculator_gui::setDegreeRadGrad(const int &DegreeRadGrad_)
     }
 
 }
-

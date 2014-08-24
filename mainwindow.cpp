@@ -5,6 +5,7 @@
 #include <QDesktopServices>
 //#include <QtSql>
 #include "gui/calculator_gui.h"
+#include "gui/baseconverter_gui.h"
 #include "gui/equation_gui.h"
 #include "gui/systemeq_gui.h"
 #include "gui/integral_gui.h"
@@ -677,8 +678,28 @@ void MainWindow::on_actionHelp_triggered()
 {
     QString path = QString("file:///%1/%2")
       .arg(QApplication::applicationDirPath())
+<<<<<<< HEAD
+      .arg(tr("math_html/mat_manual_en.html"));
+
+    if (! QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode)))
+        QMessageBox::about(0,tr("Error"),tr("Help file not found"));
+
+    /*QString path = QString("qrc:/math_html/mat_manual_en.html");
+      //.arg(QApplication::applicationDirPath())
+      //.arg(tr("math_html/mat_manual_en.html"));
+
+    if (! QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode)))
+        QMessageBox::about(0,tr("Error"),tr("Help file not found"));*/
+}
+
+void MainWindow::on_actionBaseConverter_triggered()
+{
+    baseConverter_gui *gui = new baseConverter_gui;
+    gui->show();
+=======
       .arg(tr("mat_html/mat_manual_en.html"));
 
     if (! QDesktopServices::openUrl(QUrl(path, QUrl::TolerantMode)))
         QMessageBox::about(0,tr("Error"),tr("Help file not found"));
+>>>>>>> 9c6971fcf5f3e7c086af781097185f74a470dfea
 }
