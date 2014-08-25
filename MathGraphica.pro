@@ -53,12 +53,8 @@ SOURCES += main.cpp\
     gui/variables_gui.cpp \
     graph3DParametric/graph3dparametric_addnew_gui.cpp \
     graph3DParametric/graph3dparametric.cpp \
-<<<<<<< HEAD
     graph3DParametric/graph3dparametric_opengl.cpp \
     gui/baseconverter_gui.cpp
-=======
-    graph3DParametric/graph3dparametric_opengl.cpp
->>>>>>> 9c6971fcf5f3e7c086af781097185f74a470dfea
 
 HEADERS  += mainwindow.h \
     graph3D/graph3d.h \
@@ -102,12 +98,8 @@ HEADERS  += mainwindow.h \
     graph3DParametric/graph3dparametric_addnew_gui.h \
     graph3DParametric/graph3dparametric.h \
     graph3DParametric/graph3dparametric_opengl.h \
-<<<<<<< HEAD
     calculator/math_functions_list.h \
     gui/baseconverter_gui.h
-=======
-    calculator/math_functions_list.h
->>>>>>> 9c6971fcf5f3e7c086af781097185f74a470dfea
 
 FORMS    += mainwindow.ui \
     gui/calculator_gui.ui \

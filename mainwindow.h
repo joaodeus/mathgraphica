@@ -67,11 +67,8 @@ private slots:
 
     void on_actionHelp_triggered();
 
-<<<<<<< HEAD
     void on_actionBaseConverter_triggered();
 
-=======
->>>>>>> 9c6971fcf5f3e7c086af781097185f74a470dfea
 private:
     Ui::MainWindow *ui;
 
