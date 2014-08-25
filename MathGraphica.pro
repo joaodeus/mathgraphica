@@ -131,3 +131,5 @@ OTHER_FILES += \
     shaders/vertexShaderES2.vsh \
     shaders/fragShader3D.fsh \
     shaders/vertShader3D.vsh
+
+win32:RC_FILE = appicon.rc
