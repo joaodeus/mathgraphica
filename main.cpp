@@ -1,39 +1,26 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include "calculator/equation.h"
+#include <QTranslator>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    if ( !QGLFormat::hasOpenGL() )
+    {
+         qWarning( "This system has no OpenGL support. Graph's will not be available." );
+    }
+
+    QTranslator appTranslator;
+    QString qmPath = a.applicationDirPath()+"/translations";
+    if (!appTranslator.load("MathGraphica_" + QLocale::system().name(), qmPath))
+    {
+        qWarning("Translation file not found");
+    }
+    a.installTranslator(&appTranslator);
+
     MainWindow w;
     w.show();
     
-  /*  Calculator calc;
-
-    // solve simple expression
-    qDebug()<<calc.SolveExpression("2+5*3").numberReal();
-
-
-    // solve one variable expression
-    calc.addVariableValue("x","5");
-    qDebug()<<calc.SolveExpression_fx("2*x+3").numberReal();
-
-    //solve 2 variables expressions
-    calc.addVariableValue("x","5");
-    calc.addVariableValue("y","3");
-    qDebug()<<calc.SolveExpression_fx("2+x+y").numberReal();
-
-
-    //solve 3 variables expressions
-    calc.addVariableValue("x","1.5");
-    calc.addVariableValue("y","2");
-    calc.addVariableValue("z","3");
-    qDebug()<<calc.SolveExpression_fx("z+x+y").numberReal();
-*/
-   // Parser p;
-   // Equation teste(&p);
-   // teste.teste();
-
-
     return a.exec();
 }

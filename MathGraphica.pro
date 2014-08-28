@@ -12,6 +12,10 @@ TARGET = MathGraphica
 TEMPLATE = app
 
 
+TRANSLATIONS =  MathGraphica_pt.ts \
+                MathGraphica_cs.ts
+
+
 SOURCES += main.cpp\
     mainwindow.cpp \
     graph3D/graph3d.cpp \

@@ -122,7 +122,7 @@ void Graph3D_Editor_gui::on_pushButton_delete_clicked()
     {
         QString str = "Do you want  to delete the selected 3D graph ?\n" + tableWidget_graph->item(index, 0)->text();
 
-        if ( QMessageBox::warning(this,tr("3D Graphs"), str, QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel)
+        if ( QMessageBox::warning(this,QObject::tr("3D Graphs"), str, QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel)
              == QMessageBox::Yes)
         {
             m_graph3DEditorListPtr->removeAt(index);

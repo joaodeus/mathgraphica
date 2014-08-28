@@ -335,8 +335,8 @@ void Graph2D_OpenGL::SaveImageAs()
     //QString fileformat;
     //fileformat = sprintf("Image (*.%s)",format)
     filename = QFileDialog::getSaveFileName( this,
-                                            tr("Save File"),
-                                            getenv( "HOME" ), tr(" Image (*.png)") );
+                                            QObject::tr("Save File"),
+                                            getenv( "HOME" ), QObject::tr(" Image (*.png)") );
                                             //getenv( "HOME" ), fileformat );
 
     if( !filename.endsWith( ".png" ) )
@@ -356,7 +356,7 @@ void Graph2D_OpenGL::SaveImageAs()
     }
     else
     {
-        QMessageBox::warning( this, tr("Save Image"), tr("Error saving image.") );
+        QMessageBox::warning( this, QObject::tr("Save Image"), QObject::tr("Error saving image.") );
     }
 }
 
