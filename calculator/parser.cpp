@@ -1146,7 +1146,18 @@ MyNumber Parser::ListSolver()
         // solves                   8/-3   => solves -3
         // 8/-2^2
 
+
         if ( (m_tokenNumberList[i].isOperatorPlus() || m_tokenNumberList[i].isOperatorMinus())
+              && bExist_Previous_Element_List(i) && bExist_Next_Element_List(i)  )
+        {
+            if (m_tokenNumberList[i-1].isFunction_or_Operator() && m_tokenNumberList[i+1].isNumber())
+            {
+                SolveFunctions(i);
+                return ListSolver();
+            }
+        }
+
+        /*if ( (m_tokenNumberList[i].isOperatorPlus() || m_tokenNumberList[i].isOperatorMinus())
               && bExist_Previous_Element_List(i) && bExist_Next_Element_List(i)  )
         {            
             if (!bExist_Next_2_Elements_List(i))
@@ -1173,38 +1184,36 @@ MyNumber Parser::ListSolver()
                     return ListSolver();
                 }
             }
-        }
+        }*/
 
 
         //check for expression that start with "-" or "+" followed by a number: i.e. -2
         //lets check operator priorities of the next elements to find if we can operate -2
         //
         if ( (m_tokenNumberList[i].isOperatorPlus() || m_tokenNumberList[i].isOperatorMinus())
-              && !bExist_Previous_Element_List(i) )
+              && !bExist_Previous_Element_List(i) && bExist_Next_Element_List(i))
         {
             //if there is only 2 elements i.e.: -2, lets solve it
-            if (!bExist_Next_2_Elements_List(i))
+            if (!bExist_Next_2_Elements_List(i) && m_tokenNumberList[i+1].isNumber())
             {
                 SolveFunctions(i);
                 return ListSolver();
             }
-            else //else lets check for priorities: i.i. -2|
+            else //else let's check for priorities: i.e. -2|
             {
-                if ( m_tokenNumberList[i+2].isFunction() ||  m_tokenNumberList[i+2].isParentheses() )
+                if ( m_tokenNumberList[i+1].isNumber() && (m_tokenNumberList[i+2].isFunction() ||  m_tokenNumberList[i+2].isParentheses()) )
                 {
                     SolveFunctions(i);
                     return ListSolver();
                 }
 
-                if (m_tokenNumberList[i+2].isOperator() && (m_tokenNumberList[i+2].operatorPriority() < 2) )
+                if ( m_tokenNumberList[i+1].isNumber() && m_tokenNumberList[i+2].isOperator() && (m_tokenNumberList[i+2].operatorPriority() < 2) )
                 {
                     SolveFunctions(i);
                     return ListSolver();
                 }
             }
         }
-
-
     }
 
 
@@ -2019,3 +2028,25 @@ bool Parser::bExist_Previous_2_Elements_List(int &i)
     else
         return false;
 }
+
+
+void Parser::unitTest()
+{
+
+    qDebug()<<"------Parser Testing------";
+    qDebug()<< qFuzzyCompare( SolveExpression("2").numberReal(), 2 ) << "2 == 2";
+    qDebug()<<qFuzzyCompare( SolveExpression("-3").numberReal(), -3.0 ) << "-3 == -3";
+    qDebug()<<qFuzzyCompare( SolveExpression("-cos(2)").numberReal(), 0.4161468365471424 )<<"-cos(2) == 0.4161468365471424";
+    qDebug()<<qFuzzyCompare( SolveExpression("2+3*6").numberReal(), 20 )<<"2+3*6 == 20";
+    qDebug()<<qFuzzyCompare( SolveExpression("2+3*-6").numberReal(), -16 )<<"2+3*-6 == -16";
+    qDebug()<<qFuzzyCompare( SolveExpression("2+4^-2^3+cos(4)/log(2)").numberReal(), -0.1713418494016739 )<<"2+4^-2^3+cos(4)/log(2) == -0.1713418494016739";
+
+    // 2+4^-2^3+cos(4)/log(2)
+
+}
+
+
+
+
+
+

@@ -263,6 +263,8 @@ private:
     bool bExist_Previous_Element_List(int &i);
     bool bExist_Previous_2_Elements_List(int &i);
 
+public:
+    void unitTest();
 
 };
 

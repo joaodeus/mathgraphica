@@ -764,7 +764,10 @@ bool Calculator::saveData()
 }
 
 
-
+void Calculator::unitTest()
+{
+    parser.unitTest();
+}
 
 
 

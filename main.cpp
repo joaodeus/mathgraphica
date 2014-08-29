@@ -21,6 +21,10 @@ int main(int argc, char *argv[])
 
     MainWindow w;
     w.show();
+
+    //Todo: create a separate project for unit testing
+    //Calculator calc;
+    //calc.unitTest();
     
     return a.exec();
 }

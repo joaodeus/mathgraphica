@@ -159,7 +159,7 @@ public:
     bool loadData();
     bool saveData();
 
-
+    void unitTest();
 };
 
 #endif // CALCULATOR_H
