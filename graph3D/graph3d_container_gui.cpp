@@ -10,7 +10,7 @@ Graph3D_Container_gui::Graph3D_Container_gui()
 {
 
  //   setAttribute(Qt::WA_DeleteOnClose); //qDebug()<<"Delete on close: "<<testAttribute(Qt::WA_DeleteOnClose);
-    setWindowTitle("Graph 3D");
+    setWindowTitle(tr("Graph 3D"));
     setWindowIcon(QIcon(":/images/images/graf3d.png"));
 
 

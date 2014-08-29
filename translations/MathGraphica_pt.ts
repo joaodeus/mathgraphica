@@ -907,7 +907,7 @@
     <message>
         <location filename="graph/graph_container_gui.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Gráfico</translation>
     </message>
     <message>
         <location filename="graph/graph_container_gui.ui" line="35"/>
@@ -935,42 +935,42 @@
     <message>
         <location filename="graph/graph_editor_gui.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="graph/graph_editor_gui.ui" line="20"/>
         <source>Add Graph</source>
-        <translation type="unfinished"></translation>
+        <translation>Adicionar Gráfico</translation>
     </message>
     <message>
         <location filename="graph/graph_editor_gui.ui" line="27"/>
         <source>Edit Graph</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar Gráfico</translation>
     </message>
     <message>
         <location filename="graph/graph_editor_gui.ui" line="34"/>
         <source>Delete Graph</source>
-        <translation type="unfinished"></translation>
+        <translation>Apagar Gráfico</translation>
     </message>
     <message>
         <location filename="graph/graph_editor_gui.ui" line="41"/>
         <source>BackGround Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Cor de Fundo</translation>
     </message>
     <message>
         <location filename="graph/graph_editor_gui.ui" line="69"/>
         <source>time interval [s]:</source>
-        <translation type="unfinished"></translation>
+        <translation>intervalo de tempo [s]:</translation>
     </message>
     <message>
         <location filename="graph/graph_editor_gui.ui" line="89"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="graph/graph_editor_gui.ui" line="96"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1222,27 +1222,27 @@
     <message>
         <location filename="mainwindow.ui" line="336"/>
         <source>BaseConverter</source>
-        <translation type="unfinished"></translation>
+        <translation>Conversor de Base</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="339"/>
         <source>Base converter</source>
-        <translation type="unfinished"></translation>
+        <translation>Conversor de base</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="342"/>
         <source>B</source>
-        <translation type="unfinished"></translation>
+        <translation>B</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="681"/>
         <source>math_html/mat_manual_en.html</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="684"/>
         <source>Error</source>
-        <translation type="unfinished">Erro</translation>
+        <translation>Erro</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="684"/>
@@ -1355,97 +1355,97 @@
     <message>
         <location filename="calculator/matrix_gui.ui" line="17"/>
         <source>Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Matriz</translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.ui" line="43"/>
         <source>random</source>
-        <translation type="unfinished"></translation>
+        <translation>aletória</translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.ui" line="56"/>
         <source>zeros</source>
-        <translation type="unfinished"></translation>
+        <translation>zeros</translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.ui" line="73"/>
         <source>rows:</source>
-        <translation type="unfinished"></translation>
+        <translation>linhas:</translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.ui" line="83"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.ui" line="96"/>
         <source>ones</source>
-        <translation type="unfinished"></translation>
+        <translation>uns</translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.ui" line="103"/>
         <source>&lt;&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt;</translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.ui" line="117"/>
         <source>columns:</source>
-        <translation type="unfinished"></translation>
+        <translation>colunas:</translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.ui" line="127"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.ui" line="140"/>
         <source>diagonal</source>
-        <translation type="unfinished"></translation>
+        <translation>diagonal</translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.cpp" line="304"/>
         <source>Random Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Matriz Aleatória</translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.cpp" line="310"/>
         <source>Zeros Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Matriz de Zeros</translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.cpp" line="313"/>
         <source>Ones Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Matriz de Uns</translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.cpp" line="316"/>
         <source>Diagonal Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Matriz Diagonal</translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.cpp" line="319"/>
         <source>Inverse Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Matriz Inversa</translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.cpp" line="322"/>
         <source>Transpose Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Matriz Transposta</translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.cpp" line="325"/>
         <source>Matrix Determinant</source>
-        <translation type="unfinished"></translation>
+        <translation>Determinante de Matriz</translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.cpp" line="328"/>
         <source>Copy Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar Matriz</translation>
     </message>
     <message>
         <location filename="calculator/matrix_gui.cpp" line="331"/>
         <source>Paste Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Colar Matriz</translation>
     </message>
 </context>
 <context>
@@ -1470,49 +1470,49 @@
         <location filename="graph3D/graph3d.cpp" line="153"/>
         <location filename="graph3D/graph3d.cpp" line="171"/>
         <source>Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro!</translation>
     </message>
     <message>
         <location filename="calculator/equation.cpp" line="41"/>
         <source>Invalid min value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor min. inválido.</translation>
     </message>
     <message>
         <location filename="calculator/equation.cpp" line="48"/>
         <source>Invalid max value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor máx. inválido.</translation>
     </message>
     <message>
         <location filename="calculator/equation.cpp" line="65"/>
         <source>Invalid precision</source>
-        <translation type="unfinished"></translation>
+        <translation>Precisão inválida</translation>
     </message>
     <message>
         <location filename="calculator/equation.cpp" line="82"/>
         <source>Invalid search delta</source>
-        <translation type="unfinished"></translation>
+        <translation>Delta inválido</translation>
     </message>
     <message>
         <location filename="calculator/integral.cpp" line="39"/>
         <source>Invalid upper limit</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite superior inválido</translation>
     </message>
     <message>
         <location filename="calculator/integral.cpp" line="49"/>
         <location filename="calculator/integraldouble.cpp" line="81"/>
         <source>Invalid number of intervals.</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de intervalos inválido.</translation>
     </message>
     <message>
         <location filename="calculator/integral.cpp" line="67"/>
         <location filename="calculator/integraldouble.cpp" line="99"/>
         <source>Number of intervals must be greater than zero.</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de intervalos deve ser maior que zero.</translation>
     </message>
     <message>
         <location filename="calculator/integral.cpp" line="161"/>
         <source>Invalid integral expression.</source>
-        <translation type="unfinished"></translation>
+        <translation>Expressão do intergal inválida.</translation>
     </message>
     <message>
         <location filename="calculator/matrix.cpp" line="71"/>
@@ -1536,7 +1536,7 @@
         <location filename="calculator/matrix.cpp" line="1115"/>
         <location filename="calculator/matrix.cpp" line="1189"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro</translation>
     </message>
     <message>
         <location filename="calculator/matrix.cpp" line="71"/>
@@ -1544,7 +1544,7 @@
         <location filename="calculator/matrix.cpp" line="385"/>
         <location filename="calculator/matrix.cpp" line="404"/>
         <source>The row is bigger then matrix row size</source>
-        <translation type="unfinished"></translation>
+        <translation>A linha é maior que o tamanho de linhas da matriz</translation>
     </message>
     <message>
         <location filename="calculator/matrix.cpp" line="78"/>
@@ -1552,91 +1552,91 @@
         <location filename="calculator/matrix.cpp" line="392"/>
         <location filename="calculator/matrix.cpp" line="411"/>
         <source>The column is bigger then matrix column size</source>
-        <translation type="unfinished"></translation>
+        <translation>A coluna é maior que o tamanho de colunas da matriz</translation>
     </message>
     <message>
         <location filename="calculator/matrix.cpp" line="427"/>
         <location filename="calculator/matrix.cpp" line="468"/>
         <source>The selected column is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>A coluna escolhida é inválida</translation>
     </message>
     <message>
         <location filename="calculator/matrix.cpp" line="434"/>
         <location filename="calculator/matrix.cpp" line="488"/>
         <location filename="calculator/matrix.cpp" line="509"/>
         <source>The selected row is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>A linha escolhida é inválida</translation>
     </message>
     <message>
         <location filename="calculator/matrix.cpp" line="574"/>
         <source>Sum error. Matrix dimensions don&apos;t match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro de soma. As dimensões da matrix não correspondem.</translation>
     </message>
     <message>
         <location filename="calculator/matrix.cpp" line="654"/>
         <source>Subtraction error. Matrix dimensions don&apos;t match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro de subtração. As dimensões da matrix não correspondem.</translation>
     </message>
     <message>
         <location filename="calculator/matrix.cpp" line="763"/>
         <source>Multiplication error. Matrix dimensions don&apos;t match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro de multiplicação. As dimensões da matrix não correspondem.</translation>
     </message>
     <message>
         <location filename="calculator/matrix.cpp" line="1067"/>
         <source>Can not calculate matrix of cofactors, matrix is not square</source>
-        <translation type="unfinished"></translation>
+        <translation>Não é possivel calcular matriz de cofatores, a matriz não é quadrada</translation>
     </message>
     <message>
         <location filename="calculator/matrix.cpp" line="1097"/>
         <source>Can not calculate matrix adjugate, matrix is not square</source>
-        <translation type="unfinished"></translation>
+        <translation>Não é possivel calcular matriz adjunta, a matriz não é quadrada</translation>
     </message>
     <message>
         <location filename="calculator/matrix.cpp" line="1115"/>
         <source>Can not inverte matrix, matrix is not square</source>
-        <translation type="unfinished"></translation>
+        <translation>Não é possivel inverter a matriz, a matriz não é quadrada</translation>
     </message>
     <message>
         <location filename="calculator/matrix.cpp" line="1189"/>
         <source>Matrix must be square.</source>
-        <translation type="unfinished"></translation>
+        <translation>A matriz deve ser quadrada</translation>
     </message>
     <message>
         <location filename="calculator/mynumber.cpp" line="181"/>
         <location filename="calculator/parser.cpp" line="1752"/>
         <source>sinc</source>
-        <translation type="unfinished"></translation>
+        <translation>sinc</translation>
     </message>
     <message>
         <location filename="calculator/mynumber.cpp" line="184"/>
         <location filename="calculator/parser.cpp" line="1759"/>
         <source>cis</source>
-        <translation type="unfinished"></translation>
+        <translation>cis</translation>
     </message>
     <message>
         <location filename="calculator/mynumber.cpp" line="188"/>
         <location filename="calculator/parser.cpp" line="1766"/>
         <source>sin</source>
-        <translation type="unfinished"></translation>
+        <translation>sin</translation>
     </message>
     <message>
         <location filename="calculator/mynumber.cpp" line="192"/>
         <location filename="calculator/parser.cpp" line="1773"/>
         <source>cos</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="calculator/mynumber.cpp" line="195"/>
         <location filename="calculator/parser.cpp" line="1780"/>
         <source>tan</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="calculator/mynumber.cpp" line="199"/>
         <location filename="calculator/parser.cpp" line="1787"/>
         <source>cot</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="calculator/mynumber.cpp" line="203"/>
@@ -1815,67 +1815,67 @@
     <message>
         <location filename="graph2D/graph2d.cpp" line="57"/>
         <source>Invalid min value in Graph2D</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor min inválido no gráfico 2D</translation>
     </message>
     <message>
         <location filename="graph2D/graph2d.cpp" line="64"/>
         <source>Invalid max value in Graph2D</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor máx inválido no gráfico 2D</translation>
     </message>
     <message>
         <location filename="graph2D/graph2d.cpp" line="81"/>
         <source>Invalid delta value in Graph2D</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor delta inválido no gráfico 2D</translation>
     </message>
     <message>
         <location filename="graph2D/graph2d_opengl.cpp" line="338"/>
         <source>Save File</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar ficheiro</translation>
     </message>
     <message>
         <location filename="graph2D/graph2d_opengl.cpp" line="339"/>
         <source> Image (*.png)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imagem (*.png)</translation>
     </message>
     <message>
         <location filename="graph2D/graph2d_opengl.cpp" line="359"/>
         <source>Save Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar Imagem</translation>
     </message>
     <message>
         <location filename="graph2D/graph2d_opengl.cpp" line="359"/>
         <source>Error saving image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro ao gravar a imagem.</translation>
     </message>
     <message>
         <location filename="graph3D/graph3d.cpp" line="101"/>
         <source>Invalid X min value in Graph3D</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor X min inválido no gráfico 3D</translation>
     </message>
     <message>
         <location filename="graph3D/graph3d.cpp" line="119"/>
         <source>Invalid X max value in Graph3D</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor X máx inválido no gráfico 3D</translation>
     </message>
     <message>
         <location filename="graph3D/graph3d.cpp" line="136"/>
         <source>Invalid Y min value in Graph3D</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor Y min inválido no gráfico 3D</translation>
     </message>
     <message>
         <location filename="graph3D/graph3d.cpp" line="153"/>
         <source>Invalid Y max value in Graph3D</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor Y máx inválido no gráfico 3D</translation>
     </message>
     <message>
         <location filename="graph3D/graph3d.cpp" line="171"/>
         <source>Invalid delta value in Graph3D</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor delta inválido no gráfico 3D</translation>
     </message>
     <message>
         <location filename="graph3D/graph3d_editor_gui.cpp" line="125"/>
         <source>3D Graphs</source>
-        <translation type="unfinished"></translation>
+        <translation>Gráficos 3D</translation>
     </message>
 </context>
 <context>
@@ -1883,38 +1883,38 @@
     <message>
         <location filename="gui/systemeq_gui.ui" line="14"/>
         <source>System of Equations</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema de Equações</translation>
     </message>
     <message>
         <location filename="gui/systemeq_gui.ui" line="30"/>
         <source>Number of Equations:</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de Equações:</translation>
     </message>
     <message>
         <location filename="gui/systemeq_gui.ui" line="43"/>
         <source>Random</source>
-        <translation type="unfinished"></translation>
+        <translation>Aleatório</translation>
     </message>
     <message>
         <location filename="gui/systemeq_gui.ui" line="79"/>
         <source>Solve</source>
-        <translation type="unfinished"></translation>
+        <translation>Calcular</translation>
     </message>
     <message>
         <location filename="gui/systemeq_gui.ui" line="105"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="gui/systemeq_gui.cpp" line="37"/>
         <source>Calculating...</source>
-        <translation type="unfinished"></translation>
+        <translation>Calculando...</translation>
     </message>
     <message>
         <location filename="gui/systemeq_gui.cpp" line="38"/>
         <source>If this is taking to long try to redude the number of equations.
 Do you want to abort calculations?</source>
-        <translation type="unfinished"></translation>
+        <translation>Se o cálculo está a demorar muito tempo experimente reduzir o número de equações. Deseja terminar o processamento ?</translation>
     </message>
 </context>
 <context>
@@ -1922,43 +1922,43 @@ Do you want to abort calculations?</source>
     <message>
         <location filename="gui/variables_gui.ui" line="14"/>
         <source>Variables</source>
-        <translation type="unfinished"></translation>
+        <translation>Variáveis</translation>
     </message>
     <message>
         <location filename="gui/variables_gui.ui" line="24"/>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation>Novo</translation>
     </message>
     <message>
         <location filename="gui/variables_gui.ui" line="31"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Apagar</translation>
     </message>
     <message>
         <location filename="gui/variables_gui.ui" line="39"/>
         <source>variables</source>
-        <translation type="unfinished"></translation>
+        <translation>variáveis</translation>
     </message>
     <message>
         <location filename="gui/variables_gui.ui" line="47"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="gui/variables_gui.ui" line="54"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="gui/variables_gui.cpp" line="72"/>
         <source>Delete variable ?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Apagar variável ?</translation>
     </message>
     <message>
         <location filename="gui/variables_gui.cpp" line="73"/>
         <source>Delete variable</source>
-        <translation type="unfinished"></translation>
+        <translation>Apagar variável</translation>
     </message>
 </context>
 <context>
@@ -1966,37 +1966,37 @@ Do you want to abort calculations?</source>
     <message>
         <location filename="gui/baseconverter_gui.ui" line="14"/>
         <source>Base converter</source>
-        <translation type="unfinished"></translation>
+        <translation>Conversor de base</translation>
     </message>
     <message>
         <location filename="gui/baseconverter_gui.ui" line="24"/>
         <source>Octal</source>
-        <translation type="unfinished"></translation>
+        <translation>Octal</translation>
     </message>
     <message>
         <location filename="gui/baseconverter_gui.ui" line="31"/>
         <source>Binary</source>
-        <translation type="unfinished"></translation>
+        <translation>Binário</translation>
     </message>
     <message>
         <location filename="gui/baseconverter_gui.ui" line="38"/>
         <source>Decimal</source>
-        <translation type="unfinished"></translation>
+        <translation>Decimal</translation>
     </message>
     <message>
         <location filename="gui/baseconverter_gui.ui" line="45"/>
         <source>Hexa</source>
-        <translation type="unfinished"></translation>
+        <translation>Hexa</translation>
     </message>
     <message>
         <location filename="gui/baseconverter_gui.ui" line="55"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="gui/baseconverter_gui.ui" line="71"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Limpar</translation>
     </message>
 </context>
 </TS>
