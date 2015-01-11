@@ -1093,9 +1093,6 @@ MyNumber Parser::ListSolver()
         }
 
 
-
-
-
         //se (2) ou |5|, remove parentesis
         //check if we have 3 elements with parentheses, number and parentheses
         //if so, we can remove the 2 elements with parentheses
@@ -1117,7 +1114,7 @@ MyNumber Parser::ListSolver()
 
 
         //check for (-2) => solve -2 or
-        //          |-3| => solve -3
+        //          |-3| => solve 3
         if (bExist_Previous_Element_List(i) && bExist_Next_2_Elements_List(i))
         {
             if ( (m_tokenNumberList[i].isOperatorMinus() || m_tokenNumberList[i].isOperatorPlus() )
@@ -1144,47 +1141,29 @@ MyNumber Parser::ListSolver()
 
         //check for expressions like cos-2 => solves -2; or 8/-3
         // solves                   8/-3   => solves -3
-        // 8/-2^2
-
+        // 8/-2^2     2^-3^-6 => 2^(-(3^(-6)))
 
         if ( (m_tokenNumberList[i].isOperatorPlus() || m_tokenNumberList[i].isOperatorMinus())
               && bExist_Previous_Element_List(i) && bExist_Next_Element_List(i)  )
         {
             if (m_tokenNumberList[i-1].isFunction_or_Operator() && m_tokenNumberList[i+1].isNumber())
             {
-                SolveFunctions(i);
-                return ListSolver();
+                if ( bExist_Next_2_Elements_List(i) )
+                {
+                    if (m_tokenNumberList[i+2].isOperatorMinus() || m_tokenNumberList[i+2].isOperatorPlus()
+                       || m_tokenNumberList[i+2].isOperatorMultiplication() || m_tokenNumberList[i+2].isOperatorDivision())
+                    {
+                        SolveFunctions(i);
+                        return ListSolver();
+                    }
+                }
+                else
+                {
+                    SolveFunctions(i);
+                    return ListSolver();
+                }
             }
         }
-
-        /*if ( (m_tokenNumberList[i].isOperatorPlus() || m_tokenNumberList[i].isOperatorMinus())
-              && bExist_Previous_Element_List(i) && bExist_Next_Element_List(i)  )
-        {            
-            if (!bExist_Next_2_Elements_List(i))
-            {
-                if (m_tokenNumberList[i-1].isFunction_or_Operator() && m_tokenNumberList[i+1].isNumber())
-                {
-                    SolveFunctions(i);
-                    return ListSolver();
-                }
-            }
-            else
-            {
-                if (m_tokenNumberList[i-1].isFunction() && m_tokenNumberList[i+1].isNumber()
-                        && ( m_tokenNumberList[i+2].isFunction() ||  m_tokenNumberList[i+2].isParentheses()) )
-                {
-                    SolveFunctions(i);
-                    return ListSolver();
-                }
-
-                if (m_tokenNumberList[i-1].isFunction() && m_tokenNumberList[i+1].isNumber()
-                        && m_tokenNumberList[i+2].isOperator() && (m_tokenNumberList[i+2].operatorPriority() < 2) )
-                {
-                    SolveFunctions(i);
-                    return ListSolver();
-                }
-            }
-        }*/
 
 
         //check for expression that start with "-" or "+" followed by a number: i.e. -2
@@ -1987,8 +1966,7 @@ void Parser::RemoveParentheses(int &i)
 
 void Parser::RemoveParentheses_abs(int &i)
 {
-   // m_tokenNumberList[1+i] = abs(m_tokenNumberList[1+i]);
-
+    m_tokenNumberList[1+i] = cabs(m_tokenNumberList[1+i]);
     m_tokenNumberList.remove(i+2);
     m_tokenNumberList.remove(i);
 }
@@ -2032,6 +2010,7 @@ bool Parser::bExist_Previous_2_Elements_List(int &i)
 
 void Parser::unitTest()
 {
+    QString expression;
 
     qDebug()<<"------Parser Testing------";
     qDebug()<< qFuzzyCompare( SolveExpression("2").numberReal(), 2 ) << "2 == 2";
@@ -2039,9 +2018,105 @@ void Parser::unitTest()
     qDebug()<<qFuzzyCompare( SolveExpression("-cos(2)").numberReal(), 0.4161468365471424 )<<"-cos(2) == 0.4161468365471424";
     qDebug()<<qFuzzyCompare( SolveExpression("2+3*6").numberReal(), 20 )<<"2+3*6 == 20";
     qDebug()<<qFuzzyCompare( SolveExpression("2+3*-6").numberReal(), -16 )<<"2+3*-6 == -16";
+    qDebug()<<qFuzzyCompare( SolveExpression("2^3^-6").numberReal(), 1.000951271349577 )<<"2^3^-6 == 1.000951271349577";
+    qDebug()<<qFuzzyCompare( SolveExpression("4^-2^3").numberReal(), 0.00001525878906250000 )<<"4^-2^3 == 0.00001525878906250000";
+    qDebug()<<qFuzzyCompare( SolveExpression("2^-3^-6").numberReal(), 0.99904963270760 )<<"2^-3^-6 == 0.99904963270760";
     qDebug()<<qFuzzyCompare( SolveExpression("2+4^-2^3+cos(4)/log(2)").numberReal(), -0.1713418494016739 )<<"2+4^-2^3+cos(4)/log(2) == -0.1713418494016739";
+    qDebug()<<qFuzzyCompare( SolveExpression("|-8|").numberReal(), 8 )<<"|-8| == 8";
+    qDebug()<<qFuzzyCompare( SolveExpression("-log(2)").numberReal(), -0.301029995663981 )<<"-log(2) == -0.301029995663981";
+    qDebug()<<qFuzzyCompare( SolveExpression("asinh(-3.2+4.32i)").numberReal(), -2.372683695508011 )<<"real: asinh(-3.2+4.32i) == -2.372683695508011";
+    qDebug()<<qFuzzyCompare( SolveExpression("asinh(-3.2+4.32i)").numberComplexo().i, 0.924911978004605 )<<"imag: asinh(-3.2+4.32i) == 0.924911978004605";
+    qDebug()<<qFuzzyCompare( SolveExpression("cos(2)+i*sin(4)").numberComplexo().r, -0.41614683654714240690 )<<"real: cos(2)+i*sin(4) == -0.41614683654714240690";
+    qDebug()<<qFuzzyCompare( SolveExpression("cos(2)+i*sin(4)").numberComplexo().i, -0.75680249530792820245 )<<"imag: cos(2)+i*sin(4) == -0.75680249530792820245";
+    qDebug()<<qFuzzyCompare( SolveExpression("2.321^-14*7/cos(pi/3)+sinh(12.2i-3)/4").numberComplexo().r, -2.338149933631084 )<<
+              "real: 2.321^-14*7/cos(pi/3)+sinh(12.2i-3)/4 == -2.338149933631084";
+    qDebug()<<qFuzzyCompare( SolveExpression("2.321^-14*7/cos(pi/3)+sinh(12.2i-3)/4").numberComplexo().i, -0.90163283263761684338 )<<
+              "imag: 2.321^-14*7/cos(pi/3)+sinh(12.2i-3)/4 == -0.90163283263761684338";
 
-    // 2+4^-2^3+cos(4)/log(2)
+    qDebug()<<"Trigonometric Tests-----------------------------";
+    qDebug()<<"Radians-----------------------------------------";
+
+
+    setDegreeRadGrad(RAD);
+    qDebug()<< qFuzzyCompare( SolveExpression("cos(0)").numberReal(), 1 ) << "cos(0) == 1";
+    qDebug()<< qFuzzyCompare( SolveExpression("acos(1)").numberReal(), 0 ) << "acos(1) == 0";
+
+
+
+    expression = "cos(pi/6)";
+    qDebug()<< qFuzzyCompare( SolveExpression(expression).numberReal(), 0.866025403784438707610604524234 )
+            << expression << " == 0.866025403784438707610604524234";
+
+    expression = "acos(0.866025403784438707610604524234)";
+    qDebug()<< qFuzzyCompare( SolveExpression(expression).numberReal(), M_PI/6 )
+            << expression << " == pi/6";
+
+    qDebug()<< qFuzzyCompare( SolveExpression("cos(pi/3)").numberReal(), 0.500000000000000111022302462516 )
+            << "cos(pi/3) == 0.500000000000000111022302462516";
+
+    qDebug()<< qFuzzyCompare( SolveExpression("cos(pi/2)").numberReal(), 0.000000000000000061232339957368 )
+            << "cos(pi/2) == 0.000000000000000061232339957368";
+
+    qDebug()<< qFuzzyCompare( SolveExpression("cos(pi*2/3)").numberReal(), -0.499999999999999777955395074969 )
+            << "cos(pi*2/3) == -0.499999999999999777955395074969";
+
+    qDebug()<< qFuzzyCompare( SolveExpression("cos(pi*5/6)").numberReal(), -0.866025403784438707610604524234 )
+            << "cos(pi*5/6) == -0.866025403784438707610604524234";
+
+    qDebug()<< qFuzzyCompare( SolveExpression("cos(pi)").numberReal(), -1 ) << "cos(pi) == -1";
+
+
+
+    qDebug()<<"Degrees-----------------------------------------";
+    setDegreeRadGrad(DEGREE);
+
+    qDebug()<< qFuzzyCompare( SolveExpression("cos(0)").numberReal(), 1 ) << "cos(0) == 1";
+
+    qDebug()<< qFuzzyCompare( SolveExpression("cos(30)").numberReal(), 0.866025403784438707610604524234 )
+            << "cos(30) == 0.866025403784438707610604524234";
+
+    qDebug()<< qFuzzyCompare( SolveExpression("cos(60)").numberReal(), 0.500000000000000111022302462516 )
+            << "cos(60) == 0.500000000000000111022302462516";
+
+    qDebug()<< qFuzzyCompare( SolveExpression("cos(90)").numberReal(), 0.000000000000000061232339957368 )
+            << "cos(90) == 0.000000000000000061232339957368";
+
+    qDebug()<< qFuzzyCompare( SolveExpression("acos(0)").numberReal(), 90 )
+            << "acos(0) == 90";
+
+
+    qDebug()<< qFuzzyCompare( SolveExpression("cos(120)").numberReal(), -0.499999999999999777955395074969 )
+            << "cos(120) == -0.499999999999999777955395074969";
+
+    qDebug()<< qFuzzyCompare( SolveExpression("cos(150)").numberReal(), -0.866025403784438707610604524234 )
+            << "cos(150) == -0.866025403784438707610604524234";
+
+    expression = "cos(180)";
+    qDebug()<< qFuzzyCompare( SolveExpression(expression).numberReal(), -1 ) << expression << " == -1";
+
+    expression = "acos(-1)";
+    qDebug()<< qFuzzyCompare( SolveExpression(expression).numberReal(), 180 ) << expression << " == 180";
+
+
+    qDebug()<<"Grad-----------------------------------------";
+    setDegreeRadGrad(GRAD);
+
+    expression = "sin(100)";
+    qDebug()<< qFuzzyCompare( SolveExpression(expression).numberReal(), 1 ) << expression << " == 1";
+
+    expression = "asin(1)";
+    qDebug()<< qFuzzyCompare( SolveExpression(expression).numberReal(), 100 ) << expression << " == 100";
+
+    expression = "sin(300)";
+    qDebug()<< qFuzzyCompare( SolveExpression(expression).numberReal(), -1 ) << expression << " == -1";
+
+    expression = "asin(-1)";
+    qDebug()<< qFuzzyCompare( SolveExpression(expression).numberReal(), -100 ) << expression << " == -100";
+
+
+/*#define DEGREE  0
+#define RAD     1
+#define GRAD    2*/
 
 }
 

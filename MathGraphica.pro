@@ -102,7 +102,6 @@ HEADERS  += mainwindow.h \
     graph3DParametric/graph3dparametric_addnew_gui.h \
     graph3DParametric/graph3dparametric.h \
     graph3DParametric/graph3dparametric_opengl.h \
-    calculator/math_functions_list.h \
     gui/baseconverter_gui.h
 
 FORMS    += mainwindow.ui \
@@ -137,3 +136,6 @@ OTHER_FILES += \
     shaders/vertShader3D.vsh
 
 win32:RC_FILE = appicon.rc
+
+DISTFILES += \
+    license/License.txt

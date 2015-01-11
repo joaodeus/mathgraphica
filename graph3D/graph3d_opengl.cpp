@@ -31,10 +31,10 @@ Graph3D_OpenGL::Graph3D_OpenGL()
     // resize(QSize(800, 450));
 
     setAttribute(Qt::WA_AcceptTouchEvents);
-    qDebug()<<"touch is: "<<testAttribute(Qt::WA_AcceptTouchEvents);
+    //qDebug()<<"touch is: "<<testAttribute(Qt::WA_AcceptTouchEvents);
 
     t=0;
-    t_delta=0.5;
+    t_delta=0.1;
 
     xRot = 0;
     yRot = 0;

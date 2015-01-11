@@ -5,7 +5,6 @@
 #include "mynumber.h"
 #include "mynumber_functions.h"
 
-
 class Parser
 {
 public:
@@ -169,6 +168,8 @@ public:
 
 private:
     int Degree_Rad_Grad;
+    QStringList m_listFunctions;
+
 public:
     void setDegreeRadGrad(const int &isDegreeRadGrad_);
     int getDegreeRadGrad();

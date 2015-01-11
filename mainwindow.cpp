@@ -3,7 +3,6 @@
 
 #include <QKeyEvent>
 #include <QDesktopServices>
-//#include <QtSql>
 #include "gui/calculator_gui.h"
 #include "gui/baseconverter_gui.h"
 #include "gui/equation_gui.h"
@@ -16,10 +15,6 @@
 #include "graph2D/graph2d_opengl.h"
 #include "graph2D/graph2d_container_gui.h"
 #include "graph2D/graph2d_addnew_gui.h"
-
-
-//#include "graph/graph_container_gui.h"
-
 #include "graph3D/graph3d_editor_gui.h"
 #include "graph3D/graph3d_container_gui.h"
 #include "graph3D/graph3d_addnew_gui.h"
@@ -27,7 +22,6 @@
 #include "gui/formatresult_gui.h"
 #include "gui/about_gui.h"
 #include "calculator/matrix_gui.h"
-
 #include "graph3DParametric/graph3dparametric_addnew_gui.h"
 #include "graph3DParametric/graph3dparametric_opengl.h"
 
@@ -39,9 +33,6 @@
 #define TYPE_EQUATION_ASSIGNMENT    6
 #define TYPE_FUNCTION               7
 #define TYPE_MATRIX_ASSIGNMENT      8
-
-
-
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -135,23 +126,6 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
         ui->listWidget_results_history->scrollToBottom();
         return;
     }
-
-    //check for expressions, like "5+3"
-    number = calc.isValidExpression(str_cmd_line_aux, ok);
-    //if ( calc.isValidExpression(str_cmd_line) )
-    if (ok)
-    {
-        //QString solution = calc.formatResult(calc.SolveExpression(str_cmd_line));
-        QString solution = calc.formatResult(number);
-        QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_EXPRESSION);
-        QListWidgetItem *item1  = new QListWidgetItem(solution,0,TYPE_EXPRESSION);
-        ui->listWidget_results_history->addItem(item);
-        ui->listWidget_results_history->addItem(item1);
-        ui->listWidget_results_history->scrollToBottom();
-        return;
-    }
-
-
 
 
     //check for variable assignment like "x=5", or "y=2+cos(3)"

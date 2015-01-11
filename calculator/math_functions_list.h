@@ -1,6 +1,0 @@
-#ifndef MATH_FUNCTIONS_LIST_H
-#define MATH_FUNCTIONS_LIST_H
-
-
-
-#endif // MATH_FUNCTIONS_LIST_H
