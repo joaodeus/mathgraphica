@@ -1166,10 +1166,6 @@ void Matrix::setGuiMatrix()
 }
 
 
-
-
-
-
 /////////////////////////// system of Equations
 
 int Matrix::Solve_System_Equations()
