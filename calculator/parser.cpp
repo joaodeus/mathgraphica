@@ -2113,6 +2113,21 @@ void Parser::unitTest()
     expression = "asin(-1)";
     qDebug()<< qFuzzyCompare( SolveExpression(expression).numberReal(), -100 ) << expression << " == -100";
 
+    QPair<QString, double> pair;
+    QVector< QPair<QString, double> > testVector;
+
+    pair.first = "2"; pair.second = 2;
+    testVector.append(pair);
+
+    pair.first = "-3"; pair.second = -3.0;
+    testVector.append(pair);
+
+    /*for (int i = 0; i < testVector.size(); i++)
+    {
+        qDebug()<< qFuzzyCompare( SolveExpression( testVector[i].first ).numberReal(), testVector[i].second )
+                << QString("%1 == %2 ; %3").arg(testVector[i].first).arg(testVector[i].second).arg(getDegreeRadGrad());
+    }*/
+
 
 /*#define DEGREE  0
 #define RAD     1

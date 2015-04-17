@@ -21,7 +21,7 @@ public:
     void AddLines(int n_lines);
     void SetLinesCols(int Lines,int Columns);//defines the size of the matrix lines*columns
     void SetLineColText(int L,int C,QString text);//set text in the position c*l
-    void SetLineColNumber(int,int,Complexo);//set number in the position c*l
+    void SetLineColNumber(int L,int C, const Complexo &number);//set number in the position c*l
     //override all elements of line nLine with lineElements, return true if suceed otherwise return false
     bool SetLineElements(QStringList &lineElements, int &nLine);
 
@@ -59,9 +59,10 @@ public:
     int RemoveCol(int C);
     int RemoveLine(int L);
     int SwapLines(int L1, int L2);    
-    int searchInLines(QString word, int column);
+    int searchInLines(const QString &word, int column);
 
     bool ERRO;
+    QString errorMessage;
     bool bAbortSystemEquationCalculation;
     bool isCalculating;
 

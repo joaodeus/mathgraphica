@@ -1,20 +1,19 @@
 #include "matrix.h"
-#include <QMessageBox>
 #include "calculator.h"
 #include "formatresult.h"
 #include "matrix_gui.h"
 
-Matrix::Matrix()
+
+Matrix::Matrix() :
+    ERRO(false),
+    errorMessage(""),
+    bAbortSystemEquationCalculation(false),
+    isCalculating(false),
+    NLine(0),
+    NCol(0)
 {
-    NCol=NLine=0;
-    ERRO=false;
-    bAbortSystemEquationCalculation=false;
-    isCalculating=false;
-   // bShowButtons =true;
-  //  sizeHeader=1;
 
 }
-
 
 Matrix::~Matrix()
 {
@@ -23,21 +22,12 @@ Matrix::~Matrix()
 
 void Matrix::AddLines(int n_lines)
 {
-
     QVector<QString>    aux1(NCol*n_lines,"");
     QVector<Complexo>   aux2(NCol*n_lines,Complexo());
 
     NLine                   += n_lines;
     matriz                  += aux1;
     matrixComplexElements   += aux2;
-
-    /*
-    for(int l=0;l<2*n_lines;l++)
-    {
-        matriz.append("");
-        matrixComplexElements.append(Complexo());
-    }*/
-
 }
 
 
@@ -48,34 +38,23 @@ void Matrix::SetLinesCols(int Lines, int Columns)
 
     matriz.resize(Lines*Columns);
     matrixComplexElements.resize(Lines*Columns);
-
-   /* matriz.clear();
-    matrixComplexElements.clear();
-
-    for(int i=0;i<C;i++)
-    {
-        for(int j=0;j<L;j++)
-        {
-            matriz.append("");
-            matrixComplexElements.append(Complexo());
-        }
-    }*/
 }
 
 
 void Matrix::SetLineColText(int L,int C, QString text)
 {
-    ERRO=false;
+    ERRO = false;
+    errorMessage = "";
     if (L > NLine-1)
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("The row is bigger then matrix row size"));
+        errorMessage = QObject::tr("Error, the row is bigger than matrix row size.");
         ERRO=true;
         return;
     }
 
     if (C > NCol-1)
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("The column is bigger then matrix column size"));
+        errorMessage = QObject::tr("Error, the column is bigger than matrix column size");
         ERRO=true;
         return;
     }
@@ -89,27 +68,27 @@ void Matrix::SetLineColText(int L,int C, QString text)
             matrixComplexElements[L*NCol+C]=aux.numberComplexo();
 }
 
-void Matrix::SetLineColNumber(int L,int C, Complexo num)
+void Matrix::SetLineColNumber(int L, int C, const Complexo &number)
 {
     ERRO=false;
+    errorMessage = "";
     if (L > NLine-1)
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("The row is bigger then matrix row size"));
+        errorMessage = QObject::tr("Error, the row is bigger than matrix row size");
         ERRO=true;
         return;
     }
 
     if (C > NCol-1)
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("The column is bigger then matrix column size"));
+        errorMessage = QObject::tr("Error, the column is bigger than matrix column size");
         ERRO=true;
         return;
     }
 
-    //matriz[L*NCol+C] = ComplexoToQString(num);
     FormatResult format;
-    matriz[L*NCol+C] = format.formatResult(num);
-    matrixComplexElements[L*NCol+C] = num;
+    matriz[L*NCol+C] = format.formatResult(number);
+    matrixComplexElements[L*NCol+C] = number;
 }
 
 
@@ -119,7 +98,7 @@ bool Matrix::SetLineElements(QStringList &lineElements, int &nLine)
         return false;
 
 
-    for (int i=0;i<lineElements.size();i++)
+    for (int i = 0; i < lineElements.size(); i++)
     {
         SetLineColText(nLine,i,lineElements.at(i));
     }
@@ -176,14 +155,7 @@ void Matrix::setArrayElements(const Complexo &element, const unsigned int &count
     NCol    = count;
     FormatResult format;
     matriz.fill(format.formatResult(element), count);
-    //matriz.fill(ComplexoToQString(element), count);
     matrixComplexElements.fill(element, count);
-
-    /*SetLinesCols(1, count);
-    for(int i=0;i<columnCount();i++)
-    {
-        SetLineColNumber(0,i,element);
-    }*/
 }
 
 
@@ -199,18 +171,6 @@ void Matrix::SetMatrixOnes(int L, int C)
 
     matriz.fill("1",count);
     matrixComplexElements.fill(Complexo(1,0),count);
-
-    /*matriz.clear();
-    matrixComplexElements.clear();
-
-    for(int j=0;j<L;j++)//lines
-    {
-        for(int i=0;i<C;i++)//colums
-        {
-            matriz.append("1");
-            matrixComplexElements.append(Complexo(1,0));
-        }
-    }*/
 }
 
 void Matrix::SetMatrixZeros(int L, int C)
@@ -221,21 +181,6 @@ void Matrix::SetMatrixZeros(int L, int C)
 
     matriz.fill("0",count);
     matrixComplexElements.fill(Complexo(),count);
-
-    /*
-    NLine = L;
-    NCol = C;
-    matriz.clear();
-    matrixComplexElements.clear();
-
-    for(int i=0;i<C;i++)//colums
-    {
-        for(int j=0;j<L;j++)//lines
-        {
-            matriz.append("0");
-            matrixComplexElements.append(Complexo());
-        }
-    }*/
 }
 
 
@@ -261,8 +206,6 @@ void Matrix::SetMatrixRandom(int L, int C)
 
 void Matrix::random()
 {
-   // srand ( time(NULL) );
-
     for(int l=0;l<NLine;l++)
     {
         for(int c=0;c<NCol;c++)
@@ -270,7 +213,6 @@ void Matrix::random()
             SetLineColNumber(l,c,rand()%1000);
         }
     }
-
 }
 
 
@@ -308,15 +250,16 @@ void Matrix::VectorToMatrix(int col, int line,QVector<QString> &vect)
     NLine = line;
     NCol = col;
     ERRO=false;
+    errorMessage = "";
 
     if (vect.size() != (col * line))
     {
+        QObject::tr("Error, vector size does not match the size of column * row");
         ERRO=true;
         return ;
     }
 
     matriz.clear();
-    //matriz=vect;
     matrixComplexElements.clear();
 
     int k=0;
@@ -331,13 +274,9 @@ void Matrix::VectorToMatrix(int col, int line,QVector<QString> &vect)
         for(int l=0;l<line;l++)
         {
             SetLineColNumber(l, c, calc.SolveExpression( vect.at(k) ).numberComplexo() );
-            //matrixComplexElements.append( calc.SolveExpression( vect.at(k) ).numberComplexo() );
             k++;
         }
     }
-
-
-
 }
 
 void Matrix::MatrixToVector(QVector<QString> &vect)
@@ -380,16 +319,17 @@ QVector<QString> Matrix::MatrixToVector()
 QString Matrix::GetLineColText(int L, int C)
 {
     ERRO=false;
+    errorMessage = "";
     if (L > NLine-1)
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("The row is bigger then matrix row size"));
+        errorMessage = QObject::tr("Error, the row is bigger than matrix row size");
         ERRO=true;
         return "";
     }
 
     if (C > NCol-1)
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("The column is bigger then matrix column size"));
+        errorMessage = QObject::tr("Error, the column is bigger than matrix column size");
         ERRO=true;
         return "";
     }
@@ -399,16 +339,17 @@ QString Matrix::GetLineColText(int L, int C)
 Complexo Matrix::GetLineColNumber(int L,int C)
 {
     ERRO=false;
+    errorMessage = "";
     if (L > NLine-1)
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("The row is bigger then matrix row size"));
+        errorMessage = QObject::tr("Error, the row is bigger than matrix row size");
         ERRO=true;
         return Complexo();
     }
 
     if (C > NCol-1)
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("The column is bigger then matrix column size"));
+        errorMessage = QObject::tr("Error, the column is bigger than matrix column size");
         ERRO=true;
         return Complexo();
     }
@@ -422,21 +363,22 @@ Complexo Matrix::GetLineColNumber(int L,int C)
 int Matrix::RemoveLineCol(int L, int C)
 {
     ERRO=false;
+    errorMessage = "";
     if ( (C > NCol-1) || (C < 0) )
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("The selected column is invalid"));
+        errorMessage = QObject::tr("Error, the selected column is invalid");
         ERRO=true;
         return 0;
     }
 
     if ( (L > NLine-1) || (L < 0) )
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("The selected row is invalid"));
+        errorMessage = QObject::tr("Error, the selected row is invalid");
         ERRO=true;
         return 0;
     }
 
-    //remove coluna
+    //remove column
     for(int l=NLine-1;l>=0;l--)
     {
         matriz.remove(l*NCol+C);
@@ -445,8 +387,7 @@ int Matrix::RemoveLineCol(int L, int C)
     NCol=NCol-1;
 
 
-    //remove linha
-    //matriz.RemoveAt(lr*NCol,NCol);
+    //remove row
     for(int l=0;l<NCol;l++)
     {
         matriz.remove(L*NCol);
@@ -463,9 +404,10 @@ int Matrix::RemoveLineCol(int L, int C)
 int Matrix::RemoveCol(int C)
 {
     ERRO=false;
+    errorMessage = "";
     if ( (C > NCol-1) || (C < 0) )
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("The selected column is invalid"));
+        QObject::tr("Error, the selected column is invalid");
         ERRO=true;
         return 0;
     }
@@ -483,9 +425,10 @@ int Matrix::RemoveCol(int C)
 int Matrix::RemoveLine(int L)
 {
     ERRO=false;
+    errorMessage = "";
     if ( (L > NLine-1) || (L < 0) )
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("The selected row is invalid"));
+        QObject::tr("Error, the selected row is invalid");
         ERRO=true;
         return 0;
     }
@@ -504,9 +447,10 @@ int Matrix::RemoveLine(int L)
 int Matrix::SwapLines(int L1, int L2)
 {
     ERRO=false;
+    errorMessage = "";
     if ( (L1 < 0) || (L1 > lineCount()) || (L2 < 0) || (L2 > lineCount()) )
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("The selected row is invalid"));
+        QObject::tr("Error, the selected row is invalid");
         ERRO=true;
         return 0;
     }
@@ -522,7 +466,7 @@ int Matrix::SwapLines(int L1, int L2)
     return 1;
 }
 
-int Matrix::searchInLines(QString word, int column)
+int Matrix::searchInLines(const QString &word, int column)
 {
     if (column > (NCol-1) )
         return -1;
@@ -543,18 +487,10 @@ int Matrix::searchInLines(QString word, int column)
 
 Matrix &Matrix::operator=(const Matrix &a )
 {
-    //this->matriz.clear();
-    //matriz.SetSize(a.matriz.GetSize());
 
     this->matriz = a.matriz;
     this->matrixComplexElements = a.matrixComplexElements;
-    //for(int i=0;i<a.matriz.size();i++)
-    //    matriz.append(a.matriz[i]);
-
-    //X.clear();
     this->X = a.X;
-    //for(i=0;i<a.X.size();i++)
-    //    X.append(a.X[i]);
     NLine=a.NLine;
     NCol=a.NCol;
     ERRO=a.ERRO;
@@ -571,7 +507,7 @@ Matrix operator+( Matrix &a , Matrix &b )
 
     if ( ! (a.columnCount()==b.columnCount() && a.lineCount()==b.lineCount() ) )
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("Sum error. Matrix dimensions don't match."));
+        QObject::tr("Sum error, matrix dimensions don't match");
         z.ERRO=true;
         return z;
     }
@@ -651,7 +587,7 @@ Matrix operator-( Matrix &a , Matrix &b )
 
     if ( ! (a.columnCount()==b.columnCount() && a.lineCount()==b.lineCount() ) )
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("Subtraction error. Matrix dimensions don't match."));
+        QObject::tr("Subtraction error. Matrix dimensions don't match");
         z.ERRO=true;
         return z;
     }
@@ -696,9 +632,6 @@ Matrix operator-(Matrix &a, const double &b)
 {
     return b-a;
 }
-
-
-
 
 Matrix operator-(const Complexo &a, Matrix &b)
 {
@@ -749,18 +682,11 @@ Matrix operator*( Matrix &a , Matrix &b )
 {
 
     Matrix z;
-
-    Complexo y;
-   // Complexo aux1;
-  //  Complexo aux2;
-    QString mul;
-
     Complexo multiplication_aux(0,0);
-    Calculator calc;
 
     if (a.columnCount() != b.lineCount())
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("Multiplication error. Matrix dimensions don't match."));
+        QObject::tr("Multiplication error, matrix dimensions don't match");
         z.ERRO=true;
         return z;
     }
@@ -770,24 +696,19 @@ Matrix operator*( Matrix &a , Matrix &b )
     int bC=b.columnCount();
     z.SetLinesCols(aL,bC);
 
-
     for(int l=0;l<aL;l++)
     {
         for(int c=0;c<bC;c++)
         {
-            //y=0;
-            //mul.clear();
             multiplication_aux.clear();
             for(int i=0;i<aC;i++)
             {
-                //mul+=QString("+(%1)*(%2)").arg(a.GetLineColText(l,i)).arg(b.GetLineColText(i,c));
                 Complexo aux = a.GetLineColNumber(l,i) * b.GetLineColNumber(i,c);
                 multiplication_aux = multiplication_aux + aux;
             }           
             z.SetLineColNumber(l,c,multiplication_aux);    
         }
     }
-
     return z;
 }
 
@@ -1064,7 +985,7 @@ Matrix Matrix::cofactor()
 
     if (this->NCol != this->NLine)
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("Can not calculate matrix of cofactors, matrix is not square"));
+        QObject::tr("Error, can not calculate matrix of cofactors, matrix is not square");
         mat_cofactor.ERRO=true;
         return mat_cofactor;
     }
@@ -1094,7 +1015,7 @@ Matrix Matrix::adjugate()
 
     if (this->NCol != this->NLine)
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("Can not calculate matrix adjugate, matrix is not square"));
+        QObject::tr("Error, can not calculate matrix adjugate, matrix is not square");
         mat_adjugate.ERRO=true;
         return mat_adjugate;
     }
@@ -1112,7 +1033,7 @@ Matrix Matrix::inverse()
     Matrix adj;
     if (this->NCol != this->NLine)
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("Can not inverte matrix, matrix is not square"));
+        QObject::tr("Error, can not inverte matrix, matrix is not square");
         adj.ERRO=true;
         return adj;
     }
@@ -1182,7 +1103,7 @@ Complexo Matrix::Determinant()
 
     if (this->columnCount() != this->lineCount())
     {
-        QMessageBox::about(0,QObject::tr("Error"),QObject::tr("Matrix must be square."));
+        QObject::tr("Error, matrix must be square");
         ERRO=true;
         return Complexo();
     }
