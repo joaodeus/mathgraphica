@@ -1237,7 +1237,7 @@
     <message>
         <location filename="mainwindow.cpp" line="681"/>
         <source>math_html/mat_manual_en.html</source>
-        <translation></translation>
+        <translation>math_html/mat_manual_pt.html</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="684"/>
