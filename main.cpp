@@ -5,12 +5,16 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    QCoreApplication::setApplicationName("MathGraphica");
+    QCoreApplication::setOrganizationName("João de Deus");
+
     QTime time = QTime::currentTime();
     qsrand((uint)time.msec());
 
     if ( !QGLFormat::hasOpenGL() )
     {
-         qWarning( "This system has no OpenGL support. Graph's will not be available." );
+         qWarning( "This system has no OpenGL support. Graphs will not be available." );
     }
 
     QTranslator appTranslator;
