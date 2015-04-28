@@ -1,5 +1,6 @@
 #include "mynumber.h"
 
+#include <QDebug>
 
 MyNumber::MyNumber()
 {
@@ -385,14 +386,15 @@ void MyNumber::showNumber()
 {
 
     if (type == "number")
-        QMessageBox::about(0,"results",QString("%1+i%2").arg(number_complexo.r).arg(number_complexo.i));
+        qDebug()<<QString("%1+i%2").arg(number_complexo.r).arg(number_complexo.i);
+        //QMessageBox::about(0,"results",QString("%1+i%2").arg(number_complexo.r).arg(number_complexo.i));
 
     // add show to list
-    if (type == "list")
-        QMessageBox::about(0,"results","todo: add a list viewer");
+    //if (type == "list")
+        //QMessageBox::about(0,"results","todo: add a list viewer");
 
-    if (type == "matrix")
-        number_matrix.Show();
+    //if (type == "matrix")
+      //  number_matrix.Show();
 
 }
 

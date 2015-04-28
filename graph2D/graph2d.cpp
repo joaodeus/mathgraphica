@@ -1,5 +1,6 @@
 #include "graph2d.h"
 
+#include <QMessageBox>
 #include <QDebug>
 
 Graph2D::Graph2D()

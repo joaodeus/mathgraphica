@@ -2,6 +2,7 @@
 
 #include <QFileDialog>
 #include <QImageWriter>
+#include <QMessageBox>
 
 
 Graph2D_OpenGL::Graph2D_OpenGL()//: m_graph2D(calc_)

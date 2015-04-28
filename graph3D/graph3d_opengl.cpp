@@ -4,6 +4,7 @@
 #include <QTime>
 #include <QFileDialog>
 #include <QImageWriter>
+#include <QMessageBox>
 
 Graph3D_OpenGL::Graph3D_OpenGL()
 //Graph3D_OpenGL::Graph3D_OpenGL(QScreen *screen)

@@ -2,7 +2,7 @@
 #define MYNUMBER_H
 
 #include <QVector>
-#include <QMessageBox>
+//#include <QMessageBox>
 #include <QDataStream>
 #include "complexo.h"
 #include "matrix.h"

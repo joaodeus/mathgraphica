@@ -6,6 +6,8 @@
 
 QT       += core gui opengl
 
+CONFIG += c++11
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = MathGraphica
@@ -58,7 +60,8 @@ SOURCES += main.cpp\
     graph3DParametric/graph3dparametric_addnew_gui.cpp \
     graph3DParametric/graph3dparametric.cpp \
     graph3DParametric/graph3dparametric_opengl.cpp \
-    gui/baseconverter_gui.cpp
+    gui/baseconverter_gui.cpp \
+    calculator/error.cpp
 
 HEADERS  += mainwindow.h \
     graph3D/graph3d.h \
@@ -102,7 +105,8 @@ HEADERS  += mainwindow.h \
     graph3DParametric/graph3dparametric_addnew_gui.h \
     graph3DParametric/graph3dparametric.h \
     graph3DParametric/graph3dparametric_opengl.h \
-    gui/baseconverter_gui.h
+    gui/baseconverter_gui.h \
+    calculator/error.h
 
 FORMS    += mainwindow.ui \
     gui/calculator_gui.ui \

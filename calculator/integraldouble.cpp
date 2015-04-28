@@ -1,5 +1,7 @@
 #include "integraldouble.h"
 
+#include "error.h"
+
 IntegralDouble::IntegralDouble(Parser *parser_)
 {
     parser                      = parser_;
@@ -56,29 +58,30 @@ void IntegralDouble::setOuterLimits(const double &outerLowerLimit_, const double
 
 void IntegralDouble::setOuterLimits(const QString &outerLowerLimitExpression_, const QString &outerUpperLimitExpression_)
 {
+    Error::getInstance().setError(false);
     outerLowerLimitExpression = outerLowerLimitExpression_;
     outerUpperLimitExpression = outerUpperLimitExpression_;
 
     outerLowerLimit = parser->SolveExpression(outerLowerLimitExpression).numberReal();
     if (parser->error())
     {
-        QMessageBox::about(0,"Error!","Invalid outer lower limit");
+        Error::getInstance().setError(true, QObject::tr("Invalid outer lower limit"));
     }
 
     outerUpperLimit = parser->SolveExpression(outerUpperLimitExpression).numberReal();
     if (parser->error())
     {
-        QMessageBox::about(0,"Error!","Invalid outer upper limit");
+        Error::getInstance().setError(true, QObject::tr("Invalid outer upper limit"));
     }
-
 }
 
 
 void IntegralDouble::setNumberOfIntervals(const uint &numberOfIntervals_)
 {
+    Error::getInstance().setError(false);
     if (numberOfIntervals_ <= 0)
     {
-        QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Invalid number of intervals."));
+        Error::getInstance().setError(true, QObject::tr("Invalid number of intervals"));
     }
     numberOfIntervals = numberOfIntervals_;
     numberOfIntervalsExpression = QString("%1").arg(numberOfIntervals);
@@ -87,16 +90,17 @@ void IntegralDouble::setNumberOfIntervals(const uint &numberOfIntervals_)
 
 void IntegralDouble::setNumberOfIntervals(const QString &numberOfIntervals_)
 {
+    Error::getInstance().setError(false);
     numberOfIntervalsExpression = numberOfIntervals_;
     numberOfIntervals = parser->SolveExpression(numberOfIntervalsExpression).numberReal();
     if (parser->error())
     {
-        QMessageBox::about(0,"Error!","Invalid number of intervals");
+        Error::getInstance().setError(true, QObject::tr("Invalid number of intervals"));
     }
 
     if (numberOfIntervals_ <= 0)
     {
-        QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Number of intervals must be greater than zero."));
+        Error::getInstance().setError(true, QObject::tr("Number of intervals must be greater than zero"));
     }
 }
 

@@ -3,6 +3,7 @@
 #include "graph2d_addnew_gui.h"
 
 #include <QColorDialog>
+#include <QMessageBox>
 
 Graph2D_Editor_gui::Graph2D_Editor_gui(QWidget *parent) :
     QDialog(parent),

@@ -6,6 +6,7 @@
 #include <QOpenGLBuffer>
 #include <QVector3D>
 #include <QOpenGLShaderProgram>
+#include <QColor>
 #include "calculator/calculator.h"
 
 

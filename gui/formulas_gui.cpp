@@ -1,6 +1,7 @@
 #include "formulas_gui.h"
 #include "ui_formulas_gui.h"
 #include "calculator/formulas.h"
+#include <QMessageBox>
 
 Formulas_gui::Formulas_gui(QWidget *parent, Calculator *calculator_) :
     QWidget(parent),

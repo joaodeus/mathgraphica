@@ -5,6 +5,7 @@
 #include <QList>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLBuffer>
+#include <QColor>
 #include "calculator/calculator.h"
 
 class Graph3DParametric

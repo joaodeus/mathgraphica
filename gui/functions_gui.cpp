@@ -2,6 +2,7 @@
 #include "ui_functions_gui.h"
 #include "globalfunctions.h"
 
+#include <QMessageBox>
 
 Functions_gui::Functions_gui(QWidget *parent) :
     QWidget(parent),

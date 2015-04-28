@@ -3,6 +3,7 @@
 #include "globalfunctions.h"
 #include "calculator/calculator.h"
 #include <QMenu>
+#include <QMessageBox>
 
 Matrix_gui::Matrix_gui(QWidget *parent) :
     QDialog(parent),

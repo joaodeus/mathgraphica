@@ -2,6 +2,7 @@
 #include "ui_systemeq_gui.h"
 
 #include "globalfunctions.h"
+#include <QMessageBox>
 
 SystemEq_gui::SystemEq_gui(QWidget *parent) :
   //  QDialog(parent),

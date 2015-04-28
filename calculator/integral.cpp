@@ -1,6 +1,10 @@
 #include "integral.h"
 
-Integral::Integral(Parser *parser_)
+#include "error.h"
+
+Integral::Integral(Parser *parser_) :
+    m_error(false),
+    m_errorMessage("")
 {
     parser                      = parser_;
     lowerLimit                  = 0;
@@ -24,48 +28,41 @@ void Integral::setLimits(const double &lowerLimit_, const double &upperLimit_)
 
 void Integral::setLimits(const QString &lowerLimitExpression_, const QString &upperLimitExpression_)
 {
+    Error::getInstance().setError(false);
     lowerLimitExpression = lowerLimitExpression_;
     upperLimitExpression = upperLimitExpression_;
 
     lowerLimit = parser->SolveExpression(lowerLimitExpression).numberReal();
     if (parser->error())
-    {
-        QMessageBox::about(0,"Error!","Invalid lower limit");
-    }
+        Error::getInstance().setError(true, QObject::tr("Error!","Invalid lower limit"));
 
     upperLimit = parser->SolveExpression(upperLimitExpression).numberReal();
     if (parser->error())
-    {
-        QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Invalid upper limit"));
-    }
-
+        Error::getInstance().setError(true, QObject::tr("Error!","Invalid upper limit"));
 }
 
 
 void Integral::setNumberOfIntervals(const uint &numberOfIntervals_)
 {
+    Error::getInstance().setError(false);
     if (numberOfIntervals_ <= 0)
     {
-        QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Invalid number of intervals."));
+        Error::getInstance().setError(true, QObject::tr("Invalid number of intervals."));
     }
     numberOfIntervals = numberOfIntervals_;
     numberOfIntervalsExpression = QString("%1").arg(numberOfIntervals);
-
 }
 
 void Integral::setNumberOfIntervals(const QString &numberOfIntervals_)
 {
+    Error::getInstance().setError(false);
     numberOfIntervalsExpression = numberOfIntervals_;
     numberOfIntervals = parser->SolveExpression(numberOfIntervalsExpression).numberReal();
     if (parser->error())
-    {
-        QMessageBox::about(0,"Error!","Invalid number of intervals");
-    }
+        Error::getInstance().setError(true, QObject::tr("Invalid number of intervals"));
 
     if (numberOfIntervals_ <= 0)
-    {
-        QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Number of intervals must be greater than zero."));
-    }
+        Error::getInstance().setError(true, QObject::tr("Number of intervals must be greater than zero"));
 }
 
 
@@ -156,18 +153,17 @@ Complexo Integral::solveIntegral()
     double b = upperLimit;
     QStringList variables;
 
+    Error::getInstance().setError(false);
     if (parser->GrabVariables(integralExpression,variables) > 1)
     {
-        QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Invalid integral expression."));
+        Error::getInstance().setError(true, QObject::tr("Invalid integral expression"));
         return 0;
     }
 
-    //
     if (variables.size() == 0)
     {
         variables.append("x");
     }
-
 
 
     if (a > b)
@@ -201,6 +197,34 @@ Complexo Integral::solveIntegral()
 
     return Isc;
 }
+
+/*
+void Integral::setError(const bool &error_, const QString &errorMessage_)
+{
+    if (m_errorMessage != errorMessage_)
+        m_errorMessage = errorMessage_;
+
+    if (m_error != error_)
+    {
+        m_error = error_;
+        if (error_) //emit error if its true
+        {
+            emit errorFired(error_);
+            emit errorMessageFired(errorMessage_);
+        }
+    }
+}
+
+bool Integral::error()
+{
+    return m_error;
+}
+
+QString Integral::errorMessage()
+{
+    return m_errorMessage;
+}*/
+
 
 /*
 double Integral::integral(Parser *p, QString &expression, QString &variable, double &a, double &b, double &m)

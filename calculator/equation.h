@@ -34,6 +34,8 @@ public:
     QString getEquation_member2(){return m_f2;}
 
     void teste();
+    bool error;
+    QString errorMessage;
 
 private:
     double min;

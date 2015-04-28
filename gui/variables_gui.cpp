@@ -3,6 +3,8 @@
 #include "globalfunctions.h"
 #include "calculator/calculator.h"
 
+#include <QMessageBox>
+
 Variables_gui::Variables_gui(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Variables_gui)

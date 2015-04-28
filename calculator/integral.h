@@ -48,6 +48,12 @@ public:
     double solveIntegralDouble(const QString &expression);
 */
 
+ /*   void setError(const bool &error_, const QString &errorMessage_ = "");
+    bool error();
+    QString errorMessage();
+signals:
+    void errorFired(bool error_);
+    void errorMessageFired(QString errorMessage_);*/
 
 private:
     // integral simple
@@ -62,6 +68,8 @@ private:
     //used for integrals
     Parser *parser;
 
+    bool m_error;
+    QString m_errorMessage;
 
 
 //private:

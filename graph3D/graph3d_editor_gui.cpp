@@ -1,6 +1,8 @@
 #include "graph3d_editor_gui.h"
 #include "graph3d_addnew_gui.h"
 
+#include <QMessageBox>
+
 //Graph3D_Editor_gui::Graph3D_Editor_gui()
 Graph3D_Editor_gui::Graph3D_Editor_gui(Graph2D_Editor_gui *parent) :
     Graph2D_Editor_gui(parent)

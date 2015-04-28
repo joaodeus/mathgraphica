@@ -1,6 +1,7 @@
 #include "graph3d.h"
 
 #include <QTime>
+#include <QMessageBox>
 
 Graph3D::Graph3D() //:
 //    m_vertexBufferGraph3D(QOpenGLBuffer::IndexBuffer),

@@ -3,6 +3,7 @@
 
 #include <QKeyEvent>
 #include <QDesktopServices>
+#include <QMessageBox>
 #include "gui/calculator_gui.h"
 #include "gui/baseconverter_gui.h"
 #include "gui/equation_gui.h"

@@ -1,9 +1,11 @@
 #include "equation.h"
 
 // for debbugging with 2D graphs
-#include "graph2D/graph2d_opengl.h"
+//#include "graph2D/graph2d_opengl.h"
 
-Equation::Equation(Parser *parser_)
+Equation::Equation(Parser *parser_) :
+    error(false),
+    errorMessage("")
 {
     parser = parser_;
     flagCalculationEquation=false;
@@ -34,18 +36,22 @@ void Equation::setLimits(const double &min_, const double &max_)
 
 void Equation::setLimits(const QString &minExpression_, const QString &maxExpression_)
 {
+    error = false;
+    errorMessage = "";
     minExpression = minExpression_;
     min = parser->SolveExpression(minExpression).numberReal();
     if (parser->error())
     {
-        QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Invalid min value."));
+        error = true;
+        errorMessage = QObject::tr("Invalid min value.");
     }
 
     maxExpression = maxExpression_;
     max = parser->SolveExpression(maxExpression).numberReal();
     if (parser->error())
     {
-        QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Invalid max value."));
+        error = true;
+        errorMessage = QObject::tr("Invalid max value.");
     }
 
 }
@@ -58,11 +64,14 @@ void Equation::setPrecision(const double &precision_)
 
 void Equation::setPrecision(const QString &precisionExpression_)
 {
+    error = false;
+    errorMessage = "";
     precisionExpression = precisionExpression_;
     precision = parser->SolveExpression(precisionExpression).numberReal();
     if (parser->error())
     {
-        QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Invalid precision"));
+        error = true;
+        errorMessage = QObject::tr("Invalid precision");
     }
 
 }
@@ -75,11 +84,14 @@ void Equation::setDelta(const double &delta_)
 
 void Equation::setDelta(const QString &deltaExpression_)
 {
+    error = false;
+    errorMessage = "";
     deltaExpression = deltaExpression_;
     delta = parser->SolveExpression(deltaExpression).numberReal();
     if (parser->error())
     {
-        QMessageBox::about(0,QObject::tr("Error!"),QObject::tr("Invalid search delta"));
+        error = true;
+        errorMessage = QObject::tr("Invalid search delta");
     }
 }
 
@@ -362,7 +374,7 @@ double Equation::root_finder(Parser *p, QString f1, QString f2, QString variable
 
 void Equation::teste()
 {
-
+/*
     // creates data arrays
     QList<double> graph1_xx;
     QList<double> graph1_yy;
@@ -392,5 +404,5 @@ void Equation::teste()
     graph->addGraph2D(graph_2);
 
     graph->show();
-
+*/
 }

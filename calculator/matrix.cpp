@@ -47,7 +47,7 @@ void Matrix::SetLineColText(int L,int C, QString text)
     errorMessage = "";
     if (L > NLine-1)
     {
-        errorMessage = QObject::tr("Error, the row is bigger than matrix row size.");
+        errorMessage = QObject::tr("Error, the row is bigger than matrix row size");
         ERRO=true;
         return;
     }
@@ -254,7 +254,7 @@ void Matrix::VectorToMatrix(int col, int line,QVector<QString> &vect)
 
     if (vect.size() != (col * line))
     {
-        QObject::tr("Error, vector size does not match the size of column * row");
+        errorMessage = QObject::tr("Error, vector size does not match the size of column * row");
         ERRO=true;
         return ;
     }
@@ -1056,7 +1056,7 @@ Matrix Matrix::inverse()
 void Matrix::Show()
 {
 
-    Matrix_gui *matrix_show = new Matrix_gui;
+    /*Matrix_gui *matrix_show = new Matrix_gui;
     //matrix_show->setMatrix(NLine,NCol,this->matriz);
     matrix_show->mat = *this;
 
@@ -1064,6 +1064,7 @@ void Matrix::Show()
     matrix_show->setAttribute(Qt::WA_DeleteOnClose,true);
     //if ( matrix_show.exec() == QDialog::Accepted)
     matrix_show->show();
+   */
    // {
 //        VectorToMatrix(matrix_show->NCol, matrix_show->NLine, matrix_show->matrixList);
     //}
@@ -1073,7 +1074,7 @@ void Matrix::Show()
 
 void Matrix::setGuiMatrix()
 {
-    Matrix_gui mat_gui;
+  /*  Matrix_gui mat_gui;
 
     mat_gui.mat = *this;
 //    mat_gui.setMatrix(NLine, NCol, matriz);
@@ -1083,7 +1084,7 @@ void Matrix::setGuiMatrix()
     {
         VectorToMatrix(mat_gui.NCol, mat_gui.NLine, mat_gui.matrixList);
     }
-
+*/
 }
 
 

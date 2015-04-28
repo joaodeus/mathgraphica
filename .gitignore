@@ -8,6 +8,7 @@ bld.inf
 *.pkg
 *.loc
 
+build-*/
 debian/
 moc/
 obj/
