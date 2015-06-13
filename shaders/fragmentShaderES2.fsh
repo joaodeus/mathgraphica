@@ -1,4 +1,4 @@
-//#version 130
+#version 130
 varying mediump vec4 Color;
 
 void main(void)

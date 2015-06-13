@@ -1,4 +1,4 @@
-//#version 130
+#version 130
 uniform mediump mat4 matrix;
 uniform mediump mat4 proj;
 

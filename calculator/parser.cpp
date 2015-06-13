@@ -1,5 +1,6 @@
 #include "parser.h"
 #include <QDebug>
+#include <QtMath>
 #include "equation.h"
 #include "integral.h"
 
@@ -2012,6 +2013,7 @@ void Parser::unitTest()
 {
     QString expression;
 
+    qDebug()<<"------Start Unit Testing-----------------------";
     qDebug()<<"------Parser Testing------";
     qDebug()<< qFuzzyCompare( SolveExpression("2").numberReal(), 2 ) << "2 == 2";
     qDebug()<<qFuzzyCompare( SolveExpression("-3").numberReal(), -3.0 ) << "-3 == -3";

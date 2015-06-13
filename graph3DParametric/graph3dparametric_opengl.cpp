@@ -1,5 +1,5 @@
 #include "graph3dparametric_opengl.h"
-
+/*
 Graph3DParametric_OpenGL::Graph3DParametric_OpenGL()
 {
 }
@@ -50,3 +50,4 @@ void Graph3DParametric_OpenGL::paintGL()
 {
 
 }
+*/

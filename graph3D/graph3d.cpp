@@ -1,5 +1,7 @@
 #include "graph3d.h"
 
+//#include <QOpenGLWidget>
+#include <QOpenGLFunctions>
 #include <QTime>
 #include <QMessageBox>
 
@@ -190,6 +192,29 @@ void Graph3D::setGraph3DExpression(const QString &expression_)
     timeGraph3D = calc.isValid_Expression_with_time_variable(m_graph3DExpression);
 }
 
+void Graph3D::setXInterval(const double &min_, const double &max_)
+{
+    setMinX(min_);
+    setMaxX(max_);
+}
+
+void Graph3D::setXInterval(const QString &minExpression_, const QString &maxExpression_)
+{
+    setMinX(minExpression_);
+    setMaxX(maxExpression_);
+}
+
+void Graph3D::setYInterval(const double &min_, const double &max_)
+{
+    setMinY(min_);
+    setMaxY(max_);
+}
+
+void Graph3D::setYInterval(const QString &minExpression_, const QString &maxExpression_)
+{
+    setMinY(minExpression_);
+    setMaxY(maxExpression_);
+}
 
 bool Graph3D::setupGraph()
 {
@@ -755,6 +780,7 @@ void Graph3D::draw(QOpenGLShaderProgram &m_shaderProgram)
 
   //  m_shaderProgram.bind();
 
+    QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
 
 
     m_vertexBufferGraph3D.bind();
@@ -767,9 +793,9 @@ void Graph3D::draw(QOpenGLShaderProgram &m_shaderProgram)
     m_shaderProgram.setAttributeBuffer("vertexColor", GL_FLOAT, 0, 3);
 
 
-    glCullFace(GL_FRONT);
+    f->glCullFace(GL_FRONT);
     //glDrawElements(GL_TRIANGLES, elements.size(), GL_FLOAT, elements);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, xx.size());
+    f->glDrawArrays(GL_TRIANGLE_STRIP, 0, xx.size());
     //glDrawArrays(GL_TRIANGLE_STRIP, 0, 50);
 
 
@@ -778,15 +804,15 @@ void Graph3D::draw(QOpenGLShaderProgram &m_shaderProgram)
     m_shaderProgram.setAttributeBuffer("vertexColor", GL_FLOAT, 0, 3);
 
 
-    glCullFace(GL_BACK);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, xx.size());
+    f->glCullFace(GL_BACK);
+    f->glDrawArrays(GL_TRIANGLE_STRIP, 0, xx.size());
 
 }
 
 void Graph3D::draw2(QOpenGLShaderProgram &m_shaderProgram)
 {
 
-    m_vertexBufferGraph3D.bind();
+  /*  m_vertexBufferGraph3D.bind();
    // if (m_vertexBufferGraph2D.bind()) qDebug() << "Success biding vertex position buffer";
     //m_shaderProgram.enableAttributeArray("vertexPosition");
     m_shaderProgram.setAttributeBuffer("vertexPosition", GL_FLOAT, 0, 3);
@@ -811,13 +837,14 @@ void Graph3D::draw2(QOpenGLShaderProgram &m_shaderProgram)
 //    glDrawElements(GL_TRIANGLES, elements.size(), GL_INT, vertexElements);
 
     glDrawArrays(GL_TRIANGLES, 0, xx.size());
-
+*/
 
 }
 
 void Graph3D::draw_aux(QOpenGLShaderProgram &m_shaderProgram)
 {
 
+    QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
   //  m_shaderProgram.bind();
 
     m_vertexBufferGraph3D.bind();
@@ -832,26 +859,22 @@ void Graph3D::draw_aux(QOpenGLShaderProgram &m_shaderProgram)
     m_shaderProgram.disableAttributeArray("vertexColor");
 
     m_shaderProgram.setAttributeValue("vertexColor", colorA);
-    glCullFace(GL_FRONT);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, xx.size());
+    f->glCullFace(GL_FRONT);
+    f->glDrawArrays(GL_TRIANGLE_STRIP, 0, xx.size());
 
     m_shaderProgram.setAttributeValue("vertexColor", colorB);
-    glDrawArrays(GL_TRIANGLE_STRIP, 1, xx.size()-1);
+    f->glDrawArrays(GL_TRIANGLE_STRIP, 1, xx.size()-1);
 
     m_shaderProgram.setAttributeValue("vertexColor", colorC);
-    glDrawArrays(GL_TRIANGLE_STRIP, 2, xx.size()-2);
+    f->glDrawArrays(GL_TRIANGLE_STRIP, 2, xx.size()-2);
 
     m_shaderProgram.setAttributeValue("vertexColor", colorD);
-    glDrawArrays(GL_TRIANGLE_STRIP, 3, xx.size()-3);
-
+    f->glDrawArrays(GL_TRIANGLE_STRIP, 3, xx.size()-3);
 
   //  m_shaderProgram.setAttributeValue("vertexColor", colorC);
    // glDrawArrays(GL_TRIANGLES, 2, xx.size()-2);
 
-
-
     //glDrawArrays(GL_TRIANGLE_STRIP, 0, 50);
-
 
     //m_colorBackBufferGraph3D.bind();
 //    m_shaderProgram.enableAttributeArray("vertexColor");

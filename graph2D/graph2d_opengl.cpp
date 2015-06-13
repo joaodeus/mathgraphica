@@ -39,16 +39,11 @@ Graph2D_OpenGL::~Graph2D_OpenGL()
 
 void Graph2D_OpenGL::initializeGL()
 {
-
-  /*  QGLFormat glFormat = QGLWidget::format();
-    if ( !glFormat.sampleBuffers() )
-        qWarning() << "Could not enable sample buffers";
-*/
+    initializeOpenGLFunctions();
 
     initializeAxis2D();
     prepareShaderProgram();
     prepareVertexBuffers();
-
 
     //glShadeModel(GL_FLAT);
     glEnable(GL_DEPTH_TEST);
@@ -190,7 +185,7 @@ void Graph2D_OpenGL::prepareGraphs()
         m_graph2DList[i].setBufferData(m_shaderProgram);
     }
 
-    updateGL();
+    update();
 }
 
 
@@ -312,11 +307,11 @@ void Graph2D_OpenGL::timerEvent(QTimerEvent *event)
         }
 
         qDebug()<<"updating t: "<<t;
-        updateGL();
+        update();
         return;
     }
 
-    QGLWidget::timerEvent(event);
+    QOpenGLWidget::timerEvent(event);
 }
 
 
@@ -325,7 +320,8 @@ void Graph2D_OpenGL::setBackGroundColor(const QColor &color_)
     backgroundColor = color_;
     glClearColor(backgroundColor.redF(),backgroundColor.greenF(), backgroundColor.blueF(), 1.0f);
 
-    paintGL();
+    update();
+    //paintGL();
 }
 
 
@@ -345,9 +341,10 @@ void Graph2D_OpenGL::SaveImageAs()
         filename.append( ".png" );
     }
 
-    QPixmap imagepix = renderPixmap( );
-    QImage image = grabFrameBuffer( );
-    QImageWriter imageWriter(filename,"png");
+    QPixmap pixmap( size() );
+    render( &pixmap );
+    QImage image = grabFramebuffer();
+    QImageWriter imageWriter( filename, "png" );
 
     //imageWriter.setQuality(100);
 
@@ -388,7 +385,7 @@ void Graph2D_OpenGL::mouseDoubleClickEvent(QMouseEvent * event)
     translate_xy.setY(0);
     lastPos.setX(0);
     lastPos.setY(0);
-    updateGL();
+    update();
 }
 
 
@@ -399,7 +396,7 @@ void Graph2D_OpenGL::mouseMoveEvent(QMouseEvent *event)
     if (event->buttons() == Qt::LeftButton || event->buttons() == Qt::RightButton)
     {
         translate_xy += (MouseCoordinates_ToViewport(event->pos()) - lastPos) * scale;
-        updateGL();
+        update();
     }
     lastPos = MouseCoordinates_ToViewport(event->pos());
 }
@@ -425,7 +422,7 @@ void Graph2D_OpenGL::wheelEvent(QWheelEvent * event)
         }
 
    // qDebug()<<scale;
-    updateGL();
+    update();
     event->accept();
 }
 
@@ -459,7 +456,7 @@ bool Graph2D_OpenGL::event(QEvent *event)
         {
             translate_xy += (MouseCoordinates_ToViewport(touchPoints.first().pos()) - lastPos) * scale;
             lastPos = MouseCoordinates_ToViewport(touchPoints.first().pos());
-            updateGL();
+            update();
             event->accept();
             return true;
         }
@@ -493,7 +490,7 @@ bool Graph2D_OpenGL::event(QEvent *event)
                     if (scale < 20)
                         scale*=1.1;*/
 
-                updateGL();
+                update();
                 event->accept();
                 return true;
             }
@@ -511,7 +508,7 @@ bool Graph2D_OpenGL::event(QEvent *event)
     }
     ///////////////////////////////////////////////////
 
-    return QGLWidget::event(event);
+    return QOpenGLWidget::event(event);
 }
 
 QPointF Graph2D_OpenGL::MouseCoordinates_ToViewport(const QPointF &p)

@@ -1,10 +1,10 @@
 #ifndef GRAPH3D_H
 #define GRAPH3D_H
 
-
 #include <QList>
 #include <QString>
-#include <QGLWidget>
+//#include <QGLWidget>
+#include <QColor>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLBuffer>
 #include "calculator/calculator.h"
@@ -28,6 +28,11 @@ public:
 
     // set a graph from a math expression
     void setGraph3DExpression(const QString &expression_);
+
+    void setXInterval(const double &min_, const double &max_);
+    void setXInterval(const QString &minExpression_, const QString &maxExpression_);
+    void setYInterval(const double &min_, const double &max_);
+    void setYInterval(const QString &minExpression_, const QString &maxExpression_);
 
     void setMinX(const double &minX_);
     void setMinX(const QString &minXExpression_);

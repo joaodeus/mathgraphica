@@ -1,7 +1,8 @@
 #ifndef GRAPH2D_OPENGL_H
 #define GRAPH2D_OPENGL_H
 
-#include <QGLWidget>
+#include <QOpenGLWidget>
+#include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLContext>
 #include <QOpenGLBuffer>
@@ -9,7 +10,7 @@
 #include <QTime>
 #include "graph2d.h"
 
-class Graph2D_OpenGL : public QGLWidget
+class Graph2D_OpenGL : public QOpenGLWidget, protected QOpenGLFunctions
 {
 public:
     Graph2D_OpenGL();

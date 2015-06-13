@@ -1,5 +1,6 @@
 #include "graph2d.h"
 
+#include <QOpenGLFunctions>
 #include <QMessageBox>
 #include <QDebug>
 
@@ -438,6 +439,7 @@ void Graph2D::draw(QOpenGLShaderProgram &m_shaderProgram)
 
   //  prepareBuffers();
 
+    QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
 
     /////////////////////////////////////
 
@@ -452,21 +454,19 @@ void Graph2D::draw(QOpenGLShaderProgram &m_shaderProgram)
 
     if (bPolarGraph)
     {
-        glDrawArrays(GL_LINE_STRIP, 0, xx.size());
+        f->glDrawArrays(GL_LINE_STRIP, 0, xx.size());
     }
     else
     {
         for (int i=0;i<poles_interval.size();i=i+2)
         {
-            glDrawArrays(GL_LINE_STRIP, poles_interval[i],poles_interval[i+1]);
+            f->glDrawArrays(GL_LINE_STRIP, poles_interval[i],poles_interval[i+1]);
         }
     }
 
     //////////////////////////////////////////////
 
    // releaseBuffers();
-
-
 }
 
 void Graph2D::setColor(const QColor &color_)

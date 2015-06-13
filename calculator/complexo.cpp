@@ -1,5 +1,5 @@
-
 #include "complexo.h"
+#include <QtMath>
 
 Complexo::Complexo(double r_,double i_)
 {

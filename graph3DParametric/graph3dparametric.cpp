@@ -36,5 +36,5 @@ QColor Graph3DParametric::getColor()
 
 bool Graph3DParametric::setupGraph()
 {
-
+    return true;
 }

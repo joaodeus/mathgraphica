@@ -529,7 +529,6 @@ void MainWindow::on_actionFormulas_triggered()
 
 void MainWindow::on_actionGraph_2D_triggered()
 {
-
     Graph2D_AddNew_gui newGraph_gui;
     newGraph_gui.exec();
 
@@ -542,10 +541,7 @@ void MainWindow::on_actionGraph_2D_triggered()
 
         graph2dContainer->show();
     }
-
 }
-
-
 
 void MainWindow::on_actionGraph_3D_triggered()
 {
@@ -560,25 +556,12 @@ void MainWindow::on_actionGraph_3D_triggered()
         graph3dContainer->m_graph3D_OpenGL.m_graph3DList.append(newGraph_gui.m_graph3D);
         graph3dContainer->show();
     }
-
-    //Graph3D_AddNew_gui_TabWidget gui;
-    //gui.exec();
-
-/*    Graph3D m_graph3d;
-    m_graph3d.setupGraph();
-
-    Graph3D_OpenGL *graph = new Graph3D_OpenGL ;
-    graph->addGraph3D(m_graph3d);
-    graph->show();
-
-    Graph3D_Container_gui *container = new Graph3D_Container_gui;
-    container->show();*/
 }
 
 
 void MainWindow::on_actionGraph_3D_Parametric_triggered()
 {
-
+    /*
     Graph3DParametric_AddNew_gui gui;
     gui.exec();
 
@@ -589,9 +572,7 @@ void MainWindow::on_actionGraph_3D_Parametric_triggered()
         Graph3DParametric_OpenGL *m_graph3DParametricOpenGL = new Graph3DParametric_OpenGL;
         m_graph3DParametricOpenGL->show();
 
-    }
-
-
+    }*/
 }
 
 

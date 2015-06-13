@@ -12,10 +12,10 @@ int main(int argc, char *argv[])
     QTime time = QTime::currentTime();
     qsrand((uint)time.msec());
 
-    if ( !QGLFormat::hasOpenGL() )
+    /*if ( !QGLFormat::hasOpenGL() )
     {
          qWarning( "This system has no OpenGL support. Graphs will not be available." );
-    }
+    }*/
 
     QTranslator appTranslator;
     QString qmPath = a.applicationDirPath()+"/translations";
@@ -27,10 +27,6 @@ int main(int argc, char *argv[])
 
     MainWindow w;
     w.show();
-
-    //Todo: create a separate project for unit testing
-    //Calculator calc;
-    //calc.unitTest();
     
     return a.exec();
 }

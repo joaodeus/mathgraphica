@@ -1,9 +1,9 @@
 #ifndef GRAPH3DPARAMETRIC_OPENGL_H
 #define GRAPH3DPARAMETRIC_OPENGL_H
 
-#include <QGLWidget>
-
-class Graph3DParametric_OpenGL : public QGLWidget
+//#include <QGLWidget>
+/*
+class Graph3DParametric_OpenGL //: public QGLWidget
 {
 public:
     Graph3DParametric_OpenGL();
@@ -21,6 +21,6 @@ public:
 
 
 
-};
+};*/
 
 #endif // GRAPH3DPARAMETRIC_OPENGL_H

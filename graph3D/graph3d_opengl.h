@@ -1,8 +1,8 @@
 #ifndef GRAPH3D_OPENGL_H
 #define GRAPH3D_OPENGL_H
 
-#include <QGLWidget>
-//#include <QWindow>
+#include <QOpenGLWidget>
+#include <QOpenGLFunctions>
 #include <QOpenGLContext>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLShader>
@@ -13,13 +13,11 @@
 
 #include "graph3D/graph3d.h"
 
-class Graph3D_OpenGL : public QGLWidget//, protected QOpenGLFunctions
-//class Graph3D_OpenGL : public QWindow//, protected QOpenGLFunctions
+class Graph3D_OpenGL : public QOpenGLWidget, protected QOpenGLFunctions
 {
     Q_OBJECT
 public:
     Graph3D_OpenGL();
-    //Graph3D_OpenGL(QScreen *screen = 0);
     ~Graph3D_OpenGL();
 
 

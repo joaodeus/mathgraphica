@@ -90,19 +90,11 @@ Graph3D_OpenGL::~Graph3D_OpenGL()
 
 void Graph3D_OpenGL::initializeGL()
 {
-    //m_context.makeCurrent(this);
-/*
-    QGLFormat glFormat = QGLWidget::format();
-    if ( !glFormat.sampleBuffers() )
-        qWarning() << "Could not enable sample buffers";
-*/
+    initializeOpenGLFunctions();
 
     setup_Axis3D();
     prepareShaderProgram();
     prepareVertexBuffers();
-
- //   setGeometry();
-
 
     //glShadeModel(GL_FLAT);
     glEnable(GL_DEPTH_TEST);
@@ -181,7 +173,7 @@ void Graph3D_OpenGL::prepareGraphs()
         m_graph3DList[i].setBufferData(m_shaderProgram);
     }
 
-    updateGL();
+    update();
 }
 
 void Graph3D_OpenGL::releaseGraphs()
@@ -212,9 +204,10 @@ void Graph3D_OpenGL::SaveImageAs()
         filename.append( ".png" );
     }
 
-    QPixmap imagepix = renderPixmap( );
-    QImage image = grabFrameBuffer( );
-    QImageWriter imageWriter(filename,"png");
+    QPixmap pixmap( size() );
+    render( &pixmap );
+    QImage image = grabFramebuffer();
+    QImageWriter imageWriter( filename, "png" );
 
     //imageWriter.setQuality(100);
 
@@ -292,6 +285,10 @@ void Graph3D_OpenGL::paintGL()
     m_shaderProgram.setUniformValue( "proj", projection );// Set projection to the shader
     m_shaderProgram.setUniformValue( "matrix", orientation );// Set orientation matrix to the shaderprogram
 
+    // Set the cliping plane
+    glEnable(GL_CLIP_DISTANCE0);
+    QVector4D clipPlane( 1.0f, 0.0f, 0.0f, 0.0f );
+    m_shaderProgram.setUniformValue( "clip_plane", clipPlane );
 
 
     //m_shaderProgram.bind();
@@ -417,7 +414,7 @@ void Graph3D_OpenGL::mouseMoveEvent(QMouseEvent *event)
 
         //updateGL();
         lastPos = event->pos();
-        updateGL();
+        update();
     }
 }
 
@@ -440,7 +437,7 @@ void Graph3D_OpenGL::wheelEvent(QWheelEvent * event )
 
 
     event->accept();
-    updateGL();
+    update();
 }
 
 
@@ -487,7 +484,7 @@ bool Graph3D_OpenGL::event(QEvent *event)
                 if (scale > 20)
                     scale=20;
                 //updateGL();
-                updateGL();
+                update();
             }
 
             //setTransform(QTransform().scale(totalScaleFactor * currentScaleFactor,
@@ -501,7 +498,7 @@ bool Graph3D_OpenGL::event(QEvent *event)
     ///////////////////////////////////////////////////
 
 
-    return QGLWidget::event(event);
+    return QOpenGLWidget::event(event);
     //return QWindow::event(event);
 }
 
@@ -596,10 +593,10 @@ void Graph3D_OpenGL::keyPressEvent(QKeyEvent *event)
 
 
 
-    updateGL();
+    update();
     //paintGL();
 
-    QGLWidget::keyPressEvent(event);
+    QOpenGLWidget::keyPressEvent(event);
     //QWindow::keyPressEvent(event);
 }
 
@@ -663,7 +660,7 @@ void Graph3D_OpenGL::timerEvent(QTimerEvent *event)
     if (event->timerId() == TimerRotate)
     {
         AutoRotate();
-        updateGL();
+        update();
         return;
     }
 
@@ -677,11 +674,11 @@ void Graph3D_OpenGL::timerEvent(QTimerEvent *event)
         }
 
         qDebug()<<t;
-        updateGL();
+        update();
         return;
     }
 
-    QGLWidget::timerEvent(event);
+    QOpenGLWidget::timerEvent(event);
 }
 
 
