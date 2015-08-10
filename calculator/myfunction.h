@@ -28,6 +28,7 @@ private:
 public:
     //check if QString is a function, if true sets the private atributes
     //return false if is not a function
+    //example functionDefinition = "f1(x,y)=4x+2+y"
     bool SetFunction(QString &functionDefinition);
 
     QString GetFunction()const{return m_function;} //return m_function

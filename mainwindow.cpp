@@ -113,7 +113,8 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
 
     QString str_cmd_line_aux = str_cmd_line;
     calc.Expression_Replace_User_Defined_Function(str_cmd_line_aux);
-    //check for expressions, like "5+3" on the expression str_cmd_line_aux
+    //check for expressions like "5+3" or "f(3)" on the expression str_cmd_line_aux
+    //f(3) is user defined function defined previously
     number = calc.isValidExpression(str_cmd_line_aux, ok);
     //if ( calc.isValidExpression(str_cmd_line) )
     if (ok)
@@ -188,7 +189,7 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
 
     //check for expression with variables like: "x-4y+2z"
     //Note that variables z, y and z, must have been defined before with an assignment like "x=4", "y=-2" and "z=cos(5)"
-   if (calc.isValidExpression_fn(str_cmd_line_aux))
+    if (calc.isValidExpression_fn(str_cmd_line_aux))
     {
         number = calc.SolveExpression_fn(str_cmd_line_aux, calc.values_List, calc.variables_List);
         if (calc.error())
@@ -287,10 +288,10 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
     }
 
 
-
-
+    //check for simple integrals
     if (calc.m_integral.isValidIntegralSintaxe(str_cmd_line_aux))
     {
+        calc.m_integral.setIntegralFromSintaxe(str_cmd_line_aux);
         QString solution = calc.formatResult(calc.m_integral.solveIntegral());
         QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_INTEGRAL);
         QListWidgetItem *item1  = new QListWidgetItem(solution,0,TYPE_EXPRESSION);
@@ -299,9 +300,17 @@ void MainWindow::on_lineEdit_cmdLine_returnPressed()
         ui->listWidget_results_history->scrollToBottom();
     }
 
-
-
-
+    //check for double integrals
+    if (calc.m_integralDouble.isValidIntegralDoubleSintaxe(str_cmd_line_aux))
+    {
+        calc.m_integralDouble.setIntegralDoubleFromSintaxe(str_cmd_line_aux);
+        QString solution = calc.formatResult(calc.m_integralDouble.solveIntegralDouble());
+        QListWidgetItem *item   = new QListWidgetItem(str_cmd_line,0,TYPE_INTEGRAL_DOUBLE);
+        QListWidgetItem *item1  = new QListWidgetItem(solution,0,TYPE_EXPRESSION);
+        ui->listWidget_results_history->addItem(item);
+        ui->listWidget_results_history->addItem(item1);
+        ui->listWidget_results_history->scrollToBottom();
+    }
 
   //  QApplication::restoreOverrideCursor();
 }
