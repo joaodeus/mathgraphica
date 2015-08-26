@@ -207,7 +207,7 @@ void Graph2D_OpenGL::paintGL()
     time.restart();
 
 
-
+    glClearColor(backgroundColor.redF(), backgroundColor.greenF(), backgroundColor.blueF(), backgroundColor.alphaF());
     // Clear the background and depth-buffer for this frame
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

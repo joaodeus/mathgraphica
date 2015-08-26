@@ -186,6 +186,7 @@ void Graph3D_OpenGL::releaseGraphs()
 
 void Graph3D_OpenGL::setBackGroundColor(const QColor &color)
 {
+    qDebug()<<"change bkg color";
     backgroundColor=color;
     glClearColor(backgroundColor.redF(),backgroundColor.greenF(), backgroundColor.blueF(), 1.0f);
     paintGL();
@@ -260,6 +261,7 @@ void Graph3D_OpenGL::paintGL()
 
     //qDebug()<<"real fps"<<frames /(time.elapsed() / 1000.0)/5;
     // Clear the background and depth-buffer for this frame
+    glClearColor(backgroundColor.redF(), backgroundColor.greenF(), backgroundColor.blueF(), backgroundColor.alphaF());
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     //glClear(GL_COLOR_BUFFER_BIT);
 
