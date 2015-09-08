@@ -1,5 +1,6 @@
 #include "complexo.h"
 #include <QtMath>
+#include <complex>
 
 Complexo::Complexo(double r_,double i_)
 {
@@ -211,11 +212,20 @@ Complexo operator/( const Complexo a , const double b )
 
 Complexo operator^( const Complexo x , const Complexo y )
 {
+  /*  if (x.r==0 && x.i==0 && y.r==0 && y.i==0)
+        return Complexo(1,0);
     if (x.r==0 && x.i==0)
             return x;
-    if(x.i==0 && y.i==0)
-        return Complexo(pow(x.r,y.r),0);
+    //if(x.i==0 && y.i==0)
+      //  return Complexo(pow(x.r,y.r),0);
     return exp(y*ln(x));
+*/
+    std::complex<double> x1(x.r,x.i);
+    std::complex<double> y1(y.r,y.i);
+    std::complex<double> z1 = pow(x1,y1);
+
+    return Complexo(z1.real(), z1.imag());
+
 
     // x = a+jb
     // y = c+jd
@@ -234,17 +244,30 @@ Complexo operator^( const Complexo x , const Complexo y )
 
 Complexo operator^( const double x , const Complexo y )
 {
-    Complexo z(x,0);
-    if (x==0)
-            return z;
-    return exp(y*ln(z));
+    std::complex<double> x1(x,0);
+    std::complex<double> y1(y.r,y.i);
+    std::complex<double> z1 = pow(x1,y1);
+
+    return Complexo(z1.real(), z1.imag());
+
+
+    //Complexo z(x,0);
+    //if (x==0)
+    //        return z;
+    //return exp(y*ln(z));
 }
 
 Complexo operator^(const Complexo x , const double y )
 {
-    if (x.r==0 && x.i==0)
-            return x;
-    return exp(y*ln(x));
+    std::complex<double> x1(x.r,x.i);
+    std::complex<double> y1(y,0);
+    std::complex<double> z1 = pow(x1,y1);
+
+    return Complexo(z1.real(), z1.imag());
+
+    //if (x.r==0 && x.i==0)
+    //        return x;
+    //return exp(y*ln(x));
 }
 
 
@@ -506,11 +529,17 @@ QList<Complexo> ln(QList<Complexo> &x)
 
 Complexo log(Complexo x)
 {
+    std::complex<double> x1(x.r,x.i);
+    x1 = std::log10(x1);
+    return Complexo(x1.real(), x1.imag());
 
-//    Complexo a(10,0);
-    //return ln(x)/ln(a);
-    return ln(x)/log(double(10));
+    //return ln(x)/log(double(10));
+
+    //    Complexo a(10,0);
+        //return ln(x)/ln(a);
     //  return l(x)/log(a);
+
+
 }
 
 QList<Complexo> log(QList<Complexo> &x)

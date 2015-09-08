@@ -2034,6 +2034,9 @@ void Parser::unitTest()
               "real: 2.321^-14*7/cos(pi/3)+sinh(12.2i-3)/4 == -2.338149933631084";
     qDebug()<<qFuzzyCompare( SolveExpression("2.321^-14*7/cos(pi/3)+sinh(12.2i-3)/4").numberComplexo().i, -0.90163283263761684338 )<<
               "imag: 2.321^-14*7/cos(pi/3)+sinh(12.2i-3)/4 == -0.90163283263761684338";
+    qDebug()<<qFuzzyCompare( SolveExpression("(-8)^(1/3)").numberReal(), 1.000000000000000 )<<"real: (-8)^(1/3) == 1.000000000000000";
+    qDebug()<<qFuzzyCompare( SolveExpression("(-8)^(1/3)").numberComplexo().i, -1.73205080756887697113 )<<"imag: (-8)^(1/3) == -1.73205080756887697113";
+
 
     qDebug()<<"Trigonometric Tests-----------------------------";
     qDebug()<<"Radians-----------------------------------------";
