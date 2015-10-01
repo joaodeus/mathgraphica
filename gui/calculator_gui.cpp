@@ -75,7 +75,11 @@ Calculator_gui::Calculator_gui(QWidget *parent) :
     connect(ui->pushButton_real,SIGNAL(clicked()),mapper, SLOT(map()));
     connect(ui->pushButton_imag,SIGNAL(clicked()),mapper, SLOT(map()));
 
-    connect(ui->pushButton_sqrt,SIGNAL(clicked()),mapper, SLOT(map()));
+    connect(ui->pushButton_sqrt,SIGNAL(clicked()),mapper, SLOT(map()));    
+    connect(ui->pushButton_cbrt,SIGNAL(clicked()),mapper, SLOT(map()));
+    connect(ui->pushButton_floor,SIGNAL(clicked()),mapper, SLOT(map()));
+    connect(ui->pushButton_ceil,SIGNAL(clicked()),mapper, SLOT(map()));
+    connect(ui->pushButton_sign,SIGNAL(clicked()),mapper, SLOT(map()));
     connect(ui->pushButton_log,SIGNAL(clicked()),mapper, SLOT(map()));
     connect(ui->pushButton_ln,SIGNAL(clicked()),mapper, SLOT(map()));
     connect(ui->pushButton_exp,SIGNAL(clicked()),mapper, SLOT(map()));
@@ -146,6 +150,10 @@ Calculator_gui::Calculator_gui(QWidget *parent) :
     mapper->setMapping(ui->pushButton_imag,"imag(");
 
     mapper->setMapping(ui->pushButton_sqrt,"sqrt(");
+    mapper->setMapping(ui->pushButton_cbrt,"cbrt(");
+    mapper->setMapping(ui->pushButton_floor,"floor(");
+    mapper->setMapping(ui->pushButton_ceil,"ceil(");
+    mapper->setMapping(ui->pushButton_sign,"sign(");
     mapper->setMapping(ui->pushButton_log,"log(");
     mapper->setMapping(ui->pushButton_ln,"ln(");
     mapper->setMapping(ui->pushButton_exp,"exp(");
