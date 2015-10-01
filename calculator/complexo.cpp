@@ -1102,6 +1102,59 @@ QList<Complexo> asech(QList<Complexo> &x)
 }
 
 
+Complexo sign(Complexo z)
+{
+    z.r = (z.r < 0)  ? -1 : ( z.r > 0 );
+    z.i = (z.i < 0)  ? -1 : ( z.i > 0 );
+    return z;
+}
+
+QList<Complexo> sign(QList<Complexo> &x)
+{
+    QList<Complexo> y;
+    for(int i=0;i < x.size(); i++)
+    {
+        y.append(sign(x.at(i)));
+    }
+    return y;
+}
+
+
+Complexo floor(Complexo z)
+{
+    z.r = qFloor(z.r);
+    z.i = qFloor(z.i);
+    return z;
+}
+
+QList<Complexo> floor(QList<Complexo> &x)
+{
+    QList<Complexo> y;
+    for(int i=0;i < x.size(); i++)
+    {
+        y.append(floor(x.at(i)));
+    }
+    return y;
+}
+
+Complexo ceil(Complexo z)
+{
+    z.r = qCeil(z.r);
+    z.i = qCeil(z.i);
+    return z;
+}
+
+QList<Complexo> ceil(QList<Complexo> &x)
+{
+    QList<Complexo> y;
+    for(int i=0;i < x.size(); i++)
+    {
+        y.append(ceil(x.at(i)));
+    }
+    return y;
+}
+
+
 QDataStream & operator<< (QDataStream& stream, const Complexo& z)
 {
     //double re = compl.r;

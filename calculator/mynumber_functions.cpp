@@ -1008,3 +1008,80 @@ MyNumber cabs(MyNumber &number_)
     return z;
 }
 
+MyNumber sign(MyNumber &number_)
+{
+    MyNumber z;
+
+    if (number_.Type() == "number")
+    {
+        z.SetMyNumber( sign(number_.numberComplexo()) );
+        return z;
+    }
+
+    if (number_.Type() == "list")
+    {
+        QList<Complexo> list = number_.numberListComplexo();
+        z.SetMyNumber(sign(list));
+        return z;
+    }
+
+    if (number_.Type() == "matrix")
+    {
+        Matrix mat = number_.numberMatrix();
+        z.SetMyNumber( sign(mat) );
+        return z;
+    }
+    return z;
+}
+
+MyNumber floor(MyNumber &number_)
+{
+    MyNumber z;
+
+    if (number_.Type() == "number")
+    {
+        z.SetMyNumber( floor(number_.numberComplexo()) );
+        return z;
+    }
+
+    if (number_.Type() == "list")
+    {
+        QList<Complexo> list = number_.numberListComplexo();
+        z.SetMyNumber(floor(list));
+        return z;
+    }
+
+    if (number_.Type() == "matrix")
+    {
+        Matrix mat = number_.numberMatrix();
+        z.SetMyNumber( floor(mat) );
+        return z;
+    }
+    return z;
+}
+
+MyNumber ceil(MyNumber &number_)
+{
+    MyNumber z;
+
+    if (number_.Type() == "number")
+    {
+        z.SetMyNumber( ceil(number_.numberComplexo()) );
+        return z;
+    }
+
+    if (number_.Type() == "list")
+    {
+        QList<Complexo> list = number_.numberListComplexo();
+        z.SetMyNumber(ceil(list));
+        return z;
+    }
+
+    if (number_.Type() == "matrix")
+    {
+        Matrix mat = number_.numberMatrix();
+        z.SetMyNumber( ceil(mat) );
+        return z;
+    }
+    return z;
+}

@@ -211,10 +211,17 @@ QList<Complexo> ln(QList<Complexo> &x);
 Complexo log(Complexo);
 QList<Complexo> log(QList<Complexo> &x);
 
+Complexo sign(Complexo);
+QList<Complexo> sign(QList<Complexo> &x);
+
+Complexo floor(Complexo);
+QList<Complexo> floor(QList<Complexo> &x);
+
+Complexo ceil(Complexo);
+QList<Complexo> ceil(QList<Complexo> &x);
 
 
 QDataStream & operator<< (QDataStream& stream, const Complexo& z);
 QDataStream & operator>> (QDataStream& stream, Complexo& z);
-
 
 #endif // COMPLEXO_H

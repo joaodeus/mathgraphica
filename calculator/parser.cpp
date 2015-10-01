@@ -1714,6 +1714,27 @@ void Parser::SolveFunctions(int &i)
         return;
     }
 
+    if ( type == QObject::tr("sign") )
+    {
+        m_tokenNumberList[i] = sign(m_tokenNumberList[i+1]);
+        m_tokenNumberList.remove(i+1);
+        return;
+    }
+
+    if ( type == QObject::tr("floor") )
+    {
+        m_tokenNumberList[i] = floor(m_tokenNumberList[i+1]);
+        m_tokenNumberList.remove(i+1);
+        return;
+    }
+
+    if ( type == QObject::tr("ceil") )
+    {
+        m_tokenNumberList[i] = ceil(m_tokenNumberList[i+1]);
+        m_tokenNumberList.remove(i+1);
+        return;
+    }
+
 
     MyNumber Degree_Rad_Grad_aux;
     switch(Degree_Rad_Grad)
@@ -2139,9 +2160,3 @@ void Parser::unitTest()
 #define GRAD    2*/
 
 }
-
-
-
-
-
-

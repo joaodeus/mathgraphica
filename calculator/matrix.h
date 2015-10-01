@@ -183,6 +183,9 @@ Matrix arg(Matrix &mat);
 Matrix conj(Matrix &mat);
 Matrix abs(Matrix &mat);
 
+Matrix sign(Matrix &mat);
+Matrix floor(Matrix &mat);
+Matrix ceil(Matrix &mat);
 
 QDataStream & operator<< (QDataStream& stream, Matrix& matrix);
 QDataStream & operator>> (QDataStream& stream, Matrix& matrix);

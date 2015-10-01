@@ -1827,6 +1827,51 @@ Matrix abs(Matrix &mat)
     return z;
 }
 
+Matrix sign(Matrix &mat)
+{
+    Matrix z;
+    z.SetLinesCols(mat.lineCount(),mat.columnCount());
+
+    for (int c=0;c<mat.columnCount();c++)
+    {
+        for (int l=0;l<mat.lineCount();l++)
+        {
+            z.SetLineColNumber(l,c,sign(mat.GetLineColNumber(l,c)));
+        }
+    }
+    return z;
+}
+
+Matrix floor(Matrix &mat)
+{
+    Matrix z;
+    z.SetLinesCols(mat.lineCount(),mat.columnCount());
+
+    for (int c=0;c<mat.columnCount();c++)
+    {
+        for (int l=0;l<mat.lineCount();l++)
+        {
+            z.SetLineColNumber(l,c,floor(mat.GetLineColNumber(l,c)));
+        }
+    }
+    return z;
+}
+
+Matrix ceil(Matrix &mat)
+{
+    Matrix z;
+    z.SetLinesCols(mat.lineCount(),mat.columnCount());
+
+    for (int c=0;c<mat.columnCount();c++)
+    {
+        for (int l=0;l<mat.lineCount();l++)
+        {
+            z.SetLineColNumber(l,c,ceil(mat.GetLineColNumber(l,c)));
+        }
+    }
+    return z;
+}
+
 ///////////////////////////////////////////////////////////////
 
 

@@ -297,6 +297,14 @@ bool MyNumber::isFunction(QString &function_)
     if (!type.compare(QObject::tr("exp"),Qt::CaseInsensitive))
         return true;
 
+    if (!type.compare(QObject::tr("sign"),Qt::CaseInsensitive))
+        return true;
+
+    if (!type.compare(QObject::tr("floor"),Qt::CaseInsensitive))
+        return true;
+
+    if (!type.compare(QObject::tr("ceil"),Qt::CaseInsensitive))
+        return true;
 
     function_ .clear();
     return false;
@@ -1040,4 +1048,3 @@ QDataStream & operator>> (QDataStream& stream, MyNumber& myNumber)
 
     return stream;
 }
-

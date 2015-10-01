@@ -50,7 +50,8 @@ MyNumber conj(MyNumber &number_);
 
 MyNumber cabs(MyNumber &number_);
 
-
-
+MyNumber sign(MyNumber &number_);
+MyNumber floor(MyNumber &number_);
+MyNumber ceil(MyNumber &number_);
 
 #endif // MYNUMBER_FUNCTIONS_H
