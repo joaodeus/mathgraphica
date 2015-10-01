@@ -15,7 +15,7 @@ Graph2D_AddNew_gui::Graph2D_AddNew_gui(QWidget *parent) :
     on_checkBox_parametricGraph_clicked(false);
 
     //hide it for version 2.0.0 has it is not ready
-    ui->checkBox_parametricGraph->setVisible(false);
+    //ui->checkBox_parametricGraph->setVisible(false);
 
     existentGraphs_count = 0;
     create_Default_Graphs_List();
@@ -236,6 +236,7 @@ void Graph2D_AddNew_gui::on_pushButton_fx_clicked()
 void Graph2D_AddNew_gui::on_checkBox_parametricGraph_clicked(bool checked)
 {
 
+    //parametric graph
     if (checked)
     {
         m_graph2D.setParametric(checked);
@@ -244,12 +245,13 @@ void Graph2D_AddNew_gui::on_checkBox_parametricGraph_clicked(bool checked)
         ui->pushButton_fx_2->setVisible(true);
 
         ui->pushButton_fx->setText("f1(t) =");
-
         ui->label_x_plus->setText("+t =");
         ui->label_x_minus->setText("-t =");
         ui->label_delta->setText("dt =");
+        ui->lineEdit_xmin->setText("0");
+        ui->lineEdit_expression->setText("");
     }
-    else
+    else //not a parametric graph
     {
         ui->checkBox_polarGraph->setDisabled(false);
         ui->lineEdit_expression2->setVisible(false);
@@ -260,6 +262,7 @@ void Graph2D_AddNew_gui::on_checkBox_parametricGraph_clicked(bool checked)
         ui->label_x_plus->setText("+x =");
         ui->label_x_minus->setText("-x =");
         ui->label_delta->setText("dx =");
+        ui->lineEdit_xmin->setText("-50");
     }
 
 }
