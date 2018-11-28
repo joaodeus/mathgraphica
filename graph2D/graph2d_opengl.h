@@ -102,6 +102,7 @@ protected:
     QPointF translate_xy;
     QPointF lastPos;
     QPointF MouseCoordinates_ToViewport(const QPointF &p);
+    QVector3D mousePicking(const QPointF &p);
 
     // graphs
     //Graph2D m_graph2D;

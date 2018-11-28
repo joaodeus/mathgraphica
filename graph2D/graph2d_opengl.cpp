@@ -391,6 +391,8 @@ void Graph2D_OpenGL::mouseDoubleClickEvent(QMouseEvent * event)
 
 void Graph2D_OpenGL::mouseMoveEvent(QMouseEvent *event)
 {
+    mousePicking(event->pos());
+
 #if !defined(Q_WS_S60)
 {
     if (event->buttons() == Qt::LeftButton || event->buttons() == Qt::RightButton)
@@ -531,6 +533,58 @@ QPointF Graph2D_OpenGL::MouseCoordinates_ToViewport(const QPointF &p)
 
     //return QPointF(xx,yy);
     return QPointF((xx - translate_xy.x()) / scale, (yy - translate_xy.y()) / scale);
+}
+
+QVector3D Graph2D_OpenGL::mousePicking(const QPointF &p)
+{
+
+    bool bInverted;
+    int w = width();
+    int h = height();
+
+    QMatrix4x4 mvp = projection * orientation;
+    QMatrix4x4 inverted_mvp = mvp.inverted(&bInverted);
+    QMatrix4x4 inverse_proj = projection.inverted(&bInverted);
+    QMatrix4x4 inverse_view = orientation.inverted(&bInverted);
+
+
+    QVector4D mouseXYZW(p.x(), p.y(), 1.0f, 1.0f);
+    QVector4D ray4D = inverted_mvp * mouseXYZW;
+
+    QVector3D ray3D = QVector3D(ray4D.x(), ray4D.y(), ray4D.z());
+
+    qDebug()<<"mousePicking x, y"<<p.x()<<" ; "<<p.y();
+    qDebug()<<"ray3d x, y"<<ray3D.x()<<" ; "<<ray3D.y();
+
+  /*
+
+    gl_Position = proj*matrix * vertexPosition;
+
+    projection.setToIdentity();
+
+    if (width() <= height())
+        projection.ortho(-(Range),Range,-Range*h/w,Range*h/w,-(Range*2),Range*2);
+    else
+        projection.ortho(-(Range*w/h),Range*w/h,-Range,Range,-(Range*2),Range*2);
+
+
+    orientation.setToIdentity();
+    orientation.translate( translate_xy.x(), translate_xy.y(), 0.0f );
+    orientation.scale( scale );
+
+    m_shaderProgram.setUniformValue( "proj", projection );// Set projection to the shader
+    m_shaderProgram.setUniformValue( "matrix", orientation );// Set orientation matrix to the shaderprogram
+*/
+
+    /*
+    qDebug()<<"mousePicking x, y"<<p.x()<<" ; "<<p.y();
+    float x = (2.0 * p.x()) / width() - 1.0;
+    float y = 1.0 - (2.0 * p.y()) / height();
+
+    qDebug()<<"normalised x, y"<<x<<" ; "<<y;
+
+    return QVector3D();
+    */
 }
 
 
