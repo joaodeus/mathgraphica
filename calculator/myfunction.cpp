@@ -104,10 +104,14 @@ bool myFunction::SetFunction(QString &functionDefinition)
 
     parser->GrabVariables(list[1],list_var_aux2);
 
-    //if they are different there is a error
-    list_variables_aux.sort();
-    list_var_aux2.sort();
-    if (list_variables_aux != list_var_aux2)
+    //create 2 test stringlists, sort them and compare if they are igual, if they are different there is a error in the funtion arguments
+    //do not sort the original ones, or will introduce a bug, for example
+    //r(v,j)=v/j -> if we sort the variables list, when solving r(10,5), the funtion arguments will be wrongly assigned to j=10,v=5, instead of the corret v=10,j=5
+    QStringList test1 = list_variables_aux;
+    QStringList test2 = list_var_aux2;
+    test1.sort();
+    test2.sort();
+    if (test1 != test2)
         return false;
 
     //assign the variables
